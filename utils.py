@@ -28,7 +28,6 @@ import scipy.ndimage
 from   scipy.ndimage import rotate
 
 from   d import debug
-from   view_3d_model import show_cross_sections
 
 # TODO:   vim "repeat any"
 # TODO:   vim command "undo any"
@@ -63,11 +62,27 @@ def blenderify(nparr):
                     li.append((i,j,k))
     return li
 #=========================================================================
+def approx_eq(x,y):
+    '''
+        approx_eq() is only for np arrays
+        curr just 2-d arrs, but should extend to 3d later
+      already exists [here](https://docs.scipy.org/doc/numpy/reference/generated/numpy.isclose.html)
+    '''
+    if not x.shape == y.shape:
+      print "the shapes are not the same:\n first_param.shape is {0} \n second_param.shape is {1} \n".format(x,y)
+      return False
+    for i in range(x.shape[0]):
+      for j in range(x.shape[1]):
+        e=x[i,j]; tolerance=abs(e)/20
+        if abs(y[i,j]-x[i,j]) > tolerance:
+          return False
+    return True
+#=========================================================================
 def eq(x,y):
     '''
         eq() is only for np arrays
     '''
-    return np.all(np.equal(x,y))
+    return np.array_equal(x,y)
 #=========================================================================
 def sort_fnames_list(fnames_list):
     '''
@@ -130,8 +145,10 @@ def hist():
         TODO:  hg() == UNIX hg
     '''
     import readline
+    print '\n'*2
     for i in range(readline.get_current_history_length()):
         print (readline.get_history_item(i + 1))
+    print '\n'*2
 
 def print_dict(d):
     print_dict_recurs(d, 0)
@@ -186,16 +203,166 @@ def print_visible(s):
             (num_eq*"=")     +\
             (pad*"\n"))
 
+def count(arr):
+  counts={}
+  if len(arr.shape)==3:
+    for subarr_1 in arr:
+      for subarr_2 in subarr_1:
+        for val in subarr_2:
+          if val in counts:
+            counts[val]+=1
+          else:
+            counts[val]=1
+  if len(arr.shape)==2:
+    for subarr_1 in arr:
+      for val in subarr_1:
+        if val in counts:
+          counts[val]+=1
+        else:
+          counts[val]=1
+  return counts
 
 
 # NOTE:   the most basic example of exception inheritance
 class MeanHasNoPtsException(RuntimeError):
     pass
+#=========================================================================
+def pad_all(mask, biggers_shape):
+    '''
+        pads 2d mask with zeros on the end til mask.shape==biggers_shape
+    '''
+    # TODO:  debug dis bish.  we get weird cutoffs in the middle of shit
+  #=========================================================================
+    def pad_top_bot(mask, biggers_shape):
+        '''
+            puts zeros on top and bottom of mask until mask.shape[1] == biggers_shape[0]
+        '''
+        padded         = np.copy(mask)
+
+        big_h          = biggers_shape[0]
+        mask_h         = mask.shape[0]
+     
+        top_h          = (big_h - mask_h) / 2.0
+        if top_h.is_integer():
+            bot_h      = int(top_h)
+        else:
+            bot_h      = int(floor(top_h + 1))
+        top_h          = int(floor(top_h))
+        # convert to int if not already 
+        pad_w          = padded.shape[1]
+        top            = np.zeros((top_h, pad_w), dtype=int)
+        bottom         = np.zeros((bot_h, pad_w), dtype=int)
+        padded         = np.concatenate((top, padded, bottom), axis = 0)
+
+        return padded
+    # end func def pad_top_bot(mask, biggers_shape):
+  #=========================================================================
+    def pad_sides(mask, biggers_shape):
+        '''
+            puts zeros on sides of mask until mask.shape[1] == biggers_shape[0]
+        '''
+        padded         = np.copy(mask)
+
+        big_w          = biggers_shape[1]
+        mask_w         = mask.shape[1]
+        left_w         = (big_w - mask_w) / 2.0 
+        # NOTE: single slash is integer division in python2 unless dividing by 2.0
+        #       This is NOT true in python3, which distinguishes '/' from '//'
+        if left_w.is_integer():
+            right_w    = int(left_w)
+        else:
+            right_w    = int(floor(left_w + 1))
+        left_w         = int(floor(left_w))
+        pad_h          = padded.shape[0]
+        left           = np.zeros((pad_h, left_w), dtype=int)
+        right          = np.zeros((pad_h, right_w), dtype=int)
+        padded         = np.concatenate((left, padded, right), axis = 1)
+
+        return padded
+    # end func def pad_sides(mask, biggers_shape):
+  #=========================================================================
+    return pad_top_bot(
+                pad_sides(
+                    mask,
+                    biggers_shape),
+                biggers_shape)
+  # end func def pad_sides(mask, biggers_shape):
+#=========================================================================
+                
 
 
 if __name__=='__main__':
     pif(('*'*99)+'\n debug is on \n'+('*'*99))
     raise MeanHasNoPtsException(" hi i'm an exception msg")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

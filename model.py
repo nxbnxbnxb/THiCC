@@ -1,9 +1,13 @@
 import  numpy as np
 from    copy import deepcopy
 import imageio as ii
-from visualization import *
-from d import debug 
+import scipy; from scipy import ndimage, misc
 
+from viz import *
+from d import debug 
+from utils import pad_all
+
+# TODO: integrate seg.py into the beginning of this
 # TODO:  scipy.ndimage.rotate() and fill in the 1 or 2-gaps
 #   NOTE:  z is "up" ("up" as in, think about a human being "upright"; the head is "up")
 
@@ -19,7 +23,8 @@ class DimensionMismatchException(RuntimeError):
 #===================================================================================================================================
 def mask(model, mask, axis='x'):
   '''
-    masks the 3-d np array "model" all the way through using the mask
+    returns a new 3-D np array
+      (the result of masks the 3-d np array "model" all the way through using the mask)
   '''
   model_copy = deepcopy(model)
   if not type(mask ) == type(np.ones((2,2))):
@@ -39,6 +44,7 @@ def mask(model, mask, axis='x'):
   '''
   # NOTE: actual code starts HERE:
   # TODO:  vectorize this instead of using a for loop
+  #       do vstack or array_copy or just use clever broadcasting
   model_depth=model.shape[1]
   pif('model_depth is {0}'.format(model_depth))
   for i in range(model_depth):
@@ -46,26 +52,100 @@ def mask(model, mask, axis='x'):
   print 
   return model_copy
 #====================================  end func def mask(model, mask, axis='x'):  =======================================================
+def rot8(model, angle):
+  '''
+    rotates counterclockwise (by default around the positive z-axis; if you were looking down at the model from the head, it would rotate counterclockwise)
+      TODO:  make sure the direction is right
+      TODO:  extend to rotations around other axes
 
+    output: 
+      rotated 3-D numpy array
+    parameters:
+      model is a 3-D numpy array
+      angle in degrees (float: floating point)
+    Notes:
+      mode : not 100% sure what this parameter does, but here are:
+        Notes from scipy.ndimage.rotate():
+          The given matrix and offset are used to find for each point in the
+          output the corresponding coordinates in the input by an affine
+          transformation. The value of the input at those coordinates is
+          determined by spline interpolation of the requested order. Points
+          outside the boundaries of the input are filled according to the given mode.
 
+          According to these notes, possible values of mode are:
+            'constant'
+            'nearest'
+            'reflect'
+            'wrap'
+
+      reshape=False will cut off the corners when we rotate.  So we NEED to make sure the human body is centered within the numpy array before proceeding.  I used this so the dimensions don't get fucked up later
+  '''
+  z_up=(1,0); return scipy.ndimage.rotate(model, angle, axes=z_up, reshape=False, mode='nearest')
 #===================================================================================================================================
-def test_mask_func(mask_fname):
-  mask_2d   = np.asarray(ii.imread(mask_fname)).astype('bool')
-  #pltshow(mask_2d)     # this mask was fine
-  depth     = mask_2d.shape[0]
-  model     = np.ones((mask_2d.shape[0], depth, mask_2d.shape[0])).astype('bool')
-  if debug:
-    cross_sections_biggest(model)
-
+def test_human():
+  # mask 1
+  import seg; mask_2d = seg.main('http://columbia.edu/~nxb2101/180.0.png'); max_dim   = max(mask_2d.shape); shape=(max_dim, max_dim, max_dim); shape_2d=(max_dim, max_dim)
+  #mask_1___fname = "/home/u/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks___human_front_and_side/180.0.jpg"
+  mask_2d   = pad_all(mask_2d, shape_2d)
+  model     = np.ones(shape).astype('bool')
   model     = mask(model, mask_2d)
-  if debug:
-    cross_sections_biggest(model)
-    show_cross_sections(model, axis='y')
+  print "before rot8();   \n\n"
+  show_cross_sections(model, axis='y', show_every=250) # NOTE: good.  it worked this time
+  model     = rot8(model, 90.0)
+  print "right after rot8();   \n\n"
+  show_all_cross_sections(model, how_often=20)
 
+  # mask 2
+  #mask_2___fname = "/home/u/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks___human_front_and_side/90.0.png"
+  mask_2d = seg.main('http://columbia.edu/~nxb2101/90.0.png'); mask_2d   = pad_all(mask_2d, shape_2d)
+  model     = mask(model, mask_2d)
+  print "after 2nd masking:    \n\n"
+  show_all_cross_sections(model, how_often=20)
+  if debug:
+    show_all_cross_sections(model)
   return model
-#====================================   end func def test_mask_func(mask_fname):   =======================================================
+#====================================   end func def test_human():   =======================================================
 
 #===================================================================================================================================
 if __name__=='__main__':
-  test_mask_func('0.0.png')
+  test_human()
 #===================================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,3 +2,5 @@
 *.jpeg
 *.jpg
 *.pyc
+*.swp
+*debug*

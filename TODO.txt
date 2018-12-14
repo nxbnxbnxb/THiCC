@@ -1,0 +1,55 @@
+
+________________________________
+
+  Fri Dec 14 17:29:40 EST 2018
+________________________________
+
+Technical:
+  Try ndimage.rotate() on basic 3-d model
+    https://stackoverflow.com/questions/47197748/rotate-with-scipy-without-interpolation
+  Ask on StackOverflow
+  Use cat_opencv3
+Biz:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Dec 12 17:29:40 EST 2018
+________________________________
+
+Technical:
+  Fix pad func (it really breaks shit currently)
+  I think it's actually the ndimage.rotate() func that's fucking the shit up, not the pad_both()
+    https://stackoverflow.com/questions/47197748/rotate-with-scipy-without-interpolation
+  use cat_opencv3
+Biz:
+  Start scanning

@@ -1,0 +1,43 @@
+
+
+________________________________
+
+  Wed Dec 12 17:39:23 EST 2018
+________________________________
+
+Technical:
+  We can also use np.rot90() whenever possible; should be much faster and leave no holes
+  For 1 rotation and 2 maskings (masks already generated), model.py takes:
+    t p model.py
+      real  0m27.179s
+      user  0m26.553s
+      sys 0m0.616s
+    scipy.ndimage.rot8() is BY FAR the more time consuming of the operations
+
+________________________________________________________________________________________________
+
+            profiled model.py:
+________________________________________________________________________________________________
+
+         539293 function calls (532390 primitive calls) in 27.359 seconds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+
+
+      513   19.857    0.039   19.857    0.039 {scipy.ndimage._nd_image.geometric_transform}
+     1026    4.906    0.005    4.906    0.005 {scipy.ndimage._nd_image.spline_filter1d}
+        2    0.756    0.378    0.892    0.446 model.py:24(mask)
+        6    0.384    0.064    0.384    0.064 {numpy.core.multiarray.copyto}
+      318    0.209    0.001    0.209    0.001 {method 'astype' of 'numpy.ndarray' objects}
+        2    0.136    0.068    0.136    0.068 {method '__deepcopy__' of 'numpy.ndarray' objects}
+     2578    0.132    0.000    0.132    0.000 {numpy.core.multiarray.zeros}
+        1    0.066    0.066   26.600   26.600 model.py:68(test_human)
+        1    0.042    0.042    0.042    0.042 qt_compat.py:2(<module>)
+        1    0.031    0.031    0.171    0.171 utils.py:3(<module>)
+
+
+
+
+
