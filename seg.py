@@ -134,6 +134,7 @@ def run_visualization(url, model):
 
 
 def main(IMG_URL):
+  # TODO: rename segment()?  seg()?  "main()" isn't very descriptive; at least wrap a diff function called "seg()" around it
   # TODO:   allow us to set the URL from parameter
   LABEL_NAMES = np.asarray([
       'background', 'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus',

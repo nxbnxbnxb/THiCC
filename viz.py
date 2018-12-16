@@ -28,34 +28,35 @@ def cross_sections_biggest(m):
   pltshow(m[:,i_2,:])
   pltshow(m[:,:,i_3]); return
 #=========================================================================
-def show_cross_sections(model_3d, axis='z', show_every=1):
+def show_cross_sections(model_3d, axis='z', freq=2):
+  # NOTE:   Dec 16, 2018.   Somewhere we're experiencing some weirdness w.r.t. which axis is which.  When this says "z," what we're getting oughta be called either y or x.  when it says "y," the result is fine.  But when it says "x," we get what I thought should be called "z."  I'm not 100% sure how to resolve this.
   if axis.lower()=='z':
       for i in range(model_3d.shape[2]):
-          if i%show_every==0:
+          if i%freq==0:
               if np.any(model_3d[:,:,i]):
-                  pltshow(model_3d[:,:,i])
                   print 'height is {0}   out of {1}'.format(i, model_3d.shape[2])
+                  pltshow(model_3d[:,:,i])
   elif axis.lower()=='y':
       for i in range(model_3d.shape[1]):
-          if i%show_every==0:
+          if i%freq==0:
               if np.any(model_3d[:,i,:]):
-                  pltshow(model_3d[:,i,:])
                   print 'loc is {0}   out of {1}'.format(i, model_3d.shape[1])
+                  pltshow(model_3d[:,i,:])
   elif axis.lower()=='x':
       for i in range(model_3d.shape[0]):
-          if i%show_every==0:
+          if i%freq==0:
               if np.any(model_3d[i,:,:]):
-                  pltshow(model_3d[i,:,:])
                   print 'loc is {0}   out of {1}'.format(i, model_3d.shape[0])
+                  pltshow(model_3d[i,:,:])
   else:
       print "Usage: please input axis x, y, or z in format:\n\n  show_cross_sections([model_name], axis='z')"
   return
 #=========================================================================
-def show_all_cross_sections(model_3d, how_often=1):
+def show_all_cross_sections(model_3d, freq=1):
   print '\n'*3; print "x: \n\n"
-  show_cross_sections(model_3d, axis='x', show_every=how_often); print '\n'*3; print "y: \n\n"
-  show_cross_sections(model_3d, axis='y', show_every=how_often); print '\n'*3; print "z: \n\n"
-  show_cross_sections(model_3d, axis='z', show_every=how_often); return
+  show_cross_sections(model_3d, axis='x', freq=freq); print '\n'*3; print "y: \n\n"
+  show_cross_sections(model_3d, axis='y', freq=freq); print '\n'*3; print "z: \n\n"
+  show_cross_sections(model_3d, axis='z', freq=freq); return
 #=========================================================================
 
 

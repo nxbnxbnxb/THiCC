@@ -1,3 +1,27 @@
+________________________________
+
+  Sun Dec 16 16:06:19 EST 2018
+________________________________
+
+  0 x(or z) is near the head, not the feet
+    I'm p sure x and z are flipped from how we'd expect 'em to be (at least in the show() funcs)
+
+  Debug notes (our low-budget version of Jira):
+    The noise in the masking (individual segmentation results (masks) that didn't have well-defined boundaries were solved by saving the "segmap" variable from seg.py [vishal's segmentation code] and directly using it to mask the np array)
+    Also, it's counterintuitive, but as soon as you have multiple masks applied and take cross-sections (not application of the marching cubes algo, which oughta work better [and, coincidentally, is almost definitely implemented somewhere in C++ or python]),   parts of the mask will look smaller (like only part of the whole 2-D portrait-view of a human body) than the whole 2-D portrait-view of a human body.  Consider for a second how you would cut up a human body for biological study and it'll make sense.
+    The only obstacle for implementing marching cubes (or a generalized 3-d-hollowing algorithm) is a 100% noise-free numpy array.  So right now we're just trying to rid the 3-D np arr of noise
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ________________________________

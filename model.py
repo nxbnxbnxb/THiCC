@@ -7,7 +7,6 @@ from viz import *
 from d import debug 
 from utils import pad_all
 
-# TODO: integrate seg.py into the beginning of this
 # TODO:  scipy.ndimage.rotate() and fill in the 1 or 2-gaps
 #   NOTE:  z is "up" ("up" as in, think about a human being "upright"; the head is "up")
 
@@ -49,7 +48,7 @@ def mask(model, mask, axis='x'):
   pif('model_depth is {0}'.format(model_depth))
   for i in range(model_depth):
     model_copy[:,i,:] = np.logical_and(model[:,i,:], mask)
-  print 
+  print
   return model_copy
 #====================================  end func def mask(model, mask, axis='x'):  =======================================================
 def rot8(model, angle):
@@ -84,23 +83,23 @@ def rot8(model, angle):
 #===================================================================================================================================
 def test_human():
   # mask 1
-  import seg; mask_2d = seg.main('http://columbia.edu/~nxb2101/180.0.png'); max_dim   = max(mask_2d.shape); shape=(max_dim, max_dim, max_dim); shape_2d=(max_dim, max_dim)
+  import seg; mask_2d = seg.main('http://columbia.edu/~nxb2101/180.0.png'); max_dim = max(mask_2d.shape); shape=(max_dim, max_dim, max_dim); shape_2d=(max_dim, max_dim)
   #mask_1___fname = "/home/u/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks___human_front_and_side/180.0.jpg"
   mask_2d   = pad_all(mask_2d, shape_2d)
   model     = np.ones(shape).astype('bool')
   model     = mask(model, mask_2d)
   print "before rot8();   \n\n"
-  show_cross_sections(model, axis='y', show_every=250) # NOTE: good.  it worked this time
+  show_cross_sections(model, axis='y', freq=250) # NOTE: good.  it worked this time
   model     = rot8(model, 90.0)
   print "right after rot8();   \n\n"
-  show_all_cross_sections(model, how_often=20)
+  show_all_cross_sections(model, freq=20)
 
   # mask 2
   #mask_2___fname = "/home/u/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks___human_front_and_side/90.0.png"
   mask_2d = seg.main('http://columbia.edu/~nxb2101/90.0.png'); mask_2d   = pad_all(mask_2d, shape_2d)
   model     = mask(model, mask_2d)
   print "after 2nd masking:    \n\n"
-  show_all_cross_sections(model, how_often=20)
+  show_all_cross_sections(model, freq=20)
   if debug:
     show_all_cross_sections(model)
   return model

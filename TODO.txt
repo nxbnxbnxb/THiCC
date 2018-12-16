@@ -7,6 +7,7 @@ ________________________________
 Technical:
   Try ndimage.rotate() on basic 3-d model
     https://stackoverflow.com/questions/47197748/rotate-with-scipy-without-interpolation
+  Use floats/ints instead of bools!  Convert back to bool later!
   Ask on StackOverflow
   Use cat_opencv3
 Biz:
