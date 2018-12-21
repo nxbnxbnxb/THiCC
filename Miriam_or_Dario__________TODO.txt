@@ -1,0 +1,3 @@
+
+  Assume we have a point cloud in the form of a numpy array of boolean "skin" and "not skin" values.  Implement as much of the Alliez Voronoi algorithm as possible.
+
