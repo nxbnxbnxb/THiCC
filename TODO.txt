@@ -1,3 +1,47 @@
+________________________________
+
+  Fri Dec 21 20:07:22 EST 2018
+________________________________
+
+  Idea:
+    Rotate bunch of voxel coordinates using simple 3x3 rotation matrix, then make a 2x2x2 block around each of the new voxel locations and turn those 8 voxels "on" in the rotated np array.
+      Here the limiting step is conversion btwn data forms.
+      Wait, how did I fucking not think of this before?  It's so beautifully simple.
+      Is this faster than the other way of going through space voxel by voxel, doing the inverse rotation, and then checking whether the voxel nearest the inverse rotated point is on?
+        Potentially, because this way we're only dealing with the locs that are "on"
+        I could dream up an optimization where we constantly keep a running "checklist" of the voxels that are "on" (in a hashtable) and remove things whenever the corresponding rotated pt is turned "off" by a masking.  This way we don't have to convert as much; just have to make sure we do the angle math right
+        The reason this is faster is I can use ANY previously optimized matrix-processing code to do this rotation; it's just a single matrix multiplication.  Hrm...
+
+  numpy notes:
+    /home/u/Documents/code/numpy_notes/notes.py
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ________________________________
 
@@ -5,11 +49,29 @@ ________________________________
 ________________________________
 
 Technical:
+  Mask right.
+  /home/u/Documents/code/debuggig_scipy_rotate
+    put headers in SO question to make it easier to read
+
+  Idea:
+    Rotate bunch of voxel coordinates using simple 3x3 rotation matrix, then make a 2x2x2 block around each of the new voxel locations and turn those 8 voxels "on" in the rotated np array.
+      Here the limiting step is conversion btwn data forms.
+      Wait, how did I fucking not think of this before?  It's so beautifully simple.
+      Is this faster than the other way of going through space voxel by voxel, doing the inverse rotation, and then checking whether the voxel nearest the inverse rotated point is on?
+        Potentially, because this way we're only dealing with the locs that are "on"
+        I could dream up an optimization where we constantly keep a running "checklist" of the voxels that are "on" (in a hashtable) and remove things whenever the corresponding rotated pt is turned "off" by a masking.  This way we don't have to convert as much; just have to make sure we do the angle math right
+        The reason this is faster is I can use ANY previously optimized matrix-processing code to do this rotation; it's just a single matrix multiplication.  Hrm...
+
   Try ndimage.rotate() on basic 3-d model
     https://stackoverflow.com/questions/47197748/rotate-with-scipy-without-interpolation
   Use floats/ints instead of bools!  Convert back to bool later!
+    Tried, fixes the problem of holes INSIDE the mask, but generates lots of +noise (1s where there oughta be 0s) OUTSIDE the mask
   Ask on StackOverflow
+    better, faster version of ndimage.rotate()
   Use cat_opencv3
+
+  numpy notes:
+    /home/u/Documents/code/numpy_notes/notes.py
 Biz:
 
 
