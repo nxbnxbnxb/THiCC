@@ -1,9 +1,8 @@
 
 # imports useful for access in python shell rather than for use in utils.py
-import matplotlib.pyplot as plt
 import imageio as ii
 #from   mpl_toolkits.mplot3d import Axes3D   # import no longer used (Dec. 16, 2018).  plots VERY BASIC 3d shapes
-from   pylab import savefig
+print "hit"
 import numpy as np
 import pandas as pd
 
@@ -130,8 +129,6 @@ def sort_fnames_list(fnames_list):
 
 
 
-def pltshow(im):
-    plt.imshow(im); plt.show(); plt.close()
 
 def newline(f):
     f.write('\n')
