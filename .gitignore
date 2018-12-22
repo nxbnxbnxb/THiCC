@@ -1,6 +1,14 @@
+*/
 *.png
 *.jpeg
 *.jpg
 *.pyc
 *.swp
+*.npy
+*.mp3
+*.mp4
+*.tar.gz
+*timing*
 *debug*
+*time*
+*test*
