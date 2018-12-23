@@ -2,7 +2,6 @@
 # imports useful for access in python shell rather than for use in utils.py
 import imageio as ii
 #from   mpl_toolkits.mplot3d import Axes3D   # import no longer used (Dec. 16, 2018).  plots VERY BASIC 3d shapes
-print "hit"
 import numpy as np
 import pandas as pd
 
@@ -12,7 +11,6 @@ import sys
 import os
 import math
 from   math import sin, cos, tan, pi, radians, degrees, floor, ceil, sqrt
-import cv2
 from   collections import OrderedDict
 from   pprint import pprint as p
 

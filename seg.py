@@ -10,8 +10,9 @@ import matplotlib
 matplotlib.use('Agg')      
 '''
 # The above lines didn't end up being necessary.    But it's a good FYI so future programmers can solve matplotlib display problems, though
+if debug:
+  from matplotlib import pyplot as plt  # NOTE:  problem on Nathan's machine (Dec. 21, 2018) is JUST with pyplot.  None of the rest of matplotlib is a problem AT ALL.
 from matplotlib import gridspec
-from matplotlib import pyplot as plt
 from PIL import Image
 from six.moves import urllib
 
@@ -71,6 +72,7 @@ def label_to_color_image(label):
     raise ValueError('label value too large.')
   return colormap[label]
 
+# NOTE: don't call this function if matplotlib.pyplot crashes conda!
 def vis_segmentation(image, seg_map):
   plt.figure(figsize=(15, 5))
   grid_spec = gridspec.GridSpec(1, 4, width_ratios=[6, 6, 6, 1])
@@ -133,8 +135,10 @@ def run_visualization(url, model):
   return seg_map
 
 
-def main(IMG_URL):
-  # TODO: rename segment()?  seg()?  "main()" isn't very descriptive; at least wrap a diff function called "seg()" around it
+def segment(IMG_URL):
+  '''
+    NOTE: segmentation requires internet connection
+  '''
   # TODO:   allow us to set the URL from parameter
   LABEL_NAMES = np.asarray([
       'background', 'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus',
@@ -169,6 +173,6 @@ if __name__=='__main__':
     print "currently segmenting image found at url: \n  "+IMG_URL
   else:
     IMG_URL = sys.argv[1]
-  seg_map = main(IMG_URL)
+  seg_map = segment(IMG_URL)
 # end if __name__=='__main__':
 

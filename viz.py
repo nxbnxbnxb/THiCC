@@ -52,7 +52,7 @@ def show_cross_sections(model_3d, axis='z', freq=2):
       print "Usage: please input axis x, y, or z in format:\n\n  show_cross_sections([model_name], axis='z')"
   return
 #=========================================================================
-def show_all_cross_sections(model_3d, freq=1):
+def show_all_cross_sections(model_3d, freq=2):
   print '\n'*3; print "x: \n\n"
   show_cross_sections(model_3d, axis='x', freq=freq); print '\n'*3; print "y: \n\n"
   show_cross_sections(model_3d, axis='y', freq=freq); print '\n'*3; print "z: \n\n"

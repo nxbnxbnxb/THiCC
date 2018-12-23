@@ -1,5 +1,82 @@
 ________________________________
 
+  Sun Dec 23 20:07:22 EST 2018
+________________________________
+
+  Debug:
+    (cat_opencv3)  how come this rotates stuff off the "screen"?   I don't really understand why it has to get wiped out this way............'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
   Fri Dec 21 20:07:22 EST 2018
 ________________________________
 
@@ -12,8 +89,13 @@ ________________________________
         I could dream up an optimization where we constantly keep a running "checklist" of the voxels that are "on" (in a hashtable) and remove things whenever the corresponding rotated pt is turned "off" by a masking.  This way we don't have to convert as much; just have to make sure we do the angle math right
         The reason this is faster is I can use ANY previously optimized matrix-processing code to do this rotation; it's just a single matrix multiplication.  Hrm...
 
+  Idea 2:  scipy.ndimage.rotate() and fill in the gaps
+
   numpy notes:
     /home/u/Documents/code/numpy_notes/notes.py
+  Technical:
+    Speed up rotation.  Probably best advices is to profile, then always remove for-loops
+
 
 
 

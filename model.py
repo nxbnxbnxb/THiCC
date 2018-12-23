@@ -8,7 +8,6 @@ from d import debug
 from utils import pad_all
 from on_locs import rot8
 
-# TODO:  scipy.ndimage.rotate() and fill in the 1 or 2-gaps
 #   NOTE:  z is "up" ("up" as in, think about a human being "upright"; the head is "up")
 
 #===================================================================================================================================
@@ -23,7 +22,7 @@ class DimensionMismatchException(RuntimeError):
 #===================================================================================================================================
 def mask(model, mask, axis='x'):
   '''
-    returns a new 3-D np array
+    Returns a new 3-D np array
       (the result of masks the 3-d np array "model" all the way through using the mask)
   '''
   model_copy = deepcopy(model)
@@ -40,7 +39,7 @@ def mask(model, mask, axis='x'):
     raise DimensionMismatchException(" the models width and masks width have to be equal.   So do the heights")
 
   '''
-  mask_3d = 
+  mask_3d = np.dstack((mask,mask))  # "model.shape[2]" many times
   '''
   # NOTE: actual code starts HERE:
   # TODO:  vectorize this instead of using a for loop
@@ -56,53 +55,31 @@ def mask(model, mask, axis='x'):
 #====================================  end func def of mask(model, mask, axis='x'):  ====================================================
 def test_human():
   # mask 1
-  import seg; mask_2d = seg.segment('http://columbia.edu/~nxb2101/180.0.png'); max_dim = max(mask_2d.shape); shape=(max_dim, max_dim, max_dim); shape_2d=(max_dim, max_dim); UINT8_MAX=np.iinfo('uint8').max; MID=int(round(UINT8_MAX/2.))
+  import seg; mask_front___URL = "http://columbia.edu/~nxb2101/180.0.png"; mask_2d = seg.segment(mask_front___URL); max_dim = max(mask_2d.shape); shape=(max_dim, max_dim, max_dim); shape_2d=(max_dim, max_dim); UINT8_MAX=np.iinfo('uint8').max; MID=int(round(UINT8_MAX/2.))
   #mask_1___fname = "/home/u/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks___human_front_and_side/180.0.jpg"
   mask_2d   = pad_all(mask_2d, shape_2d)
   model     = np.full(shape, MID).astype('uint8')
   #model     = np.ones(shape).astype('bool')
   model     = mask(model, mask_2d)
   print "before rot8();   \n\n"
-  #if debug:
-    #show_cross_sections(model, axis='y', freq=250) # NOTE: good.  it worked this time
+  if debug:
+    show_cross_sections(model, axis='y', freq=250) # NOTE: good.  it worked this time
 
   angle     = 90.0
   model     = rot8(model, angle)
   print "right after rot8();   \n\n"
-  #if debug:
-    #show_all_cross_sections(model, freq=20)
+  if debug:
+    show_all_cross_sections(model, freq=20)
 
   # mask 2
-  #mask_2___fname = "/home/u/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks___human_front_and_side/90.0.png"
-  mask_2d = seg.segment('http://columbia.edu/~nxb2101/90.0.png'); mask_2d   = pad_all(mask_2d, shape_2d)
+  mask_side___URL ="http://columbia.edu/~nxb2101/90.0.png"
+  mask_2d = pad_all(seg.segment(mask_side___URL), shape_2d)
   model     = mask(model, mask_2d)
   print "after 2nd masking:    \n\n"
   np.save('body_nathan_.npy', model)
-  #if debug:
-    #show_all_cross_sections(model, freq=1)
+  if debug:
+    show_all_cross_sections(model, freq=1)
 
-  """
-  on_locs=np.nonzero(model)
-  model_2=deepcopy(model)
-  model_2[on_locs[0],on_locs[1],on_locs[2]]=MID
-
-  print "on_locs[0].shape is {0}".format(on_locs[0].shape)
-    # on_locs[0].shape is (3817528,)
-
-  on_locs=np.nonzero(model)
-  model_2=deepcopy(model)
-  model_2[on_locs[0],on_locs[1],on_locs[2]]=MID
-  assert np.array_equal(model, model_2)
-  print "assertion passed!"
-    value was True.  !!!
-  """
-
-  """
-    desired final result
-  ons = on_locs_nonzero(model)
-  print ons.shape
-  model_2=np.zeros(model.shape).astype('bool'); model_2[ons]=1
-  """
   if debug:
     print "model.shape is {0}".format(str(model.shape))
     print "len(ons)    is {0}".format(str(len(ons)))
