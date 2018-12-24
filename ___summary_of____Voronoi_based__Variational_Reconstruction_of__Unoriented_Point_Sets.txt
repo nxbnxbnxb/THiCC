@@ -1,0 +1,126 @@
+_____________________________________________________________________________________________
+
+I started writing this explanation on   Sun Dec  9 11:48:55 EST 2018.  
+  I find academic-ese a pain-in-the-ass to understand, so I tried to simplify the paper "Voronoi-based Variational Reconstruction of Unoriented Point Clouds" by Alliez, Cohen-Steiner, Tong, and Desbrun,    as much as possible.  Some detail will be missing; please see the paper for any maths.  This explanation is for the uninitiated, and the initiated who are tired of poring over mathematical syntax and need a refresher.  P.S.  I think academics may write this way A) just to help them keep their jobs  B) because all the other academics write this way and they're conforming  C) because it's harder to write clearly than obtusely  D) because they like writing this way  or E) because somehow they think it makes them sound smart, which it doesn't in my humble opinion, it just makes it impossible for real, average people to understand and appreciate them.
+_____________________________________________________________________________________________
+
+  I'll put some definitions at the end just to help you get into the meat of what's happening first and consult definitions later.
+_____________________________________________________________________________________________
+
+  This paper describes how to take a point cloud (also known as voxels) and make a smooth mesh around the subject.  Imagine voxels as Minecraft-people, if you've ever played Minecraft, or old-timey Mario in 3-D, if you've ever seen a video game in your life.  Snarkiness aside, voxels are just cubes.  In our case, we want to model human beings.  So for the remainder of this summary I will assume we're talking about the human body.
+  I will assume you know as little as I can think you might know.  If I'm boring or insulting you with tedious explanation, please skip that portion of the summary.  I figure it's better to make it too simple than too complicated; easier to skip than look something else up and get distracted by YouTube or your e-mail or cat GIFs.  If you don't like my flippant (overly informal) tone, please feel free to read the original paper ("Voronoi-based Variational Reconstruction of Unoriented Point Clouds" by Alliez, Cohen-Steiner, Tong, and Desbrun)
+  1)  Why?  (Why would we want to make a mesh with this method?)
+      1.  Noise
+        a.  When you take a selfie, your camera is not perfect, and there is "noise."  What is noise?  For our purposes, it's just anything in the "sensing" or "recording" stage that isn't just like reality.  Could be:
+          1)  Imprecision
+          2)  Malfunction
+          3)  Other stuff, etc.
+        b.  The paper's "Voronoi-PCA" method reduces the effect of noise, because it calculates normals from multiple Voronoi regions at once.  More detail on that later; stay with me
+        c.  Smooth mesh instead of replicating every noisy voxel (like a pixel but in 3-D) makes it look more like you, a human being
+      2.  Middle values
+        a.  What do I mean here?  So say your camera has a resolution of 100x100.  means the average person can only be captured in detail levels of more than 1 cm.  But what if your high-quality VR system allows you to look in more detail?  Voxels can't do that; only a continuous surface like a mesh can
+      3.  Looks better (smoother, more realistic)
+        a.  irl, people don't look "blocky" ("pixelated").  The actual blocks that make us up are tiny tiny cells, and even then they're not cubes.  As a species, we're smooth criminals, er, organisms with smooth skin.
+
+  2)  How?
+    1.  Get normals (from covariance matrices)
+      a.  What is a normal?
+        1)  Imagine a table.  Now imagine a long, regular cup on the table.  The length of the cup is the normal vector's "magnitude" or size, and the fact that it points straight up means its "normal" to the table's surface
+      b.  Why?
+        1)  Noise, again.
+          a)  To calculate a normal, surrounding points are taken into account.  So if you have one noisy voxel way off in the middle of nowhere, this method won't account for that one as much as the parts where a bunch of voxels are right next to each other and make up human skin
+      c.  How do we get the normals?
+        1)  Calculate the 3-D Voronoi diagram of the point cloud
+          a)  Basically Voronoi cuts up 3-D space into 3-D blocks such that if you pick a point and its within block labeled "A," it tells you the point you picked is closest to preexisting point "A."  For more detail, plz Google
+        2)  For each point, merge the point's Voronoi polyhedron with neighboring polyhedral regions (the number of regions we use is a "hyperparameter," in other words, it is controlled by us initially and affects the output.  There's often no good theoretical reason to pick one hyperparameter over another; you just tweak the hyperparams when you're not getting quite what you want until you get what you want).  So you merge the polyhedra and calculate their "orientation" (which way the space is "pointiest").  Imagine the long cup on the table again.  It points "up" (we can call this the +z direction) so the numbers we calculate indicating its orientation would also tell us it points "up," and they'll also tell us how tall it is, how fat it is, etc.
+        3)  The normal to the whole local surface turns out to point in the same as the direction of the fused Voronoi regions
+        4)  The "size" of the pointiness corresponds to how sure we are that this direction is from the original human picture data.  If the "size" is relatively small, we're going to ignore that particular normal when we're making the surface later
+    2.  Make a bunch of planes that are locally correct (I'm 96.69% sure this is what "node-based piecewise linear" means) and only defined over small portions of the space
+      a.  NOTE: in the above statement I glossed over a LOT of detail.  But as this is a summary, that's the point.  There's a lot of linear algebra and other shit that goes into actually solving this thing
+    3.  Pick the right value (the median) of the function f(x,y,z) to "contour" at (in other words, pick the right girth of human to use to get the right skin)
+      a.  Note: the function f(x,y,z) they mention is a SCALAR function (in other words, at each value of x,y,z, f=one number, not a vector, not a matrix, not a tensor).  
+        1)  The paper was confusing until I realized this
+    4.  Once you have the "implicit function" (the f and the value of f that best fits the points of the human body input data), once you have the function, use a particular sampling method described in "Provably good sampling and meshing of surfaces" (called loose-epsilon sampling) to pick points matching those conditions set out by function f to create a Delaunay triangulation and then use a modified Chew algorithm (also described in Boissonnat and Oudot's "Provably Good Sampling and Meshing of Surfaces") to make the surface mesh
+    5.
+    6.
+    7.
+
+_____________________________________________________________________________________________
+
+  Definitions:
+_____________________________________________________________________________________________
+
+  A)  Mesh:
+    1.  A mesh is a collection of points and surfaces connecting those points.  Often made up of only triangles, a mesh is the discrete version of a surface, which can be defined like so:  x + y + z - 1 = 0
+  B)  Surface:
+    1.  A surface is a structure that can be defined in far fewer bits of information than a mesh and is more powerful (in the sense that one can explain how all of space interacts with the surface in a few numbers).  But it is much harder to describe something as nuanced and unruly as a human body in that small amount of numbers.
+      a.  Piecewise-defined surfaces get closer to capturing more complex, real-world bodies.  If you remember from high school algebra, these are defined in ways like: f={x, x<0;   x+y+z, x>=0}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
