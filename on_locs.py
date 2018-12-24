@@ -2,6 +2,8 @@
 import numpy as np
 import math
 from math import cos, sin, ceil, floor
+from save import save
+from d import debug
 
 
 #================================================================
@@ -28,6 +30,8 @@ def rot8(model,angle,axis='z'):
     model: a 3-d numpy array that is a cube (model.shape[0]==model.shape[1]==model.shape[2])
     angle: in degrees, a float
   '''
+  # TODO:   consider whether default behavior should be enlargen 3-D array, or "rotate into larger array" before cutting off the edges
+    # TODO: sub-concern is how to make sure u shift the "center" back to the right place after rot8ing the voxels
   assert model.shape[0] == model.shape[1] == model.shape[2] # model is cube-shaped
   print "angle (in degrees) is {0}".format(angle)
   angle = math.radians(angle)       # for use in cos(angle), sin(angle)
@@ -53,16 +57,18 @@ def rot8(model,angle,axis='z'):
   #======== end func def of shift(locs, delta): =========
   ons   = shift(ons,-((model.shape[0]/2.0)-0.5)) # shift the array s.t. center of 3d array is at (0, 0, 0)    # TODO: rewrite as "center_at____0_0_0()"
   # NOTE: we have a "-0.5" in here for the following reason.  Consider the simple 3x3x3 array in numpy.  It is centered around the value at indices (1,1,1).  This is (3.0/2.0)-0.5.  Consider the 4x4x4 array.  It is centered between indices 1 and 2, at (1.5,1.5,1.5).  Both of these would be centered if they were shifted -((model.shape[0]/2.0)-0.5).  If you are not satisfied with 2 examples, please realize this is the algorithm because it would be shape[0]/2.0 if the indexing went from 0 to shape[0].  ie. if shape[0] were 4 and therefore the indices went from 0 to 4, 2 WOULD be the central index.  The -0.5 is only present because shape[0]==4 implies indices from 0 to 3 instead; the "subtracted -1 from the length" turns into "subtraced -0.5 from the middle"
-  np.save("ons____before_rotating.npy", ons)
+  if save:
+    np.save("ons____before_rotating.npy", ons)
   z_rot = np.array([[ cos(angle), -sin(angle),      0     ],
                     [ sin(angle),  cos(angle),      0     ],
                     [     0     ,      0     ,      1     ]]).astype('float64') # https://en.wikipedia.org/wiki/Rotation_matrix#In_three_dimensions
   ons   = z_rot.dot(ons)
   ons   = shift(ons,  (model.shape[0]/2.0)-0.5) # shift the array s.t. center of 3d array is back at (max/2, max/2, max/2.)  # TODO: rewrite as "recenter()"
-  np.save("ons____before_rounding.npy", ons)
-  print "="*99
-  print "saved on_locs"
-  print "="*99
+  if save:
+    np.save("ons____before_rounding.npy", ons)
+    print "="*99
+    print "saved on_locs"
+    print "="*99
   #====================================================================
   def round____all_8_adj_voxels(locs, max_idx_val):
     '''
@@ -109,11 +115,13 @@ def rot8(model,angle,axis='z'):
   def round____all_8_adj_voxels(locs, max_idx_val):
     '''
     print "max_idx_val is {0} \n".format(max_idx_val)
-    full_locs=np.zeros((locs.shape[0]*  8 ,     locs.shape[1])).astype('uint64') # NOTE:   is uint64 too memory intensive?
+    full_locs=np.zeros((locs.shape[0]*  8 , locs.shape[1])).astype('uint64') # NOTE:   is uint64 too memory intensive?    as of Dec. 23, 2018, not too intense on my laptop for 2010? Android-quality video
     idx=0
     for loc in locs:
+      # TODO: remove naive truncation    (consider a very long steel beam, like (4,4,128))
       x_low=floor(loc[0]);x_hi=ceil(loc[0]);y_low=floor(loc[1]);y_hi=ceil(loc[1]);z_low=floor(loc[2]);z_hi=ceil(loc[2])
       # error-checking  (make sure we don't index outside the bounds of the model).  duplicates are taken care of by np.unique() at the end
+      # TODO:  problem with this "rounding" technique is what if x_low AND x_hi are BOTH < 0 or BOTH > max_idx_val.  That's why we get this very weird behavior where an element within the output is 18446744073709551615:  it's really -1 in the uint64 datatype,  Dec. 23, 2018
       if x_low < 0:
         x_low=   0
       if y_low < 0:
@@ -139,10 +147,12 @@ def rot8(model,angle,axis='z'):
       # you can think of this as the equivalent of enumerating all 8 of the "3 digit" binary numbers: 000, 001, 010, 011, 100, 101, 110, 111
       # TODO: check for out of bounds (ceil() > shape[0] or floor() < 0)
       idx+=8
-    return np.unique(full_locs, axis=0).astype('uint64') # shape == (large_num, 3)
+    three_tuples=0
+    return np.unique(full_locs, axis=three_tuples).astype('uint64') # shape == (large_num, 3)      # TODO:  remove the (0,0,0) coords in here
   #========= end func def of round____all_8_adj_voxels(locs): ==========
   # returning to function rot8():
   ons   = round____all_8_adj_voxels(ons.T,model.shape[0]-1)  # ons.shape should be (large_num, 3) after this line.   (tall, not long)
+  #if debug:
   print "at line 114 of on_locs.rot8(), ons.shape      is {0}".format(str(ons.shape))
   print "at line 115 of on_locs.rot8(), ons[:,0].shape is {0}".format(str(ons[:,0].shape))
   print "at line 116 of on_locs.rot8(), ons[:,1].shape is {0}".format(str(ons[:,1].shape))
@@ -151,6 +161,7 @@ def rot8(model,angle,axis='z'):
   print "at line 119 of on_locs.rot8(), max(ons[:,1]) is {0}   \n    and min(ons[:,1]) is {1}".format(str(np.amax(ons[:,1])), str(np.amin(ons[:,1])))
   print "at line 120 of on_locs.rot8(), max(ons[:,2]) is {0}   \n    and min(ons[:,2]) is {1}".format(str(np.amax(ons[:,2])), str(np.amin(ons[:,2])))
   print '\n'*2
+  # end if debug:
   rot8d = np.zeros(model.shape).astype('bool')
   rot8d[ons[:,0], ons[:,1], ons[:,2]] = True  # the voxels with these x,y,z values
   return rot8d

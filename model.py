@@ -3,8 +3,9 @@ from    copy import deepcopy
 import imageio as ii
 import scipy; from scipy import ndimage, misc
 
-#from viz import *
+from viz import *
 from d import debug 
+from save import save
 from utils import pad_all
 from on_locs import rot8
 
@@ -62,10 +63,9 @@ def test_human():
   #model     = np.ones(shape).astype('bool')
   model     = mask(model, mask_2d)
   print "before rot8();   \n\n"
-  if debug:
-    show_cross_sections(model, axis='y', freq=250) # NOTE: good.  it worked this time
+  show_cross_sections(model, axis='y', freq=250) # NOTE: good.  it worked this time
 
-  angle     = 90.0
+  angle     = 72.9  # 90.0  # 72.9
   model     = rot8(model, angle)
   print "right after rot8();   \n\n"
   if debug:
@@ -76,20 +76,11 @@ def test_human():
   mask_2d = pad_all(seg.segment(mask_side___URL), shape_2d)
   model     = mask(model, mask_2d)
   print "after 2nd masking:    \n\n"
-  np.save('body_nathan_.npy', model)
+  if save:
+    np.save('body_nathan_.npy', model)
   if debug:
     show_all_cross_sections(model, freq=1)
 
-  if debug:
-    print "model.shape is {0}".format(str(model.shape))
-    print "len(ons)    is {0}".format(str(len(ons)))
-    ctr=0
-    for loc in ons:
-      if ctr%1000==0:
-        print "loc:   {0}".format(loc)
-        ctr=1
-      else:
-        ctr+=1
   return model
 #====================================   end func def of test_human():   =======================================================
 

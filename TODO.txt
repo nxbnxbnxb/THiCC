@@ -5,6 +5,7 @@ ________________________________
 
   Debug:
     (cat_opencv3)  how come this rotates stuff off the "screen"?   I don't really understand why it has to get wiped out this way............'
+    We have to do the rotation s.t. it initially expands the possible locs before cutting off any out-of-bounds voxels.  Perhaps the best way to do this is to do the rotation, remove those "external" points, then do all the rounding and "model[idxes]=True"-setting
 
 
 
