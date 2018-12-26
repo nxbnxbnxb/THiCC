@@ -8,6 +8,7 @@ from d import debug
 from save import save
 from utils import pad_all
 from on_locs import rot8
+from hollow import hollow
 
 #   NOTE:  z is "up" ("up" as in, think about a human being "upright"; the head is "up")
 
@@ -65,7 +66,7 @@ def test_human():
   print "before rot8();   \n\n"
   show_cross_sections(model, axis='y', freq=250) # NOTE: good.  it worked this time
 
-  angle     = 72.9  # 90.0  # 72.9
+  angle     = 90.1  # 90.0  # 72.9
   model     = rot8(model, angle)
   print "right after rot8();   \n\n"
   if debug:
@@ -76,10 +77,14 @@ def test_human():
   mask_2d = pad_all(seg.segment(mask_side___URL), shape_2d)
   model     = mask(model, mask_2d)
   print "after 2nd masking:    \n\n"
+  skin=hollow(model)
   if save:
     np.save('body_nathan_.npy', model)
+    np.save('skin_nathan_.npy', skin )
   if debug:
     show_all_cross_sections(model, freq=1)
+  show_all_cross_sections(model, freq=5)
+  show_all_cross_sections(skin , freq=5)
 
   return model
 #====================================   end func def of test_human():   =======================================================

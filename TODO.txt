@@ -1,5 +1,49 @@
 ________________________________
 
+  Tue Dec 25 20:07:22 EST 2018
+________________________________
+
+  Get marching_cubes() working so we can visualize
+  Amazon checkout
+  git recover the full skinning function (checks each of the adjacent voxels for "on" status and decides "on" or "off" based on this)
+
+  compare skin with full model (perhaps it's not wrong to have a straight line at parts of the body)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    fix rot8() func to deal with out-of-bounds voxels after rotation 
+      DONE?  (test this)
+________________________________
+
   Sun Dec 23 20:07:22 EST 2018
 ________________________________
 
@@ -7,7 +51,7 @@ ________________________________
     (cat_opencv3)  how come this rotates stuff off the "screen"?   I don't really understand why it has to get wiped out this way............'
     We have to do the rotation s.t. it initially expands the possible locs before cutting off any out-of-bounds voxels.  Perhaps the best way to do this is to do the rotation, remove those "external" points, then do all the rounding and "model[idxes]=True"-setting
 
-
+    lookup hollow() or get_skin() in numpy/scipy/rawPython
 
 
 
