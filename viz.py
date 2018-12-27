@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
 
 #######################################################################################################
 ################################# visualization functions #############################################
@@ -59,6 +60,24 @@ def show_all_cross_sections(model_3d, freq=2):
   show_cross_sections(model_3d, axis='z', freq=freq); return
 #=========================================================================
 
+# TODO: make a show_3d() function that uses matplotlib
+def show_3d(voxels):
+  fig = plt.figure()
+  ax = fig.gca(projection='3d')
+  x_str='this is the x axis'
+  y_str='this is the y axis'
+  z_str='this is the z axis'
+  ax.set_xlabel(x_str)
+  ax.set_ylabel(y_str)
+  ax.set_zlabel(z_str)
+  ax.voxels(voxels, edgecolor='k')
+
+  plt.show()
+  plt.close(); return
+
+if __name__=='__main__':
+  m=np.load('skin_nathan_.npy').astype('bool')
+  show_all_cross_sections(m, freq=20)
 
 
 

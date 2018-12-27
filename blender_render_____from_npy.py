@@ -63,10 +63,12 @@ def make_faces(faces_arr):
   return tups
 #================================================================
 
-verts_filename='/home/u/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/verts.npy'
+# TODO: edit 'filename' variables to have current verts and faces.npy files
+verts_filename='/home/u/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/verts_nathan_.npy'
+faces_filename='/home/u/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/faces_nathan_.npy'
+
 verts_arr = np.load(verts_filename)
 verts = make_verts(verts_arr)
-faces_filename='/home/u/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/faces.npy'
 faces_arr = np.load(faces_filename)
 faces = make_faces(faces_arr)
 
@@ -97,3 +99,4 @@ obj = bpy.data.objects.new("My_Object", mesh_data)
 scene = bpy.context.scene
 scene.objects.link(obj)
 obj.select = True
+

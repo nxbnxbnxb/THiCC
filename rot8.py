@@ -7,20 +7,24 @@ from d import debug
 
 
 #================================================================
-def on_locs_nonzero(a):
-  num_dims=3
-  on_voxels=np.nonzero(a) # as of Dec. 21, 2018 with the following versions, dtype is default 'int64'
-  #  numpy info from conda:
-  #python      2.7.15  h33da82c_4    conda-forge
-  #numpy       1.15.4  py27_blas_openblashb06ca3d_0  [blas_openblas]  conda-forge
-  #numpy-base  1.15.4  py27h2f8d375_0  
-  n_pts=on_voxels[0].shape[0]
-  coords=()
-  for i in range(num_dims):
-    coords+=(on_voxels[i].reshape(n_pts,1).astype('int64'),)
-  return np.concatenate(coords,axis=1).astype('int64') # locations have to be integer (indices)
-  # TODO: Test!     shape=(3817528,3)
-#============  end func def of  on_locs_nonzero(a):  ============
+def on_locs(a):
+  #================================================================
+  def on_locs_nonzero(a):
+    num_dims=3
+    on_voxels=np.nonzero(a) # as of Dec. 21, 2018 with the following versions, dtype is default 'int64'
+    #  numpy info from conda:
+    #python      2.7.15  h33da82c_4    conda-forge
+    #numpy       1.15.4  py27_blas_openblashb06ca3d_0  [blas_openblas]  conda-forge
+    #numpy-base  1.15.4  py27h2f8d375_0  
+    n_pts=on_voxels[0].shape[0]
+    coords=()
+    for i in range(num_dims):
+      coords+=(on_voxels[i].reshape(n_pts,1).astype('int64'),)
+    return np.concatenate(coords,axis=1).astype('int64') # locations have to be integer (indices)
+    # TODO: Test!     shape=(3817528,3)
+  #============  end func def of  on_locs_nonzero(a):  ============
+  return on_locs_nonzero(a)
+#================  end func def of  on_locs(a):  ================
 def rot8(model,angle,axis='z'):
   '''
     rot8s the model (counterclockwise from the top?  TODO: double-check this) angle, by default around the z axis
@@ -31,11 +35,12 @@ def rot8(model,angle,axis='z'):
     angle: in degrees, a float
   '''
   # TODO:   consider whether default behavior should be enlargen 3-D array, or "rotate into larger array" before cutting off the edges
-    # TODO: sub-concern is how to make sure u shift the "center" back to the right place after rot8ing the voxels
+
+# TODO: sub-concern is how to make sure u shift the "center" back to the right place after rot8ing the voxels
   assert model.shape[0] == model.shape[1] == model.shape[2] # model is cube-shaped
   print "angle (in degrees) is {0}".format(angle)
   angle = math.radians(angle)       # for use in cos(angle), sin(angle)
-  ons   = on_locs_nonzero(model).T  # Transposed so we can rotate the coords with R_z*coords
+  ons   = on_locs(model).T  # Transposed so we can rotate the coords with R_z*coords
   print "ons.shape is {0}".format(str(ons.shape))  # oughta have shape (big_num, 3)
   #=====================================================
   def shift(locs, delta):
@@ -160,24 +165,6 @@ def rot8(model,angle,axis='z'):
   rot8d[ons[:,0], ons[:,1], ons[:,2]] = True  # the voxels with these x,y,z values
   return rot8d
 #========= end func def of rot8(model,angle,axis='z'): =========
-
-'''
->>> y = np.arange(35).reshape(5,7)
->>> y
-array([[ 0,  1,  2,  3,  4,  5,  6],
-       [ 7,  8,  9, 10, 11, 12, 13],
-       [14, 15, 16, 17, 18, 19, 20],
-       [21, 22, 23, 24, 25, 26, 27],
-       [28, 29, 30, 31, 32, 33, 34]])
->>> y[np.array([0,2,4]), np.array([0,1,2])]
-===========================================================
-
-y = np.arange(35).reshape(5,7)
-print y
-y[np.array([0,2,4]).reshape((1,3)), np.array([0,1,2]).reshape((1,3))]
-
-'''
-
 
 
 
@@ -323,34 +310,3 @@ if __name__=='__main__':
 
 
 
-#================================================================
-def on_locs_random_timing_test(a,b=1,c=1):
-  '''
-    finds where is "on" in the rand array  (mainly for speed tests to see whether the naive for loop is viable)
-  '''
-  voxels=np.round(np.random.random((   a,  b,  c))).astype('bool') # prob a faster way to do this but who cares
-    # I think the above line was really slow and took up a lotta space b/c it had to first create the giant random array and THEN converted it all into "rounded booleans" BEFORE it could free up the original randoms array
-  #                                 (400,400,400)
-  return on_locs(voxels)
-#================================================================
-def on_locs(nparr):
-  '''
-    finds where is "on" in the array
-  '''
-  # NOTE:  weird!  this was fast for when I put it in model.py.  Dec. 20, 2018
-  on_locs=[]
-  for i in range(nparr.shape[0]): 
-    for j in range(nparr.shape[1]): 
-      for k in range(nparr.shape[2]): 
-        if nparr[i,j,k]:
-          on_locs.append(np.array([i,j,k]).reshape(3,1))
-          # I can already see ways to optimize this method, at least row-wise, by returning a whole nparray   instead of doing it this way
-          #   We could make on-locs a nparray and "cut off" the zeros at the end
-  return on_locs
-#================================================================
-def on_locs_argsort(a):
-  flat=a.reshape(np.prod(a.shape,1,1))
-  on_locs=np.argsort(flat)
-  on_locs=on_locs.reshape(a.shape)
-  return on_locs
-#================================================================

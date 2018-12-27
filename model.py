@@ -1,14 +1,28 @@
 import  numpy as np
 from    copy import deepcopy
 import imageio as ii
-import scipy; from scipy import ndimage, misc
+import scipy; from scipy import ndimage, misc, rot90
 
-from viz import *
-from d import debug 
-from save import save
-from utils import pad_all
-from on_locs import rot8
-from hollow import hollow
+# our files/modules.  
+from viz      import *
+from d        import debug 
+from save     import save
+from utils    import pad_all
+from rot8     import rot8
+from hollow   import hollow
+from m_cubes  import mesh_from_pt_cloud, save_mesh
+# TODO: consolidate all of 'em into utils.py?  or a few, maybe called:
+#
+#   mesh.py
+#   mask.py
+#   seg.py
+#
+# alt:
+#   utils.py
+#
+#
+#
+
 
 #   NOTE:  z is "up" ("up" as in, think about a human being "upright"; the head is "up")
 
@@ -64,9 +78,9 @@ def test_human():
   #model     = np.ones(shape).astype('bool')
   model     = mask(model, mask_2d)
   print "before rot8();   \n\n"
-  show_cross_sections(model, axis='y', freq=250) # NOTE: good.  it worked this time
+  show_cross_sections(model, axis='y', freq=250)
 
-  angle     = 90.1  # 90.0  # 72.9
+  angle     = 90.0  # 90.0  # 72.9
   model     = rot8(model, angle)
   print "right after rot8();   \n\n"
   if debug:
@@ -77,15 +91,21 @@ def test_human():
   mask_2d = pad_all(seg.segment(mask_side___URL), shape_2d)
   model     = mask(model, mask_2d)
   print "after 2nd masking:    \n\n"
-  skin=hollow(model)
+  SKIN=False
+  if SKIN:
+    skin=hollow(model)
   if save:
     np.save('body_nathan_.npy', model)
-    np.save('skin_nathan_.npy', skin )
-  if debug:
-    show_all_cross_sections(model, freq=1)
-  show_all_cross_sections(model, freq=5)
-  show_all_cross_sections(skin , freq=5)
+    if SKIN:
+      np.save('skin_nathan_.npy', skin )
+    save_mesh(model)
+  else: # not save:
+    verts,faces=mesh_from_pt_cloud(model)
 
+  if debug:
+    show_all_cross_sections(model, freq=5)
+    if SKIN:
+      show_all_cross_sections(skin , freq=5)
   return model
 #====================================   end func def of test_human():   =======================================================
 

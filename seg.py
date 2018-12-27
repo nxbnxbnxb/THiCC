@@ -122,7 +122,6 @@ def run_visualization(url, model):
   except IOError:
     print('Cannot retrieve image. Please check url: ' + url)
     return
-# end def run_visualization(url):
 
   print('running deeplab on image %s...' % url)
   resized_im, seg_map = model.run(original_im)
@@ -132,7 +131,8 @@ def run_visualization(url, model):
   #scipy.misc.imsave("_segmented____binary_mask_.jpg", np.greater(seg_map, PROBABLE).astype('bool'))
   if debug:
     vis_segmentation(resized_im, seg_map)
-  return seg_map
+  return np.rot90(seg_map,k=3) # k=3 b/c it gives us the result we want   (I tested it experimentally.  Dec. 26, 2018)
+#===== end func def of  run_visualization(url): =====
 
 
 def segment(IMG_URL):
@@ -164,6 +164,7 @@ def segment(IMG_URL):
   MODEL = DeepLabModel(download_path)
 
   return run_visualization(IMG_URL, MODEL)
+#===== end func def of  segment(IMG_URL): =====
 
 if __name__=='__main__':
   if len(sys.argv) == 1:

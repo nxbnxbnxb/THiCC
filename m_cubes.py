@@ -6,13 +6,33 @@ from skimage.draw import ellipsoid
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
-body_model=np.load('body_nathan_.npy')
 #============================================================
-verts, faces, normals, values = measure.marching_cubes_lewiner(body_model, 0)
+def mesh_from_pt_cloud(model_np_arr):
+  '''
+    Marching Cubes algo; rudimentary point cloud ---> mesh algorithm
+    The format we've been using works just fine as input;
+      3D np arr (ie. arr.shape==(513,513,513)) where each arr[i,j,k] is either 0 (no body) or 1 (body)
+
+    Timing: model of shape (513,513,513)
+      real  0m4.610s
+      user  0m3.060s
+      sys 0m0.369s
+
+      wow, fast!
+  '''
+  verts, faces, normals, values = measure.marching_cubes_lewiner(model_np_arr, 0)
+  return verts, faces
+#============================================================
+def save_mesh(pt_cloud, faces_filename, verts_filename):
+  verts, faces, normals, values = measure.marching_cubes_lewiner(body_model, 0)
+  np.save('faces_nathan_.npy', faces)
+  np.save('verts_nathan_.npy', verts)
 #============================================================
 
-np.save('faces_nathan_.npy', faces)
-np.save('verts_nathan_.npy', verts)
+if __name__=='__main__':
+  body_model=np.load('body_nathan_.npy')
+  #============================================================
+  save_mesh(body_model, 'faces_nathan_.npy', 'verts_nathan_.npy')
 
 
 
