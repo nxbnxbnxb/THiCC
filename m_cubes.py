@@ -24,7 +24,7 @@ def mesh_from_pt_cloud(model_np_arr):
   return verts, faces
 #============================================================
 def save_mesh(pt_cloud, faces_filename, verts_filename):
-  verts, faces, normals, values = measure.marching_cubes_lewiner(body_model, 0)
+  verts, faces, normals, values = measure.marching_cubes_lewiner(pt_cloud, 0)
   np.save('faces_nathan_.npy', faces)
   np.save('verts_nathan_.npy', verts)
 #============================================================
