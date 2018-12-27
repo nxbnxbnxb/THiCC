@@ -78,7 +78,8 @@ def test_human():
   #model     = np.ones(shape).astype('bool')
   model     = mask(model, mask_2d)
   print "before rot8();   \n\n"
-  show_cross_sections(model, axis='y', freq=250)
+  if debug:
+    show_cross_sections(model, axis='y', freq=250)
 
   angle     = 90.0  # 90.0  # 72.9
   model     = rot8(model, angle)
@@ -98,7 +99,7 @@ def test_human():
     np.save('body_nathan_.npy', model)
     if SKIN:
       np.save('skin_nathan_.npy', skin )
-    save_mesh(model)
+    save_mesh(model, 'faces_nathan_.npy', 'verts_nathan_.npy')
   else: # not save:
     verts,faces=mesh_from_pt_cloud(model)
 
