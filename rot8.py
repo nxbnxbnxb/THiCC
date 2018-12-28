@@ -38,10 +38,10 @@ def rot8(model,angle,axis='z'):
 
 # TODO: sub-concern is how to make sure u shift the "center" back to the right place after rot8ing the voxels
   assert model.shape[0] == model.shape[1] == model.shape[2] # model is cube-shaped
-  print "angle (in degrees) is {0}".format(angle)
+  print ("angle (in degrees) is {0}".format(angle))
   angle = math.radians(angle)       # for use in cos(angle), sin(angle)
   ons   = on_locs(model).T  # Transposed so we can rotate the coords with R_z*coords
-  print "ons.shape is {0}".format(str(ons.shape))  # oughta have shape (big_num, 3)
+  print ("ons.shape is {0}".format(str(ons.shape)))  # oughta have shape (big_num, 3)
   #=====================================================
   def shift(locs, delta):
     '''
@@ -113,7 +113,7 @@ def rot8(model,angle,axis='z'):
     '''
   def round____all_8_adj_voxels(locs, max_idx_val):
     '''
-    print "max_idx_val is {0} \n".format(max_idx_val)
+    print ("max_idx_val is {0} \n".format(max_idx_val))
     full_locs=np.zeros((locs.shape[0]*  8 , locs.shape[1])).astype('uint64') # NOTE:   is uint64 too memory intensive?    as of Dec. 23, 2018, not too intense on my laptop for 2010? Android-quality video
     idx=0
     for loc in locs:
@@ -152,14 +152,14 @@ def rot8(model,angle,axis='z'):
   # returning to function rot8():
   ons   = round____all_8_adj_voxels(ons.T,model.shape[0]-1)  # ons.shape should be (large_num, 3) after this line.   (tall, not long)
   #if debug:
-  print "at line 114 of on_locs.rot8(), ons.shape      is {0}".format(str(ons.shape))
-  print "at line 115 of on_locs.rot8(), ons[:,0].shape is {0}".format(str(ons[:,0].shape))
-  print "at line 116 of on_locs.rot8(), ons[:,1].shape is {0}".format(str(ons[:,1].shape))
-  print "at line 117 of on_locs.rot8(), ons[:,2].shape is {0}".format(str(ons[:,2].shape))
-  print "at line 118 of on_locs.rot8(), max(ons[:,0]) is {0}   \n    and min(ons[:,0]) is {1}".format(str(np.amax(ons[:,0])), str(np.amin(ons[:,0])))
-  print "at line 119 of on_locs.rot8(), max(ons[:,1]) is {0}   \n    and min(ons[:,1]) is {1}".format(str(np.amax(ons[:,1])), str(np.amin(ons[:,1])))
-  print "at line 120 of on_locs.rot8(), max(ons[:,2]) is {0}   \n    and min(ons[:,2]) is {1}".format(str(np.amax(ons[:,2])), str(np.amin(ons[:,2])))
-  print '\n'*2
+  print ("at line 114 of on_locs.rot8(), ons.shape      is {0}".format(str(ons.shape)))
+  print ("at line 115 of on_locs.rot8(), ons[:,0].shape is {0}".format(str(ons[:,0].shape)))
+  print ("at line 116 of on_locs.rot8(), ons[:,1].shape is {0}".format(str(ons[:,1].shape)))
+  print ("at line 117 of on_locs.rot8(), ons[:,2].shape is {0}".format(str(ons[:,2].shape)))
+  print ("at line 118 of on_locs.rot8(), max(ons[:,0]) is {0}   \n    and min(ons[:,0]) is {1}".format(str(np.amax(ons[:,0])), str(np.amin(ons[:,0]))))
+  print ("at line 119 of on_locs.rot8(), max(ons[:,1]) is {0}   \n    and min(ons[:,1]) is {1}".format(str(np.amax(ons[:,1])), str(np.amin(ons[:,1]))))
+  print ("at line 120 of on_locs.rot8(), max(ons[:,2]) is {0}   \n    and min(ons[:,2]) is {1}".format(str(np.amax(ons[:,2])), str(np.amin(ons[:,2]))))
+  print ('\n'*2)
   # end if debug:
   rot8d = np.zeros(model.shape).astype('bool')
   rot8d[ons[:,0], ons[:,1], ons[:,2]] = True  # the voxels with these x,y,z values

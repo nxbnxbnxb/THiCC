@@ -5,6 +5,7 @@ import sys
 from d import debug
 
 from io import BytesIO
+import imageio as ii
 '''
 import matplotlib
 matplotlib.use('Agg')      
@@ -16,7 +17,6 @@ from matplotlib import gridspec
 from PIL import Image
 from six.moves import urllib
 
-import scipy; from scipy import misc
 from copy import deepcopy
 
 class DeepLabModel(object):
@@ -84,7 +84,7 @@ def vis_segmentation(image, seg_map):
 
   plt.subplot(grid_spec[1])
   seg_image = label_to_color_image(seg_map).astype(np.uint8)
-  #scipy.misc.imsave("_segmented____binary_.jpg", binarize(seg_image))
+  #ii.imwrite("_segmented____binary_.jpg", binarize(seg_image))
   #  NOTE:  saving is happening outside this method; we should have no side effects besides "show_img()" in this func
   plt.imshow(seg_image)
   plt.axis('off')
@@ -126,9 +126,9 @@ def run_visualization(url, model):
   print('running deeplab on image %s...' % url)
   resized_im, seg_map = model.run(original_im)
   from utils import count; counts=count(seg_map)
-  scipy.misc.imsave("_segmented____binary_mask_.jpg", seg_map)  # Dec. 14, 2018:  I think something in the saving process ***ks up the mask with noise
+  ii.imwrite("_segmented____binary_mask_.jpg", seg_map)  # Dec. 14, 2018:  I think something in the saving process ***ks up the mask with noise
   #PROBABLE = 127  # NOTE:  experimental from 1 data point;  PLEASE DOUBLE CHECK if u get a noisy segmentation
-  #scipy.misc.imsave("_segmented____binary_mask_.jpg", np.greater(seg_map, PROBABLE).astype('bool'))
+  #ii.imwrite("_segmented____binary_mask_.jpg", np.greater(seg_map, PROBABLE).astype('bool'))
   if debug:
     vis_segmentation(resized_im, seg_map)
   return np.rot90(seg_map,k=3) # k=3 b/c it gives us the result we want   (I tested it experimentally.  Dec. 26, 2018)
@@ -170,8 +170,8 @@ if __name__=='__main__':
   if len(sys.argv) == 1:
     IMG_URL = 'http://columbia.edu/~nxb2101/180.0.png'
     #'http://vishalanand.net/green.jpg'
-    print "\nusage: python2 seg.py [url_of_img_containing_human(s)] \n  example: python2 seg.py http://vishalanand.net/green.jpg   \n\n"
-    print "currently segmenting image found at url: \n  "+IMG_URL
+    print ("\nusage: python2 seg.py [url_of_img_containing_human(s)] \n  example: python2 seg.py http://vishalanand.net/green.jpg   \n\n")
+    print ("currently segmenting image found at url: \n  "+IMG_URL)
   else:
     IMG_URL = sys.argv[1]
   seg_map = segment(IMG_URL)

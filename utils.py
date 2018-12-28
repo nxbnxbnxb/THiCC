@@ -1,9 +1,9 @@
 
 # imports useful for access in python shell rather than for use in utils.py
-import imageio as ii
+#import imageio as ii
+#import pandas as pd
 #from   mpl_toolkits.mplot3d import Axes3D   # import no longer used (Dec. 16, 2018).  plots VERY BASIC 3d shapes
 import numpy as np
-import pandas as pd
 
 import pickle as pkl
 
@@ -19,10 +19,6 @@ from   time import sleep
 import subprocess as sp
 import random
 from   copy import deepcopy
-
-import scipy.misc
-import scipy.ndimage
-from   scipy.ndimage import rotate
 
 from   d import debug
 
@@ -40,7 +36,7 @@ from   d import debug
 
 #=========================================================================
 def pif(s):
-    if debug: print s
+    if debug: print (s)
 #=========================================================================
 def sq(x):
     return x*x
@@ -66,7 +62,7 @@ def approx_eq(x,y):
       already exists [here](https://docs.scipy.org/doc/numpy/reference/generated/numpy.isclose.html)
     '''
     if not x.shape == y.shape:
-      print "the shapes are not the same:\n first_param.shape is {0} \n second_param.shape is {1} \n".format(x,y)
+      print ("the shapes are not the same:\n first_param.shape is {0} \n second_param.shape is {1} \n".format(x,y))
       return False
     for i in range(x.shape[0]):
       for j in range(x.shape[1]):
@@ -140,35 +136,35 @@ def hist():
         TODO:  hg() == UNIX hg
     '''
     import readline
-    print '\n'*2
+    print ('\n'*2)
     for i in range(readline.get_current_history_length()):
         print (readline.get_history_item(i + 1))
-    print '\n'*2
+    print ('\n'*2)
 
 def print_dict(d):
     print_dict_recurs(d, 0)
 
 def print_dict_recurs(d, indent_lvl):
     for k,v in d.items():
-        print ('  ')*indent_lvl+'within key '+str(k)+': '
+        print (('  ')*indent_lvl+'within key '+str(k)+': ')
         if type(v)==type({}) or type(v)==type(OrderedDict()):
             print_dict_recurs(v, indent_lvl+1)
         elif type(v)==type([]):
             print_list_recurs(v, indent_lvl+1)
         else:
-            print ('  ')*indent_lvl+'  value in dict: '+str(v)
+            print (('  ')*indent_lvl+'  value in dict: '+str(v))
 
 def print_list(l):
     print_list_recurs(l, 0)
 def print_list_recurs(l, indent_lvl):
-    print ('  ')*indent_lvl+'printing list'
+    print (('  ')*indent_lvl+'printing list')
     for e in l:
         if type(e)==type({}) or type(e)==type(OrderedDict()):
             print_dict_recurs(e, indent_lvl+1)
         elif type(e)==type([]):
             print_list_recurs(e, indent_lvl+1)
         else:
-            print ('  ')*indent_lvl+'  element in list: '+str(e)
+            print (('  ')*indent_lvl+'  element in list: '+str(e))
  
 def print_visible(s):
     '''

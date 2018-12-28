@@ -1,7 +1,5 @@
 import  numpy as np
 from    copy import deepcopy
-import imageio as ii
-import scipy; from scipy import ndimage, misc, rot90
 
 # our files/modules.  
 from viz      import *
@@ -28,7 +26,7 @@ from m_cubes  import mesh_from_pt_cloud, save_mesh
 
 #===================================================================================================================================
 def pif(s):
-    if debug: print s
+    if debug: print(s)
 #===================================================================================================================================
 class BadInputException(RuntimeError):
     pass
@@ -64,7 +62,7 @@ def mask(model, mask, axis='x'):
   pif('model_depth is {0}'.format(model_depth))
   for i in range(model_depth):
     model_copy[:,i,:] = np.logical_and(model[:,i,:], mask)
-  print
+  print()
   UINT8_MAX=np.iinfo('uint8').max; MID=int(round(UINT8_MAX/2.))
   model_copy[np.greater(model_copy, 0)] = MID  # TODO: make sure there aren't negative values in model that are meant to be "on" voxels
   return model_copy
@@ -77,13 +75,13 @@ def test_human():
   model     = np.full(shape, MID).astype('uint8')
   #model     = np.ones(shape).astype('bool')
   model     = mask(model, mask_2d)
-  print "before rot8();   \n\n"
+  print ("before rot8();   \n\n")
   if debug:
     show_cross_sections(model, axis='y', freq=250)
 
   angle     = 90.0  # 90.0  # 72.9
   model     = rot8(model, angle)
-  print "right after rot8();   \n\n"
+  print ("right after rot8();   \n\n")
   if debug:
     show_all_cross_sections(model, freq=20)
 
@@ -91,7 +89,7 @@ def test_human():
   mask_side___URL ="http://columbia.edu/~nxb2101/90.0.png"
   mask_2d = pad_all(seg.segment(mask_side___URL), shape_2d)
   model     = mask(model, mask_2d)
-  print "after 2nd masking:    \n\n"
+  print ("after 2nd masking:    \n\n")
   SKIN=False
   if SKIN:
     skin=hollow(model)

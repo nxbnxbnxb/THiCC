@@ -35,28 +35,28 @@ def show_cross_sections(model_3d, axis='z', freq=2):
       for i in range(model_3d.shape[2]):
           if i%freq==0:
               if np.any(model_3d[:,:,i]):
-                  print 'height is {0}   out of {1}'.format(i, model_3d.shape[2])
+                  print ('height is {0}   out of {1}'.format(i, model_3d.shape[2]))
                   pltshow(model_3d[:,:,i])
   elif axis.lower()=='y':
       for i in range(model_3d.shape[1]):
           if i%freq==0:
               if np.any(model_3d[:,i,:]):
-                  print 'loc is {0}   out of {1}'.format(i, model_3d.shape[1])
+                  print ('loc is {0}   out of {1}'.format(i, model_3d.shape[1]))
                   pltshow(model_3d[:,i,:])
   elif axis.lower()=='x':
       for i in range(model_3d.shape[0]):
           if i%freq==0:
               if np.any(model_3d[i,:,:]):
-                  print 'loc is {0}   out of {1}'.format(i, model_3d.shape[0])
+                  print ('loc is {0}   out of {1}'.format(i, model_3d.shape[0]))
                   pltshow(model_3d[i,:,:])
   else:
-      print "Usage: please input axis x, y, or z in format:\n\n  show_cross_sections([model_name], axis='z')"
+      print ("Usage: please input axis x, y, or z in format:\n\n  show_cross_sections([model_name], axis='z')")
   return
 #=========================================================================
 def show_all_cross_sections(model_3d, freq=2):
-  print '\n'*3; print "x: \n\n"
-  show_cross_sections(model_3d, axis='x', freq=freq); print '\n'*3; print "y: \n\n"
-  show_cross_sections(model_3d, axis='y', freq=freq); print '\n'*3; print "z: \n\n"
+  print ('\n'*3); print ("x: \n\n")
+  show_cross_sections(model_3d, axis='x', freq=freq); print ('\n'*3); print ("y: \n\n")
+  show_cross_sections(model_3d, axis='y', freq=freq); print ('\n'*3); print ("z: \n\n")
   show_cross_sections(model_3d, axis='z', freq=freq); return
 #=========================================================================
 
