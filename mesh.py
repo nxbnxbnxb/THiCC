@@ -219,10 +219,10 @@ def norms(vor):
       N=(triangle-np.vstack((CoM_vor,CoM_vor,CoM_vor)).astype('float64')).T
       voros_cov += np.linalg.det(N)*np.dot(N,Q,N.T)
       # this is enough for single voros' covariances, but now we wanna union the adjacent vorohedrons' covariances too  (loosely speaking; again, read the paper :P)
+      # NOTE:  this doesn't compile yet.  It just shows an intermediate step that I wanted to document in git
 
 
 
-      # TODO:  is region empty because algorithm doesn't work, or is there absolutely no voronoi area associated with certain points?
       # TODO:  check the results of the Voronoi() function
       #   calculate N using each of the tetrahedrons' CoMs, translate with vorohedrons' CoMs, and thereby find the covariances
       #   "unioning" process also needs to be baked in.  
