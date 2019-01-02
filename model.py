@@ -1,4 +1,5 @@
 import  numpy as np
+np.seterr(all='raise')
 from    copy import deepcopy
 
 # our files/modules.  

@@ -1,3 +1,6 @@
+import numpy as np
+np.seterr(all='raise')
+
 # part of model.py's test_human():
 """
 on_locs=np.nonzero(model)

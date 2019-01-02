@@ -1,5 +1,6 @@
 import os, tarfile, tempfile
 import numpy as np
+np.seterr(all='raise')
 import tensorflow as tf
 import sys
 from d import debug

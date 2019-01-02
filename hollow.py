@@ -1,5 +1,6 @@
 
 import numpy as np
+np.seterr(all='raise')
 from copy import deepcopy
 from utils import pif
 

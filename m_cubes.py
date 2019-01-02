@@ -1,4 +1,5 @@
 import numpy as np
+np.seterr(all='raise')
 from skimage import measure
 from skimage.draw import ellipsoid
 

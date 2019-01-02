@@ -1,6 +1,7 @@
 # imports
 import numpy as np
 import math
+np.seterr(all='raise')
 from math import cos, sin, ceil, floor
 from save import save
 from d import debug

@@ -4,6 +4,7 @@
 #import pandas as pd
 #from   mpl_toolkits.mplot3d import Axes3D   # import no longer used (Dec. 16, 2018).  plots VERY BASIC 3d shapes
 import numpy as np
+np.seterr(all='raise')
 
 import pickle as pkl
 
