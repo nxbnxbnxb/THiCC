@@ -22,3 +22,5 @@ These instructions for configuring conda were written on December 27th, 2018.  S
 
 
 
+#### Understanding scipy.spatial Voronoi (and Delaunay) functions:
+https://docs.scipy.org/doc/scipy-0.18.1/reference/tutorial/spatial.html#qhulltutorial

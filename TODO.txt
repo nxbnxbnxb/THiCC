@@ -1,10 +1,97 @@
 ________________________________
 
+  Mon Dec 31 23:36:37 CET 2018
+________________________________
+
+  Refactor all code so definitions of functions aren't obstructing clear, easy reading of code.
+    (no definitions of functions within functions)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sun Dec 30 23:36:37 CET 2018
+________________________________
+
+  sort .py files into more dirs so ls -ltrAh has reasonable (not too many) results
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
   Tue Dec 25 20:07:22 EST 2018
 ________________________________
 
-  Get marching_cubes() working so we can visualize
+  Get marching_cubes() working so we can visualize mesh
+    Done.
   Amazon checkout
+    What did I mean by this?
   git recover the full skinning function (checks each of the adjacent voxels for "on" status and decides "on" or "off" based on this)
 
   compare skin with full model (perhaps it's not wrong to have a straight line at parts of the body)

@@ -16,12 +16,14 @@
 '''
 
 import numpy as np
+np.seterr(all='raise')
 from copy import deepcopy
 from scipy.spatial import Voronoi
 import scipy.spatial
 import sys
 from d import debug
 from utils import pif
+from datetime import datetime
 
 
 #=========================================================
@@ -87,16 +89,18 @@ def centroid_and_vol(idx, vor):
   header      = 'Models()\'s {0} function'.format(sys._getframe().f_code.co_name); pif('Entering '+header)
 
   region = vor.regions[idx]
-  inf_bound=-1
-  if inf_bound in region:
+  INF_BOUND=-1
+  if INF_BOUND in region:
     return False
     # TODO: figure out how to handle infinite bound of vor region;   this should just mean that this region is a dummy point
   vertices = vor.vertices[region]
   pif("vertices are {0}".format(vertices))
   if len(vertices) == 0:
     return False
+    # TODO:   Perhaps I should use a neighbor's precalculated normal in this case, maybe also decreasing the magnitude of the covariance tensor.
+    # NOTE:   This behavior is explained in (https://docs.scipy.org/doc/scipy-0.18.1/reference/tutorial/spatial.html#qhulltutorial; "Note here that due to similar numerical precision issues as in Delaunay triangulation above, there may be fewer Voronoi regions than input points"), but I am still not sure WHY this happens.  Shouldn't every input point have an associated Voronoi region, at least unless it is a duplicate?  I think it has something to do with the PARTICULAR algorithm qhull uses to calculate Vor_3d, rather than the mathematical definition of the voronoi region
   else:
-    print("vertices.shape:  {0}".format(vertices.shape))
+    pif("vertices.shape:  {0}".format(vertices.shape))
     return CoM_and_vol(vertices)
 # end func def of centroid_and_vol(idx, vor):
 #=========================================================
@@ -109,6 +113,7 @@ def add_dummies(pt_cloud):
     ------
       Assumes pt_cloud is regular (ie. cube)
   '''
+  # TODO:   make more dummies; has to be dense enough that it's impossible for a real data point's vor region to extend to infinity
   header      = 'Models()\'s {0} function'.format(sys._getframe().f_code.co_name); pif('Entering '+header)
 
   end=max(pt_cloud.shape)-2; mid = int(round((end+2)/2)); start=1
@@ -140,6 +145,8 @@ if __name__=='__main__':
   locs=np.nonzero(model); locs=np.array(locs).T
   # vor step of Alliez et al.   (for estimating normals from point cloud)
   vor=Voronoi(locs)
+  CoMs=np.zeros((3,len(vor.regions)+3)).astype('float64') # +3 b/c it's always good to have a little bit of leeway in case something goes wrong
+  vols=np.zeros(len(vor.regions)+3).astype('float64') # +3 b/c it's always good to have a little bit of leeway in case something goes wrong
   for idx in range(len(vor.regions)):
     res = centroid_and_vol(idx, vor)
     if res:  # False if dummy point or region is empty
@@ -152,6 +159,11 @@ if __name__=='__main__':
       #   "unioning" process also needs to be baked in.  
 
       # NOTE: As is, the whole thing is really really way too slow.  There's gotta be a faster way
+      CoMs[:,idx]=CoM
+      vols[idx]=vol
+  if save:
+    np.save('centroids_Nathan_skin___scipy_spatial_Vor____{0}.npy'.format('%Y_%m_%d___%H:%M:%S'.format(datetime.now())), CoMs)
+    np.save('volumes_Nathan_skin___scipy_spatial_Vor____{0}.npy'.format('%Y_%m_%d___%H:%M:%S'.format(datetime.now())), vols)
 
 
 
