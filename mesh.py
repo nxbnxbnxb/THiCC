@@ -65,6 +65,7 @@ def CoM_and_vol(vertices):
       (https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.ndimage.measurements.center_of_mass.html)
 
     Tested this function a few times with regular polyhedra like cube, octohedron, icosahedron, and dodecahedron.
+    At the moment, this actually WORKS.  Come back to this commit if things start breaking.
   '''
   header      = 'Models()\'s {0} function'.format(sys._getframe().f_code.co_name); pif('Entering '+header)
 
