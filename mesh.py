@@ -24,6 +24,7 @@ import sys
 from d import debug
 from utils import pif
 from datetime import datetime
+from save import *
 
 
 #=========================================================
@@ -49,6 +50,46 @@ def volume_tetra(tetra):
 #=========================================================
 
 def CoM_and_vol(vertices):
+  '''
+    get center of mass and volume of arbitrary CONVEX polyhedron
+
+    Params:
+    -------
+    vertices is a 2-D np.array.
+    vertices.shape == (n,3)
+    
+    
+    Notes:
+    ------
+
+    An approximate way of doing this would be to fill a 3-D np array and use scipy.ndimage.measurements.center_of_mass()  :
+      (https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.ndimage.measurements.center_of_mass.html)
+
+    Tested this function a few times with regular polyhedra like cube, octohedron, icosahedron, and dodecahedron.
+    At the moment, this actually WORKS.  Come back to this commit if things start breaking.
+  '''
+  header      = 'Models()\'s {0} function'.format(sys._getframe().f_code.co_name); pif('Entering '+header)
+
+  hull=scipy.spatial.ConvexHull(vertices)
+  volume=hull.volume
+  triangle_mesh_hull=vertices[hull.simplices] # (n,3,3)
+  # triang mesh calculation taken from    https://stackoverflow.com/questions/26434726/return-surface-triangle-of-3d-scipy-spatial-delaunay/26516915
+  inner_pt = np.mean(vertices[:2],axis=0).reshape((1,3))
+  CoM=np.zeros((3,))
+  pif("inner_pt is {0}".format(inner_pt))
+  for triangle in triangle_mesh_hull:
+    pif("triangle is: \n{0}".format(triangle))
+    tetra=np.concatenate((inner_pt,triangle),axis=0)
+    CoM_tetra=np.mean(tetra,axis=0)
+    vol_tetra=volume_tetra(tetra)
+    CoM+=(CoM_tetra*vol_tetra)
+  return CoM/volume, volume
+# end func def of CoM_and_vol(vertices):
+#=========================================================
+
+def norms(vertices):
+  pass
+def norms(vertices):
   '''
     get center of mass and volume of arbitrary CONVEX polyhedron
 
@@ -138,33 +179,64 @@ def add_dummies(pt_cloud):
   return with_dummies
 # end def of func add_dummies(pt_cloud)
 #=========================================================
+def ZERO_NORM():
+  return np.eye(3).astype("float64")
+def norms(vor):
+  header      = 'Models()\'s {0} function'.format(sys._getframe().f_code.co_name); pif('Entering '+header)
 
-if __name__=='__main__':
-  model = np.load('skin_nathan_.npy').astype('bool')
-  model = add_dummies(model)
-
-  locs=np.nonzero(model); locs=np.array(locs).T
-  # vor step of Alliez et al.   (for estimating normals from point cloud)
-  vor=Voronoi(locs)
-  CoMs=np.zeros((3,len(vor.regions)+3)).astype('float64') # +3 b/c it's always good to have a little bit of leeway in case something goes wrong
-  vols=np.zeros(len(vor.regions)+3).astype('float64') # +3 b/c it's always good to have a little bit of leeway in case something goes wrong
+  norms=np.zeros((3,3, len(vor.regions)))
+  Q=np.array([[2,1,1],
+              [1,2,1],
+              [1,1,2]]).astype('float64')/120.0  # check Alliez et al. paper
   for idx in range(len(vor.regions)):
-    res = centroid_and_vol(idx, vor)
-    if res:  # False if dummy point or region is empty
-      CoM, vol = res
-      pif("Center of Mass is {0}".format(CoM))
-      pif("Volume is {0}".format(vol))
+    pt=vor.points[idx]
+    region = vor.regions[idx]
+    INF_BOUND=-1
+    if INF_BOUND in region:
+      continue  # when we've done this correctly, this will only happen for dummy (edge) points
+    vertices = vor.vertices[region]
+    if len(vertices) == 0:
+      norms[:,:,idx] = ZERO_NORM()
+      continue
+    hull=scipy.spatial.ConvexHull(vertices)
+    volume=hull.volume
+    triangle_mesh_hull=vertices[hull.simplices] # (n,3,3)
+    inner_pt = np.mean(vertices[:2],axis=0).reshape((1,3))
+    CoM_vor=np.zeros((1,3)).astype('float64')
+    ctr=5
+    for triangle in triangle_mesh_hull:
+      if ctr > 0:
+        print(triangle) #[[x1, y1, z1],
+        ctr-=1          # [x2, y2, z2],
+      tetra=np.concatenate((inner_pt,triangle),axis=0)
+      CoM_tetra=np.mean(tetra,axis=0)
+      vol_tetra=volume_tetra(tetra)
+      CoM_vor+=(CoM_tetra*vol_tetra)
+    CoM_vor/=volume
+    voros_cov=np.zeros((3,3)).astype('float64')  # THIS vorohedron's covariance
+    for triangle in triangle_mesh_hull:
+      tetra=np.concatenate((CoM_vor,triangle),axis=0)
+      N=(triangle-np.vstack((CoM_vor,CoM_vor,CoM_vor)).astype('float64')).T
+      voros_cov += np.linalg.det(N)*np.dot(N,Q,N.T)
+      # this is enough for single voros' covariances, but now we wanna union the adjacent vorohedrons' covariances too  (loosely speaking; again, read the paper :P)
+
+
+
       # TODO:  is region empty because algorithm doesn't work, or is there absolutely no voronoi area associated with certain points?
       # TODO:  check the results of the Voronoi() function
       #   calculate N using each of the tetrahedrons' CoMs, translate with vorohedrons' CoMs, and thereby find the covariances
       #   "unioning" process also needs to be baked in.  
 
       # NOTE: As is, the whole thing is really really way too slow.  There's gotta be a faster way
-      CoMs[:,idx]=CoM
-      vols[idx]=vol
-  if save:
-    np.save('centroids_Nathan_skin___scipy_spatial_Vor____{0}.npy'.format('%Y_%m_%d___%H:%M:%S'.format(datetime.now())), CoMs)
-    np.save('volumes_Nathan_skin___scipy_spatial_Vor____{0}.npy'.format('%Y_%m_%d___%H:%M:%S'.format(datetime.now())), vols)
+
+if __name__=='__main__':
+  model = np.load('skin_nathan_.npy').astype('bool')
+  model = add_dummies(model)
+
+  locs=np.nonzero(model); locs=np.array(locs).T.astype('int64')
+  # vor step of Alliez et al.   (for estimating normals from point cloud)
+  vor=Voronoi(locs)
+  normals=norms(vor)
 
 
 
