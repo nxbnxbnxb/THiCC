@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+np.seterr(all='raise')
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
 
 #######################################################################################################
@@ -62,6 +63,9 @@ def show_all_cross_sections(model_3d, freq=2):
 
 # TODO: make a show_3d() function that uses matplotlib
 def show_3d(voxels):
+  '''
+    voxels
+  '''
   fig = plt.figure()
   ax = fig.gca(projection='3d')
   x_str='this is the x axis'
@@ -72,6 +76,16 @@ def show_3d(voxels):
   ax.set_zlabel(z_str)
   ax.voxels(voxels, edgecolor='k')
 
+  plt.show()
+  plt.close(); return
+
+def plot_skin():
+  skin  = np.load("skin_nathan_.npy")
+  locs  = np.nonzero(skin)
+  print(type(locs))
+  fig   = plt.figure()
+  ax    = fig.add_subplot(111, projection='3d')
+  ax.scatter(locs[0], locs[1], locs[2])
   plt.show()
   plt.close(); return
 
