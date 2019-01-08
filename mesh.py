@@ -18,7 +18,6 @@
 import numpy as np
 np.seterr(all='raise')
 from copy import deepcopy
-from scipy.spatial import Voronoi
 # TODO:  check the results of the Voronoi() function
 import scipy.spatial
 import sys
@@ -26,6 +25,21 @@ from d import debug
 from utils import pif
 from datetime import datetime
 from save import *
+from numpy import linalg as LA  # TODO: shorten every np.linalg.[insert funcall name]() to LA.[funcall name]() 
+
+# TODO:   np.eigh() or np.eigvalsh() may work faster/more reliably for a symmetric (or Hermitian: conjugate symmetric) matrix
+#
+#
+#
+#
+#
+#
+#
+#
+#
+# TODO:  check whether we should take the max of abs(np.linalg.eigvals()) or the maximum POSITIVE eigval()    (when picking the maximum eigenvalue that gives us the anisotropy, etc.)  I THINK max abs makes more sense, but I'm not 100% sure
+#
+#
 
 
 #=========================================================
@@ -85,25 +99,6 @@ def CoM_and_vol(vertices):
   return CoM/volume, volume
 # end func def of CoM_and_vol(vertices):
 #=========================================================
-def centroid_and_vol(idx, vor):
-  header      = 'Models()\'s {0} function'.format(sys._getframe().f_code.co_name); pif('Entering '+header)
-
-  region = vor.regions[idx]
-  INF_BOUND=-1
-  if INF_BOUND in region:
-    return False
-    # TODO: figure out how to handle infinite bound of vor region;   this should just mean that this region is a dummy point
-  vertices = vor.vertices[region]
-  pif("vertices are {0}".format(vertices))
-  if len(vertices) == 0:
-    return False
-    # TODO:   Perhaps I should use a neighbor's precalculated normal in this case, maybe also decreasing the magnitude of the covariance tensor.
-    # NOTE:   This behavior is explained in (https://docs.scipy.org/doc/scipy-0.18.1/reference/tutorial/spatial.html#qhulltutorial; "Note here that due to similar numerical precision issues as in Delaunay triangulation above, there may be fewer Voronoi regions than input points"), but I am still not sure WHY this happens.  Shouldn't every input point have an associated Voronoi region, at least unless it is a duplicate?  I think it has something to do with the PARTICULAR algorithm qhull uses to calculate Vor_3d, rather than the mathematical definition of the voronoi region
-  else:
-    pif("vertices.shape:  {0}".format(vertices.shape))
-    return CoM_and_vol(vertices)
-# end func def of centroid_and_vol(idx, vor):
-#=========================================================
 def add_dummies(pt_cloud):
   '''
     Dummy pts as described in the Alliez paper
@@ -139,6 +134,19 @@ def add_dummies(pt_cloud):
 def ZERO_NORM():
   return np.eye(3).astype("float64")
 #=========================================================
+def max_eig_vect(covar):
+  '''
+    returns the eigenvector associated with the largest eigenvalue of the 3x3 input matrix.
+
+    -----
+    Notes:
+      should be generalizable to any 3x3 matrix, but we don't particularly care right now
+  '''
+  # NOTE:  on Jan. 8, 2018, this call gave the Warning   "mesh.py:328: ComplexWarning: Casting complex values to real discards the imaginary part."  TODO: figure out why, workaround it.
+
+  vals, vects = LA.eig(covar)
+  return vects[:,vals.argmax()]
+#=========================================================
 def anisotropy(matrix):
   '''
     Basically the "pointiness" of the normal
@@ -163,7 +171,7 @@ def norms(vor):
     Parameters
     ----------
     vor is an object returned by the scipy.spatial.Voronoi() function;  you'll have to call Voronoi(pts) on your own pt_cloud to be able to use this function.  The initial pts have to be a (n,3) numpy array of the SKIN of a person, not every voxel in their body whole 
-    returns np array of shape (3,3,n), where n is the number of input points.  I know a 3x3 matrix isn't a normal vector in the traditional physics sense, but I bet Alliez et al. have a reason to use these 3x3s instead of 3x1s normal vectors
+    returns np array of shape (n,3,3), where n is the number of input points.  I know a 3x3 matrix isn't a normal vector in the traditional physics sense, but I bet Alliez et al. have a reason to use these 3x3s instead of 3x1s normal vectors
 
     Notes
     -----
@@ -175,7 +183,6 @@ def norms(vor):
       "[if] the space is a finite-dimensional Euclidean space (our case), each site is a point, there are finitely many points and all of them are different, then the Voronoi cells are CONVEX polytopes." (-Wikipedia)
       proof: (https://math.stackexchange.com/questions/269575/does-voronoi-tessellation-in-3d-always-produce-convex-polyhedrons)
   '''
-  # TODO: Thoroughly consider whether it's better to call everything covariances or norms?
   # TODO:   more explicit typing:  ie.  .astype('float64'), .astype('int64')
   # TODO: refactor into separate, descriptive functions
   header      = 'Models()\'s {0} function'.format(sys._getframe().f_code.co_name); pif('Entering '+header)
@@ -195,15 +202,19 @@ def norms(vor):
   IDXES=1       # quirk of scipy.spatial.cKDTree class;   0th result is the distances,   1th is indices
 
   # Data structures we're storing the calculated centroids (CoMs), volumes, and covariances (covars) in.  "Norms," "normals," "covars," and "covariances" all refer to the same thing.
-  norms       = np.zeros((vor.npoints,3,3) ).astype('float64')#    <-- "norms" will be the final return value;   stands for "normal vectors'
+  norms       = np.zeros((vor.npoints,3)   ).astype('float64')
+  final_covars= np.zeros((vor.npoints,3,3) ).astype('float64')#    <-- "final_covars" will be the final return value;   stands for "normal vectors'
+  confidences = np.zeros( vor.npoints      ).astype('float64') # anisotropies
   voro_covars = np.zeros((vor.npoints,3,3) ).astype('float64')
   voro_vols   = np.zeros( vor.npoints      ).astype('float64')
   voro_CoMs   = np.zeros((vor.npoints,3  ) ).astype('float64')
   # voro_vols, voro_CoMs, and voro_covars all record individual Vorohedrons' measurements, not those of unions of multiple vorohedra
   KDTree      = scipy.spatial.cKDTree(          vor.points,copy_data=True) # copy_data=True b/c unintended side effects suck.   There may be memory shortages b/c of copy_data=True, though.  
   # TODO:  consider use of KDTree again  (high space complexity)
-  # NOTE:   Jan. 3, 2018; memory usage is pretty reasonable with 85215 skin data points (513, 513, 513) model from pngs with max dimension (in numpy) 513
+  # NOTE:   Jan. 3, 2018; memory usage is pretty reasonable with 85215 skin data points from a shape==(513, 513, 513) model from .png files with max dimension (in numpy) 513
 
+  first = True
+  # TODO: make sure in EVERY exit case, we do everything we need to get the norm, the covariances, and the confidence, etc.   Check every "continue" statement, every "break," etc.
   for pt_idx in range(len(vor.points)):
     region_idx      = vor.point_region[pt_idx]
     # NOTE: This reindexing (region_idx != pt_idx) is important.  Voronoi() doesn't index vor.regions with the same indices as the vor.points.  This was an early error I made (January 2, 2018).  
@@ -219,6 +230,7 @@ def norms(vor):
     aniso_curr      = float('-inf')
 
     # TODO:  consider whether it's easier to use a for loop  (ie. (for i in range(BIG))):    so the "continue"s automatically advance the index, but then we gotta throw a "break" in there if anitotropy > 0.9
+    # NOTE:  the following while loop calculates the covariance of the union of this point with neighboring points
     while neighbor_idx < K and aniso_max < 0.9:
       macro_neighbor_idx=neighbors_idxes[neighbor_idx]
       union_so_far= neighbors_idxes[:neighbor_idx+1]  # NOTE:  the +1 is there for a reason.  Consider if neighbor_idx was 0; this wouldn't return anything without the +1.  And if neighbor_idx were K-1 you'd still be missing a neighbors without the +1
@@ -228,32 +240,39 @@ def norms(vor):
       if np.any(voro_covars[macro_neighbor_idx]):
         # TODO:  neighbors_idxes[:neighbor_idx+1] ==> cumulative_neighbors_idxes  (something shorter, but to this effect)
         unions_vol  = np.sum(voro_vols[union_so_far])
-        unions_CoM  = np.sum(voro_vols[union_so_far].reshape((neighbor_idx+1,1))  *voro_CoMs[union_so_far],axis=DOWN) / unions_vol
+        unions_CoM  = np.sum(voro_vols[union_so_far].reshape((neighbor_idx+1,1))  * voro_CoMs[union_so_far],  axis=DOWN) / unions_vol
         assert unions_CoM.shape == (3,)
         p_i         = (voro_CoMs[macro_neighbor_idx] - unions_CoM).reshape((3,1))  # we want p_i.dot(p_i.T) to have shape (3,3)[3x3 matrix].   (3,1)x(1,3) ==> (3,3)
         # p_i*p_i.T is symmetric with respect to unions_CoM - voros_CoM.   So it doesn't matter which order we do here
         m_i         = voro_vols[macro_neighbor_idx]
         shifts      = np.tile((m_i*p_i.dot(p_i.T)),(neighbor_idx+1,1,1)).astype('float64')
-        print("shifts.shape is {0}".format(shifts.shape))
-        unions_covar= np.sum( voro_covars[union_so_far] - shifts,  axis=2) # calculation from Alliez paper (covars of unions of vorohedra)
-        print("unions_covar.shape is {0}".format(unions_covar.shape))
+        unions_covar= np.sum( voro_covars[union_so_far] - shifts,  axis=0) # calculation from Alliez paper (covars of unions of vorohedra)
+        # shifts.shape                      is (n, 3, 3)
+        # voro_covars[union_so_far].shape   is (n, 3, 3)
+        # unions_covar.shape                is    (3, 3)
+
+        assert len(shifts.shape)==3 and   shifts.shape[1] == shifts.shape[2] == 3
+        assert shifts.shape == voro_covars[union_so_far].shape
         assert unions_covar.shape == (3,3)
         # TODO:   is it faster to use a running covariance rather than calculating it this way?  I bet the running covariance IS faster, though it'll resemble the paper less than this way does
         aniso_curr        = anisotropy(unions_covar)
         if aniso_curr > aniso_max:
           aniso_max = aniso_curr
-          norms[pt_idx]=unions_covar
+          final_covars[pt_idx]=unions_covar
         neighbor_idx     += 1
-        continue
+        continue  # next iteration of the inner "while" which calculate the covariance of the union of points nearby the pt we've iterated to in the outer "for" loop
       # end if (covars were calculated in a previous loop):
       else:  # if covars haven't been calculated yet, calculate vorohedron's covariance.    To do that, first we need to calc its volume and centroid
+        if first:
+          print ("calculating first covariance")
+          first=False
         vertices = vor.vertices[region]  # TODO: double-check indexing
         if len(vertices) == 0: # Don't use this pt as data in consideration of the norms  
         # Sometimes qhull returns empty lists of vertices.  I believe this is because of coplanar points, as qhull uses Delaunay triangulation to calculate the Vorohedrons
         #   More details on why I believe this can be found [here](https://docs.scipy.org/doc/scipy/reference/tutorial/spatial.html), under the heading "Coplanar points" (As of Jan. 3, 2018)
-          norms[pt_idx]=np.eye(3) # TODO: make sure this is the right thing to do here.  I'm STILL not 100% sure why qhull sometimes returns [] under vor.regions.  Once we figure it out, we can treat the code appropriately
+          final_covars[pt_idx]=np.eye(3) # TODO: make sure this is the right thing to do here.  I'm STILL not 100% sure why qhull sometimes returns [] under vor.regions.  Once we figure it out, we can treat the code appropriately
           neighbor_idx   += 1
-          continue
+          continue # next iteration of the inner "while" which calculate the covariance of the union of points nearby the pt we've iterated to in the outer "for" loop
         hull=scipy.spatial.ConvexHull(vertices)
         voro_vols[macro_neighbor_idx]=hull.volume
         vol_voro=voro_vols[macro_neighbor_idx]  # NOTE:  this pointer 'vol_voro' allows us to mutate the bigger array without repeatedly typing the cumbersome indices
@@ -297,13 +316,21 @@ def norms(vor):
         aniso_curr        = anisotropy(unions_covar) # TODO:  all this stuff in the "else:" branch
         if aniso_curr > aniso_max:
           aniso_max = aniso_curr
-          norms[pt_idx]=unions_covar
+          final_covars[pt_idx]=unions_covar
       # end else: (this block calculated the covariance, CoM, and volume to store in the np arrays declared before the loop (voro_covars, voro_vols, voro_CoMs))
       neighbor_idx+=1
-    # TODO:  if neighbor_idx == K: return covar with max anisotropy.  I'm pretty sure we did this
-    # end while anisotropy() < 0.9 and   neighbor_idx < K:
+      # tail condition: while loop is about to terminate
+    # TODO:  ensure that   "if neighbor_idx == K: return covar with max anisotropy".  I'm pretty sure we did this
+    # end inner loop "while anisotropy() < 0.9 and   neighbor_idx < K:"
+    assert aniso_max != float('-inf')  # if it still is, do, uh....  idk, more debugging
+    # NOTE:  these confidences and norms are calcul8d after the termination of the while loop.  So for each continue within the while loop, we don't have to get a confidence or a norm
+    confidences[pt_idx] = aniso_max
+    # TODO: if this eig calc is slowing everything down, move norms[pt_idx]=max_eig_vect() outside the for loop and vectorize eig() calculation as mentioned [here](https://stackoverflow.com/questions/19468889/vectorize-eigenvalue-calculation-in-numpy)
+    norms[pt_idx]       = max_eig_vect(final_covars[pt_idx])
+  # end "for pt_idx in range(len(vor.points)):" }
+
   return norms
-  # TODO: normalize each normal vector.   Question for Alliez et al.: Doesn't normalization reduce the degree to which one can be "sure" of the pointiness at each point in the pt cloud?
+  # TODO: normalize each covariance.
   # NOTE: As of Dec. 31, 2018, the whole thing is really waaaaay too slow.  TODO: speed it up.  There's gotta be a faster way
 # end func def of   norms(vor):
 #=========================================================
@@ -313,7 +340,7 @@ def main():
 
   locs=np.nonzero(model); locs=np.array(locs).T.astype('int64')
   # vor step of Alliez et al.   (for estimating normals from point cloud)
-  vor=Voronoi(locs)
+  vor=scipy.spatial.Voronoi(locs)
   # TODO:  check the results of the Voronoi() function
   normals=norms(vor)
   print(normals.shape)
