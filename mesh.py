@@ -107,7 +107,7 @@ def add_dummies(pt_cloud):
     ------
       Assumes pt_cloud is regular (ie. cube)
   '''
-  # TODO:   make more dummies; has to be dense enough that it's impossible for a real data point's vor region to extend to infinity
+  # TODO: better way to solve the dummy problem is to put the model in a larger numpy array and "insert" it into the center.  Jan. 9, 2019
   header      = 'Models()\'s {0} function'.format(sys._getframe().f_code.co_name); pif('Entering '+header)
 
   end=max(pt_cloud.shape)-2; mid = int(round((end+2)/2)); start=1
@@ -143,7 +143,7 @@ def max_eig_vect(covar):
       should be generalizable to any 3x3 matrix, but we don't particularly care right now
   '''
   # NOTE:  on Jan. 8, 2018, this call gave the Warning   "mesh.py:328: ComplexWarning: Casting complex values to real discards the imaginary part."  TODO: figure out why, workaround it.
-
+  #print("covar is {0} \n".format(covar))
   vals, vects = LA.eig(covar)
   return vects[:,vals.argmax()]
 #=========================================================
@@ -215,6 +215,9 @@ def norms(vor):
 
   first = True
   # TODO: make sure in EVERY exit case, we do everything we need to get the norm, the covariances, and the confidence, etc.   Check every "continue" statement, every "break," etc.
+  pif("len(vor.points) is \n{0}".format(len(vor.points)))
+  pif("len(vor.regions) is \n{0}".format(len(vor.regions)))  # these 2 are fine
+  dummy_pt_count=0
   for pt_idx in range(len(vor.points)):
     region_idx      = vor.point_region[pt_idx]
     # NOTE: This reindexing (region_idx != pt_idx) is important.  Voronoi() doesn't index vor.regions with the same indices as the vor.points.  This was an early error I made (January 2, 2018).  
@@ -223,6 +226,8 @@ def norms(vor):
     region          = vor.regions[region_idx]
     pt              = vor.points [pt_idx]
     if INF_BOUND in region:
+      dummy_pt_count+=1
+      pif("{0}th dummy pt".format(dummy_pt_count)) # fine
       continue  # when we've added dummy pts correctly, this will only happen for dummy (edge) points
     neighbors_idxes = KDTree.query(pt,k=K)[IDXES]
     neighbor_idx    = 0
@@ -326,7 +331,18 @@ def norms(vor):
     # NOTE:  these confidences and norms are calcul8d after the termination of the while loop.  So for each continue within the while loop, we don't have to get a confidence or a norm
     confidences[pt_idx] = aniso_max
     # TODO: if this eig calc is slowing everything down, move norms[pt_idx]=max_eig_vect() outside the for loop and vectorize eig() calculation as mentioned [here](https://stackoverflow.com/questions/19468889/vectorize-eigenvalue-calculation-in-numpy)
-    norms[pt_idx]       = max_eig_vect(final_covars[pt_idx])
+    import warnings
+    warnings.filterwarnings("error")
+    try:
+      norms[pt_idx]       = max_eig_vect(final_covars[pt_idx])
+    except np.core.numeric.ComplexWarning:
+      print("final_covars[pt_idx] = \n{0}".format(final_covars[pt_idx]))
+      print("pt                  is \n{0}".format(pt    ))
+      print("pt_idx              is \n{0}".format(pt_idx))
+      print("neighbor_idx        is \n{0}".format(neighbor_idx))
+      print("aniso_max           is \n{0}".format(aniso_max))
+      print("final_covars[pt_idx] = \n{0}".format(final_covars[pt_idx]))
+      # NOTE: this happens a lot for pretty much any input
   # end "for pt_idx in range(len(vor.points)):" }
 
   return norms
@@ -334,8 +350,7 @@ def norms(vor):
   # NOTE: As of Dec. 31, 2018, the whole thing is really waaaaay too slow.  TODO: speed it up.  There's gotta be a faster way
 # end func def of   norms(vor):
 #=========================================================
-def main():
-  model = np.load('skin_nathan_.npy').astype('bool')
+def main(model, savefilename):
   model = add_dummies(model)
 
   locs=np.nonzero(model); locs=np.array(locs).T.astype('int64')
@@ -343,13 +358,13 @@ def main():
   vor=scipy.spatial.Voronoi(locs)
   # TODO:  check the results of the Voronoi() function
   normals=norms(vor)
-  print(normals.shape)
   if save:
-    np.save('norms_nathan_.npy', normals)
+    np.save(savefilename, normals)
 # end func def of   main():
 #=========================================================
 if __name__=='__main__':
-  main()
+  model = np.load('skin_nathan_.npy').astype('bool')
+  main(model, 'norms_nathan_.npy')
 #=========================================================
 
 
