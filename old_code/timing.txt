@@ -1,0 +1,27 @@
+(cat_opencv3)  t p model.py
+running deeplab on image http://columbia.edu/~nxb2101/180.0.png...
+/home/n/anaconda3/envs/cat_opencv3/lib/python2.7/site-packages/numpy/core/numeric.py:301: FutureWarning: in the future, full((513, 513, 513), 128) will return an array of dtype('int64')
+  format(shape, fill_value, array(fill_value).dtype), FutureWarning)
+
+before rot8();   
+
+
+right after rot8();   
+
+
+running deeplab on image http://columbia.edu/~nxb2101/90.0.png...
+
+after 2nd masking:    
+
+
+Traceback (most recent call last):
+  File "model.py", line 128, in <module>
+    if __name__=='__main__':
+  File "model.py", line 122, in test_human
+    print "ons.shape is {0}".format(str(ons.shape))
+AttributeError: 'list' object has no attribute 'shape'
+
+real	1m6.834s
+user	1m4.346s
+sys	0m1.680s
+

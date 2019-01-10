@@ -1,5 +1,131 @@
 ________________________________
 
+  Thu Jan 10 12:40:46 EST 2019
+________________________________
+
+  Vince
+  Get the rent (BoA ATM)
+  Startup job apps
+
+  Test the norms on actual skin_nathan_.npy and time it (profile)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Voro Poles
+    BANG, done.
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Jan  9 15:09:36 EST 2019
+________________________________
+
+
+  Technical:
+    Figure out why ComplexWarning is being thrown
+      Step-by-step
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
   Wed Jan  2 23:36:37 CET 2018
 ________________________________
 

@@ -147,7 +147,6 @@ def max_eig_vect(covar):
       should be generalizable to any 3x3 matrix, but we don't particularly care right now
   '''
   # NOTE:  on Jan. 8, 2018, this call gave the Warning   "mesh.py:328: ComplexWarning: Casting complex values to real discards the imaginary part."  TODO: figure out why, workaround it.
-  #print("covar is {0} \n".format(covar))
   vals, vects = LA.eig(covar)
   return vects[:,vals.argmax()]
 #=========================================================
@@ -187,7 +186,7 @@ def norms(vor):
       "[if] the space is a finite-dimensional Euclidean space (our case), each site is a point, there are finitely many points and all of them are different, then the Voronoi cells are CONVEX polytopes." (-Wikipedia)
       proof: (https://math.stackexchange.com/questions/269575/does-voronoi-tessellation-in-3d-always-produce-convex-polyhedrons)
   '''
-  # TODO:   more explicit typing:  ie.  .astype('float64'), .astype('int64')
+  # TODO:   more explicit type casting:  ie.  .astype('float64'), .astype('int64')
   # TODO: refactor into separate, descriptive functions
   header      = 'Models()\'s {0} function'.format(sys._getframe().f_code.co_name); pif('Entering '+header)
 
@@ -196,7 +195,7 @@ def norms(vor):
   Q=np.array([[2,1,1],
               [1,2,1],
               [1,1,2]]).astype('float64')/120.0  # referenced in Alliez 2007 paper
-  K=50
+  K=5#50
   INF_BOUND=-1
   FIRST_2_PTS=2
   BESIDE=0
@@ -222,14 +221,17 @@ def norms(vor):
   pif("len(vor.points) is \n{0}".format(len(vor.points)))
   pif("len(vor.regions) is \n{0}".format(len(vor.regions)))  # these 2 are fine
   dummy_pt_count=0
-  if debug:
-    pt_idx = 13
+  for pt_idx in range(len(vor.points)):
     region_idx      = vor.point_region[pt_idx]
     # NOTE: This reindexing (region_idx != pt_idx) is important.  Voronoi() doesn't index vor.regions with the same indices as the vor.points.  This was an early error I made (January 2, 2018).  
     #       Indexing bugs have been pretty common in my code development so far, as have reshaping (broadcasting) bugs.  Many levels of nesting almost always kill my understanding of the details
     #       Why is len(vor.regions) > len(vor.points)?  As far as I can tell, vor.regions often has to have an empty region.  Unsure why
     region          = vor.regions[region_idx]
     pt              = vor.points [pt_idx]
+    if INF_BOUND in region:
+      dummy_pt_count+=1
+      pif("{0}th dummy pt".format(dummy_pt_count)) # fine
+      continue  # when we've added dummy pts correctly, this will only happen for dummy (edge) points
     neighbors_idxes = KDTree.query(pt,k=K)[IDXES]
     neighbor_idx    = 0
     aniso_max       = float('-inf')
@@ -267,7 +269,7 @@ def norms(vor):
           final_covars[pt_idx]=unions_covar
         neighbor_idx     += 1
         continue  # next iteration of the inner "while" which calculate the covariance of the union of points nearby the pt we've iterated to in the outer "for" loop
-      # end if (covars were calculated in a previous loop):
+      # end "if np.any(voro_covars[macro_neighbor_idx]):"   (covars were calculated in a previous loop):
       else:  # if covars haven't been calculated yet, calculate vorohedron's covariance.    To do that, first we need to calc its volume and centroid
         if first:
           print ("calculating first covariance")
@@ -332,147 +334,23 @@ def norms(vor):
     # NOTE:  these confidences and norms are calcul8d after the termination of the while loop.  So for each continue within the while loop, we don't have to get a confidence or a norm
     confidences[pt_idx] = aniso_max
     # TODO: if this eig calc is slowing everything down, move norms[pt_idx]=max_eig_vect() outside the for loop and vectorize eig() calculation as mentioned [here](https://stackoverflow.com/questions/19468889/vectorize-eigenvalue-calculation-in-numpy)
+    import warnings
+    warnings.filterwarnings("error")
     try:
       norms[pt_idx]       = max_eig_vect(final_covars[pt_idx])
     except np.core.numeric.ComplexWarning:
       print("ComplexWarning")
-      #print("final_covars[pt_idx] = \n{0}".format(final_covars[pt_idx]))
-      #print("pt                  is \n{0}".format(pt    ))
-      #print("pt_idx              is \n{0}".format(pt_idx))
-      #print("neighbor_idx        is \n{0}".format(neighbor_idx))
-      #print("aniso_max           is \n{0}".format(aniso_max))
-      #print("final_covars[pt_idx] = \n{0}".format(final_covars[pt_idx]))
-      # NOTE: this happens a lot for pretty much any input   (Wed Jan  9 15:55:31 EST 2019)
+      print("final_covars[pt_idx] = \n{0}".format(final_covars[pt_idx]))
+      print("pt                  is \n{0}".format(pt    ))
+      print("pt_idx              is \n{0}".format(pt_idx))
+      print("neighbor_idx        is \n{0}".format(neighbor_idx))
+      print("aniso_max           is \n{0}".format(aniso_max))
+      print("final_covars[pt_idx] = \n{0}".format(final_covars[pt_idx]))
+      # NOTE: this happens a lot for pretty much any input
   # end "for pt_idx in range(len(vor.points)):" }
-  # NOTE: END IF DEBUG:
-  else:
-    for pt_idx in range(len(vor.points)):
-      region_idx      = vor.point_region[pt_idx]
-      # NOTE: This reindexing (region_idx != pt_idx) is important.  Voronoi() doesn't index vor.regions with the same indices as the vor.points.  This was an early error I made (January 2, 2018).  
-      #       Indexing bugs have been pretty common in my code development so far, as have reshaping (broadcasting) bugs.  Many levels of nesting almost always kill my understanding of the details
-      #       Why is len(vor.regions) > len(vor.points)?  As far as I can tell, vor.regions often has to have an empty region.  Unsure why
-      region          = vor.regions[region_idx]
-      pt              = vor.points [pt_idx]
-      if INF_BOUND in region:
-        dummy_pt_count+=1
-        pif("{0}th dummy pt".format(dummy_pt_count)) # fine
-        continue  # when we've added dummy pts correctly, this will only happen for dummy (edge) points
-      neighbors_idxes = KDTree.query(pt,k=K)[IDXES]
-      neighbor_idx    = 0
-      aniso_max       = float('-inf')
-      aniso_curr      = float('-inf')
 
-      # TODO:  consider whether it's easier to use a for loop  (ie. (for i in range(BIG))):    so the "continue"s automatically advance the index, but then we gotta throw a "break" in there if anitotropy > 0.9
-      # NOTE:  the following while loop calculates the covariance of the union of this point with neighboring points
-      while neighbor_idx < K and aniso_max < 0.9:
-        macro_neighbor_idx=neighbors_idxes[neighbor_idx]
-        union_so_far= neighbors_idxes[:neighbor_idx+1]  # NOTE:  the +1 is there for a reason.  Consider if neighbor_idx was 0; this wouldn't return anything without the +1.  And if neighbor_idx were K-1 you'd still be missing a neighbors without the +1
-        # TODO:   if we terminate by neighbor_idx==K, take the covar w/ max anisotropy.  I THINK this is done.
-        # I had as a todo:  "switch order of if and else:  (dad says "elses" should be shorter)."   
-        # BUT this way makes the if statement "if np.any()," which is much easier to understand than "if not np.any()"
-        if np.any(voro_covars[macro_neighbor_idx]):
-          # TODO:  neighbors_idxes[:neighbor_idx+1] ==> cumulative_neighbors_idxes  (something shorter, but to this effect)
-          unions_vol  = np.sum(voro_vols[union_so_far])
-          unions_CoM  = np.sum(voro_vols[union_so_far].reshape((neighbor_idx+1,1))  * voro_CoMs[union_so_far],  axis=DOWN) / unions_vol
-          assert unions_CoM.shape == (3,)
-          p_i         = (voro_CoMs[macro_neighbor_idx] - unions_CoM).reshape((3,1))  # we want p_i.dot(p_i.T) to have shape (3,3)[3x3 matrix].   (3,1)x(1,3) ==> (3,3)
-          # p_i*p_i.T is symmetric with respect to unions_CoM - voros_CoM.   So it doesn't matter which order we do here
-          m_i         = voro_vols[macro_neighbor_idx]
-          shifts      = np.tile((m_i*p_i.dot(p_i.T)),(neighbor_idx+1,1,1)).astype('float64')
-          unions_covar= np.sum( voro_covars[union_so_far] - shifts,  axis=0) # calculation from Alliez paper (covars of unions of vorohedra)
-          # shifts.shape                      is (n, 3, 3)
-          # voro_covars[union_so_far].shape   is (n, 3, 3)
-          # unions_covar.shape                is    (3, 3)
-
-          assert len(shifts.shape)==3 and   shifts.shape[1] == shifts.shape[2] == 3
-          assert shifts.shape == voro_covars[union_so_far].shape
-          assert unions_covar.shape == (3,3)
-          # TODO:   is it faster to use a running covariance rather than calculating it this way?  I bet the running covariance IS faster, though it'll resemble the paper less than this way does
-          aniso_curr        = anisotropy(unions_covar)
-          if aniso_curr > aniso_max:
-            aniso_max = aniso_curr
-            final_covars[pt_idx]=unions_covar
-          neighbor_idx     += 1
-          continue  # next iteration of the inner "while" which calculate the covariance of the union of points nearby the pt we've iterated to in the outer "for" loop
-        # end "if np.any(voro_covars[macro_neighbor_idx]):"   (covars were calculated in a previous loop):
-        else:  # if covars haven't been calculated yet, calculate vorohedron's covariance.    To do that, first we need to calc its volume and centroid
-          if first:
-            print ("calculating first covariance")
-            first=False
-          vertices = vor.vertices[region]  # TODO: double-check indexing
-          if len(vertices) == 0: # Don't use this pt as data in consideration of the norms  
-          # Sometimes qhull returns empty lists of vertices.  I believe this is because of coplanar points, as qhull uses Delaunay triangulation to calculate the Vorohedrons
-          #   More details on why I believe this can be found [here](https://docs.scipy.org/doc/scipy/reference/tutorial/spatial.html), under the heading "Coplanar points" (As of Jan. 3, 2018)
-            final_covars[pt_idx]=np.eye(3) # TODO: make sure this is the right thing to do here.  I'm STILL not 100% sure why qhull sometimes returns [] under vor.regions.  Once we figure it out, we can treat the code appropriately
-            neighbor_idx   += 1
-            continue # next iteration of the inner "while" which calculate the covariance of the union of points nearby the pt we've iterated to in the outer "for" loop
-          hull=scipy.spatial.ConvexHull(vertices)
-          voro_vols[macro_neighbor_idx]=hull.volume
-          vol_voro=voro_vols[macro_neighbor_idx]  # NOTE:  this pointer 'vol_voro' allows us to mutate the bigger array without repeatedly typing the cumbersome indices
-                                                  #       I did the above operation in 2 lines because otherwise I don't get a pointer to the nparr that has a short name.
-          triangle_mesh_hull=vertices[hull.simplices] # triangle_mesh_hull.shape == (n,3,3)   NOTE: can this be right?  how would this variable "vertices" include ALL the triangles necessary to make a mesh surrounding this vorohedron???
-          # TODO: double-check the shape of the above triang_mesh_hull.  I think my earlier "understanding" that "triangle_mesh_hull.shape == (n,3,3)" was wrong.
-          # TODO: rename "triangle_mesh_hull" ==> "triangs" or something shorter.  problem is "mesh" and "hull" help describe this object
-          assert len(triangle_mesh_hull.shape)==3 and   triangle_mesh_hull.shape[1] == triangle_mesh_hull.shape[2] == 3
-          inner_pt  = np.mean(vertices[:FIRST_2_PTS],axis=UNDER).reshape((1,3)) # new tetrahedron vertex.   In the beginning this is good enough because we're guaranteed Vorohedrons are convex
-          CoM_voro  = voro_CoMs[macro_neighbor_idx] # NOTE:  this pointer allows us to mutate the bigger array without repeatedly typing the cumbersome indices.  Initially CoM_voro is full of zeros
-          # next we 1. find the volume of each tetrahedron,  so we can 2. find the CoM of each tetrahedron  so we can 3. find the CoM of the whole Vorohedron
-          for triangle in triangle_mesh_hull:
-            ''' print(triangle) => [[x1, y1, z1],
-                                    [x2, y2, z2],
-                                    [x3, y3, z3]]             '''
-            tetra     = np.concatenate((inner_pt,triangle),axis=UNDER)
-            CoM_tetra = np.mean(tetra,axis=DOWN)
-            vol_tetra = volume_tetra(tetra)
-            CoM_voro += CoM_tetra*vol_tetra
-          CoM_voro   /= vol_voro
-          cov_voro    = voro_covars[macro_neighbor_idx]  # THIS vorohedron's covariance.   NOTE:  this pointer allows us to mutate the bigger array without repeatedly typing the cumbersome indices
-
-          # The vorohedron's overall covariance is the sum of its internal tetrahedrons' covariances.  See http://www.lama.univ-savoie.fr/pagesmembres/lachaud/Memoires/2012/Alliez-2007.pdf, Appendix A
-          for triangle in triangle_mesh_hull:
-            tetra=np.concatenate((CoM_voro.reshape((1,3)),triangle),axis=UNDER)
-            N=(triangle.T  - np.vstack((CoM_voro,CoM_voro,CoM_voro)).astype('float64')).T
-            cov_voro += np.linalg.det(N)*np.dot(N,Q,N.T)  # TODO: ensure these 3 pointers (including cov_voro, but also the 2 others like it)    actually mutate the stored values
-          unions_vol  = np.sum(voro_vols[union_so_far])
-          unions_CoM  = np.sum(voro_vols[union_so_far].reshape((neighbor_idx+1,1))  *voro_CoMs[union_so_far],axis=DOWN) / unions_vol
-          assert unions_CoM.shape == (3,)
-          #p_i         = voro_CoMs[neighbors_idxes[:neighbor_idx+1]]  - np.tile(unions_CoM.reshape((1,3)),(neighbor_idx+1,BELOW)).T # p_i*p_i.T is symmetric w.r.t. unions_CoM - voros.   So it doesn't matter which order we do here
-          #m_i         = voro_vols[neighbors_idxes[:neighbor_idx+1]]   # TODO: double-check the dimensions here.  I'm guessing my more recent edit is right and the older one is wrong, but I'm not 100% sure
-          p_i         = (voro_CoMs[macro_neighbor_idx] - unions_CoM).reshape((3,1))  # we want p_i.dot(p_i.T) to have shape (3,3)[3x3 matrix].   (3,1)x(1,3) ==> (3,3)
-          m_i         = voro_vols[macro_neighbor_idx]
-          pif("np.tile((m_i*np.dot(p_i, p_i.T)),(neighbor_idx+1,1,1)).shape is {0}".format(np.tile((m_i*np.dot(p_i, p_i.T)),(neighbor_idx+1,1,1)).shape))
-          shifts      = np.tile((m_i*p_i.dot(p_i.T)),(neighbor_idx+1,1,1)).astype('float64')
-          unions_covar= np.sum(  voro_covars[union_so_far] - shifts,axis=0) # calculation from Alliez paper (covars of unions of vorohedra)
-          # TODO:                                       is axis=0 right or axis=2?  In the earlier line I wrote 2 and I was probably more awake when I wrote that
-          assert unions_covar.shape == (3,3)
-          # TODO:   is it faster to use a running covariance rather than calculating it this way?  I bet the running covariance IS faster, though it'll resemble the paper less than this way does
-          aniso_curr        = anisotropy(unions_covar) # TODO:  all this stuff in the "else:" branch
-          if aniso_curr > aniso_max:
-            aniso_max = aniso_curr
-            final_covars[pt_idx]=unions_covar
-        # end else: (this block calculated the covariance, CoM, and volume to store in the np arrays declared before the loop (voro_covars, voro_vols, voro_CoMs))
-        neighbor_idx+=1
-        # tail condition: while loop is about to terminate
-      # TODO:  ensure that   "if neighbor_idx == K: return covar with max anisotropy".  I'm pretty sure we did this
-      # end inner loop "while anisotropy() < 0.9 and   neighbor_idx < K:"
-      assert aniso_max != float('-inf')  # if it still is, do, uh....  idk, more debugging
-      # NOTE:  these confidences and norms are calcul8d after the termination of the while loop.  So for each continue within the while loop, we don't have to get a confidence or a norm
-      confidences[pt_idx] = aniso_max
-      # TODO: if this eig calc is slowing everything down, move norms[pt_idx]=max_eig_vect() outside the for loop and vectorize eig() calculation as mentioned [here](https://stackoverflow.com/questions/19468889/vectorize-eigenvalue-calculation-in-numpy)
-      import warnings
-      warnings.filterwarnings("error")
-      try:
-        norms[pt_idx]       = max_eig_vect(final_covars[pt_idx])
-      except np.core.numeric.ComplexWarning:
-        print("final_covars[pt_idx] = \n{0}".format(final_covars[pt_idx]))
-        print("pt                  is \n{0}".format(pt    ))
-        print("pt_idx              is \n{0}".format(pt_idx))
-        print("neighbor_idx        is \n{0}".format(neighbor_idx))
-        print("aniso_max           is \n{0}".format(aniso_max))
-        print("final_covars[pt_idx] = \n{0}".format(final_covars[pt_idx]))
-        # NOTE: this happens a lot for pretty much any input
-    # end "for pt_idx in range(len(vor.points)):" }
-
+  pif(  'Exiting '+header)
+  print('Exiting '+header)
   return norms
   # TODO: normalize each covariance.
   # NOTE: As of Dec. 31, 2018, the whole thing is really waaaaay too slow.  TODO: speed it up.  There's gotta be a faster way
@@ -480,8 +358,9 @@ def norms(vor):
 #=========================================================
 def main(model, savefilename):
   model = add_dummies(model)
-
   locs=np.nonzero(model); locs=np.array(locs).T.astype('int64')
+  print("locs with dummies: \n{0}".format(locs))
+  print("locs.shape: \n{0}".format(locs.shape))
   # vor step of Alliez et al.   (for estimating normals from point cloud)
   vor=scipy.spatial.Voronoi(locs)
   # TODO:  check the results of the Voronoi() function
@@ -490,23 +369,19 @@ def main(model, savefilename):
     np.save(savefilename, normals)
 # end func def of   main():
 #=========================================================
-def plane():
-  '''
-    just for testing
-    There's room for dummies to be added (doesn't go to the edges of the np array)
-  '''
+def five_pt_plane():
   plane=np.zeros((19,19,19)).astype('bool')
-  for x in range(6,13):
-    for y in range(6,13):
-      for z in range(6,13):
-        if x==y:
-          plane[x,y,z]=True
+  plane[ 7,10,12]=True # x==4 because we think there may be a calculation problem if we only do coplanar points
+  plane[12,10, 8]=True
+  plane[10,10,10]=True
+  plane[10, 8,12]=True
+  plane[10,12, 8]=True
   return plane
 #=========================================================
 if __name__=='__main__':
   #model = np.load('skin_nathan_.npy').astype('bool')
   #main(model, 'norms_nathan_.npy')
-  main(plane(), 'norms_plane_single.npy')
+  main(five_pt_plane(), 'norms_plane_5_pts.npy')
 #=========================================================
 
 
