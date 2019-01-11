@@ -1,6 +1,20 @@
   Using basic (mostly Nathan-generated) vor_poles implementation:
     Perhaps we should use an out-of-the-box implementation curated by numpy or someone else
 
+These are generated from this "plane()" function:
+
+#=========================================================
+def plane():
+  plane=np.zeros((19,19,19)).astype('bool')
+  for x in range(6,13):
+    for y in range(6,13):
+      for z in range(6,13):
+        if x==y:
+          plane[x,y,z]=True
+  return plane
+#=========================================================
+
+
 >>> import numpy as np;norms=np.load("norms_plane.npy")
 >>> norms
 array([[ 0.        ,  0.        ,  0.        ],

@@ -84,7 +84,9 @@ def norms(vor):
     Parameters
     ----------
     vor is an object returned by the scipy.spatial.Voronoi() function;  you'll have to call Voronoi(pts) on your own pt_cloud to be able to use this function.  The initial pts have to be a (n,3) numpy array of the SKIN of a person, not every voxel in their body whole 
-    returns np array of shape (n,3,3), where n is the number of input points.  I know a 3x3 matrix isn't a normal vector in the traditional physics sense, but I bet Alliez et al. have a reason to use these 3x3s instead of 3x1s normal vectors
+    returns tuple containing:
+      (0th) an np array of shape (n,3), where n is the number of input points plus the number of dummies.  Normal vectors to each pt in the input pt_cloud
+      (1st) an np array of shape (n),   where n is the number of input points plus the number of dummies.  Confidences in each normal
 
     Notes
     -----
@@ -137,19 +139,20 @@ def norms(vor):
       confidences[pt_idx]=LA.norm(norms[pt_idx])   /hull.volume
   # end "for pt_idx in range(len(vor.points)):" }
   pif(  'Exiting '+func_name); #print('Exiting '+func_name)
-  return norms
+  return norms, confidences
 # end func def of   norms(vor):
 #=========================================================
-def main(model, savefilename):
+def main(model, norms_save_filename, confidences_save_filename):
   model = add_dummies(model)
   locs=np.nonzero(model); locs=np.array(locs).T.astype('int64')
   print("locs with dummies: \n{0}".format(locs))
   print("num_pts: \n{0}".format(locs.shape[0]))
   # vor step of voro_poles
-  vor=scipy.spatial.Voronoi(locs)
-  normals=norms(vor)
+  vor                   = scipy.spatial.Voronoi(locs)
+  normals, confidences  = norms(vor)
   if save:
-    np.save(savefilename, normals)
+    np.save(norms_save_filename, normals)
+    np.save(confidences_save_filename, confidences)
 # end func def of   main():
 #=========================================================
 def five_pt_plane():
@@ -171,7 +174,8 @@ def plane():
   return plane
 #=========================================================
 if __name__=='__main__':
-  main(plane(), 'norms_plane.npy')
+  model = np.load('skin_nathan_.npy').astype('bool')
+  main(model, 'norms_nathan_.npy')
 #=========================================================
 
 

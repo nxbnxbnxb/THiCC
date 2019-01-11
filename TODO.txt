@@ -4,10 +4,54 @@ ________________________________
 ________________________________
 
   Vince
+    Say "I'm looking for some more responsibility around here.  I learned I should do things more traditionally and sometimes shouldn't go into lengthy explanations of 'why' and instead just help the kids get their homework done.  It depends on the student, though.  Some kids need the long explanations; many get bored by them, though"
+  
   Get the rent (BoA ATM)
+
+  Test normals from Voro Poles
+    Either with a super-simple normals-to-mesh() algo or 
+      with unit-tests
+    I'm a fan of the prior (mesh is much easier to look at and analyze what's wrong than just the numbers without the associated location information)
+
   Startup job apps
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   Test the norms on actual skin_nathan_.npy and time it (profile)
+    DONE
+    real  0m54.368s
+    user  0m53.714s
+    sys   0m0.844s
+
 
 
 
@@ -39,7 +83,9 @@ ________________________________
 
 
   Voro Poles
-    BANG, done.
+    BANG, done.  (first iteration)
+  Kill Lemonade insurance, Sierra Club subscription (I called Sierra)
+    BANG, done
 
 
 
@@ -532,3 +578,14 @@ Technical:
   use cat_opencv3
 Biz:
   Start scanning
+  Something funny / fun is better than serious (serious == cringe-worthy)
+    ie. doohickey.com
+        thingamajig.com
+    Evidence:
+      Lemonade's fun voicemail msg
+      Virgin America
+  Godaddy.com
+    tells you domain prices
+    seth@godaddy.com : buy a domain name
+      Any good domain name is usually at least $10,000
+
