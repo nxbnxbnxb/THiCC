@@ -99,6 +99,21 @@ def sort_fnames_list(fnames_list):
 #=========================================================================
 
 
+#================================================================
+def save_mp4_as_imgs(mp4_local_filename):
+  '''
+    Mutates the local file directory with new image files
+  '''
+  import cv2
+  vidcap = cv2.VideoCapture(mp4_local_filename)
+  success,image = vidcap.read()
+  count = 0
+  while success:
+    cv2.imwrite("frame%d.jpg" % count, image)     # save frame as JPEG file      
+    success,image = vidcap.read()
+    print('Read a new frame: ', success)
+    count += 1
+#===== end func def of  save_mp4_as_imgs(mp4_local_filename): =====
 
 
 

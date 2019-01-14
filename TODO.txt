@@ -1,17 +1,70 @@
 ________________________________
 
+  Mon Jan 14 12:04:57 EST 2019
+________________________________
+
+  1st make perfect (best possible) skin_nathan.npy
+    Standardize alignment of the masks (ie. all to the belly button)
+    Or weight the "downshift" of the masks by the length across of the widest mask (ie. if we have the full Jesus cross-section, take the length from fingertip to fingertip and that indicates we're looking at the person face-on)
+      Whereas if the current length-across of the masks is small (side view), that means the CoM should be bumped up to match the CoM at the Jesus-view (front)
+    Or at least CoM-adjustment for masking
+  masking
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
   Thu Jan 10 12:40:46 EST 2019
 ________________________________
 
   Vince
-    Say "I'm looking for some more responsibility around here.  I learned I should do things more traditionally and sometimes shouldn't go into lengthy explanations of 'why' and instead just help the kids get their homework done.  It depends on the student, though.  Some kids need the long explanations; many get bored by them, though"
-  
-  Get the rent (BoA ATM)
+    Say "Does Joe Scott need any help on other days?"
 
-  Test normals from Voro Poles
-    Either with a super-simple normals-to-mesh() algo or 
-      with unit-tests
-    I'm a fan of the prior (mesh is much easier to look at and analyze what's wrong than just the numbers without the associated location information)
+    Say "I'm looking for some more responsibility around here.  I've learned how to teach more efficiently and clearly."
+      Ask for raise.
+        Read up on how to negotiate for this
+    Pop by on your off-day
+ 
 
   Startup job apps
 
@@ -38,6 +91,24 @@ ________________________________
 
 
 
+
+
+
+
+
+
+  Pay the rent to Jeannine
+
+
+
+
+
+  Test normals from Voro Poles
+    Look @ Desbrun's algo link
+
+    Either with a super-simple normals-to-mesh() algo or
+      with unit-tests
+    I'm a fan of the prior (mesh is much easier to look at and analyze what's wrong than just the numbers without the associated location information)
 
 
 
@@ -581,6 +652,7 @@ Biz:
   Something funny / fun is better than serious (serious == cringe-worthy)
     ie. doohickey.com
         thingamajig.com
+        kitty.com
     Evidence:
       Lemonade's fun voicemail msg
       Virgin America

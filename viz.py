@@ -79,6 +79,7 @@ def show_3d(voxels):
   plt.show()
   plt.close(); return
 
+#=========================================================================
 def plot_skin():
   skin  = np.load("skin_nathan_.npy")
   locs  = np.nonzero(skin)
@@ -89,9 +90,58 @@ def plot_skin():
   plt.show()
   plt.close(); return
 
+#=========================================================================
+def show_convhull(locs):
+  '''
+    BUGGY!  Doesn't work; but a correct version of this function is readable HERE (https://stackoverflow.com/questions/27270477/3d-convex-hull-from-point-cloud)
+
+    Curr bugs: (I think we get this b/c of a differences between python2 and python3, but I'm not 100% certain)
+      Traceback (most recent call last):
+        File "viz.py", line 130, in <module>
+          show_convhull(np.load("skin_locs_nathan_.npy"))
+        File "viz.py", line 113, in show_convhull
+          ax.plot(edges[0],edges[1],edges[2],'bo')
+      TypeError: 'zip' object is not subscriptable
+
+
+    -------
+    params:
+
+    Locs.shape is (n,3)
+  '''
+  import numpy as np
+  from mpl_toolkits.mplot3d import Axes3D
+  import matplotlib.pyplot as plt
+  from scipy.spatial import ConvexHull
+
+  fig = plt.figure()
+  ax = fig.add_subplot(111, projection='3d')
+
+  hull=ConvexHull(locs)
+
+  edges= zip(*locs)
+
+  for i in hull.simplices:
+      plt.plot(locs[i,0], locs[i,1], locs[i,2], 'r-')
+
+  ax.plot(edges[0],edges[1],edges[2],'bo')
+
+  ax.set_xlabel('x')
+  ax.set_ylabel('y')
+  ax.set_zlabel('z')
+
+  #ax.set_xlim3d(-5,5)
+  #ax.set_ylim3d(-5,5)
+  #ax.set_zlim3d(-5,5)
+
+  plt.show()
+  plt.close();return
+
+
 if __name__=='__main__':
-  m=np.load('skin_nathan_.npy').astype('bool')
-  show_all_cross_sections(m, freq=20)
+  #m=np.load('skin_nathan_.npy').astype('bool')
+  #show_all_cross_sections(m, freq=20)
+  show_convhull(np.load("skin_locs_nathan_.npy"))
 
 
 

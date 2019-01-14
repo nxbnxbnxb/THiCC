@@ -64,6 +64,7 @@ def volume_tetra(tetra):
   a=tetra_float[0]; b=tetra_float[1]; c=tetra_float[2]; d=tetra_float[3]
   return abs(np.dot(a-d, 
                   np.cross(b-d,c-d)))/6.0
+  # I THINK profiling said this func was the slow one (Jan. 11, 2019)
 # end func def of volume_tetra(tetra)
 #=========================================================
 def CoM_and_vol(vertices):
@@ -161,7 +162,7 @@ def anisotropy(matrix):
   else:
     pif(matrix)
   assert len(matrix.shape)==2 and matrix.shape[0]==matrix.shape[1]
-  eigs=np.abs(np.linalg.eigvals(matrix))
+  eigs=np.abs(LA.eigvals(matrix))
   if np.any(eigs):
     return 1-abs(np.min(eigs)/np.max(eigs))  # IRL should never be 1; that would mean an infinitesimally thin slice of volume
   else:  # zero matrix
@@ -307,7 +308,7 @@ def norms(vor):
         for triangle in triangle_mesh_hull:
           tetra=np.concatenate((CoM_voro.reshape((1,3)),triangle),axis=UNDER)
           N=(triangle.T  - np.vstack((CoM_voro,CoM_voro,CoM_voro)).astype('float64')).T
-          cov_voro += np.linalg.det(N)*np.dot(N,Q,N.T)  # TODO: ensure these 3 pointers (including cov_voro, but also the 2 others like it)    actually mutate the stored values
+          cov_voro += LA.det(N)*np.dot(N,Q,N.T)  # TODO: ensure these 3 pointers (including cov_voro, but also the 2 others like it)    actually mutate the stored values
         unions_vol  = np.sum(voro_vols[union_so_far])
         unions_CoM  = np.sum(voro_vols[union_so_far].reshape((neighbor_idx+1,1))  *voro_CoMs[union_so_far],axis=DOWN) / unions_vol
         assert unions_CoM.shape == (3,)
