@@ -100,19 +100,41 @@ def sort_fnames_list(fnames_list):
 
 
 #================================================================
-def save_mp4_as_imgs(mp4_local_filename):
+def save_mp4_as_imgs(mp4_local_filename, freq=1/50.):
   '''
     Mutates the local file directory with new image files
+
+    Sources:
+      https://stackoverflow.com/questions/25182278/opencv-python-video-playback-how-to-set-the-right-delay-for-cv2-waitkey
+      https://stackoverflow.com/questions/33311153/python-extracting-and-saving-video-frames
   '''
+  #==============================================================
+  def prepend_0s(int_str, num_digits=9):
+    '''
+      Params:
+      -------
+      int_str is a string
+
+    '''
+    #NOTE: I know there's a less "hack-y" way of putting zeros in front of a number.  But I don't wanna look it up when I can just rewrite the code myself.
+    return '0'*(num_digits-len(int_str))+int_str
+  #==============================================================
   import cv2
+  delay=int(round(1/freq))
+
   vidcap = cv2.VideoCapture(mp4_local_filename)
-  success,image = vidcap.read()
+  success = True
   count = 0
   while success:
-    cv2.imwrite("frame%d.jpg" % count, image)     # save frame as JPEG file      
     success,image = vidcap.read()
     print('Read a new frame: ', success)
+    if cv2.waitKey(delay) &  0xFF == ord('q'):
+      break
+
+    #  "I put the imwrite() after the break so if the image fails to read, we don't save an empty .jpg file."   - Nathan (Mon Jan 14 13:33:26 EST 2019)
+    cv2.imwrite("model_rot8_frame_{0}.jpg".format(prepend_0s(str(count))), image)
     count += 1
+# NOTE: in order to get the masks at the ideal angles of the body's rotation, we gotta come up with some smart way of calculating the angles.  Maybe counting the total number of img files between 0 and 360 degrees and just dividing?  It'll probably do for now, but unfortunately stepping in a circle is not like a smooth lazy-susan
 #===== end func def of  save_mp4_as_imgs(mp4_local_filename): =====
 
 
@@ -121,7 +143,7 @@ def save_mp4_as_imgs(mp4_local_filename):
 
 
 
-
+ 
 
 
 
