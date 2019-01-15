@@ -3,15 +3,22 @@ ________________________________
   Mon Jan 14 12:04:57 EST 2019
 ________________________________
 
+  Ask Kendall how much time he has.  Tell him everything if you can afford to, but otherwise no good (ask for fundraising advice).
+
+  TODO:
+     p test.py 
+
+
   1st make perfect (best possible) skin_nathan.npy
     Standardize alignment of the masks (ie. all to the belly button)
     Or weight the "downshift" of the masks by the length across of the widest mask (ie. if we have the full Jesus cross-section, take the length from fingertip to fingertip and that indicates we're looking at the person face-on)
       Whereas if the current length-across of the masks is small (side view), that means the CoM should be bumped up to match the CoM at the Jesus-view (front)
     Or at least CoM-adjustment for masking
-  masking
 
+    Maybe use the sin() of the angles of the length of the arms to determine the angle.  See how well it actually works, though.  Perhaps the simpler interpolation method is easier, but then we're assuming constant rotation speed
+  Masking
 
-
+  Test segment() from model.py b/c we changed the name to "segment_from_URL()"
 
 
 

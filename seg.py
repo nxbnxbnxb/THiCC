@@ -3,10 +3,15 @@ import numpy as np
 np.seterr(all='raise')
 import tensorflow as tf
 import sys
-from d import debug
-
+import scipy
 from io import BytesIO
 import imageio as ii
+import skimage
+
+from d import debug
+from save import save
+from viz import pltshow
+
 '''
 import matplotlib
 matplotlib.use('Agg')      
@@ -42,18 +47,50 @@ class DeepLabModel(object):
       tf.import_graph_def(graph_def, name='')
     self.sess = tf.Session(graph=self.graph)
 
+#================================================================
   def run(self, image):
+    if debug:
+      print("image.size:")
+      print(image.size);print('\n'*3)
+      print("type(image)")
+      print(type(image));print('\n'*3) # image is a    <class 'PIL.PngImagePlugin.PngImageFile'>
     width, height = image.size
-    resize_ratio = 1.0 * self.INPUT_SIZE / max(width, height)
+    resize_ratio = float(self.INPUT_SIZE / max(width, height))
     target_size = (int(resize_ratio * width), int(resize_ratio * height))
     resized_image = image.convert('RGB').resize(target_size, Image.ANTIALIAS)
+    if debug:
+      pltshow(np.asarray(resized_image))
+      print("np.asarray(resized_image).shape:")
+      print(np.asarray(resized_image).shape);print('\n'*3)
     batch_seg_map = self.sess.run(
         self.OUTPUT_TENSOR_NAME,
         feed_dict={self.INPUT_TENSOR_NAME: [np.asarray(resized_image)]})
     seg_map = batch_seg_map[0]
     return resized_image, seg_map
+#================================================================
+  def segment_nparr(self, img):
+    '''
+      README
+    '''
+    # TODO: fill out docstring above once this is finalized
+    #  NOTE NOTE NOTE:   the below "NOTE"s are no longer relevant; I realized why Vishal included them; it was to resize the image properly.  Nonetheless, there is some useful info contained within those 2 comments.
+    # NOTE:  this really oughta be just a one-liner; probably no need for this function to have a name
+    # style  NOTE:   I don't really like encapsulation; it can make it harder to debug shit.  A programmer on this project ought to be smart enough that they can handle a few levels of nesting with a comment to explain shit?  Open to hearing other opinions, but that's mine. ----- NXB (Nathan Xin-Yu Bendich): Mon Jan 14 19:57:16 EST 2019
+    width, height, RGB = img.shape
+    resize_ratio = float(self.INPUT_SIZE / max(width, height))
+    target_size = (int(resize_ratio * width), int(resize_ratio * height),3)
+    resized_image = skimage.transform.resize(img,target_size, anti_aliasing=True)
+    return (self.sess.run(
+        self.OUTPUT_TENSOR_NAME,
+        feed_dict={self.INPUT_TENSOR_NAME: [resized_image]})[0], 
+      resized_image)
+  #===== end func def of    segment_nparr(self, img): =====
+  #================================================================
 # end class definition DeepLabModel()
+#================================================================
 
+
+#================================================================
 def create_pascal_label_colormap():
   colormap = np.zeros((256, 3), dtype=int)
   ind = np.arange(256, dtype=int)
@@ -75,6 +112,10 @@ def label_to_color_image(label):
 
 # NOTE: don't call this function if matplotlib.pyplot crashes conda!
 def vis_segmentation(image, seg_map):
+  '''
+    CURRENTLY NOT WORKING
+  '''
+  # NOTE:  CURRENTLY NOT WORKING.  To debug, please look backwards at prev version in git
   plt.figure(figsize=(15, 5))
   grid_spec = gridspec.GridSpec(1, 4, width_ratios=[6, 6, 6, 1])
 
@@ -105,7 +146,7 @@ def vis_segmentation(image, seg_map):
   plt.xticks([], [])
   ax.tick_params(width=0.0)
   plt.show()
-# end def vis_segmentation(image, seg_map):
+# end func def of   vis_segmentation(image, seg_map):
 
 #================================================================
 def binarize(mask_3_colors):
@@ -123,20 +164,55 @@ def run_visualization(url, model):
   except IOError:
     print('Cannot retrieve image. Please check url: ' + url)
     return
-
   print('running deeplab on image %s...' % url)
   resized_im, seg_map = model.run(original_im)
-  from utils import count; counts=count(seg_map)
-  ii.imwrite("_segmented____binary_mask_.jpg", seg_map)  # Dec. 14, 2018:  I think something in the saving process ***ks up the mask with noise
+  if save:
+    ii.imwrite("_segmented____binary_mask_.jpg", seg_map)  # Dec. 14, 2018:  I think something in the saving process ***ks up the mask with noise
   #PROBABLE = 127  # NOTE:  experimental from 1 data point;  PLEASE DOUBLE CHECK if u get a noisy segmentation
   #ii.imwrite("_segmented____binary_mask_.jpg", np.greater(seg_map, PROBABLE).astype('bool'))
-  if debug:
-    vis_segmentation(resized_im, seg_map)
-  return np.rot90(seg_map,k=3) # k=3 b/c it gives us the result we want   (I tested it experimentally.  Dec. 26, 2018)
+  return np.rot90(seg_map,k=3) # k=3 b/c it gives us the result we want   (I tested it experimentally.  Dec. 26, 2018)   # this is true for the URL version, not the other
 #===== end func def of  run_visualization(url): =====
+#================================================================
+def seg_map(img, model):
+  print('running deeplab on image')
+  seg_map, resized_im = model.segment_nparr(img)
+  if debug:
+    pltshow(seg_map)
+  if save:
+    ii.imwrite("_segmented____binary_mask_.jpg", seg_map)  # Dec. 14, 2018:  I think something in the saving process ***ks up the mask with noise
+  return np.rot90(seg_map,k=3) # k=3 b/c it gives us the result we want   (I tested it experimentally.  Dec. 26, 2018)
+#=========== end func def of  seg_map(img, model): ==============
 
+#================================================================
+def segment_from_local(local_filename):
+  #img=scipy.ndimage.io.imread(local_filename)
+  img=np.asarray(ii.imread(local_filename)).astype('float64') # TODO: delete this commented-out line
 
-def segment(IMG_URL):
+  LABEL_NAMES = np.asarray([
+      'background', 'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus',
+      'car', 'cat', 'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike',
+      'person', 'pottedplant', 'sheep', 'sofa', 'train', 'tv'
+  ])
+
+  FULL_LABEL_MAP = np.arange(len(LABEL_NAMES)).reshape(len(LABEL_NAMES), 1)
+  FULL_COLOR_MAP = label_to_color_image(FULL_LABEL_MAP)
+  MODEL_NAME = 'mobilenetv2_coco_voctrainaug'
+
+  _DOWNLOAD_URL_PREFIX = 'http://download.tensorflow.org/models/'
+  _MODEL_URLS = {
+      'mobilenetv2_coco_voctrainaug': 'deeplabv3_mnv2_pascal_train_aug_2018_01_29.tar.gz',
+      'mobilenetv2_coco_voctrainval': 'deeplabv3_mnv2_pascal_trainval_2018_01_29.tar.gz'
+  }
+  _TARBALL_NAME = 'deeplab_model.tar.gz'
+
+  model_dir = './'
+  download_path = os.path.join(model_dir, _TARBALL_NAME)
+  # urllib.request.urlretrieve(_DOWNLOAD_URL_PREFIX + _MODEL_URLS[MODEL_NAME], download_path)
+
+  MODEL = DeepLabModel(download_path)
+  return seg_map(img, MODEL)
+#=====  end func def of   segment_from_local(local_filename) =====
+def segment_from_URL(IMG_URL):
   '''
     NOTE: segmentation requires internet connection
   '''
@@ -165,7 +241,7 @@ def segment(IMG_URL):
   MODEL = DeepLabModel(download_path)
 
   return run_visualization(IMG_URL, MODEL)
-#===== end func def of  segment(IMG_URL): =====
+#===== end func def of  segment_from_URL(IMG_URL): =====
 
 if __name__=='__main__':
   if len(sys.argv) == 1:
@@ -175,6 +251,7 @@ if __name__=='__main__':
     print ("currently segmenting image found at url: \n  "+IMG_URL)
   else:
     IMG_URL = sys.argv[1]
-  seg_map = segment(IMG_URL)
+  seg_map = segment_from_URL(IMG_URL) # TODO: change local name to not conflict with the function seg_map()
+  pltshow(seg_map)
 # end if __name__=='__main__':
 

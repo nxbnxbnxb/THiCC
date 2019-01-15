@@ -36,3 +36,4 @@ cd tests/install_tests/ && python3.6 all_tests.py
 
 #TODO:
   #cv ?
+  # we were having trouble with compatibility for this.  Mon Jan 14 14:50:21 EST 2019
