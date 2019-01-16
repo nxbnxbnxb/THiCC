@@ -167,8 +167,6 @@ def save_mp4_as_imgs(mp4_local_filename, freq=1/50.):
 def newline(f):
     f.write('\n')
 
-def h():
-    hist()
 
 def hist():
     '''
@@ -180,6 +178,7 @@ def hist():
     for i in range(readline.get_current_history_length()):
         print (readline.get_history_item(i + 1))
     print ('\n'*2)
+h=hist
 
 def print_dict(d):
     print_dict_recurs(d, 0)

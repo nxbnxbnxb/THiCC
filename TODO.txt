@@ -1,13 +1,194 @@
 ________________________________
 
+  Tue Jan 15 18:14:47 EST 2019
+________________________________
+
+  Technical:
+    Find the waist length.
+    Find the crotch to get the pants height.
+
+    Just have them enter their height.
+    Make them spread their legs a bit so we can get the leg length from the crotch.
+    Segment & get measurements at various locations (waist, legs).
+      But HOW do we get the waist measurements?
+        It's different for a fat person than for a skinny one
+    
+
+  Business:
+    Start with used jeans
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Save locs where I was last working in "TODO:_new.txt"
+
+
+
+
+
+
+
+    We're not gonna do SMPL if we just want measurements; it's silly
+      So we'll make a database of clothing sizes, get the charts right, make a clothes search engine.  Other things, honestly, aren't practical
+
+  Technical:
+    Figure out how to scale the SMPL model to the right proportions exclusively from a smartphone picture
+    Find the points of a SMPL model (or otherwise compute a similarity function between 2 bodies)
+      hmr DOESN'T GET thinness / height / body measurements
+      Mess with params of the model in render.py?
+        "betas"
+        m = load_model( '../../models/basicModel_f_lbs_10_207_0_v1.0.0.pkl' )
+        **** m.betas[:] = np.random.rand(m.betas.size) * .03 ****
+
+      How to save .obj file from hmr dir?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Technical:
+    Ensure mask is "contiguous" before using
+    Take convHull of the mask?
+      That's too extreme; only maybe a good idea locally
+      The complete convHull would be convex; a convex polygon looks nothing like a human (Jesus pose)
+
+  Business:
+    Try to figure out how to get clothing meshes from Macy's, Kohl's, Wal-Mart, Gucci, Zara, 
+      Hack 'em?
+    Or maybe we can set up a remote attack so I can control their computers from home @ night
+    Otherwise we can just use body-mesh similarity between 2 people to let them sell used clothing to each other
+      We still would ideally prefer to show the user in the clothes, but by now that's probably impractical given our timeline and what I know about this process.
+      Somehow we have to get the clothing from A to B though.
+    It'll just be a shitty Craigslist-esque website.  That'll get us to ramen profitability.  Newmark is rich, but not THAT rich
+
+    MTailor:
+      https://www.youtube.com/watch?v=V388-fC0qB8
+        Cramer (Mad Money)
+        They're bringing in nearly $400,000 a month now
+      App store reviews:
+        https://play.google.com/store/apps/details?id=com.mtailor.android&hl=en_US
+        https://itunes.apple.com/us/app/mtailor-custom-clothing/id816042916?mt=8
+
+    Other clothing competitors:
+      https://www.forbes.com/sites/laura-inamedinova/2016/05/05/top-5-fashion-e-commerce-websites-that-change-the-way-you-shop/#4343fcfb4cc7
+
+
+
+
+
+________________________________
+
   Mon Jan 14 12:04:57 EST 2019
 ________________________________
 
+=======================================================================
+
   Ask Kendall how much time he has.  Tell him everything if you can afford to, but otherwise no good (ask for fundraising advice).
 
-  TODO:
-     p test.py 
+=======================================================================
 
+    Dario meeting
+      Cofounder of BadVR (CTO)
+    1.  Car show (Dario mentioned )
+      a.  Go where rich people hang out
+      b.  But you have to be able to talk to them in a substantive way (this guy liked car)
+      c.  Fewer features rather than more "add in version 2"
+    2.  The guy talking at the car show said "sometimes more cash, less equity;" it depends what is needed right now
+    3.  MVP (Minimum) is really important; only put the features you want feedback on
+      a.  Meetup: ppl will try the product 4 u
+
+  5 most common mistakes for entrepreneurs:
+    1.  Offshore devs
+      a.  Get lower amt in exit
+      b.  Poor communication (translation)
+    2.  Building a brand
+      a.  Nobody cares about the brand until you have a product first
+    3.  Trying to innovate
+      a.  If you have no competition, you have no money
+    4.  Thinking you are the customer
+      a.  You need to get feedback
+      b.  HTWFAIP (others' points of view)
+    5.  Overvaluing the launch
+      a.  Doesn't have to be perfect
+      b.  Launch is just the 1st step
+
+  Titles are useless in the 1st year
+  Go to Hackathons to meet technical people
+    1.  Say "I just want to present things; I'm good at public speaking"
+      a.  Meet good engineers
+    2.  builtinLA.com
+  Trade shows
+
+  VCs want to know you'll spend about HALF the money on marketing
+  Organize everything with timelines
+    "3 months all"
+    Trello
+    Split everything up and plan it all.
+    Accountability is extremely important
+      Deadlines are very motivating
+        Should feel absolutely exhausted at the end of the day
+
+  Marvelous Designs (clothing modeling software)
+    Diff from 3ds Max
+    Technically called "skinning" (Simone)
+      Only an issue in extreme positions (ie. body fully stretched out)
+      Prevention for bugs
+      Every game does this
+    See Simone's video about the process
+
+  Maybe from 2 pictures of a hoodie takes only hours to build the clothing mesh
+
+  Ask about Sansar:
+    How good is it?
+    It's something like ProdigyXAmazon.  VR version of "2nd life"
+    "Social VR"
+      ie. Runescape
+    Try Sansar myself
+    Cross-platform?
+      Oculus-Internet possible?
+
+  update progress on Zoho / Slack
+
+=======================================================================
 
   1st make perfect (best possible) skin_nathan.npy
     Standardize alignment of the masks (ie. all to the belly button)
@@ -57,6 +238,9 @@ ________________________________
 
 
 
+  TODO:
+     p test.py 
+     DONE.
 
 
 ________________________________
@@ -66,6 +250,7 @@ ________________________________
 
   Vince
     Say "Does Joe Scott need any help on other days?"
+      I asked Vince for new customers
 
     Say "I'm looking for some more responsibility around here.  I've learned how to teach more efficiently and clearly."
       Ask for raise.
@@ -659,7 +844,11 @@ Biz:
   Something funny / fun is better than serious (serious == cringe-worthy)
     ie. doohickey.com
         thingamajig.com
+
         kitty.com
+
+        ez.com
+        easy.com
     Evidence:
       Lemonade's fun voicemail msg
       Virgin America
