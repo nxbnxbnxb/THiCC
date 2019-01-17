@@ -3,19 +3,26 @@ ________________________________
   Tue Jan 15 18:14:47 EST 2019
 ________________________________
 
+  gad seg.py measure.py TODO.txt && gci "measure.py:   wrote 'find_leg_length(mask,height)'     seg.py: made sure segmentation output only includes the points we're pretty certain are in the body (np.greater(mask, certainty))" && gpus
+
   Technical:
     Find the waist length.
-    Find the crotch to get the pants height.
 
     Just have them enter their height.
     Make them spread their legs a bit so we can get the leg length from the crotch.
     Segment & get measurements at various locations (waist, legs).
       But HOW do we get the waist measurements?
         It's different for a fat person than for a skinny one
+      Maybe a fixed amt above the crotch (or that fixed amt but adjusted for height)
+    We must take the very very best segmentation among all the rotated images in order to reliably use our crotch-finding method
     
 
   Business:
     Start with used jeans
+    Local Craigslist (esp. good for little kids that constantly outgrow pants, also abnormally sized people like myself and the tall mTailor guy on YouTube)
+
+  Competitors:
+    https://fashionista.com/2014/07/8-tech-startups-tackling-clothing-fit
 
 
 
@@ -34,8 +41,10 @@ ________________________________
 
 
 
-
-
+  Funds:
+    Lookup UD classes' start date
+      Tutor by sneaking around as usual
+      Put in Zoho Cal
 
 
 

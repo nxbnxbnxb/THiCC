@@ -210,7 +210,8 @@ def segment_from_local(local_filename):
   # urllib.request.urlretrieve(_DOWNLOAD_URL_PREFIX + _MODEL_URLS[MODEL_NAME], download_path)
 
   MODEL = DeepLabModel(download_path)
-  return seg_map(img, MODEL)
+  FAIRLY_CERTAIN=127
+  return np.greater(seg_map(img, MODEL), FAIRLY_CERTAIN)
 #=====  end func def of   segment_from_local(local_filename) =====
 def segment_from_URL(IMG_URL):
   '''
@@ -240,7 +241,8 @@ def segment_from_URL(IMG_URL):
 
   MODEL = DeepLabModel(download_path)
 
-  return run_visualization(IMG_URL, MODEL)
+  FAIRLY_CERTAIN=127
+  return np.greater(run_visualization(IMG_URL, MODEL), FAIRLY_CERTAIN)
 #===== end func def of  segment_from_URL(IMG_URL): =====
 
 if __name__=='__main__':
