@@ -24,6 +24,45 @@ ons = on_locs_nonzero(model)
 print ons.shape
 model_2=np.zeros(model.shape).astype('bool'); model_2[ons]=1
 """
+def find_crotch(mask):
+  '''
+    As of Thu Jan 17 09:15:12 EST 2019,
+      This func assumes 0 noise in the mask, which is an unrealistic assumption
+  '''
+  locs=np.nonzero(mask)
+  toe_height=np.amax(locs[0])
+  both_feet_height=float('inf')
+  #both_feet_height=toe_height+30 # TODO: fiddle with this until it's right
+  crotch_x_loc=float('inf')
+  for height in range(toe_height,0,-1):
+    if both_feet_height==float('inf'): # both_feet_height will change values once we find the pt where we see both legs separately
+      in_1st=False
+      looking_for_2nd=False
+      for x in range(mask.shape[1]):
+        if not in_1st and mask[height,x]:
+          in_1st=True
+        elif in_1st and not mask[height,x]:
+          looking_for_2nd=True
+        elif looking_for_2nd and mask[height,x]:
+          both_feet_height=height
+          break # out of for loop
+    else: # found height where both legs are present in one row
+      in_1st=False
+      looking_for_2nd=False
+      found_2nd=False
+      for x in range(mask.shape[1]):
+        if not in_1st        and     mask[height,x]:
+          in_1st=True
+        elif in_1st          and not mask[height,x]:
+          looking_for_2nd=True
+        elif looking_for_2nd and     mask[height,x]:
+          crotch_x_loc=x-2
+          found_2nd=True
+      if looking_for_2nd and not found_2nd:
+        crotch_height=height
+        return (crotch_x_loc, crotch_height)
+  raise CrotchNotFoundException
+  return
 
 #===================================================================================================================================
 def rot8(model, angle):
