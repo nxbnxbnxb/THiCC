@@ -93,6 +93,12 @@ def pixel_height(mask):
   locs=np.nonzero(mask)
   return np.amax(locs[0])-np.amin(locs[0])
 #==============================================================
+#==============================================================
+def measure_leg(crotch,toes):
+  TWO_LEGS=2
+  return np.sum(np.sqrt(np.sum(np.square(crotch-toes),axis=1)))/TWO_LEGS
+#==============================================================
+#==============================================================
 def leg_len(mask,customers_height):
   pix_height=pixel_height(mask)
   #print("pix_height:\n{0}".format(pix_height))  # not the problem
@@ -125,11 +131,6 @@ def leg_len(mask,customers_height):
   return leg_len_pixels/pix_height*customers_height
 #==============================================================
 #==============================================================
-def measure_leg(crotch,toes):
-  TWO_LEGS=2
-  return np.sum(np.sqrt(np.sum(np.square(crotch-toes),axis=1)))/TWO_LEGS
-#==============================================================
-#==============================================================
 if __name__=="__main__":
   # NOTE:  esp. in the future, be wary of how important it is to use np.greater()  (segmentation doesn't just return simple "true-false")
   # whole directory of masks:
@@ -152,6 +153,7 @@ if __name__=="__main__":
 
 
   mask_fname  = "/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_01_15____11:04_AM___/000000000.jpg"
+  # 32, 38, 39, and 43 find the crotch to be higher  than the "nearby" images
   mask        = np.asarray(ii.imread(mask_fname))
   mask=np.greater(mask,127)
   NATHAN_HEIGHT=75 # inches
