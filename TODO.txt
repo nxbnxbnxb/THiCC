@@ -1,7 +1,175 @@
+  What mistakes did you make today?
+
+    TODO.txt
+
+
+
+________________________________
+
+  Sun Jan 27 09:58:01 EST 2019
+________________________________
+
+  Accelerators?
+  Get out an MVP and start pitching it?
+
+  The best result is if we can find/transition to something 100% remote so I can move to California whenever it's convenient later.
+
+    Also ideal if something matches all my skillsets (automation, rather than brainless work like at Burger King)
+      Probably apply to Newark/Philly software jobs.
+
+  The second-best result is probably Tesla, even if it's not a tech position
+    If it comes to a permanent role, try to discuss with the guys in person rather than via text (better to explain why, all the details, etc.)
+
+________________________________
+
+  Mall proj:
+    Check whether Caffe is installed for CPU, then build openpose around the CPU version.
+    Copy Dario's 3-month plan
+      Go to a UD prof & ask about debugging deep learning
+
+
+  What mistakes did you make today?
+    Can we learn anything from them?  If so, what?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    1)  Start looking
+    2)  Make a giant list
+    3)  Apply in a giant one-shot (as much as possible)
+
+      Remote work:
+        https://www.reddit.com/user/n1123/saved/
+        https://www.reddit.com/r/dotnetjobs/
+        https://www.reddit.com/r/RemoteJobr/
+        https://www.reddit.com/r/ListOfSubreddits/wiki/listofsubreddits
+        https://www.reddit.com/r/WorkOnline/comments/9sqskp/recruiters_that_focus_on_remote_software_jobs/
+
+
+
+
+________________________________
+
+  Fri Jan 18 09:06:34 EST 2019
+________________________________
+
+  If we get a job, try for Tubingen rather than elsewhere
+    Sean (Feiner's student)
+    VR (Oculus) jobs
+
+  goto chromes history if you need the next step
+  hmr.pdf
+
+  Technical (today):
+    We're trying to get measurements from a single picture.  Then we can use SMPL to replicate a body with those measurements.
+    Consider simple color-filtering to acquire clothing measurements (one set of poses with just skintight neutrally-colored clothing, another with the clothing they wanna sell & they pick a point on it for us to "segment out" using HSV)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ________________________________
 
   Tue Jan 15 18:14:47 EST 2019
 ________________________________
+
+  List out all TODOs on Zoho
+    Either 
+      a)  Steal Tubingen's tech
+        I think we're doing this
+        OpenPose to get measurements instead of the shittier segmentation where I have to do sizing myself
+      b)  Switch to plain sizing
+      c)  Take a lot longer to finish
 
 
   Technical:
@@ -26,7 +194,6 @@ ________________________________
 
   List of competitors:
     https://fashionista.com/2014/07/8-tech-startups-tackling-clothing-fit
-
 
 
 
@@ -869,4 +1036,9785 @@ Biz:
     tells you domain prices
     seth@godaddy.com : buy a domain name
       Any good domain name is usually at least $10,000
+
+==================================================================
+==================================================================
+==================================================================
+==================================================================
+==================================================================
+==================================================================
+==================================================================
+==================================================================
+==================================================================
+==================================================================
+
+                    TODO.txt
+________________________________
+
+  Sun Jan 27 09:58:01 EST 2019
+________________________________
+
+  The best result is if I can find something 100% remote so I can move to California whenever it's convenient later.
+    Also ideal if something matches all my skillsets (automation, rather than brainless work like at Burger King)
+    1)  Start looking
+    2)  Make a giant list
+    3)  Apply in a giant one-shot (as much as possible)
+      Probably apply to Newark/Philly software jobs.
+
+      Remote work:
+        https://www.reddit.com/user/n1123/saved/
+        https://www.reddit.com/r/dotnetjobs/
+        https://www.reddit.com/r/RemoteJobr/
+        https://www.reddit.com/r/ListOfSubreddits/wiki/listofsubreddits
+        https://www.reddit.com/r/WorkOnline/comments/9sqskp/recruiters_that_focus_on_remote_software_jobs/
+  The second-best result is probably Tesla.
+    Even if it's not a tech position
+    If it comes to this, try to tell the guys in person rather than via text (better to explain why, all the details, etc.)
+
+
+
+
+
+
+  Mall proj:
+    Check whether Caffe is installed for CPU, then build openpose around the CPU version.
+
+
+  What mistakes did you make today?
+    Can we learn anything from them?  If so, what?
+  Copy Dario's 3-month plan
+    Go to a UD prof & ask about debugging deep learning
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Thu Jan 24 22:55:27 EST 2019
+________________________________
+
+  Reopen old tabs in Chrome
+  Remove the emotionally harmful material from the Slack.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sat Jan 12 17:38:15 EST 2019
+________________________________
+
+   Try to get the mesh working (CGAL).  And then jobs
+   Kill tf under conda again.  I think the issue is the wrong version of numpy, but it would take longer than you care to spend to fix it.
+
+   open Opera
+
+________________________________
+________________________________
+________________________________
+
+  Msg Dario back, finalizing the time.
+  Get ahold of Naureen / BodyLabs
+    I should probably message grandma and grandpa, too.
+    I apologized.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Tue Jan  8 06:15:59 CET 2019
+________________________________
+
+
+  Code: 
+    Test the covariance for conglomerated tetrahedra
+    Plot/standardize evaluation of the "direction" of the normals so we can confirm that the algo actually does what it's supposed to.
+    Ask Alliez for a version of the code for his paper!  Can't hurt to ask, and it takes MUCH longer to implement anything by yourself.
+      DONE; something was given by Desbrun
+    Ensure masking step actually works properly (automate for a single video)?
+      Maybe easier to raise money if we don't have to do this?
+      But it's probably best to be thorough before moving to the next part
+
+
+  Meeting regulations:
+    Discussion leader
+    Bring points (outline)
+
+
+  Sign with Vishal
+    If we end up using the segmentation code,
+    Cash instead of more equity.  Vests if (when) company is worth $10 million
+
+  Go to work
+    Results Tutoring
+    Ask for a raise, compressed days
+      Actually, ask K&K's parents whether can tutor at home or literally anywhere else
+    Calculate exactly how much you need
+      Right now, (Tue Jan  8 18:21:22 EST 2019), I have $650.19 in the bank.
+        Perhaps more if I persist with Voya
+      Dad and I agreed til April?
+        Write it out
+      I should clarify every detail with Simone and Pier so I know when I need to live in DE til.
+      Also we need to have money for living then.  Otherwise I should find a way to raise some.
+  Clarify dates with Dad.
+    Don't be too rude or specific with this;
+    Better to just be nice to him.  Learn from your experience with Jeannine.
+
+  How to establish myself and make SOME money (money shouldn't be the emphasis over connections):
+    Grad school:
+      Columbia
+        Ask Vishal for recommendation?
+        Ask your profs
+      UDel CS
+      Transfer to Stanford if possible!!!
+    Tech jobs:
+      Remember, easiest to network my way in rather than do the blindly-spam-resumes shit
+      Princeton Satellite Systems
+      Tony
+      Bloomberg (Kai-Zhan)
+      PRH
+
+      Google
+      Facebook
+      AirBnB, etc. (big companies)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sat Jan  5 06:15:59 CET 2019
+________________________________
+
+  Put all vr-project-related stuff on zoho instead of here.
+
+  Print pmarca after pizza
+    done
+
+  Code: 
+    Test the covariance for conglomerated tetrahedra
+    Plot/standardize evaluation of the "direction" of the normals so we can confirm that the algo actually does what it's supposed to.
+    Ask Alliez for a version of the code for his paper!  Can't hurt to ask, and it takes MUCH longer to implement anything by yourself.
+      DONE
+    Ensure masking step actually works properly (automate for a single video)?
+      Maybe easier to raise money if we don't have to do this?
+      But it's probably best to be thorough before moving to the next part
+
+  I decided to raise money instead of going for a job.  I think it's possible to "glue together" the pieces of the human being I want to make the 1st prototype of the app.
+    NOTE:  this is a riskier way to attempt this shit.
+
+  Call Grandma, tell her about Switzerland.
+    Dad
+    Michelle
+    Doggies
+    Train
+    Analness
+    Almost dying
+    Adventures with Shaina (train, getting lost, )
+
+
+
+
+
+  Team:
+    Tell the guys to not tell anyone about the mall project
+    Request dropping out and meeting somewhere for work
+      Ask for location suggestions
+      Suggest the Bronx
+    If not, ask if anyone wants to step out for 5% of the company (the amt is somewhat negotiable)
+    Talk ratios
+    Pick a CEO?
+      "Anyone NOT wanna be CEO?"
+      Also allow the option "or we could deliberately NOT pick a leader"
+      Argue for the CEO b/c otherwise things are too slow.
+      Democracy isn't as good as meritocracy; leader should TRY to do the right thing, not just what everyone else wants him to do.
+
+      Meeting regulations
+        Discussion leader
+        Bring points (outline)
+        If there is a eureka moment, the person can interrupt
+          Usually meetings aren't where these Eureka moments happen    - Dario
+        Simone and Pier aren't always on the same page
+        It's not just "the mafia," they claim
+
+    Come up with papers (Sign NDA)
+    Give Vishal some money for his contribution upon the valuation of the company at a certain dollar amount.
+      Split evenly 4 ways
+        Pierlorenzo Peruzzo, Nathan Bendich, Simone Zamparini, and Dario Gentiletti agree to each take 25% of the equity of the Virtual Clothing Mall company (name pending, not yet incorporated) evenly (25% each).  But this equity will be given to each of us a little bit each month, for 4 years after July 1st, 2019. on the 1st of each month.
+        This contract will be void if and when any of these 3 happen.  All 4 founders must agree for any of these to take place:
+          1.  Outside investment
+          2.  Adding a new equity holder (ie. employee or founder)
+          3.  Change of business entity type (according to [A], we should be a Delaware C-Corp)
+
+        This contract was based on the informal agreement detailed in [B]
+          [A] https://mashable.com/2016/01/27/startup-business-structure/#0FKCY7e7sGqh
+          [B] https://www.docracy.com/35/founders-equity-agreementl
+        Non-Disclosure Agreement: we (the four named above) agree to not disclose any details of the project to people outside the four founders after January 8th, 2019, unless for the purposes of fundraising, which must be agreed upon by all four founders.  If one of the four does so and the other three founders agree sharing the information hurt the company's interests, the other three may take away 1% of the total equity of the company from the one who said too much and split that 1% three ways (0.333% each)
+
+        The 4 years was taken from the fact that Amazon took almost exactly 3 years from incorporation date to IPO.  I bet what we're doing is harder than what Amazon tried to do.  Regardless, 4 years is plenty of time to tell who's committed to it for the long run.
+      They wanna defer on this point til later
+
+    Argue for the internet site option more strongly & organized-ly
+      "Move Fast, Break Things"
+
+    Pierre argues that 1st priority is making sure I have a place to live.  We don't all need to be in the same place immediately.
+
+    Make a list of topics to discuss before meetings
+      Pierre is free 6-7 p.m. CET tomorrow (12 noon)
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sat Dec 29 10:59:02 EST 2018
+________________________________
+
+  compile w/ gmp:
+    https://stackoverflow.com/questions/10446843/installed-gmp-but-cant-see-it
+    https://stackoverflow.com/questions/6141147/how-do-i-include-a-path-to-libraries-in-g
+
+  Clothing success (3ds max, Simone):
+    https://www.youtube.com/watch?v=TdmnmTwcfDE
+
+  Investig8 claim in scipy documentation about "Note here that due to similar numerical precision issues as in Delaunay triangulation above, there may be fewer Voronoi regions than input points."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Thu Dec 27 10:59:02 EST 2018
+________________________________
+
+  conda install cgal
+    # conda-forge
+  pip install cgal-bindings
+
+
+  1st make sure CGAL itself is properly installed. 
+    https://doc.cgal.org/latest/Manual/installation.html
+    https://www.cgal.org/
+
+
+
+
+
+  WARNING:root:Lossy conversion from int64 to uint8. Range [0, 15]. Convert image to uint8 prior to saving to suppress this warning.
+
+  Ask Pier what mesh format he wants
+  post deeplab...tar.gz online and include a link to download it
+    DONE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  get rid of /home/u/
+
+  w3m vim configs
+    or lynx
+    or whatever is most widely used and supported
+  .bashrc colorful prompt
+  get mouse from downstairs
+
+  arch install
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  SafetyError: The package for wheel located at /home/n/anaconda3/pkgs/wheel-0.32.3-py27_0
+  ClobberError: This transaction has incompatible packages due to a shared path.
+    packages: defaults::libopenblas-0.3.3-h5a2b251_3, conda-forge::openblas-0.3.3-ha44fe06_1
+      path: 'lib/libopenblasp-r0.3.3.so'
+
+    All in file conda_errs.txt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Dec 26 10:59:02 EST 2018
+________________________________
+
+  As user 'n,' 
+    conda env remove --name venv
+    DONE
+  Cancel meeting with Akandikonda?  Or maybe show her the recent milestone?
+    DONE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  fix rot8() function
+    Fixed!
+    Show the guys!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Tue Dec 25 10:59:02 EST 2018
+________________________________
+
+  conda env remove --name venv
+
+  swiss-U.S. Socket converter
+    Dad - msg.  Do we have to ship more pricily to Wilkerdean?
+  Python conda fix:
+    SafetyError: The package for setuptools located at /home/n/anaconda3/pkgs/setuptools-40.6.3-py27_0
+    appears to be corrupted. The path 'lib/python2.7/site-packages/easy_install.pyc'
+    has an incorrect size.
+      reported size: 310 bytes
+        actual size: 317 bytes
+
+  Get shekels from Shaina
+  SEPTA ticket (Shaina)
+
+  Call dad
+    DONE
+  Call Miriam
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Dec 12 10:59:02 EST 2018
+________________________________
+
+  upgrade numpy to 1.15
+    DONE
+
+  Idea: combine the too-much-noise and the too-little-noise
+    (double masking)
+    I think (first thought) this doesn't work b.c. the smaller mask will win the day
+
+  1st make sure render actually works.  Let's build a simple version and test the shit out of it before we try to make it fast.  Slow can possibly be worked with as long as it EVENTUALLY converges to the proper result
+
+ Cat work:
+  https://stackoverflow.com/questions/47197748/rotate-with-scipy-without-interpolation
+  https://www.google.com/search?q=cgal+python%2C+voro%2B%2B%2C+qhull&oq=cgal+python%2C+voro%2B%2B%2C+qhull&aqs=chrome..69i57.4683j0j4&client=ubuntu&sourceid=chrome&ie=UTF-8
+    rotation idea:
+      
+    pyoints
+      see whether individual points are the same as a rotation matrix
+    CGAL?  (in C++ or Python)
+    MATLAB?
+
+
+
+
+ Hobby stuff:
+  how to prefix bashrc with "time" function
+    DONE
+ Linux vs. FreeBSD:
+  https://www.youtube.com/results?search_query=what+is+the+difference+between+linux+and+bsd&page=&utm_source=opensearch
+ (live music; don't have to supervise) lofi hip hop 
+  https://www.youtube.com/watch?v=hHW1oY26kxQ
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Mon Dec 10 11:16:25 EST 2018
+________________________________
+
+  execute the fucking creation after compilation.  It will generate the .gnu files :)
+   Where to find shit:
+    /home/n/Documents/code/voronoi_3d/voro++-0.4.6/examples/basic/Makefile
+    /home/n/Documents/code/voronoi_3d/voro++-0.4.6/config.m
+    /home/n/Documents/code/voronoi_3d/voro++-0.4.6/examples/basic/README
+  Check whether voro++ includes calculations for the Delaunay dual of the 3-D graph
+    qhull may be even better!
+      Install here:
+      https://pythonhosted.org/pyhull/#stable-version
+    cmd line utility that may do what we want here:
+      http://www.qhull.org/html/qvoronoi.htm
+    also maybe in scipy
+  Fix cat matplotlib.pyplot
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sun Dec  9 11:16:25 EST 2018
+________________________________
+
+  Call WSJ (cancel)
+    DONE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Thu Dec  6 10:55:57 EST 2018
+________________________________
+
+  Give Kara the book (HTWFAIP) and tell her that if she wants gymnastics lessons she's gotta raise money
+  Tell her about what I've done for my dreams (just like her)
+
+
+  Tell about Vacation to Switzerland
+    Free intern?
+  By January 22nd, 2019
+    MVP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Dec  5 15:33:38 EST 2018
+________________________________
+
+  What is the "availability bias" actually called?
+
+
+  Decide which method is:
+
+  0.  Best results (highest realism)
+    a.  This is really what we gotta aim for, more than anything else
+  1.  Simplest 
+    a.  To implement
+    b.  To understand
+  2.  Code already exists for it
+    a.  Pester the Stanford guy
+  3.  
+  4.
+  5.
+  6.
+  7.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Tue Dec  4 11:09:29 EST 2018
+________________________________
+
+  Discount for small-medium businesses
+  SMPL api is free.  fpx mesh file, obj file back.  10s of cents per call
+
+
+  Met with Tubingen:
+    1.  Charges not-so-much for "I send them body measurements they send me a SMPL model"
+      a.  They can give me stuff like http://bodyvisualizer.com/  (I give measurements, they give mesh)
+    2.  Don't have clothing techniques (without 4-D scans of the clothes on people)
+    3.  They additionally offer consulting related to the Tubingen models
+    4.  If I wanted to license the entire software, it would be more expensive
+    5.  Amazon has patents on particular pieces of this Tubingen group's software, but not on SMPL itself
+    6.  "Rigging" is what Talha called the part where we get to move the mesh around  (lighting too?)
+    7.
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Mon Dec  3 16:35:56 EST 2018
+________________________________
+
+  Share the github repo with Miriam Linz
+
+
+  Soumaya:
+    Bring Harry Potter
+      Tell him about libgen.io so he can lookup books online for free
+    Summarize HTWFaIP
+    Make sure he gets the rounding to fractional parts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sun Dec  2 15:55:10 EST 2018
+________________________________
+
+  Watch Pierre's videos 
+    https://www.youtube.com/watch?v=HT0nOOZz6QE
+    https://www.youtube.com/watch?v=o7OpS7pZ5o
+    https://www.deepmotion.com/avatar
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Nov 28 18:30:17 EST 2018
+________________________________
+
+  Tell Vince break dates
+    DONE
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Tue Nov 27 20:03:25 EST 2018
+________________________________
+
+  Vishal recruiting?
+
+
+
+  Wash the long black lee jeans pants
+  Which tf version should I use?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+
+Mon Nov 19 17:26:56 EST 2018
+_____________________________
+
+  Call Brannan about payment
+    $100 key fobs (2 were returned)
+    1 from Michaela
+
+    Rent should be paid separately
+      Each cleaning charge oughta be made responsible for individual 
+        Kaylah charge for the front door
+        Michaela and James for the key fobs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+
+Sat Nov 17 17:26:56 EST 2018
+_____________________________
+
+  Redo the rotations by hand; see whether we get the same result as 2 weeks ago.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  vectorize the rotation, sum up the result, 
+    Then find single points, use the rotation, and see whether the (x,y,z) coords are the same
+    Test whether the rotations are proper
+    Less important than the theoretical guarantee; do it multiple times multiple days
+
+
+
+
+
+
+_____________________________
+
+Fri Nov 16 17:26:56 EST 2018
+_____________________________
+
+  brush teeth
+  cormbeef hash
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+
+Wed Nov 14 17:26:56 EST 2018
+_____________________________
+
+  execute "gpus" in cat dir
+    DONE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+
+Sat Nov  3 23:06:49 EDT 2018
+_____________________________
+
+  Go finish figuring out where model.py is reading from and change the test case to non-sphere
+    run mesh.rkt
+
+    Teach Sean multiplication a la Pokemon
+    ""    Kara via gymnastics??? idrk how to do this, tbh
+
+    Find internet-less comfy place to work?
+    UD Accelerator
+    Program incrementing macro in VIM (if going past 10, perhaps automate correction)
+
+
+    Recurring income sources:
+      Juuls
+      Pokemon math
+      AirBnB
+
+      Drop-shipping
+        Julian: $2000 / month
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  To fix this bug, test each part individually before drawing conclusion(s)
+    DONE
+
+
+
+
+    Post StackOverflow on NaN findings if they turn out to be interesting
+      Done
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+
+Sat Oct 27 14:13:44 EDT 2018
+_____________________________
+
+  1500 total LoC by Thanksgiving, 2018
+  Find cofounder/interns
+    Spam strangers on founder2be with xdotool automation
+    Troll LinkedIn for Emily Tumang's reply
+  Flu shots
+  Get bus tickets to NYC
+
+At midnight today,
+  mesh.rkt    is 1702 lines
+  delta       is +147 lines
+
+    goal is ~ 50 lines/day
+
+  Sunday no lines (reading Harry Potter (4?  5?))
+  Monday thought through rotation some more; going to rotate in model.py instead of mesh.rkt
+  Tuesday Oct 30: had work, but still wrote ~110 lines (see rotate_to_z_up.py)
+  Wednesday Oct 31: 10 lines print_dict() in utils.py.  36 in rotate_to_z_up()
+  Thursday Nov 1: thought up "rotate pts to find maxes, mins." This is easier than the method I thought of before that
+    Felt guilty for running home to fap instead of working
+  
+  Friday Nov. 2: none.    50.5 lines/day on avg so far (303 total)
+  Saturday Nov. 3: maybe like 50 lines in model.py and 17 lines in utils.py
+  Did no code btwn Nov. 3rd and Nov 14th.  I finished Henry Ford's biography and met Dario Gentiletti.
+    Wow that was a good bit of a dry spell.  Fuck I procrastin8 a lot lol
+  Wednesday Nov. 14 16:46:35 EST 2018:  assessing whether rotation actually occurred in _model_rot8d_0_1_.txt.  It didn't, and I'm now investigating why not.
+    Few lines of code written, but plenty of debugging is in the works.
+  Thursday  Nov. 15: ~10 lines, but good debugging of how the rotation should ACTUALLY be
+  Saturday  Nov. 17: ~20 lines, but good debugging of how the rotation should ACTUALLY be (fixed a bug that was making it stretch the A variable by 2 [sphere into reasonably extreme ellipsoid])
+  Tuesday   Nov. 20: had a good chat with Dario and co. about what Einstein will become
+  Wednesday Nov. 21: debugging rotation by hand
+
+
+
+
+look over code for "def rotate_pts_such_that_plane_normal_is_0_0_1(pts, norm):"
+w
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+
+Tue Oct 23 16:38:30 EDT 2018
+_____________________________
+
+  xdotool FounderDate
+    spam a bunch of strangers
+
+  SMART goals
+  Specific
+  Measurable
+  Attainable
+  R
+  T
+  1000 lines of racket code / month?
+    curr  mesh.rkt    is 1555 lines
+          old.rkt     is 2383
+    by November 23rd
+  3000 lines of Python?
+    curr  model.py    is 1435
+          old_code.py is  852
+    Correct this w.r.t. how many lines we now have
+    Make about total lines written; not the ones that end up in the product
+    Curr progress started approx. on May 16, 2018
+                            today is Oct 27, 2018
+                                        164 days btwn
+    Roughly 38 lines / day based on this extremely informal back-of-the-envelope calc.  1500 total lines of code should be possible every month.  So we'll shoot for 1500 more lines by December 1st, 2018, with a earlier goal of that many by November 22nd (Thanksgiving)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+
+Tue Oct 16 16:38:30 EDT 2018
+_____________________________
+
+  Finish 7-11 payment
+    Give shekels to Jeannine
+    Pretend to be a lawyer from a famous law firm and call 711
+      Violating Delaware State Law (mandatory breaks)
+      Pay $(30x3x10x.7) immediately
+      Quote regulation law #s and threaten lawsuit
+  Record this as a video and send it to grandma and grandpa.
+  Try to avoid bullshit
+  Buy laptop battery
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DONE:
+
+  Make my e-mail public so customers can contact me for bug fixes
+    Contacted Bezos for funding
+
+
+_____________________________
+
+Mon Oct 15 16:38:30 EDT 2018
+_____________________________
+
+  Pose Vishal the Bezos "regret minimization framework"
+    Which would you regret more:
+      Missing out on Google
+        or
+      Missing out on Cat??
+
+  As much as possible, don't rely on 1 person and don't put yourself in positions where u have to rely on some special talent like that.
+    And do an Elon where you pick their brain for all that shit so it all ends up in YOUR brain at the end of the day.
+
+  Meet Michael
+    Bother Lerner
+    Code the rotation
+  Meet Mathew Pregasen
+  Go home
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+
+Sat Oct 13 00:49:55 EDT 2018
+_____________________________
+
+  Delete old dir (~/p/cat/render, not "earlier")
+
+  1st keep bugging Dave Lerner for money
+    He writes good stuff too
+  If this doesn't work, start selling Juuls door to door
+    If u sell in NYC (CUNY, Columbia, etc.), can jack up the price b/c of tax reasons
+    Mint, Mango, and the Juul itself
+      https://www.bostonglobe.com/metro/2017/11/15/where-teenagers-are-high-school-bathrooms-vaping/IJ6xYWWlOTKqsUGTTlw4UO/story.html
+      https://www.juul.com/shop/pods
+        autoship makes cheaper
+      Sell individually for even more profits
+      https://www.reddit.com/r/juul/comments/78clp2/what_are_the_profit_margins_on_juuls_and_juul_pods/
+        TODO: post asking where the retailers buy from
+      Claims Creme Brulee is popular.  Definitely not what I saw at 7-11, but maybe more globally this is true.
+      At UD, p sure it goes: Mint, Mango, Cucumber, Menthol, Fruit, Creme Brulee, and lastly Tobacco
+      How low can we go on pod delivery prices???
+
+    Then expand to an app
+      Then expand the app to clothing?
+        Basically, we're looking for some way to make money while learning
+  or Alcohol
+
+
+
+
+
+
+  Check that Results tutoring got my email
+
+  Turkey slices
+  Refrigerator top row
+    Steven Shao's place
+_____________________________
+
+  Premature optimization is bad b/c often the problem isn't something foreseen.
+    As Taleb would predict, the bug is often in the "unknown" category
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  I had a dream that some Chinese immigrant student was making fun of me in front of all of Nakul Verma's class by reading a note written by Irvin Shen.
+    I fucking saw my mother in that crowd.  But I will win.  I will goddamn try my best and then I will fucking win.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+
+Thu Oct 11 09:49:53 EDT 2018
+_____________________________
+
+  Cofounder (Comp Vision)
+    Do this in Grad School or a company (the latter is probably preferred)
+    Kevin Chen
+  Fix sleep
+    8 hrs/night is plenty
+
+  uniqueness: Marketplace
+  Walker Corporate Law Group
+    Startup lawyers
+    He (Scott Walker) sometimes gives free knowledge
+  David Lerner and/or Gerard Neumann
+    Gerard
+    Swing by design space or Lerner's office on Monday/Tuesday
+  Incubator Video
+    Macs on campus
+    done (most of em)
+  Laundry
+
+  711 money
+    should be roughly $800
+    40 hrs/week for 2 weeks at $10/hr
+    Alan gave me a weird answer.  I should DEFINITELY clear it up when I get home
+
+Wire Jeannine the rent $
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  George Liu blurb
+    DONE
+  Rough Draft Ventures and
+    DONE
+  Dorm Room Fund
+    George Liu's recommendation (put in already)
+    DONE
+
+_____________________________
+
+Wed Oct 10 13:34:49 EDT 2018
+_____________________________
+
+  Dad's money
+    Through April 13th, 2018
+      $350 / month
+  711's money
+    DONE
+  Buy ticket to NYC (Megabus)
+
+  Work (results tutoring)
+
+  Incubator Video
+    nighttime
+  Laundry (night)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+
+Sun Oct  7 07:17:00 EDT 2018
+_____________________________
+
+  Test the competitions' products
+    fit.me
+  Try out an actual state-of-the-art scanner to play with its capabilities
+    https://www.aniwaa.com/best-3d-body-scanners/
+
+
+  Maskey fundraising (ask to be introduced to a VC)
+    http://www.columbia.edu/cu/bulletin/uwb/
+Columbia Entrepreneurship:
+  David Lerner
+    218 Uris Hall
+  Adam Royalty
+    318 S.W. Mudd
+  Nat Kelner
+    nhk2114@columbia.edu
+  Design Studio:
+    645 W 120th Street, Room 430
+____________________________________________________________________________________________-
+
+  Could ask Stephan Brown too
+
+  Drew Houston: lookup how found cofounder
+  Subway ticket
+  Piazza
+  E-mail whatshisname back (1007 guy)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+
+Fri Sep 28 07:32:32 EDT 2018
+_____________________________
+
+  Bring tutoring clothes
+
+  The product I'd pay for is clothes that fit.  That's it.
+    Not the 3-D viz unless it's REALLLY good
+      So we'll just have to make it stinking good.
+
+  Code:
+    Run mesh.rkt on _model.txt
+    Keep better track of bugs
+      Use software like Fog Creek's???
+
+    Go line-by-line in the algebra or code and figure out the problem with the sphere initialization
+      Are all-small-values reasonable?  Will they work?
+        At least the sphere is a simple unit test case
+      Center the sphere for unit test
+      PROBLEM??: penalizes too-large values of A,B,C,...J in dist_single_pt_heuristic()
+        I'm not sure if this is actually wrong, though.  All that oughta matter is the RELATIVE value of A,B,C,...J to each other, right?
+    Smart (human-body-tuned) kmeans initialization
+
+    Surface fitting is not working atm.  Debug!
+      Pick 3 pts >> plane
+      We can solve for the plane of least variance
+        https://stackoverflow.com/questions/15959411/fit-points-to-a-plane-algorithms-how-to-iterpret-results
+        The intercept doesn't matter
+      Rotate plane and points to make calculating maxima and minima easier
+        Start with known pts to figure out normal vector directions
+        https://math.stackexchange.com/questions/1167717/transform-a-plane-to-the-xy-plane
+
+        10 pts should be flexible (we should at least get every extremum)
+
+        4th pt should be farthest pt from that plane.  Then somehow we have to fit the rest?
+          Maybe we can pick all 10 of the points by distance from the plane, then repick 5 of 'em for the next iteration
+        Keep dictionary of pts used to update; we want to make sure to sample from all regions of the space
+          Imagine a camel's (with 3 humps)'s back; you can't get the right surface by only looking at the extrema: you need the midpoints as well!
+      I think we should not translate the surfaces b/c it doesn't help us.  It actually hurts, because there's no way of easily translating them back (except maybe moving all the points too, but then we'd have to change a hell of a lot of Racket code as well)
+        DONE
+      Which parts of the human body really need the high-definition detail?  And how do we get that detail?
+        Currently we're simplifying using the quadric for speed's sake, but consider how well that will work on the following body parts:
+          Face
+            Nose
+            Eyes
+            Ears
+          Hands
+          Toes
+          Anything "pointy," ie.
+            Elbows
+            Knees
+        This all means that we should deform the triangle mesh after we initialize:
+          The quadrics (smooth, fairly easily differentiable surfaces) are just for the big picture lay of the land
+          For those particular body parts, we should be tweaking more and more based on detailed photographs
+            But this is mainly for super persnickety users
+
+    Cut down on UPDATING time by randomly picking from points to fit to (SGD rather than minibatch GD)
+
+    Rewrite everything in Common Lisp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+
+Sun Sep 23 21:13:00 EDT 2018
+_____________________________
+
+  711 card
+  The product I'd pay for is clothes that fit.  That's it.
+    Not the 3-D viz unless it's REALLLY good
+
+  Code:
+    Run mesh.rkt on _model.txt
+
+    Go line-by-line in the algebra or code and figure out the problem with the sphere initialization
+      Are all-small-values reasonable?  Will they work?
+        At least the sphere is a simple unit test case
+      Center the sphere for unit test
+    Smart (human-body-tuned) kmeans initialization
+
+    Surface fitting is not working atm.  Debug!
+      Pick 3 pts >> plane
+      We can solve for the plane of least variance
+        https://stackoverflow.com/questions/15959411/fit-points-to-a-plane-algorithms-how-to-iterpret-results
+        The intercept doesn't matter
+      Rotate plane and points to make calculating maxima and minima easier
+        Start with known pts to figure out normal vector directions
+        https://math.stackexchange.com/questions/1167717/transform-a-plane-to-the-xy-plane
+
+        10 pts should be flexible (we should at least get every extremum)
+
+        4th pt should be farthest pt from that plane.  Then somehow we have to fit the rest?
+          Maybe we can pick all 10 of the points by distance from the plane, then repick 5 of 'em for the next iteration
+        Keep dictionary of pts used to update; we want to make sure to sample from all regions of the space
+          Imagine a camel's (with 3 humps)'s back; you can't get the right surface by only looking at the extrema: you need the midpoints as well!
+      I think we should not translate the surfaces b/c it doesn't help us.  It actually hurts, because there's no way of easily translating them back (except maybe moving all the points too, but then we'd have to change a hell of a lot of Racket code as well)
+        DONE
+      Which parts of the human body really need the high-definition detail?  And how do we get that detail?
+        Currently we're simplifying using the quadric for speed's sake, but consider how well that will work on the following body parts:
+          Face
+            Nose
+            Eyes
+            Ears
+          Hands
+          Toes
+          Anything "pointy," ie.
+            Elbows
+            Knees
+        This all means that we should deform the triangle mesh after we initialize:
+          The quadrics (smooth, fairly easily differentiable surfaces) are just for the big picture lay of the land
+          For those particular body parts, we should be tweaking more and more based on detailed photographs
+            But this is mainly for super persnickety users
+
+    Cut down on UPDATING time by randomly picking from points to fit to (SGD rather than minibatch GD)
+
+    Rewrite everything in Common Lisp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+
+Fri Sep 21 00:10:27 EDT 2018
+_____________________________
+
+  Supposedly, Alan leaves at 6 today
+    Talk about 2 weeks' notice
+      DONE
+________________________
+
+
+________________________
+
+  Network
+    Andreesen
+      Meet from Taleb??
+________________________
+
+
+
+
+
+________________________
+
+  YC:
+    Talk about getting kicked out and getting back into college and mention ACT score
+    2nd in TX --  Japanese speech contest
+      Met the ambassador to the U.S. / Japanese consulate
+    Why am I the guy for Cat?
+________________________
+
+
+
+________________________
+
+  Code:
+    Save .npy model so we only have to run "fit_surface()"
+      WRONG
+    Save Model() obj file so we can restore progress at a later point
+      DONE
+ 
+    Smart (human-body-tuned) kmeans initialization
+
+    Surface fitting is not working atm.  Debug!
+      Pick 3 pts >> plane
+      Use the centroid and "median" (not real median, just use (median_x, median_y, median_z)) to help define the plane, and then maybe the real point in the data closest to the mean and median
+      Or we can solve for the plane of least variance
+      Rotate plane and points to make calculating maxima and minima easier
+        10 pts should be flexible (we should at least get every extremum)
+
+        4th pt should be farthest pt from that plane.  Then somehow we have to fit the rest?
+          Maybe we can pick all 10 of the points by distance from the plane, then repick 5 of 'em for the next iteration
+        Keep dictionary of pts used to update; we want to make sure to sample from all regions of the space
+          Imagine a camel's (with 3 humps)'s back; you can't get the right surface by only looking at the extrema: you need the midpoints as well!
+      I think we should not translate the surfaces b/c it doesn't help us.  It actually hurts, because there's no way of easily translating them back (except maybe moving all the points too, but then we'd have to change a hell of a lot of Racket code as well)
+        DONE
+      Which parts of the human body really need the high-definition detail?  And how do we get that detail?
+        Currently we're simplifying using the quadric for speed's sake, but consider how well that will work on the following body parts:
+          Face
+            Nose
+            Eyes
+            Ears
+          Hands
+          Toes
+          Anything "pointy," ie.
+            Elbows
+            Knees
+        This all means that we should deform the triangle mesh after we initialize:
+          The quadrics (smooth, fairly easily differentiable surfaces) are just for the big picture lay of the land
+          For those particular body parts, we should be tweaking more and more based on detailed photographs
+            But this is mainly for super persnickety users
+
+    Cut down on UPDATING time by randomly picking from points to fit to (SGD rather than minibatch GD)
+
+    Run mesh.rkt on _model.txt
+________________________
+
+
+
+
+ 
+  19 mins is the target cutoff;   117 mins is for the larger
+
+Sun Sep 23 19:25:44 EDT 2018
+  going for 359 mins and counting
+
+________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+
+Fri Sep 14 12:56:50 EDT 2018
+_____________________________
+
+    YCombinator
+
+    Learn 'gh' command in VIM (select mode)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    E-mail
+    Text Jackie
+    SSN card
+
+
+
+
+
+
+
+_____________________________
+__________       ____________
+__________ TODO: ____________
+_____________________________
+
+Thu Sep 13 12:38:30 EDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    Brannan rent
+    Jeannine rent
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    Vectorize the masking code
+      Or else remove a for loop some other way
+
+    Smarter k-means initialization
+    Better surface fit  (initialize better, or adjust better?  probably bit of both )
+        1)  Take the file written and find the closest 2 pts btwn the k lists.  Then start stitching from there
+        2)  Go from the outsides of each surface (on the edges of each bound set) 
+        3)  Means have to be "adjacent" for stitching to occur.  Perhaps we should assume only a certain number of means will meet?  So iterate through the means and take the nearest 3 (as long as the 3rd isn't "behind" the first two)
+    Mask by turning cylindrical back into Cartesian and masking in a vectorized way across the model
+    Stitch together the 2 surfaces
+        Done
+    Hollow masks, not model
+        Done
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    Rendering:
+        0)  Segment masks
+        1)  Mask model with bunch of masks  (==> voxels)
+        2)  Kmeans
+        3)  Quadric surfaces
+        4)  Mesh
+            a)  TODO: the current bottleneck in Python
+
+            b)  TODO: save surfaces, labels, and points to a file to be read in through Racket so we can continue the good work in Racket
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+__________       ____________
+__________ TODO: ____________
+_____________________________
+
+Tue Sep 11 12:38:30 EDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+  Money
+    AirBnB
+    Wyzant
+
+      Driving Lessons
+
+    7-11
+      actually hiring
+    Burger King too, I think
+    Papa Johns'
+    Banh Mi Boy
+
+  Vectorize masking (probably curr O(n^2);   make O(n^3))
+    Profile the code
+    Git revert back to when we had a fast "make_model()" function
+  Pay off
+    SF Brannan
+    Jeannine
+    Coinbase
+  Library closes at 9 P.M.
+  Find a 3rd partner
+    Vishal wakes up at 9 A.M.
+
+
+  Unemployment money
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+__________       ____________
+__________ TODO: ____________
+_____________________________
+
+Sun Sep  9 16:44:16 EDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+  1.  Roadmap of what needs to be done
+    a.  Mobile developers
+    b.  Data scraping
+  2.  Demo
+  3.  Market research
+    a.  Target market's size
+    b.  Age?
+    c.  Gender
+    d.  Competition
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+__________       ____________
+__________ TODO: ____________
+_____________________________
+
+Sun Sep  9 16:44:16 EDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+  Maybe we should necessitate each edge only have 2 neighbors.
+    (bug where we get this bug:
+      ; in-hash: contract violation
+      ;   expected: hash?
+      ;   given: #<void>
+      ; [,bt for context]
+    )
+  When I try changing count condition to < 3, I get:
+    > (load "mesh.rkt")
+    ; car: contract violation
+    ;   expected: pair?
+    ;   given: '()
+    ; [,bt for context]
+    > ,bt
+    ; car: contract violation
+    ;   expected: pair?
+    ;   given: '()
+    ;   context...:
+    ;    /home/u/p/cat_1st_demo/render_bendich/mesh.rkt:996:4: stitch_recurs_overseer
+    ;    /home/n/racket/share/pkgs/xrepl-lib/xrepl/xrepl.rkt:1446:0
+    ;    [repeats 1 more time]
+    ;    /home/n/racket/collects/racket/private/misc.rkt:88:7
+
+  Look at "middle" of stitch (that's where the problems arise)
+    in _bug_at___stitching_across_Sept_8_2018__0___resolution_25_9__.rkt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+__________       ____________
+__________ TODO: ____________
+_____________________________
+
+Sat Sep  8 11:29:53 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+  Maybe we should necessitate each edge only have 2 neighbors.
+    (bug where we get this bug:
+      ; in-hash: contract violation
+      ;   expected: hash?
+      ;   given: #<void>
+      ; [,bt for context]
+    )
+  When I try changing count condition to < 3, I get:
+    > (load "mesh.rkt")
+    ; car: contract violation
+    ;   expected: pair?
+    ;   given: '()
+    ; [,bt for context]
+    > ,bt
+    ; car: contract violation
+    ;   expected: pair?
+    ;   given: '()
+    ;   context...:
+    ;    /home/u/p/cat_1st_demo/render_bendich/mesh.rkt:996:4: stitch_recurs_overseer
+    ;    /home/n/racket/share/pkgs/xrepl-lib/xrepl/xrepl.rkt:1446:0
+    ;    [repeats 1 more time]
+    ;    /home/n/racket/collects/racket/private/misc.rkt:88:7
+
+  Look at "middle" of stitch (that's where the problems arise)
+    in _bug_at___stitching_across_Sept_8_2018__0___resolution_25_9__.rkt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+__________       ____________
+__________ TODO: ____________
+_____________________________
+
+Fri Sep  7 20:33:53 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+  Tell Rishi & Vishal about the deposit
+    (retrieve the deposit)
+  AirBnB
+
+  Ask Julian for a few grand
+  Learn poker for quick cash
+    (emphasis on "quick" b/c quicker than trading Taleb-style)
+
+
+  Initialize surfaces smarter
+  Initialize kmeans smarter
+  Where did idx 667 come from?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+__________       ____________
+__________ TODO: ____________
+_____________________________
+
+Wed Sep  5 20:33:53 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+  Something borrowed movie 1 hr in
+    (John Krasinski was telling "Rachel" that she should always kowtow to "Darcy," and should finally go get Dex)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+__________       ____________
+__________ TODO: ____________
+_____________________________
+
+Tue Sep  4 20:33:53 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+  Sell Sofa
+    Chairs
+    Desks
+    Bike
+    Toss 'em in the hall?
+      Outside?
+      Price tags and leave a Venmo address
+  Check that I don't have to pay rent
+  Cancel PG&E
+  Cancel Fiber
+  Return modem and router to Comcast/xfinity
+  Call Taco Hell and tell em I'm not coming
+
+  Any last food from the day in SFO
+
+
+  Pack
+    Router
+    Curtain
+    Windows box
+    Monitor
+    Lamp
+    Shaina's physics practice MCAT book
+    Black Swan
+    Ramen??
+    Spare shoes
+    Nice clothes
+    toolbox
+    Headphones?
+
+  Cell phone charger
+  Taleb book for the plane
+  Something lighter (book) also (Gossip Girl?)
+
+
+
+
+
+  Take out trash?
+  Call Vishal about moving in
+  Call amazon gift card
+  Schedule Avalon for when back in NYC
+  VGHS music
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+__________       ____________
+__________ TODO: ____________
+_____________________________
+
+Mon Aug 27 16:18:34 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+
+    Download all of Taleb's books as PDFs, then as audiobooks if we can figure out how.
+    Racket: see if func exists that   adds one hashtable to another
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+__________       ____________
+__________ TODO: ____________
+_____________________________
+
+Sat Aug 25 12:53:24 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+
+    Download all of Taleb's books as PDFs, then as audiobooks if we can figure out how.
+    White noise
+      DONE
+    Racket: see if func exists that   adds one hashtable to another
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+__________       ____________
+__________ TODO: ____________
+_____________________________
+
+Thu Aug 23 12:17:52 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+    Download all of Taleb's books as PDFs, then as audiobooks if we can figure out how.
+
+    Check BoA.com for money
+    Taco Bell
+
+    PGE bill
+      Internet bill
+      Done!
+    Sell bed
+      Done!
+
+    Ask Vishal when he needs to tell Uber whether he commits
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+__________       ____________
+__________ TODO: ____________
+_____________________________
+
+Sat Aug 18 13:35:28 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+    Check BoA.com for money
+    Rent
+    Ask Vishal when he needs to tell Uber whether he commits
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+__________       ____________
+__________ TODO: ____________
+_____________________________
+
+Wed Aug 15 14:47:29 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+
+============================================================================
+  We only want to allow the 1st element in
+  Every other element should include 0 repeats
+  Maybe we pass the 1st element as a separate parameter?
+    Currently, it compiles but doesn't give the result we want
+============================================================================
+  Rishi rent
+    Remember to collect before Sept 11, 2018
+    He asked about Vishal's cut (I don't really care about this, though, b/c Vishal and I are more-or-less one entity.  Idk whether he will accept this though)
+============================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+__________       ____________
+__________ TODO: ____________
+_____________________________
+
+Wed Aug 15 14:47:29 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+
+============================================================================
+  Rishi rent
+    Steal credit card numbers
+    Threaten to tell Gary V. and the IBM people
+      But act very close to the end of the lease
+============================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+============================================================================
+  August 14, 2018
+============================================================================
+
+NOTE:
+  actually coding the stitching algorithm took only 2 days (only ~10 hours).  Admittedly, I had to spend a good amount of time ruminating on it and working out many of the details in my head before it could colme to fruition, and the time complexity is currently abysmal.
+  League of Angels (similar game, https://0123movies.fun/episode/the-simpsons-season-1-episode-10/), makes avatars from pictures of people
+
+
+
+
+
+
+
+  Soumaya slide deck
+  Show the place
+    AirBnB
+      Make Rishi do this??????
+    Sell the bed                  (ad posted)
+  Flight to Philadelphia
+    September 5th, 2018           (flight booked)
+
+  Write the MVP code
+    Look up racket "break" "continue" or "do nothing" for loops, "(cond"s, ifs, whens, etc.
+============================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+============================================================================
+  August 13, 2018
+============================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+__________       ____________
+__________ TODO: ____________
+_____________________________
+
+Mon Aug  6 16:45:45 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+  In Python, write code to a file and then execute it
+
+  Change of plans:
+    1) Blender Minecraft texture tutorial (based on png)
+      https://www.youtube.com/watch?v=QK-5Yu8m2-s
+    2) Blender voxel render:
+      https://blender.stackexchange.com/questions/115501/how-to-render-voxels
+
+
+
+https://askubuntu.com/questions/426543/install-ffmpeg-in-ubuntu-12-04-lts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+__________       ____________
+__________ TODO: ____________
+_____________________________
+
+Tue Jul 31 13:14:26 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+    Go into the woods and take some code (but not your computer)
+        Come back with the algorithm (tonight or tomorrow [at absolute latest])
+        "The woods" could also be Palo Alto
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+__________       ____________
+__________ TODO: ____________
+_____________________________
+
+Tue Jul 24 13:14:26 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+    Better surface fit  (initialize better, or adjust better?  probably bit of both )
+        1)  Take the file written and find the closest 2 pts btwn the k lists.  Then start stitching from there
+        2)  Go from the outsides of each surface (on the edges of each bound set) 
+        3)  Means have to be "adjacent" for stitching to occur.  Perhaps we should assume only a certain number of means will meet?  So iterate through the means and take the nearest 3 (as long as the 3rd isn't "behind" the first two)
+    Stitch together the 2 surfaces
+    Hollow masks, not model
+_____________________________
+
+Big idea:
+    Borrow compute power from the internet for Deep Learning, server requests, etc.  Hook people's brains up to this network so we can do computations through their brain
+        Kinda Brave-New-World -meets- Silicon-Valley-TV-Show
+_____________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+__________       ____________
+__________ TODO: ____________
+_____________________________
+
+Sun Jul 22 16:17:15 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+    Lowercase m in normal mode VIM
+        Candidate for leader?
+    Derp, this is for "mark," which is actually somewhat useful
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+__________       ____________
+__________ TODO: ____________
+_____________________________
+
+Fri Jul 20 00:09:57 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+    Racket profiler
+    Vim marks, jumps, etc.
+    Python installation
+    Make tiny mask once more, so we can iterate more rapidly
+
+    For loop "break" :
+        https://docs.racket-lang.org/guide/for.html
+    Racket profiler info:
+        https://docs.racket-lang.org/profile/index.html
+
+    note: as of July 21, 2018 at 2:50 P.M., sda2 is the mount point
+
+
+
+
+
+
+====================================================================================================================
+            Overview:
+====================================================================================================================
+
+
+    Rendering:
+        0)  Segment masks
+        1)  Mask model with bunch of masks  (==> voxels)
+        2)  Kmeans
+        3)  Quadric surfaces
+        4)  Mesh
+            a)  TODO: the current bottleneck in Python
+
+            b)  TODO: save surfaces, labels, and points to a file to be read in through Racket so we can continue the good work in Racket
+
+
+
+====================================================================================================================
+        5)  Clothing
+            a)  Fit 
+            b)  Render
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_________         ___________
+_________  TODO:  ___________
+_____________________________
+
+Mon Jul 16 15:39:10 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+    Racket guide: 
+        https://plt.eecs.northwestern.edu/snapshots/current/pdf-doc/guide.pdf
+
+    WRONG:  Pay part of James' and Michaela's rent to Shaina and Vishal    (I paid for James' share of the rent, so I'm the one who gets the rest)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_________         ___________
+_________  TODO:  ___________
+_____________________________
+
+Sun Jul 15 10:00:06 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+_____________________________
+_____________________________
+
+    pay Vishal and Shaina from the rest of James' rent
+_____________________________
+_____________________________
+
+
+    One of the most interesting things we've discovered from
+working on Y Combinator is that founders are more motivated by
+the fear of looking bad than by the hope of getting millions
+of dollars. So if you want to get millions of dollars, put
+yourself in a position where failure will be public and
+humiliating.
+
+=====================================
+    Lisp comparisons (different names for the same thing in diff Lisp flavors)
+        http://hyperpolyglot.org/lisp
+
+=====================================
+    racket hyperspec
+        https://docs.racket-lang.org/guide/begin.html
+
+=====================================
+    access to python libraries in Racket:
+        https://github.com/pedropramos/PyonR
+
+=====================================
+    racket's equivalent to python2's dir():
+        (require xrepl)
+        ,apropos
+
+=====================================
+    equivalent to python's type()   in racket:
+        ra -I swindle
+        > (class-of ...)
+
+=====================================
+    (list->array '(1 2 (3 4))
+        doesn't automatically turn nested list into multi-dimensional array
+        This is a problem for the func (image->color-list img).  Perhaps there's a diff function
+
+=====================================
+    (list-ref l0 idx)
+
+=====================================
+    color and images!  useful for img processing
+        https://docs.racket-lang.org/teachpack/2htdpimage.html
+
+=====================================
+    get shit outta color_vect
+        (define color_vect (struct->vector color0)) 
+
+=====================================
+    Style guide:
+        https://docs.racket-lang.org/style/Choosing_the_Right_Construct.html#%28part._.Structs_vs_.Lists%29
+            Use "cond" over "if" (allows us use 'define' rather than just a 'let')
+            Use "define" over "let"  (Nathan: why?!??  is there a material difference w/r.t. time complexity??)
+            Name subexpressions
+            Functions over macros
+            "Parametrize" over define for "parameters" (idk what that means yet)
+            For loops are fine; at least as functional as map, foldr, lambda
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_________         ___________
+_________  TODO:  ___________
+_____________________________
+
+Thu Jul 12 17:28:54 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+    Fix bike
+    When we hire people at Cat, give them a month's trial-period.  But the ACTUAL trial period in their term sheet is longer.  Then we can see how they REALLY behave when they think they're not being evaluated: a kind of character test.
+
+    Racket:  translate build_model_bayesian.py into Racket.
+        Search query to manipulate images in Racket Lisp:
+            "Importing and visualizing pictures in racket without using DrRacket "
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_________         ___________
+_________  TODO:  ___________
+_____________________________
+
+Wed Jul 11 12:09:34 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+
+    call 'racket', then---->
+        ,drracket
+            once within racket interface
+
+
+
+
+
+
+
+
+
+    e-mail to: food@sfgov.org
+    Subject: 1541605
+        Write on subject line in e-mail to food@sfgov.org
+_____________________________
+
+    Body:
+        From mom: Is this money a loan or a grant?
+        From Shaina: How are you being supported during this time?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_________         ___________
+_________  TODO:  ___________
+_____________________________
+
+Tue Jul 10 09:02:01 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+    Triangle mesh endpoints func just 'redoes' "get_on_locs_Cartesian()"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_________         ___________
+_________  TODO:  ___________
+_____________________________
+
+Mon Jul  9 14:22:41 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+_______________________________________________________________________________________
+
+        Hexagonal / triangular tiling rather than Cartesian
+_______________________________________________________________________________________
+
+
+    List of rendering software:
+        https://en.wikipedia.org/wiki/Alembic_(computer_graphics)
+_______________________________________________________________________________________
+
+    Graphics algorithms (3-D rendering), including the Catmull-Clark rendering algo:
+        http://www.cs.cmu.edu/~djames/15-864/a1_S06.html
+    Quadrics:
+        http://www.movesinstitute.org/~mcdowell/mv4202/notes/lect11.pdf
+_______________________________________________________________________________________
+
+readable in VIM:
+    .obj isn't quadric
+    .ply ain't quadric
+    .abc prob ain't quadric either
+
+    .3ds is a binary file (not readable in VIM)
+    .fbx is unreadable in   VIM
+    .stl ""                 VIM
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_________         ___________
+_________  TODO:  ___________
+_____________________________
+
+Fri Jul  6 12:27:44 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+    vim comment many lines in few strokes
+    vim yank to end of line in 1 or 2 strokes
+    vim learn ex mode
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_________         ___________
+_________  TODO:  ___________
+_____________________________
+
+Wed Jul  4 12:27:44 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+    Enter a pitch competition (approx. equal to Tech Crunch Disrupt)
+        Light a fire under our asses
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_________         ___________
+_________  TODO:  ___________
+_____________________________
+
+Wed Jul  4 12:27:44 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+    Time complexity of dist()
+        n_pts * num_inits_required * 
+    Blender face labelling (voxels ==> numbered voxels)
+        DONE
+    edit terminal tab name (make shorter)
+    Rent.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_________         ___________
+_________  TODO:  ___________
+_____________________________
+
+Tue Jul  3 18:11:01 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+    Blender face labelling (voxels ==> numbered voxels)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <TAB> .vimrc command
+    insert before place in comment  (one keystroke)
+        insert at beginning of word (one keystroke)
+
+    chmod nonexe on rarely used .py files
+            # if no planes can give us a bijective mapping, do something special.  We can't avoid this if initialization is realllly shitty or if we're fitting to each detail of a toe.  Guess we should fit the surface to the points FIRST.  I think we're already doing that...
+    Put k_means' max and min boundaries in get_triangles()      Huh???  Did I mean blending triangle meshes?
+    Adaptive mapping-plane offset
+    Intersection() code doesn't return 'True' if endpts same
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    look up %s/old/new
+        vs. 
+            %s/old/new/g
+    One of them only replaces the first instance on each line (use 'g' for 'global' to hit ALL matches
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Mon Jul  2 18:11:01 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    Vishal FB post
+    Connect sympy solutions to others
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Fri Jun 29 14:03:41 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    Try using sympy to solve the entire system of equations
+        Could also try WolframAlpha if that doesn't work
+    Compare Lagrange Multiplier and regular analytical calculus methods in sympy / Wolfram
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Thu Jun 28 21:32:55 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    Masking ==> 2-d Shells
+    Triangle mesh (Blender file)
+    Manifold tweaking
+    K-means separating manifolds into many different local triangle meshes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Wed Jun 27 11:51:31 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    Make a "company town" in the desert where rent is cheaaap.  Ideally it would also be somewhere there is sufficient rainfall, mild temperatures, etc.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Tue Jun 26 07:24:28 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    bulk burgers, veggies
+_____________________________
+
+    Vishal, we moved to SF for your job.
+    How about we move to Delaware for Shaina's job.
+=============================================================================================
+    Vastly improve the time complexity of the skinning algorithm
+        Perhaps we can somehow only acquire the skin from the photos.
+        There HAS to be some way to only do the skin that is time effective.
+        Do k-means on smaller clusters?
+        Manually improve k-means by force 
+            (forcibly jog means that have too many associated points,
+            move means with no associated points near means with too many pts,
+            
+                )
+=============================================================================================
+
+    Call calfresh lady ("Ada")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Mon Jun 25 08:16:12 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    Calfresh
+    kmeans, triangular meshing
+    
+
+
+    Our reduction algorithm ought to take 4 pts which are close Manhattan-distance-wise and are not interrupted by any distant points and turn them into 3 points.  Whenever it successfully does so, it will reduce the number of faces by 3 (imagine a tetrahedron and then a single triangular planar face of that tetrahedron; that's the level of compression we can get.
+    It should be initailized by kmeans (each mean will determine the points that should be looked through in finding the 4th point to remove).
+
+    After we use this (4 -----> 3) reduction algorithm, we will probably want to use a neural network to fit a manifold to the remaining skin points.  Hopeuflly we won't have to train this neural net on extant skin model data, or if we DO have to use Michael J. Black's materials, we can get his (IP) Intellecual Property with permission or little risk of legal consequence.
+        We may (I hope we don't have to, but we may) need to rewrite a graphics library entirely for this particular problem, just to prove to lawyers that we didn't steal anyone's VR IP.  It's possible we could grab some good shit from Unity, Oculus, or someone else, but most likely that will not solve the precise problem I'm trying to solve.  Perhaps the (manifolds --> Unity) problem is a doable one, and then that will be the problem I need to solve rather than rewriting all the graphics libraries myself.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Sun Jun 24 15:40:29 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    Code:
+        np array instead of OrderedDict()
+    Write up something to Vishal about ditching SF for Delaware or DC
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Sat Jun 23 09:20:40 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    Background moves slowly ===> 3-D depth effect
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Thu Jun 21 17:17:40 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    Oscar summer camp
+        If we invite him to work with us, Robert Greene would say I suck
+            But Rob Greene's never started a startup.  It might be different?
+        Worth considering.  He's p much free labor (at least in the beginning)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Wed Jun 20 20:09:38 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    SortedDict of Theta, Z, radius coords
+    Class Model():
+        Dict() pts;
+        eliminate(x_low, x_hi)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Tue Jun 19 11:48:52 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    Deal with corners
+        Extend whitespace off the included pixels
+        Reintroduce a tolerance?
+
+    Make realistic model of human body
+        Smooth out surface pts
+        Is *x in python a ptr dereference?
+    Order many sizes of clothes
+        Try each on, catalogue your findings
+
+    Buy a 3-D printer to test whether 3-D printing customers' bodies will work.
+        ~$500
+
+    Vishal income, SSN, Birthdate
+    Shaina         SSN, Birthdate
+    Our             Address
+    Mom letter about rent
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Sun Jun 17 20:43:46 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    Should we shine speckled lights on a person's body,
+        ("active illumination" as CV professionals call it),
+        The depth of a point is proportional to the radius (area?) of the circle
+        The angle of the plane tangential to the skin at that point is proportional to 
+            A) the eccentricity of the ellipse and 
+            B) the direction in which that ellipse points
+
+        Then we ought to stitch together the various planes somehow.
+        The method is similar to the approximation a la derivative as done by Euler?  Gauss?
+            ie. where you do f(x+del) = f(x) + del f'(x)
+        We can mathematize (formalize) this later and make an algorithm of it.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Sat Jun 16 09:55:19 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    VBox High Sierra++
+    PhoneGap
+    Appcelerator
+    Qt
+    Zamarin
+_____________________________
+
+    Get SSD instead of hard disk
+
+    Don't sleep til we get out the MVP.
+        Get VBox up and running along w/ used iPhone.
+        We can emulate iPhone4, iPhoneX, etc. on VBox as well 
+    Directions API
+        Combine it with the Geolocation
+        Or maybe first thing to do is really shipping from online.  Most people don't need clothes urgently
+    Maybe I can just use their end to acquire the GPS location and measurements, and we can do all the actual processing work on the "server side"
+        Can we offer discounts if they buy through us?
+
+
+                    ***********************************
+==================================================================================
+                    Active illumination from the iPhone
+                    3-D-print models of the customer in store
+                    Sell 3-D clothes-printer to customers
+                    ""   personal spinning jenny to custs
+==================================================================================
+    Check Amazon for order delivery date
+    Buy used iPhone
+    Buy bulk meat
+        bulk eggs
+    E-mail Martin the letter you were thinking of sending to Vishal.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Thu Jun 14 00:45:51 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+
+    First we reaaaaallllllllllly need to have a clear vision of what this thing is.  What specific problem are we trying to solve?
+        Who needs this?
+        How many people need this?
+_____________________________
+
+        20?
+        Only correlation was high social trust (teams talk about all sorts of things unrelated to the project.  I'm guessing this means that brains matter less than cross-exposure to problems and different perspectives).  Also, if people talk to each other and like each other and value each other as people, they're probably more likely to put in the extra mile than for a total stranger.
+        "Storming" has to happen before teams work well together.
+        People have to be able to talk to each other.
+        Different words.
+            Accountants
+            Engineers
+            Marketing
+        Conceptual challenges due to culture (Google people think like Google people, not like Yahoo! people)
+        Google teams research
+_____________________________
+
+    When the consultant Bill Burnett says "authoritarian" methods don't work, did he look at Steve Jobs?
+        It seems somewhat incomplete to say that.
+_____________________________
+
+    We're looking to get Google Maps API working.
+        1.  Fullstack academy
+        2.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Google Maps API:
+        https://www.fullstackreact.com/articles/how-to-write-a-google-maps-react-component/
+        https://github.com/fullstackreact/google-maps-react
+_____________________________
+
+    Nathan's size:
+        30x36 Regular Lee Jeans
+    Can I measure myself via directions online and get reliable results?
+    Uber Eats but for clothes
+        This is us
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Order shampoo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Wed Jun 13 09:49:47 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+
+
+    First we should probably use what we have?
+        Vishal
+        Rishi
+        Michaela
+        James
+
+        Then we can tell how much we can do with that level of segmentation
+        Can we actually fit you to clothes reliably purely from these pixel-level masks?
+
+    TODO:
+        Focus on ONE brand
+        Single sizing scheme important in the beginning.
+        Scan local stores for their selections
+        We want to find THE best fit for each person.  That's the whole selling point of the business.  So we have to be detailed oriented.
+_____________________________
+
+    Nathan's size:
+        30x36 Regular Lee Jeans
+    Can I measure myself via directions and get reliable results?
+
+
+
+
+
+
+
+
+
+
+
+
+    Send a picture and send it to Vishal for segmentation on a GPU.
+
+
+
+
+
+
+
+
+
+    Robust segmentation
+        LaZ Snapping
+        This fucking installation >______.______<
+
+
+
+
+
+
+
+
+    Make a Slack with  Vishal
+    Github virtualenv
+        DONE 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Tue Jun 12 21:38:01 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+
+    Making the Lazy Susan rotate at a constant speed:
+        https://www.youtube.com/watch?v=ZIbVLQlcDrU
+        Visit the junkyard in the morning and find a motor you can do something useful with
+            A stand would be very nice too
+
+        We have a bigger load than they do in that vid, tho
+
+_____________________________
+
+To ask Electrical Engineering.stackexchange.com
+    How to wire motor to wall socket?
+    https://youtu.be/uJRFl8ilQRI
+_____________________________
+
+    StackOverflow summarizing ways you can load and write images of various types in Python
+        ii
+        vv
+        scipy
+        cv2
+        plt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Mon Jun 11 02:37:54 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    Hang the bluescreen (tape it at some height)
+    Take pictures in front of it
+    See how well they segment
+
+
+
+
+    First week:
+        Exploration
+    2nd week:
+        Take good photographs
+    3rd week:
+        Segmentation
+    4th week:
+        Extract pants size from segmented images
+    5th week:
+        Scrape web for pants
+    6th week:
+        UI (suggest the pants to the user)
+
+Nathan's action plan example:
+    1.  Submit photos
+    2.  
+    3.  
+    4.  
+    5.  
+    6.  
+    7.  
+    8.  
+    9.  Nathan's only concerns are whether we can make the clothing fit realistically without IP from someone like Michael Black.  So he suggests we just take pictures of the person, see whether we have any clothing that fits peoiple similarly shaped to that user, and recommend that clothing if we have it.  Then, if they buy, we make royalties.
+        The user will see suggested clothing and a guarantee that that clothing will fit them.  They will also be able to pick their favorite colors, pattern they like, and style of clothing (ie. jeans vs. slacks).  I like the idea of icons and buttons rather than just a search bar, but if they want to type in a specific color/style we haven't shown with buttons, there should be a search bar as well.  It's an app, not a physical booth.  The booth is part of the picture-acquiring and segmentation process used to help size the user so we can recommend clothing that fits and will flatter their body type.  So they will open an app that looks something like Amazon and be able to purchase things in a familiar way, but they have to know the clothes will fit when they arrive.
+        "Buy" and "next" buttons.
+        I was thinking the only source of revenue would be comissions on the sold clothing.
+
+
+Vishal's action plan example:
+    1.  Submit photos
+    2.  
+    3.  
+    4.  
+    5.  
+    6.  
+    7.  
+    8.  
+    9.  Open the app. Load a set of recommended clothes. See if they fit. Buy them, earn royalty. And display "recommendations", not "ads" in the surrounding mall 
+
+    Clarifying questions:
+        Are the recommended clothes displayed on the user's body?
+        Do they come from nearby stores?  Neighbors?  Distant sellers?
+        How closely do they need to fit?
+
+    Nathan's thoughts:
+        When someone buys a $10 shirt, Nathan and Vishal make $0.30 (this is what Vishal means by "royalty")
+        This is what I mean by "commission" (royalties)
+_____________________________
+
+    Planning out "is this venture going to be profitable and how?" is , in my opinion, not the best use of our time, because it's hard to predict the future.  So if people talk too much about vision and predicting the fturure rather than starting the actual (technincal) work, that irritates me a bit because it feels like I'm wasting my time.
+    I also know that Elon Musk doesn't write business plans anymore for precisely this reason.  And even if we are nothing like Elon Musk, we can still learn from this part of his action because he has started more businesses than us and has succeeded more than most people ever succeed.
+_____________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Sun Jun 10 08:44:41 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+
+Cat pipeline:
+    1.  Take pictures
+    2.  Segment pictures
+        a.  Blue-screen
+        b.  GIMP
+    3.  Build 3-D model from masks
+        a.  "Recover Last Session"
+        b.  Can we get each pixel on each mask to map to a single point in Blender?
+            1)  Then moreover, we'll need to describe the almost-infinitely-many faces that make up the topology of a human body
+        c.  
+    4.  Color 3-D model
+    5.  Segment out clothing
+    6.  Put on new clothing
+
+============================================================================
+Cat pipeline:
+    1.  Take pictures
+        a.  How do we get uniform speed on the Lazy Susan?
+============================================================================
+        For next few days, we're focused on segmentation.  Let's hang the bluescreen and take pics
+        Red light?  Green light?
+        Account for the natural slowdown of the Lazy Susan due to coeff of friction mu and account for that in the rotation speed W (omega).  This way we can accurately acquire the 90 degree, 180 degree, 45 degree, etc. pictures.
+============================================================================
+    2.  Segment pictures
+        a.  Blue-screen
+        b.  GIMP
+============================================================================
+    3.  Get measurements
+        a.  Waist
+        b.  Inseam (height to waist)
+    4.  Scrape web for pants that fit that size
+        a.  Helps to have a tailor on our payroll / as a cofounder
+    5.  Offer pants
+
+
+============================================================================
+Ideas for how to get measurements:
+============================================================================
+    3.  Ask for jeans measurements of similarly shaped people.  Then we have to measure similarity somehow (either by 3-D models or height or somethin else)
+        a.  We'll have to go to a tailor for this, but it can definitely be done.
+        b.  We also need a significant datastore of people and their measurements.  But this can be done in time once we have a tailor on board our staff.
+============================================================================
+
+    1.  Haar cascades to belly button (or other notable feature)
+        a.  Even for this, we have a problem b/c not everyone's belly button is at the same height relative to their inseam.
+        b.  This also relies on us being able to see the belly buttons.
+    4.  Include height of known object in the picture next to person's leg/general body part
+    6.  Get a picture of them with friends and estimate their measurements by hand
+    7.  Get pictures nude or close to nude, from front and back, and measure each thickness of their leg @ each pixel height
+   12.  Find crotch (first break in mask) and estimate from there
+        a.  Even for this, we have a problem b/c not everyone's crotch is at the same height relative to their inseam.
+    2.  Form 3-D model of person from 2-D pictures and acquire the measurements that way
+        a.  Complex.  Perhaps more complex than is required.
+   10.  Paper (Clothes Size Prediction from Dressed-human Silhouettes)
+        a.  Copy their (the Chinese') methods 
+   11.  Model every atom in the person's body
+        a.  Too hard for MVP
+    8.  SMPL
+        a.  Copyrighted
+    9.  Train a CNN on a bunch of image and/or mask data that includes inseam, waist
+        a.  Too complex?
+        b.  Where do we get the labeled data?
+    5.  Identify the exact article of clothing the person is wearing, catalog it, and get the measurement(s) from that
+        a.  Prob too much work
+   13.
+   14.
+   15.
+   16.
+   17.
+   18.
+   19.
+
+============================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+============================================================================
+
+    Write Vishal the letter about climbing mountains to find a pot of gold at the top.
+
+============================================================================
+
+    Names:
+        1.  Garage Sale
+        2.  Genie
+        3.  Cat
+        4.  Cleenup
+        5.  DeKlutter
+        6.
+        7.
+        8.
+        9.
+
+    Have people compete over selling you the thing
+    You can place a bounty on an item if you literally need it in 10 minutes before you go to work
+    Borrowing that item is also allowed
+    Hrm, this only really works for stuff like suits, right?
+    But that could still be a viable business model: being a suits marketplace and lending-facility
+
+    The VR comes later
+    Rather than writing up some huge analytical argument, just post the friggin' ad and see whether people in our own f***ing community will give us their stuff
+
+The beginning of what could become a revolution:
+    "Hi, we're getting rid of your old stuff for you!  If you're moving out and have anything you can't sell, we'll give you a nickel for each item.  We live in unit 376: Nathan Bendich and Vishal Anand."
+    Other logistics:
+        1.  If you have to move out within the day and we're not currently there, you can leave your stuff and send an e-mail to nxbendich@yahoo.com with your venmo username and you'll get your money by the end of tomorrow.
+        2.  If you need something and don't want to A) wait for it to ship or B) pay for shipping, contact nxbendich@yahoo.com for inquiries.  We predict we'll get quite a few of the following: mattresses, sheets, and pillows. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Sat Jun  9 23:10:37 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    Pivot: Cleenerz
+        I still need jeans, but we have to be a marketplace.
+            I need jeans fast.  I need jeans tomorrow.  I need jeans next door.
+            We store user data (2-3 things they need recurringly and can't find anywhere else).
+            It's like AirBnB meets Amazon meets StackOverflow.  YOu can sell it out of your house, you get rating, and you GET NOTIFIED AS SOON AS SOMEONE POSTS WHAT YOU WANT.
+            It has to fit around your life.  It has to not waste your time (be better than FB Marketplace or craigslist).  It has to be scam-free (SOverflow-style no-spammers reputation to prevent the Craigslist problem)
+            Basically, it just formalizes neighbor-neighbor transactions and makes it easier for you to get whatever you need.  There are thousands of these apps out there, but for some reason none of them quite has dominance?  I guess Amazon does, kinda, but it's not fast enough and return-to-sender is too hard.
+            We acquire and exchange rare items:
+                MTG cards
+                Old porn
+                Weirdly-shaped bodies (lanky and tall like me)
+                Obscure sports apparel
+                Weird books
+
+                Old video games
+                Lessons on Google Fiber
+            Limited time only!  Sales
+                This way people only have to hold shit for like 2 weeks (1 week?) and also it'll sell faster.
+            Should be tailored to people who are moving out so they have hella shit to dump.
+            We can also fish around trash cans in the beginning.  Free stuff is where our margin comes in.
+            We can go super duper old school and rather than selling an app, we can just have the thing buzz a tiny radio antenna in your pocket
+            One radio antenna should be for general "there's a new thing at the local store" announcement and the other should be for "there's something very similar to what you've bought before" announcement.  Because there are always stupid ppl like Janie in the world who like to buy stupid cheap shit and we should make a tiny bit of money everytime that happens.
+
+        We have to be so bloody easy to figure out that oldsters and youngsters can both use us equally easily.
+_____________________________
+         
+
+
+    In the morning, figure out the pants problem
+    Vishal is the type to manically figure out the other problem
+        You're the analytical, reflective type to identify the need, and concentrate your forces until it's fucking done.
+        Fucking done.
+    Write Vishal the letter about climbing mountains to find a pot of gold at the top.
+
+    Wear those jeans out, betch.  See you in the fucking morning.
+        Do it at the waist
+            No belts required; actually save them money!
+            Local minimum radius (use our model to do this)
+
+
+        a.  How do we get uniform speed on the Lazy Susan?
+            a) Ideation:
+                5)  Have 'em push 'emselves and then drop the rod to assume a proper pose
+                2)  Push 'em with an external rod
+                    a)  Cheaper than motor
+                    b)  But here we have to do calculation using coeff of fric
+                3)  Fan
+                4)  Have 'em jump on w/ particular velocity and use it to turn the Susan
+                1)  Motor
+                    a)  Cord to wind/unwind the table
+                    b)  
+                6)
+                7)
+                8)
+                9)
+        b.  
+
+
+
+
+
+============================================================================
+    "But here we have to do calculation using coeff of friction mu " :
+============================================================================
+
+    Calculations for "rolling resistance" (the reason the ball bearings might slow down at all) acquired from the following physics website:
+https://www.real-world-physics-problems.com/rolling-resistance.html
+
+    An easier solution, considering we don't have perfectly round, oiled ball-bearings, is to programmatically calculate when the thickness of the mask is minimal and maximal (maximal at points forward or backwards, minimal at points where the body is facing right or left).
+        Then we could calculate 45 degree, 30 deg, 60 deg angles with a fair amt of certainty
+
+============================================================================
+
+  Facing forwards (towards the camera):
+    207-208
+  Facing right:
+    218
+  Backwards (my back facing the camera):
+    231
+  Left:
+    246
+  Forwards:
+    270
+        Here I lowered my "push pole" so I may have slowed down sooner than I otherwise would have.  Perhaps the corrected number oughta be 271? 272? 273?
+
+============================================================================
+    Thetas:
+============================================================================
+        10   , 13   , 15   , 24
+        11.5 , 14   , 18   , 32.25
+         9.25, 10   , 10.86, 13.66, 16.5 , 41.5
+    Remember, these are delta-thetas.  We have to derive both omega and angular acceleration (alpha)
+============================================================================
+    W_i (Omegas)
+============================================================================
+         3   ,  2   ,  9
+         2.5 ,  4   , 14.25
+         0.75,  0.86,  2.80,  2.84, 25.00
+============================================================================
+    A_i (Alphas)
+============================================================================
+============================================================================
+  Left:
+    326
+  Forwards:
+    337.5
+  Right:
+    351.5
+  Backwards:
+    369.5
+  Left:
+    401.75?  Technically stopped at 402.
+============================================================================
+  Backwards:
+    461.25
+  Left:
+    470.5
+  Front:
+    480.5
+  Right:
+    491.33
+  Backwards:
+    505
+  Left:
+    521.5
+  Forwards:
+    563
+        Here I lowered my "push pole" so I may have slowed down sooner than I otherwise would have.  Perhaps the corrected number oughta be 271? 272? 273?
+============================================================================
+
+
+
+
+============================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Sat Jun  9 08:55:19 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    1.  Initialize an SMPL model from 1st pic (establish a "1st pic": ideally one where we can see all the limbs and we have data for a SMPL model in that pose)
+    2.  Do something like SGD on model; use each new picture @ a diff angle to update the model's thickness parameters.  If we were to re-do SMPL, we'd want to be able to tune every tiny detail.  But that's very much a long-term (not at all MVP) kind of problem.
+    3.  Minimize MSE (or other Objective Function) of (curr_model - segmentation of curr_theta_view)
+        a.  This requires a constant (highly precise) angular velocity applied to the turntable.
+    4.  Tweak each radius on the body individually
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+
+    For demo:
+        1)  Person (Jen Aniston) walks around with old clothes on,
+        2)  Then with no clothes,
+        3)  Then with new clothes
+
+    .pkl files are the SMPL representations.  I'm still not 100% sure whether they're in .npy format, but also idk how much that matters
+_____________________________
+
+    For final:
+        Simulate every particle in the entire human body (organs included?) for highest fidelity.
+            Idk how much memory dedicate purely to the physics is required for this
+_____________________________
+
+    Merge all taking***.mp4 files so we have 10 hrs real music (just in case, lol.  We could probably make it a 20-hr marathon if we really need 2, lols)
+    Give Vishal half the rent
+_____________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Fri Jun  8 03:11:30 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+
+
+_____________________________
+
+Abs path of virtualenv:
+    source /home/n/Documents/IMPORTANT/business_work/cat/get_clothing_sizes_from_pix/cat_1st_demo/HMR/hmr/venv_hmr/bin/activate
+_____________________________
+
+    1)  Segment and model legs
+        a)  Use pose estimation & Tubingen datasets
+        EDIT: As of Fri, Jun  8 (14:13:40 PDT 2018), my understanding is that SMPL AND DMPL (SMPL + soft tissue deformations) are our best bet for realistic movement, body deformations, etc.  These models can be derived froma  single image with some level of fidelity, and (perhaps most importantly) they are easily rotatible, resizable, deformable, and portable to various platforms (Unity, etc.)
+        As for getting a SMPL model out of a single image, see https://github.com/akanazawa/hmr.  
+
+_________________________________________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________________________________________
+
+            SMPL:  (presumably Michael J. Black talking)
+            The parameters of the model are learned from data including the rest pose template, blend weights, pose-dependent blend shapes, identity-dependent blend shapes, and a regressor from vertices to joint locations.
+_________________________________________________________________________________________________________________________________________________
+_________________________________________________________________________________________________________________________________________________
+
+
+
+
+
+
+Question: How is DMPL different from Dyna?
+    Both do soft-tissue
+    My best guess rn is that Dyna is triangle-based (it only tracks the skin)
+    Therefore, it's not compatible with Unity3D, Maya, Blender, UnrealEngine, etc.
+
+    Is DMPL open-source just like SMPL?
+    The way SMPL works is by tracking a few key points on the human body (joints) and extrapolating the skin from these points via "weights" on these various body regions.  So the first step is probably to get SMPL running on Unity or Blender for the demo (MVP).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Thu Jun  7 01:11:18 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+Get James the key
+
+
+
+    1)  Segment and model legs
+    2)  start scraping the internet for sizing data & figure out 
+Hire Michael Black (no, just see what code you can grab)
+    How do we build the legs?
+        Triangles in the mesh
+        Is that better than the particle/voxel model I'm using now?  Hrm...
+        Perhaps everything could just come out of that 3-D modeling dataset.  Idk whether we have commercial rights to such data, but oh well
+
+    Work for Black
+    Work for Loper
+    Hire Black
+    Hire Loper
+
+_____________________________
+
+    Michael Black Notes
+_____________________________
+
+    Kinect extracts depth, whereas standard camera does not do active lighting of the scene.
+    SMPL is "skinning model" instead of triangle based, whatever the fuck THAT means.  Perhaps quadrilaterals?  Perhaps
+        Anyway, the answer to the question "what is a skinning model?" lies in the SMPL / DMPL paper.  DMPL is SMPL that takes into account bouncy fat ("soft tissue" as opposed to skeletons, which are estimated with "pose estimation" algorithms)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Wed Jun  6 01:11:18 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+Laundry (dry it out)
+
+==========================================================================
+Code { // begin "Code" TODO segment
+    Automate segmentation (3-D Graph Cut AKA Video Cut)
+    Do we do end-to-end integration?
+        If so, how?
+            1.  Assume everyone will be on the bluescreen for simplicity's sake.  Probably best for the MVP anyway.
+                a.  Do we deal with smoothing edges?  Is this even important for model generation?  (No; don't do this rn)
+                b.  So basically we're delaying on the segmentation bit.  We need to get a webpage up with a Unity model for a proper demo.
+==========================================================================
+            2.  Try to deal with segmentation in its total complexity and program a Neural Net today (clearly Vishal knows more about NN shit anyway).  As far as implementing Video Cut goes, I'm sure there are poor Ph.Ds we can hire to do that shit
+
+==========================================================================
+==========================================================================
+
+    Other thoughts:
+
+    We shouldn't launch on mobile.  We should launch on CPU.  Neither Vishal nor I is a JS / Swift / Droid master, and we want an MVP
+        I guess even just launching on web will involve some JS, but I know Flask (kind of) and Vishal understands Unity so he can get Unity launched in-Browser
+
+    "Vector" as June mentioned; should be scalable representation
+
+    Unreal Engine make slightly idealized avatar of a person instead of using their 100% likeness (https://www.youtube.com/watch?v=Vh9msqaoJZw, 3:30)
+    http://eprints.bournemouth.ac.uk/30129/1/02.pdf
+
+    Segmentation should be done w/ multiple methods and "and"ed together.  We can also "fill in" like one would in MS Paint so little "background" "holes" in the body go away, as do "foreground" sections in the actual background.
+
+} // end "Code" TODO segment
+==========================================================================
+
+UnrealEngine4 "backwards compatilibility": Can I view a site that uses Unreal Engine4 on a very old laptop and still see in high definition?
+
+# Backwards compatible?
+
+### The project:
+
+I want to render a high definition model on my personal website such that it'll be rendered in the highest definition possible on any device, from a 20-year-old Gateway PC running Windows 95 to an iPhoneX. It's particularly important that it's real pretty on mobile (whatever Android and iPhone models are big these days)
+
+### The question: 
+I was thinking I'd buy an expensive desktop with GPUs to make sure I can make the app really fancy for users on a high-end desktop with nice monitors. But I'm not going to do that if a mobile user won't be able to see anything the high-definition I get on my new expensive screen doesn't make it out to the app my employer is building. How does this work? Does OpenGL display the highest-definition render it can on the mobile device?
+
+==========================================================================
+    Call Am-Airlines
+    Get package
+    James (living in 855 Brannan with us) is working here illegally!  I hope they don't lose all their money; yikes >__<
+
+
+Buy a bed
+
+Ask dad whether to:
+    VC
+        OR
+    Go ask Gramma / Elon / PG @ YC for money
+
+Prepare list of criteria for James to move in:
+    Deposit
+    Utilities
+    Sign the Lease
+    Clean up
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Sun Jun  3 21:08:40 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    Double-check Amazon order dates
+    Call 415-642-4200 (415 Investments)
+
+    AirBnB
+        Better for temporary, partial rentals
+    Rent out the room
+        Giki
+        Morgan
+        Tori Yohe
+    Sell living room as option as well
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Fri June 1 17:04:53 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+Wi-Fi
+    Wini@Brannan
+show the apartment
+     7:00 P.M. -  7:30 P.M.
+    10:00 P.M. - 10:30 P.M.   (ugh)
+feed self
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Thu May 31 17:04:53 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+Steps:
+    1.  Take pictures
+    2.  Segment pictures
+        a.  Blue-screen
+        b.  GIMP
+    3.  Build 3-D model from masks
+        a.  "Recover Last Session"
+        b.  Can we get each pixel on each mask to map to a single point in Blender?
+            1)  Then moreover, we'll need to describe the almost-infinitely-many faces that make up the topology of a human body
+        c.  
+    4.  Color 3-D model
+    5.  Segment out clothing
+    6.  Put on new clothing
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Wed May 30 23:44:28 PDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    First get an accurate model of the ballerina
+        1.  Green-screen type background
+            a.  Ordered
+        2.  Lazy Susan
+            a.  Ordered 2 of them, each different sizes
+        3.  
+ 
+        Tips (also for customers):
+            1.  Less baggy pants
+            2.  Black jeans that hug my body
+            3.  Very differently colored background
+
+    Second see how to put it in Unity
+    Third go to Brannan Street
+
+    Blue background for video (segment the ballerina)
+        Simple color segmentation (background is green; everything else is foreground)
+
+    "Video Cut" 's insight is that the temporally close images can give information about the current
+        Also, matting?
+            "Image matting is the process of estimating the foreground, the background and the alpha for each pixel"
+            Alpha is the "foreground opacity"
+        Some kind of special matting (different from Bayesian)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Tue May 29 00:09:40 EDT 2018
+_____________________________
+_____________________________
+_____________________________
+ 
+    Sell the other room
+        Perhaps we want to sell it at the previous price of $1,300 to attract ppl
+    buy food in bulk
+_____________________________
+
+        Vishal credit:
+            4266 8415 5660 8212
+                cv code:    811
+                expiration: 1/23
+        Vishal debit:
+            4347 6980 2968 0019
+                cv:         157
+                expir       1/21
+
+_____________________________
+
+    Voya extract $
+        1. Only allowed during the business day
+    Taxes
+        1. Where is the money coming from? (e-mail? snail mail?)
+        2. Can I amend the tax return b/c I fucked it up?
+    Deposit retrieval
+        Should go to grandma soon (6-8 weeks from Tue May 29 15:22:44 PDT 2018)
+        There is no deposit
+    McDonald's $
+_____________________________
+
+    New laptop battery
+    Cell phone (call Jordi)
+        Smart phone preferred
+_____________________________
+ 
+
+**** Timeline: ************************************
+        By the end of week (Friday, June 1st, 2018),
+            Haar Cascades on whichever body part is required
+                Belly button?
+            Or NN, if that's required
+            Vishal mentioned some other CV technique
+        The week after (Friday, June 8th, 2018),
+             web crawling for similarly-sized pants (just Nathan-sized pants)            
+_____________________________
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Sun May 27 15:22:08 EDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    Find a permanent place
+        Hour alarm (start small)
+        Check Gmail
+        Check FB
+
+        Apply at UCSF, other universities nearby
+    Get in touch w/ Jordi
+
+        Call weWork people and 42Floors
+    Pam Bendich
+        Call
+    Cell phone
+        Get Jordi to send it to us
+_____________________________
+
+****Timeline:************************************
+        by the end of week, web crawling for similarly-sized pants (just Nathan-sized pants)            
+_____________________________
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Thu May 24 10:46:41 EDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+Jordi:
+    Do you have pillows?  Blankets?  A couch?
+    Can you meet at the airport?  I can treat you to dinner
+    Print out a map
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Thu May 24 10:46:41 EDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    "Bicubic interpolation"
+        or whatever smooth transitions between points is called
+    Accurate waist-finding
+        NN?
+        Haar features for the whole human body?
+            if we put a box around the waist, we should be able to do it
+        Similar to template matching?
+_____________________________
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Wed May 23 11:47:08 EDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    .mp4 ==> .pngs
+    Segment each image using the seg map from the previous png
+    Also sell turntable for people to model on
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Sun May 20 23:50:24 EDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+Cancel Gmail security            (not possible with checkout codes)
+Cancel PIA VPN payment
+Read the 2 papers necessary
+
+
+
+Compile C:
+    https://github.com/vyerneni/LazySnapping
+
+Set up own VPN:
+    https://techcrunch.com/2017/04/09/how-i-made-my-own-vpn-server-in-15-minutes/
+
+Grab the source code (implementation of GraphCut):
+    CMU
+    ACM
+    MicroSoft Research
+    SIGGRAPH
+
+Yin Li:
+    https://www.facebook.com/whyllee/sports?collection_token=100000002631038%3A330076653784935%3A95&next_cursor=MDpub3Rfc3RydWN0dXJlZDo4NDI0OTU1MTcyMQ%3D%3D
+Jian Sun:
+    sunjian@megvii.com
+Harry Shum:
+    hshum@microsoft.com
+
+epluribusenum1774@yahoo.com
+    pass: epluribusanonymous@yahoo.com
+
+_____________________________
+_____________________________
+_____________________________
+
+Tue May 15 09:24:36 EDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+    Pack for SF (May 26th)
+    Pack
+    Meet Jordi @ airport
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Wed May  9 14:34:41 EDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+
+    1.  Segmentation paper
+    2.  Graphcut paper (Verma)(SIGGRAPH)
+    3.  Clothing GAN(s) paper
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+Mon May  7 17:40:26 EDT 2018
+_____________________________
+_____________________________
+_____________________________
+
+
+    1.  Money
+        a.  Taxes
+        b.  Venmo
+        c.  Bitcoin spread investments out
+        d.  Old McDonald's money
+
+        e.  Funding
+            1)  Dad
+            2)  Grandma
+            3)  Hautemont
+
+            4)  Burn rate
+                a)  Compare to our assets & earnings
+
+
+    2.  Backup Our Shit
+        a.  Google Drive?
+        b.  all the sites mentioned in https://www.lifewire.com/free-online-backup-plans-2625187
+        c.  Nah, it's on github already
+
+    3.  Move old shit, clean out room
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+        May 3, 2018
+_____________________________
+_____________________________
+_____________________________
+
+        generate data on single simulation (only rerun VAE.py ; not generate_model.py or anything else)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+
+        May 1, 2018
+_____________________________
+_____________________________
+_____________________________
+
+        add 'is a generative model' to "Strengths of VAEs"
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+
+      April 29, 2018
+
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+    Itsik presentation
+    Drori presentation (edit the shit outta the final report paper)
+
+
+
+
+
+
+
+    3.  Get what's-it-called working & put on VM server
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+
+      April 25, 2018
+
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+    1.  Data to show Drori we did something "innovative"
+        a.  Data augmentation
+        b.  Change GAN architecture
+    2.  "Prettify" server
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+
+      April 22, 2018
+
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+TODO!
+    fix glib after trying to install GTK+3.22 for meld
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+      March 23th, 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+3.5 Paul Graham
+1.  Itsik research
+    a.  Window sizes
+2.  Brush teeth, floss, etc.
+3.  Vim: on startup, do:
+        Split screen in 3
+        Can we change a terminal name (the title at the top)?
+4.  Felipe Osorio letter
+5.  Elon letter
+6.  Lisp jobs
+
+7.  Tutoring Calvin and Rathna (add another tutee?)
+
+
+
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+      March 20th, 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+1.  Itsik research
+2.  Brush teeth, floss, etc.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==================
+  Itsik research
+==================
+
+
+
+
+
+
+
+
+
+
+
+4.  Lisp coding problems site (spoj)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DONE:
+1.  Look at whiteboard diagram
+4.  Revamp new_vae.py for 2 variables?
+        Nope, we don't need to do that.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+      March 19th, 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+2.  Ask Chris Kiely whether any of the companies use Lisp
+3.  Check communications curricula for new info
+5.  Capitalization single character Vim
+4.  Code challenge on Saturdays
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+done:
+
+1.  Check calendar for job interview(s).  Roger, for Wednesday and Thursday this week, round 'bout 2-4 P.M.
+
+=======================================================
+        A great comment on a School of Life video:
+=======================================================
+1. Here is the joke love the most about self deception: 
+
+" So there is this guy who suspects that his wife cheats on him. He hires a private detective to find out what's going on. After one week of a business trip he comes back and asks to the detective: 
+
+- So what have you seen?
+
+ - Sir, the first day when you were gone, your wife met this very handsome young man. And then they went to a fancy restaurant. After that they went to see a movie. After the movie, late at night, they went to your place , right to your bedroom. Then they hugged each other for quite a while. 
+
+- And then ?? What happened then?
+
+- Then your wife closed the curtains...
+
+So the husband says:
+
+ - God damn it! You pay a fortune to a private detective to find out the truth and even then, you can't be absolutely sure!! "
+
+Well, the sad thing about this joke is that we are all like this poor guy to a certain extent... We do  what he does on several issues about ourselves, but don't even notice it!  
+
+
+In this case it can be very valuable to pay attention to what the people who warn us, are saying. Other people may know certain things about you, much better than you!
+
+Because as the very wise proverb goes: 
+
+" You can't read the label from inside the jar". 
+
+2. Two movies that really touched me deeply on this subject are: 
+
+Sunset Boulevard by Billy Wilder
+Flight by Robert Zemeckis  ( Denzel Washington is amazing in this movie! )
+
+Of course I won't say what's the end of which one but here is the thing:
+
+You must watch both of them. Because one will show you what will happen to you in the end,  if you keep lying to yourself all your life.  And the other will encourage you  to face the bitter truths about yourself by showing you that no matter how late it may be and how painful, ultimately it will be good for you!  
+
+
+3. I am totally addicted to the oldest psychology podcast on this planet: " Shrink Rap Radio". There you have a 75 year old shrink, Dr. Dave,  who always interviews another shrink. He is a very wise and very funny man. The best mixture! You can listen to an episode called: 
+
+ " The Lies We Tell Ourselves" with Jon Frederickson.
+
+The man has a book called " The Lies We Tell Ourselves. How To Face  the Truth, Accept Yourself and Create a Better Life".
+
+4. One book we all must read is " The Death of Ivan Ilyich"by Tolstoy. Especially the 9th chapter  is  unforgettable .It shows you in great detail what will happen to you in your death bed if you had an " unexamined" life. Probably the most scary but most important book I have ever read. 
+
+5. Here is a quote by Primo Levi I will never forget. He was a great writer who survived the Holocaust. He said:
+
+ “Monsters exist, but they are too few in number to be truly dangerous. More dangerous are the common men, the functionaries ready to believe and to act without asking questions.”
+
+Well, if you think about it, all those " common men" who ended up being monsters had one thing in common:  their capacity for self delusion. 
+
+It can happen to any of us, that's why we must always be very vigilant, looking always deeply into our actions and motivations. 
+
+6. I always find it really hard, but I am sure that thinking a lot is a very good thing. Only if we can do it properly though. And self deceptions can be cured, especially if an " early diagnosis" is possible. The best tool I know for these purposes is Alain de Botton's "Philosophical Meditation". They have a video about it on this channel.
+
+If you want to give it a try, you should click on the link under that video and print the questions you'll have to ask yourself. In my humble opinion it is the most effective and direct way to your inner world. You just sit down wit a pen and paper and try to answer those questions honestly. And then you know how you REALLY feel.
+
+If you do it often enough, eventually you look forward to it. It is like a meeting with someone you so much wanted to understand: yourself. 
+
+But in the first days, you always feel a certain inner- resistance to it. It is like going to the dentist! You know some things will hurt. I mean some of those questions, when you answer them honestly, cause you more pain in that moment, than if you had ignored them instead.
+
+But it really is always an eye opening experience. It is like a soul cleaning. 
+
+I always repeat this point,  because I can't recommend it enough!
+
+Thank you for this very valuable lesson and for the excellent animation!﻿
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+      March 5th, 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+Itsik:
+    0.  Replicate the Novembre paper's results
+    1.  Label each axis and dot
+    4.  5 groups
+    5.  Real data
+    3.  More layers in the VAE?
+    6.  Refactor some of Amit's code
+    7.  Ask Carlos if this is a sensible method & how to do it better
+_____________________________
+_____________________________
+
+Money!
+    1.  Black Swan Cryptocurrencies
+    2.  Job apps (Tesla! OpenAI!)
+    3.  My startup
+    4.  Taxes
+    5.  Dentist
+
+Urgent:
+    1.  Ask Carlos about this VAE shit
+    3.  UK transit plans
+
+Chores:
+    1.  Jake escalating to Joshua Rivers
+        A)  The policy
+        B)  Follow the rules
+        C)  Jake is paranoid that we'll report him to the authorities
+        D)  He wants his time and space in the morning (with the shower)
+        E)  He doesn't want us to wake him up at night
+        F)  I hope they don't kick me out
+
+        G)  Probably the easiest thing to do is just to not have her over.
+                Even if they kick me out, I'll still graduate.
+                It'll be okay somehow.
+                Hope so hard it hurts, lolz
+
+    3.  UK hostel planning?  France? (is closer)
+        a)  Foam:  Can it roll up?
+        b)  Bring the sleeping bag
+        c)  Follow dad to work
+        d)  Paris is beautiful
+    4.  Taxes
+    5.  Dentist
+    6.  Business!   Yaaaay!
+    7.  Copy recordings from evistr
+    8.  Job apps
+    9.  
+
+Business ideas:
+    6.  grep-able gmail (do on cmd line)
+Git tutorial!  Slack, print other entrepreneurship books, Fix that thing for Ryan, apologize to art, splash 1) windows script class, 2) how to reason. Drori's class: will have mentors by the end of the day. So we should put our final project on the drive. Lisp jobs, Python jobs, refactor Amits code. For cofounders, think about people who are willing to take risks and/or understand technology, laptop backup battery
+
+ACM competition prep, chris kiely 4 P.M., Git tutorial!   write a better answer on stackoverflow for number parsing;    Slack, print other entrepreneurship books, Fix that thing for Ryan, splash 1) windows script class, 2) how to reason. Drori's class: will have mentors by the end of the day. So we should put our final project on the drive. Lisp jobs, Python jobs, refactor Amits code. For cofounders, think about people who are willing to take risks and/or understand technology
+
+Better python number extraction answer
+_____________________________
+_____________________________
+
+Call Chris Kiely:
+    1.  Forgive me, but what exactly do you do?
+        A) A bunch of stuff, but all related to getting people jobs
+    2.  What opportunities are available?
+        A) He'll e-mail me
+    3.  What skillsets do you look for?
+        A)  He doesn't seem to know too much about technology; he's more the people/$ guy
+_____________________________
+_____________________________
+
+Investment and search firm
+    Dropbox
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+      March 4th, 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+3.  Uzbek vs. mutts vs. control group.
+4.  Compare to historical genetic event (ie. Jewish diaspora, 1492, etc.)
+5.  Plot labels
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+     February 13th, 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+ask argon question on SOverflow
+ "              "  to Amit / prof Pe'er
+make tf show what's going on under the hood regularly
+
+
+
+
+what happened yesterday:
+1.  Simulation is STILL running, even with the 110 generation sample.  Idk why; this is priority numero uno to ask / read about in the code
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+     February 11th, 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+11:30 woke up
+12:00 started working (no wi-fi)
+3:30  made pasta
+5:00 started generating pictures by poking at Amit's code
+5:41 walking Riverside Park
+
+10:10   -size 101 didn't work (it seems like it almost needs 100.  Maybe if I actually read through the code, that would help
+
+
+
+_____________________________
+
+  notes on Feb 11th, 2018:
+_____________________________
+
+Running the simulation gives me an error now, copied below:
+
+_____________________________
+
+ARG visit runtime: 13.659
+Total runtime: 107.772
+
+
+VCFtools - UNKNOWN
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+    --vcf ARGON.vcf
+    --012
+    --out simulated_data
+
+After filtering, kept 150 out of 150 Individuals
+Writing 012 matrix files ... Done.
+After filtering, kept 245931 out of a possible 245931 Sites
+Run Time = 9.00 seconds
+SNP values shape:  (245931,)
+Genotype matrix has more snips (245931) than max allowed (35000). Hence, random sampling.
+getting sorted indices
+sorting snps and geno matrix
+geno matrix dimension:  (35000, 150)
+snp matrix rows:  35000
+label matrix dimension:  (150, 1)
+unique individuals:  (35000, 150)
+simulated_data.pca.evec found.
+Counter()
+No handles with labels found to put in legend.
+(0,) float64
+(0, 1) float64
+_____________________________
+_____________________________
+
+
+
+
+After food, I got a little sluggish and unfocused.  I think I'll take a short? walk before getting back at it.  The first order of business will be finding where we can tweak the model.
+_____________________________
+
+python generate_model.py
+          # It may not be here.  Certainly doesn't seem like it
+java -jar ARGON.0.1.jar -N model.txt -pop 3 100 100 100 -size 100
+          # simulate population history and get vcf matrix
+vcftools --vcf ARGON.vcf --012 --out simulated_data
+          #  using vcftools to get the required genotype matrix
+python create_genotype_matrix.py
+python generate_genotype_matrix.py
+
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+1)  copy Jae's .bashrc (the part where he compresses the prompt into something much smaller) into my .bashrc 
+2)  ask Amit how to make ARGON.0.1.jar   DONE
+   a)  follow up:  is it online?
+4)  do we have to download vcftools?     DONE
+   a)  what is vcf?
+3)  learn to exclude files in grep / regex / blobs
+   a) UNIX power tools book?
+
+
+4)
+Submit YC app?  (get this done the day after meeting Pe'er.  It's also possible we could use more feedback and time to interview possible cofounders  before submitting.  Perfecting the idea is probably more important than interviewing cofounders because that can be done simultaneously; we'll get on Kendall, Alan, Kundan, Kai-Zhan, Luke, Ben Hanser, Kevin Chen, John, whoever else)
+
+This should come second; don't worry too much about this until we have solved concern #1.
+
+
+
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+        February 12th, 2018
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+_____________________________
+
+TODO for tomorrow:
+  1) figure out why numpy isn't importing
+  2) fix it
+  3) understand what's going on with the VAE in this project.
+
+slept around 6:00 A.M.
+woke  around 12:30 noon
+
+
+
+
+
+
+
+
+
+
+
+
+    Stay steady
+    Take care of Vishal
+    Take care of Shaina
+    Take care of all your people
+    This too shall pass.
+
+    Action leads to habit leads to action leads to habit leads to success leads to confidence leads to ..., etc.
+
+______________________________________________________
+
+  Remember those days at the beach with Kayley, fucking and just having fun.
+    Some combination of adventure (newness) and hormones was very enthralling
+______________________________________________________
+
+
+
+
+
+
+
+
+
+Great talk (humbling to me as someone who hadn't seen the early days):
+  https://thisweekinstartups.com/stewart-alsop-history-of-tech/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_____________________________
+
+Google Password:
+_____________________________
+
+    page’s_largest_uchiwa1969
+
+
+
+______________________________________________________
+
+NYC Transit Authority
+  (paying fee for jumping the turnstile)
+    Tue Oct  9 13:56:55 EDT 2018
+______________________________________________________
+
+Receipt number:
+  02594b
+______________________________________________________
+
+Only the Paranoid Survive, (by Andy Grove) page 32
+
+
+
+
+Fri Jan 11 18:22:13 EST 2019
+  Applied to a lyft job I'll probably never hear back from.  Mostly submitted my resume online just so I could feel like I'd done SOMETHING today, rather than nothing but thinking.
+  I now think getting a job at a startup (ideally a VR startup) will help me in life in multiple ways, first at least in giving me a salary and then also it will give me a shot at getting to know some VCs, meet people who have connections, who have more experience writing software, etc.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Elon:
+  "Optimism, pessimism, f*** that; we’re going to make it happen. As God is my bloody witness, I’m hell-bent on making it work."
+
+
+
+
+
+
+
+
+
+
+
+
+
+______________________________________________________
+
+place to learn:
+  skillshare
+
+
+
+
+http://www.cs.columbia.edu/cg/
+http://3d-a-porter.com/
+https://fit3d.com/
+https://www.embodee.com/#solutions
+https://mport.com/details.html#shop-with-confidence-anchor
+https://registrar.columbia.edu/calendar?acfy=36&acterm=7&acschool=All&keys=&field_event_type1_tid%5B%5D=21&field_event_type1_tid%5B%5D=22&field_event_type1_tid%5B%5D=23
+http://www.cs.columbia.edu/~eitan/
+http://www.geometry.caltech.edu/~mathieu/
+
+numpy save permissions error:
+https://github.com/conda/conda/issues/3448
+
+IDEA: 
+  Discuss deals with more desperate clothes manufacturers  rather than the Guccis, Nikes, etc.  
+  Dad says they might actually pay you, too
+
 

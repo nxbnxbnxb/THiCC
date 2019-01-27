@@ -17,6 +17,7 @@ wget http://columbia.edu/~nxb2101/deeplab_model.tar.gz
 
 # new env
 conda create -y --name cat python=3.6.6 && source activate cat
+# NOTE: this one is done so far.
 
 # install
 conda install -yc conda-forge scikit-image==0.14.1 && pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.12.0-cp36-cp36m-linux_x86_64.whl && conda install -y matplotlib==2.2.3

@@ -2,6 +2,7 @@ import numpy as np
 import imageio as ii
 import glob
 import os
+import sys
 
 import viz
 from utils import pif
@@ -124,10 +125,10 @@ def leg_len(mask,customers_height):
      leg_len_pixels:
      16.154910013534966
   '''
-  print("crotch-toes:\n{0}".format(crotch-toes))
+  pif("crotch-toes:\n{0}".format(crotch-toes))
   leg_len_pixels=measure_leg(crotch,toes)
-  print("leg_len_pixels:\n{0}".format(leg_len_pixels))
-  print("\n"*3)
+  pif("leg_len_pixels:\n{0}".format(leg_len_pixels))
+  pif("\n"*3)
   return leg_len_pixels/pix_height*customers_height
 #==============================================================
 #==============================================================
@@ -152,15 +153,68 @@ if __name__=="__main__":
 
 
 
-  mask_fname  = "/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_01_15____11:04_AM___/000000000.jpg"
+  mask_fname  = sys.argv[1]   #"/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_01_15____11:04_AM___/000000000.jpg"
   # 32, 38, 39, and 43 find the crotch to be higher  than the "nearby" images
   mask        = np.asarray(ii.imread(mask_fname))
   mask=np.greater(mask,127)
   NATHAN_HEIGHT=75 # inches
-  print(leg_len(mask,NATHAN_HEIGHT))
+  print("inseam estimation (length in inches):   {0}".format(leg_len(mask,NATHAN_HEIGHT)))
   # NOTE:  there are no real units here;  it's all just a ratio that is normalized to Nathan's height and pants length
   #"""
 #==============================================================
+  # for Nathan segmentation (/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_01_15____11:04_AM___/000000000.jpg),
+  #
+  #                       29.65615073829731     **** short
+  #
+  #
+  # for file "./masks/2019_01_17____17\:57_PM_______inseam_36___male__/000000000.jpg":  leg_len() was 30.77904443651943
+  #
+  #   See prefix above.  It ain't just 000000000.jpg
+  #
+  # 000000000.jpg         30.77904443651943
+  # 000000001.jpg         30.384982686788234    **** short
+  # 000000002.jpg         30.428061480054698
+  # 000000003.jpg          7.355339015509475      crossed legs
+  # 000000004.jpg         32.046654629942765    **** big
+  # 000000005.jpg         31.32609217992018
+  # 000000006.jpg         31.86657296827472
+  # 000000007.jpg         30.800175451288585
+  # 000000008.jpg         34.446067858908876    **** big
+  # 000000009.jpg          5.712278750981283      crossed legs
+  # 000000010.jpg         32.53770678534222
+  # 000000011.jpg          7.482261612732713      crossed legs
+  # 000000012.jpg          7.630327382130935      crossed legs
+  # 000000013.jpg         31.989151381902385
+  # 000000014.jpg          6.805627029964921      crossed legs
+  # 000000015.jpg         32.964500571537876
+  # 000000016.jpg         28.52023566021052     **** short because the guy's turning to the side so his inseam looks lower than it actually is
+  # 000000017.jpg         29.261865975820115
+  # 000000018.jpg         33.05316375925231
+  # 000000019.jpg          5.640038864533751      crossed legs
+  # 000000020.jpg         34.87838629196392
+  # 000000021.jpg          5.653397472957198      crossed legs
+  # 000000022.jpg          6.675191520628813      crossed legs
+  # 000000023.jpg         34.87838629196392
+  #
+  #
+  #
+  #
+  #
+  #
+  #
+  #
+  #
+  #
+  #
+  #
+  #
+  #
+  #
+  #
+  #
+  #
+  #
+  #
   
 
 

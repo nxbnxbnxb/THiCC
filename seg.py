@@ -152,7 +152,7 @@ def vis_segmentation(image, seg_map):
 def binarize(mask_3_colors):
   RED=0; CERTAIN=256.0; probable = np.array(int(CERTAIN / 2)-1) # default color is magenta, but the red part shows 
   mask_binary = deepcopy(mask_3_colors[:,:,RED])
-  return np.greater(mask_binary, probable).astype('bool')
+  return mask_binary.astype('bool')
 # end def binarize(mask_3_colors):
 #================================================================
 
@@ -211,7 +211,7 @@ def segment_from_local(local_filename):
 
   MODEL = DeepLabModel(download_path)
   FAIRLY_CERTAIN=127
-  return np.greater(seg_map(img, MODEL), FAIRLY_CERTAIN)
+  return seg_map(img, MODEL)
 #=====  end func def of   segment_from_local(local_filename) =====
 def segment_from_URL(IMG_URL):
   '''

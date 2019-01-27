@@ -59,20 +59,27 @@ def save_masks_from_imgs(root_img_dir,root_mask_dir,img_file_extension='jpg'):
   timestamp=datetime.datetime.now().strftime('%Y_%m_%d____%H:%M_%p') # p for P.M. vs. A.M.
   curr_mask_dir=root_mask_dir+timestamp+"___"
   make="mkdir "+curr_mask_dir
-  os.system(make)
-  #print(img_filenames) #00000.jpg, 00001.jpg, etc.
-  for i,img_fname in enumerate(img_filenames):
-    if img_fname.endswith(img_file_extension):
-      segmap= seg.segment_from_local(img_fname)
-      if debug:
-        pltshow(np.rot90(segmap,k=1))
-      if save:
-        mask_fname=curr_mask_dir+'/'+prepend_0s(str(i))+'.'+img_file_extension
-        print(mask_fname)
-        ii.imwrite(
-                mask_fname,
-                np.rot90(segmap,k=1))
-  return True  # TODO: standardize the return-values-upon-success for all functions in all code (in C/C++ it's '0')
+  print("latest_img_dir is:\n{0}".format(latest_img_dir))
+  print("about to:  "+make)
+  user_reply=input("continue? y/n")
+  if user_reply.upper()=='Y':
+    os.system(make)
+    #print(img_filenames) #00000.jpg, 00001.jpg, etc.
+    for i,img_fname in enumerate(img_filenames):
+      if img_fname.endswith(img_file_extension):
+        segmap= seg.segment_from_local(img_fname)
+        if debug:
+          pltshow(np.rot90(segmap,k=1))
+        if save:
+          mask_fname=curr_mask_dir+'/'+prepend_0s(str(i))+'.'+img_file_extension
+          print(mask_fname)
+          ii.imwrite(
+                  mask_fname,
+                  np.rot90(segmap,k=1))
+    return True  # TODO: standardize the return-values-upon-success for all functions in all code (in C/C++ it's '0')
+  else:
+    print("halted")
+    return False
   # TODO:  clean up all the old image files laying around ('rm' them)
 #===== end func def of   save_masks_from_imgs(root_img_dir,root_mask_dir,file_extension='jpg'): ===== }
 
