@@ -7,6 +7,90 @@
 
 
 
+
+________________________________
+
+  Mon Jan 28 14:02:22 EST 2019
+________________________________
+
+  Call the lawyer
+    (415)979-9998
+  Try easier belly-measurement method before committing to **** OpenPose
+
+  Clothing:
+    https://panterabianca.com
+    Measurements in EU style
+    Oculus Go : uses infrared to take pictures of people?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ________________________________
 
   Sun Jan 27 09:58:01 EST 2019
@@ -10797,6 +10881,8 @@ Fri Jan 11 18:22:13 EST 2019
   I now think getting a job at a startup (ideally a VR startup) will help me in life in multiple ways, first at least in giving me a salary and then also it will give me a shot at getting to know some VCs, meet people who have connections, who have more experience writing software, etc.
 
 
+  Agile: Openpose on Windows box at home
+  Then locate waist from openpose?  Wait, this all shouldn't be necessary.  I'm probably running away again.
 
 
 
