@@ -51,9 +51,17 @@ if __name__=="__main__":
 
   ## Assign random pose and shape parameters
   m.pose[:]  = np.random.rand(m.pose.size) * .2
-  m.betas[:] = np.random.rand(m.betas.size) * .03
+  m.betas[:] = np.zeros(10).astype('float64')
+  #m.betas[:] = np.random.rand(m.betas.size) * .03
   print("m.betas.size: {0}".format(m.betas.size))
-  m.betas[0] = -10 # -10 on all means short and fat    10 on all means tall and skinny
+  # -10 on all means short and fat       10 on all means tall and skinny
+  #m.betas[0] = 10
+  # -10 on 0th means short and skinny,   10 on 0th means tall and fat
+  # -10 on 1st means short and fat,      10 on 1st means tall and skinny
+
+  # 5 on both DOES a tall person, but they're also p skinny.  Not what you might expect given the 1st PC does tall and fat
+  m.betas[0]= 5
+  m.betas[1]= 5
 
 
   ## Write to an .obj file
