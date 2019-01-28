@@ -50,8 +50,11 @@ if __name__=="__main__":
   m = load_model( '../../models/basicModel_f_lbs_10_207_0_v1.0.0.pkl' )
 
   ## Assign random pose and shape parameters
-  m.pose[:] = np.random.rand(m.pose.size) * .2
+  m.pose[:]  = np.random.rand(m.pose.size) * .2
   m.betas[:] = np.random.rand(m.betas.size) * .03
+  print("m.betas.size: {0}".format(m.betas.size))
+  m.betas[0] = -10 # -10 on all means short and fat    10 on all means tall and skinny
+
 
   ## Write to an .obj file
   outmesh_path = './hello_smpl.obj'
