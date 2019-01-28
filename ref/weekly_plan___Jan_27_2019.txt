@@ -18,17 +18,23 @@ ________________________________
   Monday:
 ________________________________
 
-    Get up, pack cracker-lunch and tangerines, start coding in the office, then around noon go to Main Street?  Or just finish at home.  Then leave at 3:30.  Take a little walk around noon; grab some **** to drink?  Set an alarm for noon-ish to jar you from your habit and keep ****ing coding.
+    Stay at home & work til 3:30.
       Code:
-        Get smpl working (relative imports)
-        Move the shit around til it works.  All we need is the model as some kind of .blend file, and automate it as fast as possible so the guys can start putting the shit all together.
+        Get smpl working.  Move the shit around til it works.  All we need is the model as some kind of .blend file, and automate it as fast as possible so the guys can start putting the shit all together.
         Then get the approximate shirt size from the segmentation.  Idk how... try a bunch of stuff: area, wingspan, etc.
     Saumya 4:30-5:30 P.M.
+    Find the lunchbox with the crackers (@Burger King?  Dunkin?)
     Swing by Burger King in the morning on the way to the library?  Yes.  Ask for Daisy.
       Panera too?
       7-11
       Herman's meat market
  
+
+    Get up, pack cracker-lunch and tangerines, start coding in the office, then around noon go to Main Street?  Or just finish at home.  Then leave at 3:30.  Take a little walk around noon; grab some **** to drink?  Set an alarm for noon-ish to jar you from your habit and keep ****ing coding.
+
+
+
+
 
 ________________________________
 

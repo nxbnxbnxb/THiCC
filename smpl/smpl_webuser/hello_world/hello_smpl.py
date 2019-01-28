@@ -50,8 +50,8 @@ if __name__=="__main__":
   m = load_model( '../../models/basicModel_f_lbs_10_207_0_v1.0.0.pkl' )
 
   ## Assign random pose and shape parameters
-  m.pose[:]  = np.random.rand(m.pose.size) * .2
-  m.betas[:] = np.zeros(10).astype('float64')
+  m.pose[:]  = np.zeros(m.pose.size).astype('float64')
+  m.betas[:] = np.zeros(m.betas.size).astype('float64')
   #m.betas[:] = np.random.rand(m.betas.size) * .03
   print("m.betas.size: {0}".format(m.betas.size))
   # -10 on all means short and fat       10 on all means tall and skinny
@@ -60,8 +60,25 @@ if __name__=="__main__":
   # -10 on 1st means short and fat,      10 on 1st means tall and skinny
 
   # 5 on both DOES a tall person, but they're also p skinny.  Not what you might expect given the 1st PC does tall and fat
-  m.betas[0]= 5
-  m.betas[1]= 5
+  #(-3, 3) is a starving person
+  #( 3,-3) is a fat giant
+  #(-3,-3) is fatter and a tiny bit shorter
+  #( 3, 3) is very thin
+
+  #  For the "2nd" PC, even 10 isn't big enough to show a huge difference
+  #  I'm not sure if there's any "intuitive" meaning to the 2nd PC.
+
+  # For "higher" PCs, look at the .blend file.  It's unlikely any of these is going to be our moonshot to success.
+  m.betas[0]=   0
+  m.betas[1]=   0
+  m.betas[2]=   0
+  m.betas[3]=   0
+  m.betas[4]=   0
+  m.betas[5]=   0
+  m.betas[6]=   0
+  m.betas[7]=   0
+  m.betas[8]=   0
+  m.betas[9]=  35
 
 
   ## Write to an .obj file
@@ -71,7 +88,8 @@ if __name__=="__main__":
           fp.write( 'v %f %f %f\n' % ( v[0], v[1], v[2]) )
 
       for f in m.f+1: # Faces are 1-based, not 0-based in obj files
-          fp.write( 'f %d %d %d\n' %  (f[0], f[1], f[2]) )
+          fp.write( 
+          'f %d %d %d\n' %  (f[0], f[1], f[2]) )
 
   ## Print message
   print('..Output mesh saved to: ', outmesh_path)

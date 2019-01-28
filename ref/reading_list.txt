@@ -1,0 +1,67 @@
+Specific:
+  Body-part-segmentation:
+    https://github.com/tangzhenyu/SemanticSegmentation_DL
+      Has links to various papers (kind of a glossary/index of the field of segmentation)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Meta-learning / big-picture stuff:
+  https://www.slideshare.net/jbhuang/how-to-read-academic-papers
+ From Wikipedia:
+  "Sub-domains of computer vision include scene reconstruction, event detection, video tracking, object recognition, 3D pose estimation, learning, indexing, motion estimation, and image restoration.[6]"
+  For this problem, I want:
+   Scene reconstruction
+   Pose estimation
+
+
+
+
+
+ CVision
+  https://computervisionblog.wordpress.com/2012/02/10/the-most-cited-papers-in-computer-vision/
+  https://www.kdnuggets.com/2016/01/iccv-2015-21-hottest-papers.html
+
+  One of the most cited papers:
+   https://ieeexplore.ieee.org/document/1467360
+
+
+  https://alexgkendall.com/computer_vision/have_we_forgotten_about_geometry_in_computer_vision/
+    Sounds kinda like what Verma said about unsupervised learning.
+      I think it's critically important for real AI that the approaches be more unsupervised
+    But right now all I care about is accuracy of human sizing
+    

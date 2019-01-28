@@ -13,11 +13,15 @@
 #
 
 # download model necessary for segmentation images of people
-wget http://columbia.edu/~nxb2101/deeplab_model.tar.gz
+#wget http://columbia.edu/~nxb2101/deeplab_model.tar.gz  # TODO: uncomment if you are NOT Nathan Bendich on his Ubuntu laptop
 
 # new env
 conda create -y --name cat python=3.6.6 && source activate cat
 # NOTE: this one is done so far.
+
+#
+pip install --upgrade pip # version 19.0.1 supported tensorflow-1.12.  timestamp is: (Sun Jan 27 19:49:32 EST 2019).  idk if this will keep supporting it.
+
 
 # install
 conda install -yc conda-forge scikit-image==0.14.1 && pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.12.0-cp36-cp36m-linux_x86_64.whl && conda install -y matplotlib==2.2.3

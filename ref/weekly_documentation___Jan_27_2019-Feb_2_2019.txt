@@ -1,0 +1,5 @@
+
+  There is no moonshot with SMPL; ie. the problem is most of the Principal Components of the Betas simply don't correlate with anything intuitive you could think of that we'd want (arm length, leg length, shoulder breadth, etc.)
+
+  Moreover, it seems the immediate business solution is not able to provide such things anyway.  So I think I just need to use segmentation to get general male shirt size, pant size, etc. first.  (whatever measurements we can actually SERVICE at the moment; ie. for men's jeans it's 29Wx36L so we'd just need the inseam and the waist.
+

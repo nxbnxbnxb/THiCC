@@ -1,5 +1,8 @@
   What mistakes did you make today?
 
+
+
+
     TODO.txt
 
 
@@ -9,8 +12,10 @@ ________________________________
   Sun Jan 27 09:58:01 EST 2019
 ________________________________
 
+
   3 mistakes today:
     I went to UD Smith Hall (comp sci)
+    I was too disorganized.  Didn't write code agile-ly enough.  Always just start start start and then keep going
 
   Accelerators?
   Get out an MVP and start pitching it?
@@ -30,10 +35,42 @@ ________________________________
     Copy Dario's 3-month plan
       Go to a UD prof & ask about debugging deep learning
 
+    1st, get conda working with seg.py again.
+      Then, generalize the rotation process and angle-finding.
+    Thereafter, try to get a general idea of how long this thing will take
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   What mistakes did you make today?
     Can we learn anything from them?  If so, what?
 
+  Tell Vishal what I've learned?
+  Maybe he just won't listen.  He has to make the mistakes himself to learn.
 
 
 
