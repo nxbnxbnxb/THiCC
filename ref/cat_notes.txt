@@ -1,0 +1,50 @@
+
+======================================================================
+  Fri Jan 25 13:48:11 EST 2019
+======================================================================
+
+  I think we should pitch as soon as possible
+======================================================================
+
+
+
+
+
+  Are we reliant on a big company to move quickly?
+
+======================================================================
+
+Dario:
+  UI
+
+======================================================================
+
+Simone:
+  Where did the 2D part come from?
+    Simone did it by hand
+  Does Marvelous work in Oculus?
+    Haven't asked yet.
+  Could people do this at home?
+    How long does it take?
+      Less than 1 hr for Simone.  Maybe 20 minutes?  For many copies of jeans, maybe 3-4 minutes.
+      Maybe 50 pieces clothing/day in the beginning
+  The Italians have connections in Italy who can give us sewing patterns (the 2D clothes "masks")
+
+  Marvelous Designer is better for clothing
+    You CAN get clothing from human bodies
+  From a 2D pictures of the clothing, we can stitch together a realistic 3D model of the clothing
+
+       AAAA
+      / /\ \
+     / /  \ \
+    / /    \ \
+    | |    | |
+    | |    | | ===> 3D
+    | |    | |
+    | |    | |
+    | |    | |
+ 
+======================================================================
+Pier:
+  f
+======================================================================

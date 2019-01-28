@@ -1,0 +1,54 @@
+
+======================================================================
+  Segmentation:
+======================================================================
+
+    Vishal already implemented a basic human-segmentation.  :)))
+    virtualenv imho is better than conda for getting all python dependencies for the segmentation in one place; it's faster to iterate upon, so it doesn't slow down workflow
+    He got it working with conda, but I think virtualenv is better!  Hopefully packages in venv are standardized.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+======================================================================
+
+  Ideally, it's better to do this with part-wise segmentation like I posted in the Slack.
+    https://github.com/tangzhenyu/SemanticSegmentation_DL
+      This one might allow any random user to sell old clothes
+        But the models for the clothing would be shitty.  It's better to get the actual clothing scans from the high-end clothing manufacturers like the Italians' connections.
+      This also uses deeplab.
+
+======================================================================
+
+  Using our understanding of the customer's pose, etc. when they take the picture (we control it, since we get to tell them how to do it on the app/website), we could improve upon the segmentation
+
+  Edge detection:
+    NOT GOOD ENOUGH.  Segmentation is (by far) preferred.
+
+
+

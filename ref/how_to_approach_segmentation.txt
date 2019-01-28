@@ -1,0 +1,7 @@
+
+  virtualenv vs. conda
+    Probably conda is generally better.
+    Let's just see which is older.
+    Forget it; leave this question for later?
+
+    Hard to get objective data on this (

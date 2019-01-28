@@ -1,0 +1,79 @@
+
+    Nyle Griffin?  If neither, go check up on Meat market after Results Tutoring
+      Talk to his dad about paying even when Nyle gets sick
+      Go advertise tutoring at the local high school behind the library?
+
+________________________________
+
+  Sunday:
+________________________________
+
+    Call Simo?  Dario?
+      Write up what to ask them about (details of clothing we have access to)
+      Or just look on Slack
+
+
+________________________________
+
+  Monday:
+________________________________
+
+    Get up, pack cracker-lunch and tangerines, start coding in the office, then around noon go to Main Street?  Or just finish at home.  Then leave at 3:30.  Take a little walk around noon; grab some **** to drink?  Set an alarm for noon-ish to jar you from your habit and keep ****ing coding.
+      Code:
+        Get smpl working (relative imports)
+        Move the shit around til it works.  All we need is the model as some kind of .blend file, and automate it as fast as possible so the guys can start putting the shit all together.
+        Then get the approximate shirt size from the segmentation.  Idk how... try a bunch of stuff: area, wingspan, etc.
+    Saumya 4:30-5:30 P.M.
+    Swing by Burger King in the morning on the way to the library?  Yes.  Ask for Daisy.
+      Panera too?
+      7-11
+      Herman's meat market
+ 
+
+________________________________
+
+  Tuesday:
+________________________________
+
+    Got a bunch of follow-up to do:
+      Dunkin Donuts morning
+      7-11
+        12:45 noon with Sultan
+      Burger King
+      Panera
+    Amani 6:30-8:30 P.M.
+
+
+
+________________________________
+
+  Wednesday
+________________________________
+
+    Saumya 4:30-5:30 P.M.
+    Newark Codes til 8?
+    Jimmy John's (tell Zach M-Thu night shifts?  9:00-2:00 A.M.?)
+      Go for something in the morning/lunch instead
+      11:00-4:00 works too.
+
+
+________________________________
+
+  Thurs
+________________________________
+
+    Amani 6:30-8:30 P.M.
+
+
+
+________________________________
+
+  Friday
+________________________________
+
+    Freedom!  More code, more code!
+
+
+
+
+
