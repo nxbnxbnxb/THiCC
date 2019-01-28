@@ -5,6 +5,7 @@ import os
 import sys
 
 import viz
+from viz import pltshow
 from utils import pif
 from d import debug
 from save import save 
@@ -19,7 +20,7 @@ from save import save
 
 
 # TODO: extend these functions to get ALL measurements of the person (ie. wingspan, leg length, waist)
-
+#     TODO: using iPhone measure() app in conjunction with the code in this module, automate height-retrieval in inches and size customers accordingly
 
 
 
@@ -89,6 +90,35 @@ def find_crotch(mask___portrait_view):
     else:
       left_leg_inner_x+=1
   return crotch
+  # NOTE:  should be at (280,150).  It was.  Jan 29, 2019.
+#==============================================================
+def get_waist(mask,customers_height):
+  '''
+    This function assumes there are no arms down at the waist height.  ie. Jesus pose, mTailor pose, one of those.
+    Waist, not inseam, for men's jeans
+
+    customers_height is in inches
+  '''
+  pix_height=pixel_height(mask)
+  crotch=find_crotch(mask)
+  crotch_height=crotch['height']
+  crotch_x=crotch['x_loc']
+  crotch=np.array([crotch['height'], crotch['x_loc']]).astype('int64')
+  pix_btwn_waist_and_crotch=24 # TODO: fiddle with.
+  waist_height=crotch_height-pix_btwn_waist_and_crotch
+  waist_in_pixels=int(np.count_nonzero(mask[waist_height])) # NOTE: can modify this to get only the middle section (strip)'s length if both arms go down and are just as high as the waist
+  print("waist_in_pixels is {0}".format(waist_in_pixels))
+  print("crotch is {0}".format(crotch)) # fine
+  print("pix_height is {0}".format(pix_height))
+  print("customers_height is {0}".format(customers_height))
+  pltshow(mask)
+  pltshow(mask[waist_height-10:waist_height+10,:])
+  if debug:
+    pltshow(mask[crotch_height-10:crotch_height+10, crotch_x-10:crotch_x+10])
+    pltshow(mask[waist_height-5:waist_height+5,:])
+  return waist_in_pixels/pix_height*customers_height  # NOTE NOTE NOTE NOTE NOTE not right!
+  # TODO: get the belly-waist from the side view and approximate the waist measurement as an ellipse.
+  #       but how do we locate the waist given the side view?  Openpose could do it, but that's another dependency.  We could take the midpoint of head and toe, but again, pretty fragile.
 #==============================================================
 def pixel_height(mask):
   locs=np.nonzero(mask)
@@ -101,6 +131,9 @@ def measure_leg(crotch,toes):
 #==============================================================
 #==============================================================
 def leg_len(mask,customers_height):
+  '''
+    customers_height is in inches
+  '''
   pix_height=pixel_height(mask)
   #print("pix_height:\n{0}".format(pix_height))  # not the problem
 
@@ -215,7 +248,7 @@ if __name__=="__main__":
   #
   #
   #
-  
+ 
 
 
 

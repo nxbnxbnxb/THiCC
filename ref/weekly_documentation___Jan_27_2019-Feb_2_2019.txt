@@ -4,3 +4,24 @@
   Moreover, it seems the immediate business solution is not able to provide such things anyway.  So I think I just need to use segmentation to get general male shirt size, pant size, etc. first.  (whatever measurements we can actually SERVICE at the moment; ie. for men's jeans it's 29Wx36L so we'd just need the inseam and the waist.
 
   Look in body_talk______SMPL_across_multiple_betas_.blend for visual version of this info; it probably tells you more than plain text anyway
+
+======================================================================
+
+Apple ARKit is a better way to get the heights than asking for 'em.
+
+  https://mobile-ar.reality.news/news/apple-ar-use-augmented-reality-measure-rooms-without-tape-measure-0178760/
+
+
+  Perhaps clothing segmentation for the shirt size?
+    With SMPL, all I can really do is adjust waist size and height.  Sometimes a little different torso size vs. lower body thickness, but not much besides that.
+      Waist size is for pants
+      Leg length (inseam) for pants
+      Torso for pants
+
+
+
+
+
+======================================================================
+
+The segmentation doesn't work as well on the arms when arms are up in mTailor SharkTank pose or down in "Dilbert workout" pose
