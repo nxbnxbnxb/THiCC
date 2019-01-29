@@ -6,6 +6,58 @@
     TODO.txt
 
 
+________________________________
+
+  Tue Jan 28 14:02:22 EST 2019
+________________________________
+
+  Mistakes:
+    I started working on the wrong, shitty old code rather than the new deep learning stuff.
+    I burned too many bridges with recruiters at tech places and now I wish I still had those options.
+    I'm gonna finally do the ****ing openpose installation
+
+
+  Discuss the IP issue with the guys (Do we need a high-quality model?  Lawsuit could kill us vs. Marching Cubes or Voro-vari)
+    No.  We should just pay the license fee for each API call to MPI Perceiving Tubingen.
+    We can negotiate terms if necessary.  I don't know why I thought it was necessary to lie.
+
+
+
+
+
+
+
+  It's probably worth trying to call ClothesHorse, etc. and ask about their personal experiences.
+    They must have more expert knowledge of this particular subject than I do.
+    Nope; it's probably better to simply follow your intuition.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ________________________________
@@ -13,64 +65,69 @@ ________________________________
   Mon Jan 28 14:02:22 EST 2019
 ________________________________
 
+  Ask Joe Evans for a reference
+    Done.  Should have done in person, but done
+
+ 
   Call the lawyer
     (415)979-9998
-  Try easier belly-measurement method before committing to **** OpenPose
+  Commit to OpenPose
+    On Windows box @ home
 
   Clothing:
     https://panterabianca.com
     Measurements in EU style
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     Oculus Go : uses infrared to take pictures of people?
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

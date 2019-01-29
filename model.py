@@ -8,6 +8,7 @@ import imageio as ii
 
 # our files/modules.  
 import seg
+from out_4_customers import cleanup
 from viz      import * # TODO: narrow down so fewer naming conflicts
 from d        import debug 
 from save     import save
@@ -59,27 +60,22 @@ def save_masks_from_imgs(root_img_dir,root_mask_dir,img_file_extension='jpg'):
   timestamp=datetime.datetime.now().strftime('%Y_%m_%d____%H:%M_%p') # p for P.M. vs. A.M.
   curr_mask_dir=root_mask_dir+timestamp+"___"
   make="mkdir "+curr_mask_dir
-  print("latest_img_dir is:\n{0}".format(latest_img_dir))
-  print("about to:  "+make)
-  user_reply=input("continue? y/n")
-  if user_reply.upper()=='Y':
-    os.system(make)
-    #print(img_filenames) #00000.jpg, 00001.jpg, etc.
-    for i,img_fname in enumerate(img_filenames):
-      if img_fname.endswith(img_file_extension):
-        segmap= seg.segment_from_local(img_fname)
-        if debug:
-          pltshow(np.rot90(segmap,k=1))
-        if save:
-          mask_fname=curr_mask_dir+'/'+prepend_0s(str(i))+'.'+img_file_extension
-          print(mask_fname)
-          ii.imwrite(
-                  mask_fname,
-                  np.rot90(segmap,k=1))
-    return True  # TODO: standardize the return-values-upon-success for all functions in all code (in C/C++ it's '0')
-  else:
-    print("halted")
-    return False
+  os.system(make)
+  #print(img_filenames) #00000.jpg, 00001.jpg, etc.
+  for i,img_fname in enumerate(img_filenames):
+    if img_fname.endswith(img_file_extension):
+      print("img_fname  is:\n   {0}".format(img_fname))
+      #segmap = seg.segment_from_local(img_fname)
+      if debug:
+        pltshow(np.rot90(segmap,k=1))
+      mask_fname=curr_mask_dir+'/'+prepend_0s(str(i))+'.'+img_file_extension
+      print("mask_fname is:\n   {0}".format(mask_fname))
+      ii.imwrite(
+              mask_fname,
+              np.rot90(segmap,k=1))
+  if cleanup:
+    os.system('rm -rf '+latest_img_dir) # NOTE: don't wanna keep their nudes.  But while we're just testing, no need to remove everything
+  return True  # TODO: standardize the return-values-upon-success for all functions in all code (in C/C++ it's '0')
   # TODO:  clean up all the old image files laying around ('rm' them)
 #===== end func def of   save_masks_from_imgs(root_img_dir,root_mask_dir,file_extension='jpg'): ===== }
 
@@ -158,7 +154,21 @@ def test_human():
       show_all_cross_sections(skin , freq=5)
   return model
 #====================================   end func def of test_human():   =======================================================
+def pt_cloud_from_masks(root_mask_dir):
+  '''
+  '''
+  # TODO
+  #   remember, this function somehow has to autodetect angles
+  mask_fnames= sorted(glob.glob('ls '+root_mask_dir), key=os.path.getmtime) # NOTE: must be in order of creation, once again, to properly measure the angle?
+  mask_2d = np.asarray(ii.imread(mask_fnames[0]))
+  max_dim = max(mask_2d.shape); shape=(max_dim, max_dim, max_dim); shape_2d=(max_dim, max_dim);
+  voxels=np.ones(shape)
 
+  for mask_fname in mask_fnames:
+    curr_mask=np.asarray(ii.imread(mask_fname))
+    voxels=mask(voxels,curr_mask)
+  return voxels
+# end func def of pt_cloud_from_masks(root_mask_dir):
 #===================================================================================================================================
 if __name__=='__main__':
   test_human()

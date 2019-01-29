@@ -24,7 +24,7 @@ def mesh_from_pt_cloud(model_np_arr):
   verts, faces, normals, values = measure.marching_cubes_lewiner(model_np_arr, 0)
   return verts, faces
 #============================================================
-def save_mesh(pt_cloud, faces_filename, verts_filename):
+def save_mesh(pt_cloud, faces_filename, verts_filename):# TODO: move this func from m_cubes to somewhere more sensible; we ought to be able to generalize the mesh-generation beyond mcubes in case we want to later do voro-vari, SMPL, etc.  (some other mesh-generating technique)
   verts, faces, normals, values = measure.marching_cubes_lewiner(pt_cloud, 0)
   np.save('faces_nathan_.npy', faces)
   np.save('verts_nathan_.npy', verts)

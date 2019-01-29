@@ -164,7 +164,8 @@ def run_visualization(url, model):
   except IOError:
     print('Cannot retrieve image. Please check url: ' + url)
     return
-  print('running deeplab on image %s...' % url)
+  if debug:
+    print('running deeplab on image %s...' % url)
   resized_im, seg_map = model.run(original_im)
   if save:
     ii.imwrite("_segmented____binary_mask_.jpg", seg_map)  # Dec. 14, 2018:  I think something in the saving process ***ks up the mask with noise
@@ -213,6 +214,7 @@ def segment_from_local(local_filename):
   FAIRLY_CERTAIN=127
   return seg_map(img, MODEL)
 #=====  end func def of   segment_from_local(local_filename) =====
+
 def segment_from_URL(IMG_URL):
   '''
     NOTE: segmentation requires internet connection

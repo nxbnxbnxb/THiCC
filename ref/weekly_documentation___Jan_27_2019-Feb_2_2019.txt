@@ -1,3 +1,10 @@
+======================================================================
+  Later on:
+    Oculus Go : uses infrared to take pictures of people?
+======================================================================
+  For 1st iteration of the code, it's best to put everything in one file as much as possible.
+    Always as simple as possible, as under-optimized as possible.  Wait until the OPPORTUNE moment to optimize.
+======================================================================
 
   There is no moonshot with SMPL; ie. the problem is most of the Principal Components of the Betas simply don't correlate with anything intuitive you could think of that we'd want (arm length, leg length, shoulder breadth, etc.)
 
