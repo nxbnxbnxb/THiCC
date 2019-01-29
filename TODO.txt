@@ -17,8 +17,8 @@ ________________________________
     I'm gonna finally do the ****ing openpose installation
 
 
-  Discuss the IP issue with the guys (Do we need a high-quality model?  Lawsuit could kill us vs. Marching Cubes or Voro-vari)
-    No.  We should just pay the license fee for each API call to MPI Perceiving Tubingen.
+  Discuss the IP issue with the guys
+    We should just pay the license fee for each API call to MPI Perceiving Tubingen.
     We can negotiate terms if necessary.  I don't know why I thought it was necessary to lie.
 
 
