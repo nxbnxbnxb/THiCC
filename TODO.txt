@@ -11,6 +11,20 @@ ________________________________
   Tue Jan 28 14:02:22 EST 2019
 ________________________________
 
+
+________________________________
+********************************
+  cd /home/n/Documents/code/openpose/build && make -j`nproc`
+    error msg:
+      nvcc fatal   : Unsupported gpu architecture 'compute_70'
+      SOLVED: just turn off gpu support in cmake-gui
+________________________________
+********************************
+
+  html upload tutorial (CSS):
+    https://webmuch.com/how-to-customize-a-file-upload-button-using-css3-html5-and-javascript/
+
+
   Mistakes:
     I started working on the wrong, shitty old code rather than the new deep learning stuff.
     I burned too many bridges with recruiters at tech places and now I wish I still had those options.
@@ -20,11 +34,13 @@ ________________________________
   Discuss the IP issue with the guys
     We should just pay the license fee for each API call to MPI Perceiving Tubingen.
     We can negotiate terms if necessary.  I don't know why I thought it was necessary to lie.
-
-
-
-
-
+  Other meshing options:
+    https://en.wikipedia.org/wiki/MakeHuman
+    https://free3d.com/3d-models/blender-human
+    https://www.cgtrader.com/free-3d-models/character/man/human-base-mesh
+   Vishal's recommendation:
+    https://www.youtube.com/watch?v=G63goXc5MyU
+    https://arxiv.org/pdf/1812.02246.pdf
 
 
   It's probably worth trying to call ClothesHorse, etc. and ask about their personal experiences.
