@@ -12,18 +12,11 @@ ________________________________
   Wed Jan 30 11:29:13 EST 2019
 ________________________________
 
-  Check how much Xerox sued Apple for (compared to income)
- Patents (Tuebingen):
-  https://www.linkedin.com/in/matthew-loper-b721244
+  There's a bug with the area-finding code:
+    https://stackoverflow.com/questions/1329546/whats-a-good-algorithm-for-calculating-the-area-of-a-quadrilateral
+    Or fix the cross-product code
 
- Useful for face reconstruction:
-  https://ps.is.tuebingen.mpg.de/talks/deep-learning-on-3d-face-reconstruction-modelling-and-applications
-
-
- Idea is simple:
-  1.  Openpose
-  2.  Get area
-  3.  Use basic measurements in SMPL
+________________________________
 
   Take this part of the segmentation (2 shoulders and 2 hip bones) and grab its area as a proxy for shirt size:
             _____________________
@@ -37,6 +30,23 @@ ________________________________
                  ___________
 
   HMR has done a lot of that basic-idea shit, but it isn't optimized for clothing sizing, which is all WE (The Italians + Nathan) really care about
+________________________________
+
+  Check how much Xerox sued Apple for (compared to income)
+ Patents (Tuebingen):
+  https://www.linkedin.com/in/matthew-loper-b721244
+
+ Useful for face reconstruction:
+  https://ps.is.tuebingen.mpg.de/talks/deep-learning-on-3d-face-reconstruction-modelling-and-applications
+
+________________________________
+
+ Idea is simple:
+  1.  Openpose
+  2.  Get area
+  3.  Use basic measurements in SMPL
+________________________________
+
 
 
 
