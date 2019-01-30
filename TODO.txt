@@ -6,6 +6,58 @@
     TODO.txt
 
 
+
+________________________________
+
+  Wed Jan 30 11:29:13 EST 2019
+________________________________
+
+  Check how much Xerox sued Apple for (compared to income)
+ Patents (Tuebingen):
+  https://www.linkedin.com/in/matthew-loper-b721244
+
+ Useful for face reconstruction:
+  https://ps.is.tuebingen.mpg.de/talks/deep-learning-on-3d-face-reconstruction-modelling-and-applications
+
+
+ Idea is simple:
+  1.  Openpose
+  2.  Get area
+  3.  Use basic measurements in SMPL
+
+  Take this part of the segmentation (2 shoulders and 2 hip bones) and grab its area as a proxy for shirt size:
+            _____________________
+            \                   /
+            |                   |
+             \                 /
+             |      Area       |
+              \               /
+               \             /
+                \           /
+                 ___________
+
+  HMR has done a lot of that basic-idea shit, but it isn't optimized for clothing sizing, which is all WE (The Italians + Nathan) really care about
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ________________________________
 
   Tue Jan 28 14:02:22 EST 2019
@@ -11018,10 +11070,14 @@ IDEA:
 
 
  Walker boutique startup law:
+  Instead, look at Apple vs. Xerox PARC lawsuit, settlement, etc.
 Alternative to SMPL:
  https://github.com/Mansterteddy/SCAPE/blob/master/README.md
  http://robots.stanford.edu/papers/anguelov.shapecomp.pdf
  Buy the code for Bodyvisualizer from Tubingen
 
 
+  https://www.linkedin.com/in/eric-rachlin-9b7b5a1a 
+
   (415)979-9998
+
