@@ -1,5 +1,71 @@
+________________________________
 
-  A month-wise-plan might be really good, if only so I can stay accountable and steady.
+  Thu Jan 31 08:09:48 EST 2019
+________________________________
+
+  I decided NOT to use qhull for the area computation because it's really built for 3-D voronoi, ConvHull, etc.; it gives slight errors when it comes to 2-D
+  Perhaps it's actually good enough for our purposes, though...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  A 2-week-wise-plan might be really good, if only so I can stay accountable and steady.
 
 
 

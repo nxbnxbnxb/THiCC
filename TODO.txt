@@ -7,6 +7,45 @@
 
 
 
+
+________________________________
+
+  Thu Jan 31 16:07:04 EST 2019
+________________________________
+
+  Mistakes:
+    Procrastinating too much on implementing triangle area
+    Perhaps I should have copied the code for n-sided polygon area?
+  Successes!
+    Triangle-area() seems to work!  I should probably scan the notes I used into pdfs and put them on my website or something...
+
+
+  As of 4:07 P.M., I plan to double-check the triangle area a different way and then move on to implementing Delaunay Triangulation of an arbitrary set of points.  DTri is better than the convexHull b.c. cHull doesn't work for concave polygons
+    Try it with this (http://www.qhull.org/html/qdelaun.htm)  if there's nothing in python/if python's implementation is too slow. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ________________________________
 
   Wed Jan 30 11:29:13 EST 2019
