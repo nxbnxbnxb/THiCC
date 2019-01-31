@@ -1,5 +1,6 @@
 import json
 import numpy as np
+import math
 
 # TODO: make the earlier json-generation via openpose automated end-to-end like this.  Everything must be MODULAR though
 
@@ -143,10 +144,21 @@ def measure_chest(json_fname):
   # TODO: correlate this with the shirt sizing.  Also, earlier in this process, we have to account for pixel-reality differences in the original images taken; pixel height needs to scale with height of the person
   return chest_area_front
 #===================================================================================================================================
-
-
-
-
+def triangles_area(x1,y1,x2,y2,x3,y3):
+  '''
+    The area of a triangle is equal to 1/2 * the magnitude of the cross product between 2 of its sides.
+    The magnitude of the cross product is = len(side_1) * len(side_2) * sin(angle_btwn_side_1_and_side_2)
+    Here I call "A" the length of the triangle's first  side,
+                "B"                              second side,
+            and "C" the length of triangle's     third  side
+  '''
+  A =math.sqrt((x1-x2)**2 + (y1-y2)**2)
+  B =math.sqrt((x1-x3)**2 + (y1-y3)**2)
+  C =math.sqrt((x2-x3)**2 + (y2-y3)**2)
+  cos__theta_c = (A**2+B**2-C**2)/\
+                 (2*A*B) # <== This is true by the law of cosines.  cos_theta_c means the angle opposite side C
+  sin__theta_c = math.sqrt(1-cos__theta_c**2)
+  return A*B*sin__theta_c/2.0
 #===================================================================================================================================
 if __name__=="__main__":
   fname='/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/front__nude__grassy_background_keypoints.json'
