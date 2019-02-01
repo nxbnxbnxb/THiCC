@@ -230,21 +230,10 @@ def show_overlaid_polygon_measures(pic_filename___with_openpose_keypoints_, open
   #plt.plot( left_hip, left_shoulder,        'k-', lw=2) # down left side
   #print("left_hip:\n{0}\n\nleft_shoulder:\n{1}".format(left_hip, left_shoulder))
 
-  # reversed
-  #plt.plot( left_hip[::-1], left_shoulder[::-1],        'k-', lw=2) # down left side
-  #print("left_hip[::-1]:\n{0}\n\n left_shoulder[::-1]:\n {1}".format(left_hip[::-1], left_shoulder[::-1]))
   plt.show()
   plt.close()
   return
 
-#===================================================================================================================================
-#===================================================================================================================================
-  plt.plot([70, 70], [100, 250], 'k-', lw=2)   #************** NOTE NOTE NOTE
-#===================================================================================================================================
-#===================================================================================================================================
-
-  plt.show();plt.close()
-  return
 #===================================================================================================================================
 if __name__=="__main__":
   json_fname='/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/front__nude__grassy_background_keypoints.json'
