@@ -90,10 +90,10 @@ def parse_ppl_measures(json_dict):
   '''
   measures=json_dict[u'people'][0][u'pose_keypoints_2d']
   measures_dict={}
-  measures_dict["RShoulder"]= {'x':measures[2*3],'y':measures[7],'c':measures[8]}
-  measures_dict["LShoulder"]= {'x':measures[5*3],'y':measures[16],'c':measures[17]}
-  measures_dict["RHip"]     = {'x':measures[9*3],'y':measures[9*3+1],'c':measures[9*3+2]}
-  measures_dict["LHip"]     = {'x':measures[12*3],'y':measures[12*3+1],'c':measures[12*3+2]}
+  measures_dict["RShoulder"]= {'x':measures[2*3], 'y':measures[7],      'c':measures[8]}
+  measures_dict["LShoulder"]= {'x':measures[5*3], 'y':measures[16],     'c':measures[17]}
+  measures_dict["RHip"]     = {'x':measures[9*3], 'y':measures[9*3+1],  'c':measures[9*3+2]}
+  measures_dict["LHip"]     = {'x':measures[12*3],'y':measures[12*3+1], 'c':measures[12*3+2]}
   return measures_dict # NOTE: you gotta use the version of openpose I ran if you just return pose_keypoints_2d.
 #===================================================================================================================================
 def area_quadrilateral(quad):
@@ -126,8 +126,50 @@ def area_quadrilateral(quad):
     February 1, 2019:
       I got 57768.96495200002
 
+    [This](https://stackoverflow.com/questions/451426/how-do-i-calculate-the-area-of-a-2d-polygon) answer for chest area was:
+      15080.677046999946
+
   '''
   return np.cross(A-B,C-D)[0] # TODO: double-check that this indexing works.  also TODO: optimize if this is the time-consuming step
+#===================================================================================================================================
+def segments(polygon):
+  '''
+    Just a subroutine of area_polygon().  For some reason I was having trouble nesting segments()'s function definition within def area_polygon(polygon):
+  '''
+  return zip(polygon, polygon[1:] + [polygon[0]])
+#===================================================================================================================================
+def area_polygon(polygon):
+	'''
+    Calculates the polygon's area.  Works for concave polygons too
+
+    Parameters:
+    ----------
+    Given a polygon represented as a list of (x,y) vertex coordinates, implicitly wrapping around from the last vertex to the first
+
+
+
+
+    ----------
+ 
+  More documentation from the StackOverflow question [here](https://stackoverflow.com/questions/451426/how-do-i-calculate-the-area-of-a-2d-polygon):
+		Here is the standard method, AFAIK. Basically sum the cross products around each vertex. Much simpler than triangulation.
+
+Python code, given a polygon represented as a list of (x,y) vertex coordinates, implicitly wrapping around from the last vertex to the first
+    David Lehavi comments: It is worth mentioning why this algorithm works: It is an application of Green's theorem for the functions −y and x; exactly in the way a planimeter works. More specifically:
+
+    Formula above =
+    integral_over_perimeter(-y dx + x dy) =
+    integral_over_area((-(-dy)/dy+dx/dx) dy dx) =
+    2 Area
+
+
+
+    -----------
+    Green's theorem if from "Calculus IV," as it's called at Columbia University.  (Calc IV means integrals generalized to higher dimensions)
+    -----------
+	'''
+	return 0.5 * abs(sum(x0*y1 - x1*y0
+											 for ((x0, y0), (x1, y1)) in segments(polygon))) # cross product
 #===================================================================================================================================
 def measure_chest(json_fname):
   '''
@@ -140,12 +182,18 @@ def measure_chest(json_fname):
   x_RShoulder = measurements_json_dict['RShoulder']['x'];y_RShoulder=measurements_json_dict['RShoulder']['y']
   x_LHip      = measurements_json_dict['LHip']['x']     ;y_LHip     =measurements_json_dict['LHip']['y']     
   x_RHip      = measurements_json_dict['RHip']['x']     ;y_RHip     =measurements_json_dict['RHip']['y']     
+  quadrilateral =[(x_LShoulder,y_LShoulder),
+                  (x_RShoulder,y_RShoulder),
+                  (x_RHip     ,y_RHip     ),
+                  (x_LHip     ,y_LHip     )]
+  """
   quadrilateral=np.array([[x_LShoulder,y_LShoulder],
                           [x_RShoulder,y_RShoulder],
                           [x_LHip     ,y_LHip     ],
                           [x_RHip     ,y_RHip     ]]).astype('float64')
+  """
   # chest_area_front just means "chest area as measured from the front"
-  chest_area_front=polygons_area(quadrilateral)
+  chest_area_front=area_polygon(quadrilateral)
   #chest_area_front= area_quadrilateral(quadrilateral)
   # TODO: correlate this with the shirt sizing.  Also, earlier in this process, we have to account for pixel-reality differences in the original images taken; pixel height needs to scale with height of the person
   return chest_area_front

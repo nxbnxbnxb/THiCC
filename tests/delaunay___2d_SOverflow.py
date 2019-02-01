@@ -2,7 +2,11 @@ import numpy as np
 from scipy.spatial import Delaunay
 
 #points = np.random.rand(30, 2) # 30 points in 2-d
-points = np.random.rand(4,2)
+#points = np.random.rand( 4, 2) #  4 points in 2-d
+points = np.array([ [- 1.   , - 1   ,],
+                    [  2.   ,   0.  ,],
+                    [  0.   ,   2.  ,],
+                    [  0.5  ,   0.5 ,]   ]) # concave 4-gon
 tri = Delaunay(points)
 # NOTE:  triangles are in:  tri.vertices!
 
