@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import measure
 
+# TODO:  Rename "test_polygon_area_finder.py" or something like that
+
 def chest_test():
   # see front__nude__grassy_background_keypoints.json  
   #   And https://stackoverflow.com/questions/1329546/whats-a-good-algorithm-for-calculating-the-area-of-a-quadrilateral

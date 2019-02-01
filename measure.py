@@ -123,6 +123,9 @@ def area_quadrilateral(quad):
         15080.677047
     But the real answer really oughta be something like 60,000; maybe somewhere around 45,000 in my estimation.  It's most definitely above 30,000.  30,000 would be the area for the rectangle ((500,1000),(500,700),
                                                            (600,1000),(600,700)).
+    February 1, 2019:
+      I got 57768.96495200002
+
   '''
   return np.cross(A-B,C-D)[0] # TODO: double-check that this indexing works.  also TODO: optimize if this is the time-consuming step
 #===================================================================================================================================
@@ -143,7 +146,7 @@ def measure_chest(json_fname):
                           [x_RHip     ,y_RHip     ]]).astype('float64')
   # chest_area_front just means "chest area as measured from the front"
   chest_area_front=polygons_area(quadrilateral)
-  chest_area_front= area_quadrilateral(quadrilateral)
+  #chest_area_front= area_quadrilateral(quadrilateral)
   # TODO: correlate this with the shirt sizing.  Also, earlier in this process, we have to account for pixel-reality differences in the original images taken; pixel height needs to scale with height of the person
   return chest_area_front
 #===================================================================================================================================
