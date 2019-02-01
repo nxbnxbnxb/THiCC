@@ -1,6 +1,7 @@
 import json
 import numpy as np
 import math
+import scipy.spatial as spsp
 
 # TODO: make the earlier json-generation via openpose automated end-to-end like this.  Everything must be MODULAR though
 
@@ -132,17 +133,29 @@ def measure_chest(json_fname):
   '''
   json_fname='/home/n/Documents/code/openpose/output/front__nude__grassy_background_keypoints.json'
   measurements_json_dict=parse_ppl_measures(load_json(json_fname))
-  x_LShoulder=measurements_json_dict['LShoulder']['x'];y_LShoulder=measurements_json_dict['LShoulder']['y']
-  x_RShoulder=measurements_json_dict['RShoulder']['x'];y_RShoulder=measurements_json_dict['RShoulder']['y']
-  x_LHip     =measurements_json_dict['LHip']['x']     ;y_LHip     =measurements_json_dict['LHip']['y']     
-  x_RHip     =measurements_json_dict['RHip']['x']     ;y_RHip     =measurements_json_dict['RHip']['y']     
+  x_LShoulder = measurements_json_dict['LShoulder']['x'];y_LShoulder=measurements_json_dict['LShoulder']['y']
+  x_RShoulder = measurements_json_dict['RShoulder']['x'];y_RShoulder=measurements_json_dict['RShoulder']['y']
+  x_LHip      = measurements_json_dict['LHip']['x']     ;y_LHip     =measurements_json_dict['LHip']['y']     
+  x_RHip      = measurements_json_dict['RHip']['x']     ;y_RHip     =measurements_json_dict['RHip']['y']     
   quadrilateral=np.array([[x_LShoulder,y_LShoulder],
                           [x_RShoulder,y_RShoulder],
                           [x_LHip     ,y_LHip     ],
                           [x_RHip     ,y_RHip     ]]).astype('float64')
+  # chest_area_front just means "chest area as measured from the front"
+  chest_area_front=polygons_area(quadrilateral)
   chest_area_front= area_quadrilateral(quadrilateral)
   # TODO: correlate this with the shirt sizing.  Also, earlier in this process, we have to account for pixel-reality differences in the original images taken; pixel height needs to scale with height of the person
   return chest_area_front
+#===================================================================================================================================
+def polygons_area(polygon):
+  area=0
+  tri=spsp.Delaunay(polygon)
+  for i in range(tri.vertices.shape[0]):
+    tri_verts = tri.points[tri.vertices[i]]
+    area+=triangles_area( tri_verts[0,0],tri_verts[0,1],
+                          tri_verts[1,0],tri_verts[1,1],
+                          tri_verts[2,0],tri_verts[2,1])
+  return area
 #===================================================================================================================================
 def triangles_area(x1,y1,x2,y2,x3,y3):
   '''
