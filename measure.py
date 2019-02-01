@@ -1,7 +1,10 @@
 import json
 import numpy as np
 import math
-import scipy.spatial as spsp
+import matplotlib.pyplot as plt
+import imageio as ii
+
+import viz
 
 # TODO: make the earlier json-generation via openpose automated end-to-end like this.  Everything must be MODULAR though
 
@@ -10,6 +13,29 @@ import scipy.spatial as spsp
 
 
 
+# Measurement data:
+'''
+  435.225,676.318,  RShoulder
+  650.009,660.497,  LShoulder
+  498.099,1011.46,  RHip        
+  623.893,1001,     LHip        
+  "__main__" spit out THIS answer:
+    chest_area: -29648.446561999983
+
+  the code given by @Walt W from [this](https://stackoverflow.com/questions/1329546/whats-a-good-algorithm-for-calculating-the-area-of-a-quadrilateral) link is here, and gives this answer:
+  area = 0.5 * abs( x0 * y1 - x1 * y0 + x1 * y2 - x2 * y1 + 
+                    x2 * y3 - x3 * y2 + x3 * y0 - x0 * y3 )
+    chest_area:
+      15080.677047
+  But the real answer really oughta be something like 60,000; maybe somewhere around 45,000 in my estimation.  It's most definitely above 30,000.  30,000 would be the area for the rectangle ((500,1000),(500,700),
+                                                         (600,1000),(600,700)).
+  February 1, 2019:
+    I got 57768.96495200002
+
+  [This](https://stackoverflow.com/questions/451426/how-do-i-calculate-the-area-of-a-2d-polygon) answer for chest area was:
+    15080.677046999946
+
+'''
 
 
 
@@ -79,14 +105,14 @@ import scipy.spatial as spsp
 #===================================================================================================================================
 def load_json(json_fname):
   with open(json_fname) as json_data:
-      data = json.load(json_data)
-      return data
+    data = json.load(json_data)
+    return data
 #===================================================================================================================================
 def parse_ppl_measures(json_dict):
   '''
     NOTE: Extensible to whatever measurements we want later
 
-    TODO: refactor
+    TODO: refactor.  As of Fri Feb  1 10:39:12 EST 2019, what did I mean by this?
   '''
   measures=json_dict[u'people'][0][u'pose_keypoints_2d']
   measures_dict={}
@@ -95,42 +121,6 @@ def parse_ppl_measures(json_dict):
   measures_dict["RHip"]     = {'x':measures[9*3], 'y':measures[9*3+1],  'c':measures[9*3+2]}
   measures_dict["LHip"]     = {'x':measures[12*3],'y':measures[12*3+1], 'c':measures[12*3+2]}
   return measures_dict # NOTE: you gotta use the version of openpose I ran if you just return pose_keypoints_2d.
-#===================================================================================================================================
-def area_quadrilateral(quad):
-  # https://stackoverflow.com/questions/1329546/whats-a-good-algorithm-for-calculating-the-area-of-a-quadrilateral
-  # relies on quad being convex, but it always is for the chest of a person face-on
-  triang0=quad[:3]
-  triang1=quad[1:]
-  print(quad)
-  DOWN=0
-  # vectors
-  A=np.diff(triang0[:2],axis=DOWN)
-  B=np.diff(triang0[1:],axis=DOWN)
-  C=np.diff(triang1[:2],axis=DOWN)
-  D=np.diff(triang1[1:],axis=DOWN)
-  '''
-    435.225,676.318,  RShoulder
-    650.009,660.497,  LShoulder
-    498.099,1011.46,  RHip        
-    623.893,1001,     LHip        
-    "__main__" spit out THIS answer:
-      chest_area: -29648.446561999983
-
-    the code given by @Walt W from [this](https://stackoverflow.com/questions/1329546/whats-a-good-algorithm-for-calculating-the-area-of-a-quadrilateral) link is here, and gives this answer:
-    area = 0.5 * abs( x0 * y1 - x1 * y0 + x1 * y2 - x2 * y1 + 
-                      x2 * y3 - x3 * y2 + x3 * y0 - x0 * y3 )
-      chest_area:
-        15080.677047
-    But the real answer really oughta be something like 60,000; maybe somewhere around 45,000 in my estimation.  It's most definitely above 30,000.  30,000 would be the area for the rectangle ((500,1000),(500,700),
-                                                           (600,1000),(600,700)).
-    February 1, 2019:
-      I got 57768.96495200002
-
-    [This](https://stackoverflow.com/questions/451426/how-do-i-calculate-the-area-of-a-2d-polygon) answer for chest area was:
-      15080.677046999946
-
-  '''
-  return np.cross(A-B,C-D)[0] # TODO: double-check that this indexing works.  also TODO: optimize if this is the time-consuming step
 #===================================================================================================================================
 def segments(polygon):
   '''
@@ -176,6 +166,7 @@ def measure_chest(json_fname):
     Goal: we can automatically sell you the best-fitting shirt from a single picture of you in form-fitting clothing
     This should return the shirt size.
   '''
+  # NOTE: get the order of the points right to properly calculate the 
   json_fname='/home/n/Documents/code/openpose/output/front__nude__grassy_background_keypoints.json'
   measurements_json_dict=parse_ppl_measures(load_json(json_fname))
   x_LShoulder = measurements_json_dict['LShoulder']['x'];y_LShoulder=measurements_json_dict['LShoulder']['y']
@@ -186,48 +177,84 @@ def measure_chest(json_fname):
                   (x_RShoulder,y_RShoulder),
                   (x_RHip     ,y_RHip     ),
                   (x_LHip     ,y_LHip     )]
-  """
-  quadrilateral=np.array([[x_LShoulder,y_LShoulder],
-                          [x_RShoulder,y_RShoulder],
-                          [x_LHip     ,y_LHip     ],
-                          [x_RHip     ,y_RHip     ]]).astype('float64')
-  """
   # chest_area_front just means "chest area as measured from the front"
   chest_area_front=area_polygon(quadrilateral)
-  #chest_area_front= area_quadrilateral(quadrilateral)
-  # TODO: correlate this with the shirt sizing.  Also, earlier in this process, we have to account for pixel-reality differences in the original images taken; pixel height needs to scale with height of the person
-  return chest_area_front
+  # TODO: correlate this with the shirt sizing.  Also, earlier in this process, we have to account for pixel-reality differences in the original images taken; pixel height needs to scale with height of the person.  Height can be "gotten" from iPhone ARKit or "measure" app
+  return chest_area_front, measurements_json_dict
 #===================================================================================================================================
-def polygons_area(polygon):
-  area=0
-  tri=spsp.Delaunay(polygon)
-  for i in range(tri.vertices.shape[0]):
-    tri_verts = tri.points[tri.vertices[i]]
-    area+=triangles_area( tri_verts[0,0],tri_verts[0,1],
-                          tri_verts[1,0],tri_verts[1,1],
-                          tri_verts[2,0],tri_verts[2,1])
-  return area
+def show_overlaid_polygon_measures(pic_filename___with_openpose_keypoints_, openpose_keypts_dict, N=4):
+  '''
+    Parameters
+    ----------
+    N is the number of sides in the polygon; default 4 means (as of Fri Feb  1 12:02:06 EST 2019) that we take the 2 shoulders and the 2 hips to get the shirt (chest) measurement
+      NOTE!  This may (probably WILL) change as problem re-formulation happens
+  '''
+  img_w_keypts = np.asarray(ii.imread(pic_filename___with_openpose_keypoints_))
+  measurements=openpose_keypts_dict # TODO: rename in the function header too?
+  print("img_w_keypts.shape: \n",img_w_keypts.shape)
+  plt.imshow(img_w_keypts)
+  if N==4:
+    left_shoulder   = [measurements['LShoulder']['x'], measurements['LShoulder']['y']]
+    right_shoulder  = [measurements['RShoulder']['x'], measurements['RShoulder']['y']]
+    left_hip        = [measurements['LHip']['x']     , measurements['LHip']['y']]
+    right_hip       = [measurements['RHip']['x']     , measurements['RHip']['y']]
+    plt.plot( left_shoulder[::-1],  right_shoulder[::-1], 'k-', lw=2) # across clavicle 
+    plt.plot( right_hip[::-1],      right_shoulder[::-1], 'k-', lw=2) # down right side
+    plt.plot( left_hip[::-1],       right_hip[::-1],      'k-', lw=2) # across waist 
+    plt.plot( [measurements['LShoulder']['x'] , measurements['RShoulder']['x']],
+              [measurements['LShoulder']['y'] , measurements['RShoulder']['y']],  'k-', lw=2) # across clavicle
+    plt.plot( [measurements['RHip']['x']      , measurements['RShoulder']['x']],
+              [measurements['RHip']['y']      , measurements['RShoulder']['y']],  'k-', lw=2) # down right side
+    plt.plot( [measurements['RHip']['x']      , measurements['LHip']['x']],
+              [measurements['RHip']['y']      , measurements['LHip']['y']],  'k-', lw=2)
+    plt.plot( [measurements['RShoulder']['x'] , measurements['LHip']['x']],
+              [measurements['RShoulder']['y'] , measurements['LHip']['y']],  'k-', lw=2)
+    """
+    left_shoulder   = [measurements['LShoulder']['x'], measurements['LShoulder']['y']]
+    right_shoulder  = [measurements['RShoulder']['x'], measurements['RShoulder']['y']]
+    left_hip        = [measurements['LHip']['x']     , measurements['LHip']['y']]
+    right_hip       = [measurements['RHip']['x']     , measurements['RHip']['y']]
+    print('left_shoulder:\n',left_shoulder)
+    print('right_shoulder:\n',right_shoulder)
+    print('left_hip:\n',left_hip)
+    print('right_hip:\n',right_hip)
+    plt.plot( left_shoulder[::-1],  right_shoulder[::-1], 'k-', lw=2) # across clavicle 
+    plt.plot( right_hip[::-1],      right_shoulder[::-1], 'k-', lw=2) # down right side
+    plt.plot( left_hip[::-1],       right_hip[::-1],      'k-', lw=2) # across waist 
+    plt.plot( left_hip[::-1],       left_shoulder[::-1],  'k-', lw=2) # down left side
+    """
+  #plt.plot([(70,100),(70,250)],'k-',lw=5)
+
+  # maybe it's the float -> int conversion.  Nope, it's not the float->int.  It was that xs had to come 1st in the plt.plot() parameter list and ys 2nd, (plt.plot([pt1x,pt2x], [pt1y,pt2y], 'k-', lw=2),    not plt.plot([pt1x,pt1y], [pt2x,pt2y], 'k-', lw=2))
+
+  #plt.plot( left_hip, left_shoulder,        'k-', lw=2) # down left side
+  #print("left_hip:\n{0}\n\nleft_shoulder:\n{1}".format(left_hip, left_shoulder))
+
+  # reversed
+  #plt.plot( left_hip[::-1], left_shoulder[::-1],        'k-', lw=2) # down left side
+  #print("left_hip[::-1]:\n{0}\n\n left_shoulder[::-1]:\n {1}".format(left_hip[::-1], left_shoulder[::-1]))
+  plt.show()
+  plt.close()
+  return
+
 #===================================================================================================================================
-def triangles_area(x1,y1,x2,y2,x3,y3):
-  '''
-    The area of a triangle is equal to 1/2 * the magnitude of the cross product between 2 of its sides.
-    The magnitude of the cross product is = len(side_1) * len(side_2) * sin(angle_btwn_side_1_and_side_2)
-    Here I call "A" the length of the triangle's first  side,
-                "B"                              second side,
-            and "C" the length of triangle's     third  side
-  '''
-  A =math.sqrt((x1-x2)**2 + (y1-y2)**2)
-  B =math.sqrt((x1-x3)**2 + (y1-y3)**2)
-  C =math.sqrt((x2-x3)**2 + (y2-y3)**2)
-  cos__theta_c = (A**2+B**2-C**2)/\
-                 (2*A*B) # <== This is true by the law of cosines.  cos_theta_c means the angle opposite side C
-  sin__theta_c = math.sqrt(1-cos__theta_c**2)
-  return A*B*sin__theta_c/2.0
+#===================================================================================================================================
+  plt.plot([70, 70], [100, 250], 'k-', lw=2)   #************** NOTE NOTE NOTE
+#===================================================================================================================================
+#===================================================================================================================================
+
+  plt.show();plt.close()
+  return
 #===================================================================================================================================
 if __name__=="__main__":
-  fname='/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/front__nude__grassy_background_keypoints.json'
-  chest_area=measure_chest(fname)
+  json_fname='/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/front__nude__grassy_background_keypoints.json'
+  chest_area, other_body_measurements=measure_chest(json_fname)
   print("chest_area:",chest_area)
+
+  # draw relevant polygon on top of image
+  openpose_fname='/home/n/Documents/code/openpose/output/front__nude__grassy_background_rendered.jpg'
+  #openpose_fname='/home/n/Documents/code/openpose/output/openpose_success!.jpg'
+  show_overlaid_polygon_measures(openpose_fname, other_body_measurements)
 #===================================================================================================================================
 
 
