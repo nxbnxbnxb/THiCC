@@ -8,6 +8,9 @@
 *.mp3
 *.mp4
 *.tar.gz
+*.tar.gz.1
+*blend
+*blend1
 *timing*
 *debug*
 *time*

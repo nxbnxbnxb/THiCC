@@ -194,6 +194,7 @@ def show_overlaid_polygon_measures(pic_filename___with_openpose_keypoints_, open
   print("img_w_keypts.shape: \n",img_w_keypts.shape)
   plt.imshow(img_w_keypts)
   if N==4:
+    # shirt-sizing with 4 torso-points (as you can probably see below, Right and Left Shoulders, and   Right and Left Hips.
     plt.plot( [measurements['LShoulder']['x'] , measurements['RShoulder']['x']],
               [measurements['LShoulder']['y'] , measurements['RShoulder']['y']],  'k-', lw=2) # across clavicle
     plt.plot( [measurements['RHip']['x']      , measurements['RShoulder']['x']],
