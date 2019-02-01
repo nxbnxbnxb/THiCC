@@ -194,42 +194,14 @@ def show_overlaid_polygon_measures(pic_filename___with_openpose_keypoints_, open
   print("img_w_keypts.shape: \n",img_w_keypts.shape)
   plt.imshow(img_w_keypts)
   if N==4:
-    left_shoulder   = [measurements['LShoulder']['x'], measurements['LShoulder']['y']]
-    right_shoulder  = [measurements['RShoulder']['x'], measurements['RShoulder']['y']]
-    left_hip        = [measurements['LHip']['x']     , measurements['LHip']['y']]
-    right_hip       = [measurements['RHip']['x']     , measurements['RHip']['y']]
-    plt.plot( left_shoulder[::-1],  right_shoulder[::-1], 'k-', lw=2) # across clavicle 
-    plt.plot( right_hip[::-1],      right_shoulder[::-1], 'k-', lw=2) # down right side
-    plt.plot( left_hip[::-1],       right_hip[::-1],      'k-', lw=2) # across waist 
     plt.plot( [measurements['LShoulder']['x'] , measurements['RShoulder']['x']],
               [measurements['LShoulder']['y'] , measurements['RShoulder']['y']],  'k-', lw=2) # across clavicle
     plt.plot( [measurements['RHip']['x']      , measurements['RShoulder']['x']],
               [measurements['RHip']['y']      , measurements['RShoulder']['y']],  'k-', lw=2) # down right side
     plt.plot( [measurements['RHip']['x']      , measurements['LHip']['x']],
               [measurements['RHip']['y']      , measurements['LHip']['y']],  'k-', lw=2)
-    plt.plot( [measurements['RShoulder']['x'] , measurements['LHip']['x']],
-              [measurements['RShoulder']['y'] , measurements['LHip']['y']],  'k-', lw=2)
-    """
-    left_shoulder   = [measurements['LShoulder']['x'], measurements['LShoulder']['y']]
-    right_shoulder  = [measurements['RShoulder']['x'], measurements['RShoulder']['y']]
-    left_hip        = [measurements['LHip']['x']     , measurements['LHip']['y']]
-    right_hip       = [measurements['RHip']['x']     , measurements['RHip']['y']]
-    print('left_shoulder:\n',left_shoulder)
-    print('right_shoulder:\n',right_shoulder)
-    print('left_hip:\n',left_hip)
-    print('right_hip:\n',right_hip)
-    plt.plot( left_shoulder[::-1],  right_shoulder[::-1], 'k-', lw=2) # across clavicle 
-    plt.plot( right_hip[::-1],      right_shoulder[::-1], 'k-', lw=2) # down right side
-    plt.plot( left_hip[::-1],       right_hip[::-1],      'k-', lw=2) # across waist 
-    plt.plot( left_hip[::-1],       left_shoulder[::-1],  'k-', lw=2) # down left side
-    """
-  #plt.plot([(70,100),(70,250)],'k-',lw=5)
-
-  # maybe it's the float -> int conversion.  Nope, it's not the float->int.  It was that xs had to come 1st in the plt.plot() parameter list and ys 2nd, (plt.plot([pt1x,pt2x], [pt1y,pt2y], 'k-', lw=2),    not plt.plot([pt1x,pt1y], [pt2x,pt2y], 'k-', lw=2))
-
-  #plt.plot( left_hip, left_shoulder,        'k-', lw=2) # down left side
-  #print("left_hip:\n{0}\n\nleft_shoulder:\n{1}".format(left_hip, left_shoulder))
-
+    plt.plot( [measurements['LShoulder']['x'] , measurements['LHip']['x']],
+              [measurements['LShoulder']['y'] , measurements['LHip']['y']],  'k-', lw=2)
   plt.show()
   plt.close()
   return
