@@ -43,11 +43,12 @@ the hello world script now by typing the following:
 import smpl_webuser.serialization
 from smpl_webuser.serialization import load_model
 import numpy as np
+import sys
 
 if __name__=="__main__":
   ## Load SMPL model (here we load the female model)
   ## Make sure path is correct
-  m = load_model( '../../models/basicModel_f_lbs_10_207_0_v1.0.0.pkl' )
+  m = load_model( '../../models/basicModel_f_lbs_10_207_0_v1.0.0.pkl' ) # TODO: detect female / male-ness from photo
 
   ## Assign random pose and shape parameters
   m.pose[:]  = np.zeros(m.pose.size).astype('float64')
@@ -69,16 +70,19 @@ if __name__=="__main__":
   #  I'm not sure if there's any "intuitive" meaning to the 2nd PC.
 
   # For "higher" PCs, look at the .blend file.  It's unlikely any of these is going to be our moonshot to success.
-  m.betas[0]=   0
-  m.betas[1]=   0
-  m.betas[2]=   0
-  m.betas[3]=   0
-  m.betas[4]=   0
-  m.betas[5]=   0
-  m.betas[6]=   0
-  m.betas[7]=   0
-  m.betas[8]=   0
-  m.betas[9]=  35
+
+  #print("len(sys.argv) is {0}".format(len(sys.argv)))
+  print("sys.argv is {0}".format(sys.argv))
+  m.betas[0]= float(sys.argv[ 1])            #  0
+  m.betas[1]= float(sys.argv[ 2])            #  0
+  m.betas[2]= float(sys.argv[ 3])            #  0
+  m.betas[3]= float(sys.argv[ 4])            #  0
+  m.betas[4]= float(sys.argv[ 5])            #  0
+  m.betas[5]= float(sys.argv[ 6])            #  0    # shoulder-broadness vs. hip-width.  Positive values mean broader shoulders and more weight in torso; Negative values mean wide hips
+  m.betas[6]= float(sys.argv[ 7])            #  0
+  m.betas[7]= float(sys.argv[ 8])            #  0
+  m.betas[8]= float(sys.argv[ 9])            #  0
+  m.betas[9]= float(sys.argv[10])            # 35
 
 
   ## Write to an .obj file

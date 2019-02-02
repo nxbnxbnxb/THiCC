@@ -8,6 +8,230 @@
 
 
 
+
+From Dario:
+  Suggested apply to MORE jobs, esp. social jobs like waiter, Panera, get tired of people so you just wanna go code.  Go running, sleep 8 hours / night.
+
+Technical:
+  Garment Measurements we need:
+
+  25.5” chest
+  24.25” shoulder to shoulder
+  27” front length
+  Measurements taken from size medium.
+
+  Model Measurements
+  Model is in size medium.
+  Model is 6'2" | 30” chest | 29” waist
+
+  Fit Notes
+  Oversized fit.
+
+
+  http://www.bodyvisualizer.com/male.html shows the measurements
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Fri Feb  1 16:03:43 EST 2019
+________________________________
+
+  Get measurements running real quick so the guys (esp. Dario) can advise you on the next move.
+    End-to-end fitting would require me to have a person and various sizes of the clothing
+
+
+
+
+
+
+  Clothing research:
+    1.  Order many sizes of clothes
+      a.  Try each on, catalogue your findings
+      b.  We could also redirect people to Amazon / Big-And-Tall stores / whatever store
+        1)  For instance, if we know something fits me at: a) Formal Affairs on Main Street, or b) Goodwill on Main Street, we could
+          a)  Try to find someone nearby in Newark   who is shaped like me   who already has Oculus and sell them that piece of clothing.
+          b)  Perhaps if I went to Main Street and did that, I could figure out how to make a 3-D model of a piece of clothing from Simone and sold some around here.  I wonder what the population density of Newark, DE is compared to Santa Monica.  It's DEFINITELY lower than Manhattan's.
+    2.  Get on a VR subreddit or find where people are already hyped about Oculus and have it nearby, then release a beta on there.
+    3.
+    4.
+    5.
+    6.
+    7.
+
+
+
+
+
+
+
+
+
+
+
+
+  Technical (today):
+    1.  Properly document where to look in OpenPose to extend OpenPose to new body parts
+      a.
+    2.
+    3.
+    4.
+    5.
+    6.
+    7.
+
+
+
+
+
+
+
+
+
+
+
+  Software IP law (an answer from https://law.stackexchange.com/questions/7184/how-much-of-a-codebase-can-be-considered-intellectual-property):
+    Yes and no. [note, the following is all written about US law. In other jurisdictions laws are, of course, different (though usually not drastically so.)]
+    In the US there are (at least) three different bodies of law that might apply to code: copyright, patents, trade secrets.
+    Copyright covers original expression. Anything you write is automatically, immediately protected under copyright. The copyright applies to the code itself, and anything "derived" from that code. It's up to the courts to decide exactly what "derived" means. One case that's long been viewed as a landmark in this area is Gates Rubber v. Bando Chemicals. The Court of Appeals for the tenth Circuit decision includes a section titled: "The Test for Determining Whether the Copyright of a Computer Program Has Been Infringed." Note that you can register a copyright, and that can be worthwhile, such as helping recover some damages you can't otherwise.
+    Patents are quite different from copyrights. Where a copyright covers expression of an idea, a patent covers a specific invention. Rather than being awarded automatically, a patent has to be applied for, and awarded only after the patent office has determined that there's no relevant prior art to prevent it from being awarded. A patent, however, covers things like somebody else independently discovering/inventing what's covered by the patent.
+    A trade secret could (at least theoretically) apply to some process or procedure embodied in the code. A trade secret mostly applies to a situation where (for example) you're trying to form an alliance with some other company, and in the process tell them things you don't tell the general public. If you've identified the fact that what you're telling them is a trade secret, and they then tell a competitor (or the general public, etc.) or more generally use that information in any way other than the originally intended purpose, it could constitute a trade secret violation. As a side-note: patents and copyright fall under federal law, so they're basically uniform nation-wide. Trade secrets mostly fall under state law, so the exact details vary by state.
+    Absent a reason to believe otherwise, I'd guess your interest here is primarily in copyright infringement. The key here would be showing that one piece of code was derived from the other. That is, it specifically would not apply in a case where there were only a limited number of ways of doing something, so anybody who wanted to do that had to use one of those ways. Since this would not indicate actual derivation, it would not indicate copyright violation.
+
+
+
+The necessary prerequisites to ruling software, algorithms or code patentable:
+  Purely abstract algorithms ruled unpatentable in Gottschalk v. Benson (1972).  This precedent has been mostly kept, but not 100% so.
+  If implementation was nonconventional, or the process did effectuate a transformation of substances (ie. curing rubber in a mould), the algorithm, math, and/or computer program was patentable.  In our case, I'd imagine SMPL is pretty nonconventional; it required all that data to be gathered.  But did it embody an "inventive concept?"  Almost certianly not, right; if anyone had the right to patent the "inventiveness of the concept" it's someone like Geoff Hinton or an earlier developer of the Neural Network idea, not Black and co.
+  Without additional limitations, a process that employs mathematical algorithms to manipulate existing information to generate additional information is not patent eligible."
+ 
+  The Court's 1978 ruling in Parker v. Flook,[14] was similar to Benson in principle. The Benson and Flook cases also established that a "clue" to whether a patent might be granted on a process was whether the process was carried out with a particular apparatus or else effectuated a transformation of an article from one state or thing to another state or thing. In Flook, where the sole departure from the prior art was concededly the formula or algorithm, no transformation was alleged, and it was conceded that the implementing apparatus was old or conventional, the process was simply not the kind of process that could be patented. The principle, stated in Flook, that to be patent eligible the implementation of an abstract idea or law of nature must be inventive, rather than routine or conventional, became of paramount importance in Supreme Court jurisprudence at the beginning of the 21st century. (This occurred in the Mayo and Alice cases.)
+
+  In DDR Holdings v. Hotels.com,[32] the Federal Circuit upheld one patent and invalidated several others under Alice. THIS IS THE ONLY INSTANCE SINCE THE ALICE DECISION IN WHICH THE FEDERAL CIRCUIT HELD A PATENT TO BE ELIGIBLE. The court said that the eligible patent solved an Internet-centric problem in an inventive way. (It essentially framed one website within another, so that it appeared to be a part of the other site.)
+
+  So maybe the PATENTS are not THAT defensible, but we need to make sure this is true of literal, character-for-character code-copying.  Particularly when the license SAYS I need to ask them for permission to use the code for commercial purposes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  To ask to license SMPL, E-mail:
+    ps-license@tue.mpg.de
+  License can be found at: 
+    http://smpl.is.tue.mpg.de/license
+
+
+  Mistakes:
+    Going out in the snow just to avoid chores from Jeannine
+      It was tooooo cold.  Don't die, pupper!  Your dying won't help the company.
+    Asking Shaina for shekels last night
+      Oh wait, that was a good move, actually
+      Don't count on her, though.  She'll probably give 'em, but who knows for sure?  It depends on how much u need, etc.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Hi there bubba
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ________________________________
 
   Thu Jan 31 16:07:04 EST 2019
@@ -570,7 +794,7 @@ ________________________________
       The complete convHull would be convex; a convex polygon looks nothing like a human (Jesus pose)
 
   Business:
-    Try to figure out how to get clothing meshes from Macy's, Kohl's, Wal-Mart, Gucci, Zara, 
+    Try to figure out how to get clothing meshes from Macy's, Kohl's, Wal-Mart, Gucci, Zara, etc.
       Hack 'em?
     Or maybe we can set up a remote attack so I can control their computers from home @ night
     Otherwise we can just use body-mesh similarity between 2 people to let them sell used clothing to each other
@@ -2532,6 +2756,9 @@ ________________________________
     3.  They additionally offer consulting related to the Tubingen models
     4.  If I wanted to license the entire software, it would be more expensive
     5.  Amazon has patents on particular pieces of this Tubingen group's software, but not on SMPL itself
+      a.  Can these patents be checked easily?
+      b.  Double-check Matt Loper's/Eric Raclin/Alex Weissberg's LinkedIn profiles if you want to see what Amazon/BodyLabs is working on/whether they can sue you for using SMPL
+      c.  http://digital-law-online.info/cases/28PQ2D1503.htm (how can a computer program be patented?  sued over?  etc.)
     6.  "Rigging" is what Talha called the part where we get to move the mesh around  (lighting too?)
     7.
 
@@ -11130,3 +11357,5 @@ Alternative to SMPL:
 
   (415)979-9998
 
+  Bootstrap (some tech mentioned on MPI Tuebingen's SMPL license)
+    and it's based on Bootstrap (http://getbootstrap.com/).  Lol, no, that's just a JS (or is it another web?) framework

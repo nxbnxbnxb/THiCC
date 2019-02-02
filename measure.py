@@ -3,6 +3,7 @@ import numpy as np
 import math
 import matplotlib.pyplot as plt
 import imageio as ii
+import os
 
 import viz
 
@@ -114,12 +115,14 @@ def parse_ppl_measures(json_dict):
 
     TODO: refactor.  As of Fri Feb  1 10:39:12 EST 2019, what did I mean by this?
   '''
+  # for sample file, see /home/n/Documents/code/openpose/output/front__nude__grassy_background_keypoints.json
   measures=json_dict[u'people'][0][u'pose_keypoints_2d']
   measures_dict={}
   measures_dict["RShoulder"]= {'x':measures[2*3], 'y':measures[7],      'c':measures[8]}
   measures_dict["LShoulder"]= {'x':measures[5*3], 'y':measures[16],     'c':measures[17]}
-  measures_dict["RHip"]     = {'x':measures[9*3], 'y':measures[9*3+1],  'c':measures[9*3+2]}
+  measures_dict["RHip"]     = {'x':measures[9*3], 'y':measures[9*3+1],  'c':measures[9*3+2]} 
   measures_dict["LHip"]     = {'x':measures[12*3],'y':measures[12*3+1], 'c':measures[12*3+2]}
+  #measures_dict[""
   return measures_dict # NOTE: you gotta use the version of openpose I ran if you just return pose_keypoints_2d.
 #===================================================================================================================================
 def segments(polygon):
@@ -130,7 +133,7 @@ def segments(polygon):
 #===================================================================================================================================
 def area_polygon(polygon):
 	'''
-    Calculates the polygon's area.  Works for concave polygons too
+    Calculates the polygon's area.  Also works for concave polygons
 
     Parameters:
     ----------
@@ -208,15 +211,41 @@ def show_overlaid_polygon_measures(pic_filename___with_openpose_keypoints_, open
   return
 
 #===================================================================================================================================
+def L2_dist(pt1, pt2):
+  # points as np arrays
+  return math.sqrt(np.sum(np.square(pt1-pt2)))
+#===================================================================================================================================
+def pixel_height(mask):
+  locs=np.nonzero(mask)
+  return np.amax(locs[0])-np.amin(locs[0])
+#===================================================================================================================================
 if __name__=="__main__":
-  json_fname='/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/front__nude__grassy_background_keypoints.json'
-  chest_area, other_body_measurements=measure_chest(json_fname)
-  print("chest_area:",chest_area)
+  NATHANS_HEIGHT = 75 # NOTE: inches.  Perhaps we ought to make it cm instead?
+  customer_height = NATHANS_HEIGHT # NOTE:  this should be made adaptive to customer's height later
+  mask=np.asarray(ii.imread('/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_01_29____09:20_AM___/000000220.jpg')).astype('float64')
+  height_in_pixels=pixel_height(mask)
 
+  json_fname='/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/front__nude__grassy_background_keypoints.json'
+  chest_area, other_body_measurements=measure_chest(json_fname) # TODO: change the measurements to shoulders,
+  print("chest_area:",chest_area)
+  LShoulder = np.array([ other_body_measurements['LShoulder']['x'],  other_body_measurements['LShoulder']['y']]).astype('float64')
+  RShoulder = np.array([ other_body_measurements['RShoulder']['x'],  other_body_measurements['RShoulder']['y']]).astype('float64')
+  LHip      = np.array([ other_body_measurements['LHip']['x']     ,  other_body_measurements['LHip']['y']]     ).astype('float64')
+  RHip      = np.array([ other_body_measurements['RHip']['x']     ,  other_body_measurements['RHip']['y']]     ).astype('float64')
+  print("LShoulder,RShoulder,LHip,RHip:",LShoulder,RShoulder,LHip,RHip)
+  chest_to_hips_ratio = (L2_dist(LShoulder,RShoulder) - L2_dist(LHip,RHip)) / height_in_pixels * customer_height # TODO: divide by SOMETHING.  Empirically derived it should be about 40?
+  print("chest_to_hips_ratio:    {0}".format(chest_to_hips_ratio))
+  with open('6th_beta.txt', 'w+') as fp: # overwrites *.txt      # 6th beta, 5 is the array idx
+    fp.write(str(chest_to_hips_ratio)+'\n')
+
+  """
   # draw relevant polygon on top of image
   openpose_fname='/home/n/Documents/code/openpose/output/front__nude__grassy_background_rendered.jpg'
   #openpose_fname='/home/n/Documents/code/openpose/output/openpose_success!.jpg'
   show_overlaid_polygon_measures(openpose_fname, other_body_measurements)
+  """
+
+  #os.system('source /home/n/Documents/code/hmr/venv_hmr/bin/activate && cd /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world && python2 hello_smpl.py 0 0 0 0 0 0 {0} 0 0 0 && blender'.format(chest_area)) # TODO: fiddle with chest area
 #===================================================================================================================================
 
 
