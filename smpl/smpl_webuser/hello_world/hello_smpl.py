@@ -45,10 +45,48 @@ from smpl_webuser.serialization import load_model
 import numpy as np
 import sys
 
-if __name__=="__main__":
+def body_talk_male():
+  '''
+    Generate lotsa bodies
+  '''
+  ## Load SMPL model (here we load the male model)
+  ## TODO: Make sure path is correct
+  MAN   = '../../models/basicmodel_m_lbs_10_207_0_v1.0.0.pkl'
+  m = load_model( MAN )
+
+  ## Assign random pose and shape parameters
+  m.pose[:]  = np.zeros(m.pose.size).astype('float64')
+  m.betas[:] = np.zeros(m.betas.size).astype('float64')
+  print("m.betas.size: {0}".format(m.betas.size))
+
+  #print("len(sys.argv) is {0}".format(len(sys.argv)))
+  print("sys.argv is {0}".format(sys.argv))
+  for i in range(10):
+    for beta in (-15,15):
+      m.betas[i]=beta
+
+      ## Write to an .obj file
+      outmesh_path = './male_{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}.obj'.format(int(m.betas[0][0]),int(m.betas[1][0]),int(m.betas[2][0]),int(m.betas[3][0]),int(m.betas[4][0]),int(m.betas[5][0]),int(m.betas[6][0]),int(m.betas[7][0]),int(m.betas[8][0]),int(m.betas[9][0]))
+      with open( outmesh_path, 'w') as fp:
+          for v in m.r:
+              fp.write( 'v %f %f %f\n' % ( v[0], v[1], v[2]) )
+
+          for f in m.f+1: # Faces are 1-based, not 0-based in obj files
+              fp.write( 
+              'f %d %d %d\n' %  (f[0], f[1], f[2]) )
+      ## Print message
+      print('..Output mesh saved to: ', outmesh_path)
+    m.betas[i]=0 # reset so we can isolate the effect of each beta
+  # end for i in range(10):
+
+
+def custom_body(female=False):
   ## Load SMPL model (here we load the female model)
-  ## Make sure path is correct
-  m = load_model( '../../models/basicModel_f_lbs_10_207_0_v1.0.0.pkl' ) # TODO: detect female / male-ness from photo
+  ## TODO: Make sure path is correct
+  if female:
+    m = load_model( '../../models/basicModel_f_lbs_10_207_0_v1.0.0.pkl' ) # TODO: detect female / male-ness from photo
+  else:
+    m = load_model( '../../models/basicmodel_m_lbs_10_207_0_v1.0.0.pkl' ) # TODO: detect female / male-ness from photo
 
   ## Assign random pose and shape parameters
   m.pose[:]  = np.zeros(m.pose.size).astype('float64')
@@ -78,7 +116,8 @@ if __name__=="__main__":
   m.betas[2]= float(sys.argv[ 3])            #  0
   m.betas[3]= float(sys.argv[ 4])            #  0
   m.betas[4]= float(sys.argv[ 5])            #  0
-  m.betas[5]= float(sys.argv[ 6])            #  0    # shoulder-broadness vs. hip-width.  Positive values mean broader shoulders and more weight in torso; Negative values mean wide hips
+  m.betas[5]= float(sys.argv[ 6])            #  0    
+  # m.betas[5]:    for women, shoulder-broadness vs. hip-width.  Positive values mean broader shoulders and more weight in torso; Negative values mean wide hips
   m.betas[6]= float(sys.argv[ 7])            #  0
   m.betas[7]= float(sys.argv[ 8])            #  0
   m.betas[8]= float(sys.argv[ 9])            #  0
@@ -86,7 +125,7 @@ if __name__=="__main__":
 
 
   ## Write to an .obj file
-  outmesh_path = './hello_smpl.obj'
+  outmesh_path = './custom.obj' # hello_smpl.obj
   with open( outmesh_path, 'w') as fp:
       for v in m.r:
           fp.write( 'v %f %f %f\n' % ( v[0], v[1], v[2]) )
@@ -97,3 +136,12 @@ if __name__=="__main__":
 
   ## Print message
   print('..Output mesh saved to: ', outmesh_path)
+if __name__=="__main__":
+  #body_talk_male()
+  from gender import gender
+  if gender.lower()=='male':
+    female=False
+  else:
+    female=True
+  custom_body(female)
+

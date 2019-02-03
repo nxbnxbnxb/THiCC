@@ -224,6 +224,7 @@ if __name__=="__main__":
   customer_height = NATHANS_HEIGHT # NOTE:  this should be made adaptive to customer's height later
   mask=np.asarray(ii.imread('/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_01_29____09:20_AM___/000000220.jpg')).astype('float64')
   height_in_pixels=pixel_height(mask)
+  nathans_gender='male'
 
   json_fname='/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/front__nude__grassy_background_keypoints.json'
   chest_area, other_body_measurements=measure_chest(json_fname) # TODO: change the measurements to shoulders,
@@ -232,11 +233,14 @@ if __name__=="__main__":
   RShoulder = np.array([ other_body_measurements['RShoulder']['x'],  other_body_measurements['RShoulder']['y']]).astype('float64')
   LHip      = np.array([ other_body_measurements['LHip']['x']     ,  other_body_measurements['LHip']['y']]     ).astype('float64')
   RHip      = np.array([ other_body_measurements['RHip']['x']     ,  other_body_measurements['RHip']['y']]     ).astype('float64')
-  print("LShoulder,RShoulder,LHip,RHip:",LShoulder,RShoulder,LHip,RHip)
-  chest_to_hips_ratio = (L2_dist(LShoulder,RShoulder) - L2_dist(LHip,RHip)) / height_in_pixels * customer_height # TODO: divide by SOMETHING.  Empirically derived it should be about 40?
+  print("LShoulder,RShoulder, LHip,RHip:",LShoulder,RShoulder, LHip,RHip)
+  c2h_ratio_const = 1/3. # female
+  chest_to_hips_ratio = (L2_dist(LShoulder,RShoulder) - L2_dist(LHip,RHip)) / height_in_pixels * customer_height * c2h_ratio_const # TODO: divide by SOMETHING.  Empirically derived it should be about 40?
   print("chest_to_hips_ratio:    {0}".format(chest_to_hips_ratio))
   with open('6th_beta.txt', 'w+') as fp: # overwrites *.txt      # 6th beta, 5 is the array idx
     fp.write(str(chest_to_hips_ratio)+'\n')
+  with open('/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world/gender.py'
+  nathans_gender='male'
 
   """
   # draw relevant polygon on top of image

@@ -8,27 +8,42 @@
 
 
 
+________________________________
 
-From Dario:
-  Suggested apply to MORE jobs, esp. social jobs like waiter, Panera, get tired of people so you just wanna go code.  Go running, sleep 8 hours / night.
+  Sat Feb  2 21:14:36 EST 2019
+________________________________
 
-Technical:
-  Garment Measurements we need:
-
-  25.5” chest
-  24.25” shoulder to shoulder
-  27” front length
-  Measurements taken from size medium.
-
-  Model Measurements
-  Model is in size medium.
-  Model is 6'2" | 30” chest | 29” waist
-
-  Fit Notes
-  Oversized fit.
+  Tweak the c2h_ratio_const in /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/measure.py    function (def pixel_height(mask))
 
 
-  http://www.bodyvisualizer.com/male.html shows the measurements
+
+  Risks I took today:
+    Calling Dario?
+    Going on a run and playing DDR for the first time in quite awhile (only made it jogging halfway around the reservoir; it was snowy)
+
+
+________________________________
+
+  From Dario (call this morning) :
+    Suggested apply to MORE jobs, esp. social jobs like waiter, Panera, get tired of people so you just wanna go code.  Go running, sleep 8 hours / night.
+
+  Technical:
+    Garment Measurements we need:
+
+    25.5” chest
+    24.25” shoulder to shoulder
+    27” front length
+    Measurements taken from size medium.
+
+    Model Measurements
+    Model is in size medium.
+    Model is 6'2" | 30” chest | 29” waist
+
+    Fit Notes
+    Oversized fit.
+
+
+    http://www.bodyvisualizer.com/male.html shows the measurements
 
 
 
