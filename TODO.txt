@@ -8,12 +8,96 @@
 
 
 
+
+
+
+________________________________
+
+  Sun Feb  3 09:45:01 EST 2019
+________________________________
+
+  Fix Google's deeplab segmentation w.r.t. different image resolutions, dimensions, etc.
+
+  Slap the face scan on first so people can at least see their face on the model.  Perhaps take a look at the Facebook research link
+    Try to grab whatever portion of their code you can!
+
+  
+
+
+
+
+
+  From the beautiful end-to-end paper Vishal sent me;  FB research.
+
+  3. Overview
+    Given a single photo, we propose to animate the human
+    subject in the photo. The overall system works as follows
+    (Fig. 2): We first apply state-of-the-art algorithms to perform person detection, segmentation, and 2D pose estimation. From the results, we devise a method to construct a
+    rigged mesh (Section 4). Any 3D motion sequence can then
+    be used to animate the rigged mesh.
+    To be more specific, we use Mask R-CNN [14] for person detection and segmentation (implementation by [30]).
+    2D body pose is estimated using [38], and person segmentation is refined using Dense CRF [24]. Once the person is
+    segmented out of the photo, we apply PatchMatch [4] to fill
+    in the regions where the person used to be.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ________________________________
 
   Sat Feb  2 21:14:36 EST 2019
 ________________________________
 
   Tweak the c2h_ratio_const in /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/measure.py    function (def pixel_height(mask))
+  (More generally, tweak the creation of the SMPL model from a few images of the person)
 
 
 

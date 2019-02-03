@@ -220,11 +220,23 @@ def pixel_height(mask):
   return np.amax(locs[0])-np.amin(locs[0])
 #===================================================================================================================================
 if __name__=="__main__":
+  # all code here assumes the person we're dealing with is Nathan.  
+  #   ie. Nathan is Male, height=tall, width=small, shoulders-hip ratio is reasonable
+
   NATHANS_HEIGHT = 75 # NOTE: inches.  Perhaps we ought to make it cm instead?
-  customer_height = NATHANS_HEIGHT # NOTE:  this should be made adaptive to customer's height later
+  customer_height = NATHANS_HEIGHT # NOTE:  instead of blanket setting customer_height = NATHANS_HEIGHT, we should set customer_height = iPhone.ARKit.measure(height) 
+  #this should be made adaptive to customer's height later
+
+  orig_img=np.asarray(ii.imread('/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/2019_01_30____07:18_AM__nathan_front/front__nude__grassy_background.jpg'))
+  orig_imgs_height_in_pixels=orig_img.shape[0]
+  # orig_img and orig_imgs_height_in_pixels are necessary because the original json measurements were fetched from an image with these (orig_img and origs_height_in_pixels) dimensions, whereas the deeplab segmentation mask has different pixel dimensions
+
   mask=np.asarray(ii.imread('/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_01_29____09:20_AM___/000000220.jpg')).astype('float64')
+  mask=np.asarray(ii.imread('/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_01_29____09:20_AM___/000000220.jpg')).astype('float64')
+  print("mask.shape:\n",mask.shape);print('\n'*1)
   height_in_pixels=pixel_height(mask)
   nathans_gender='male'
+  gender=nathans_gender
 
   json_fname='/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/front__nude__grassy_background_keypoints.json'
   chest_area, other_body_measurements=measure_chest(json_fname) # TODO: change the measurements to shoulders,
@@ -233,14 +245,26 @@ if __name__=="__main__":
   RShoulder = np.array([ other_body_measurements['RShoulder']['x'],  other_body_measurements['RShoulder']['y']]).astype('float64')
   LHip      = np.array([ other_body_measurements['LHip']['x']     ,  other_body_measurements['LHip']['y']]     ).astype('float64')
   RHip      = np.array([ other_body_measurements['RHip']['x']     ,  other_body_measurements['RHip']['y']]     ).astype('float64')
-  print("LShoulder,RShoulder, LHip,RHip:",LShoulder,RShoulder, LHip,RHip)
-  c2h_ratio_const = 1/3. # female
-  chest_to_hips_ratio = (L2_dist(LShoulder,RShoulder) - L2_dist(LHip,RHip)) / height_in_pixels * customer_height * c2h_ratio_const # TODO: divide by SOMETHING.  Empirically derived it should be about 40?
-  print("chest_to_hips_ratio:    {0}".format(chest_to_hips_ratio))
+  print("LShoulder,RShoulder,LHip,RHip:",LShoulder,RShoulder,LHip,RHip)
+  if gender.lower()=='female':
+    s2h_ratio_const   = 1/3.
+    # TODO:  find "zero point" for shoulders to hips for a female.
+  else:
+    s2h_ratio_const   = 2/5.  # TODO: empirically figure out what this s2h_ratio_const ought to be
+    zero_beta__shoulder_2_hips=3.481943933038265
+    # I've empirically derived that Nathan's shoulders_hips_diff___inches in that one picture (/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/2019_01_30____07:18_AM__nathan_front/front__nude__grassy_background.jpg) is 3.48.   This is for the variable assignment "shoulders_hips_diff___inches= (L2_dist(LShoulder,RShoulder) - L2_dist(LHip,RHip)) / orig_imgs_height_in_pixels * customer_height"
+
+  # TODO: fuck with s2h_ratio_const until it's right
+  shoulders_hips_diff___inches= (L2_dist(LShoulder,RShoulder) - L2_dist(LHip,RHip)) / orig_imgs_height_in_pixels * customer_height
+  # NOTE: we have to make sure the image is well-cropped (consistently cropped) s.t. the customer height is a consistent fraction of the total image height.  TODO TODO!
+  print("shoulders_hips_diff___inches:\n",shoulders_hips_diff___inches)
+  beta_shoulders_hips = (shoulders_hips_diff___inches - zero_beta__shoulder_2_hips) * s2h_ratio_const 
+  print("beta_shoulders_hips:    {0}".format(beta_shoulders_hips))
   with open('6th_beta.txt', 'w+') as fp: # overwrites *.txt      # 6th beta, 5 is the array idx
-    fp.write(str(chest_to_hips_ratio)+'\n')
-  with open('/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world/gender.py'
-  nathans_gender='male'
+    fp.write(str(beta_shoulders_hips)+'\n')
+
+  with open('/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world/gender.py', 'w+') as fp:
+    fp.write(str('gender=\'')+gender+'\'')
 
   """
   # draw relevant polygon on top of image
