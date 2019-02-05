@@ -185,7 +185,7 @@ def seg_map(img, model):
 #=========== end func def of  seg_map(img, model): ==============
 
 #================================================================
-def segment_from_local(local_filename):
+def segment_local(local_filename):
   #img=scipy.ndimage.io.imread(local_filename)
   img=np.asarray(ii.imread(local_filename)).astype('float64') # TODO: delete this commented-out line
 
@@ -213,9 +213,9 @@ def segment_from_local(local_filename):
   MODEL = DeepLabModel(download_path)
   FAIRLY_CERTAIN=127
   return seg_map(img, MODEL)
-#=====  end func def of   segment_from_local(local_filename) =====
+#=====  end func def of   segment_local(local_filename) =====
 
-def segment_from_URL(IMG_URL):
+def segment_URL(IMG_URL):
   '''
     NOTE: segmentation requires internet connection
   '''
@@ -245,7 +245,8 @@ def segment_from_URL(IMG_URL):
 
   FAIRLY_CERTAIN=127
   return np.greater(run_visualization(IMG_URL, MODEL), FAIRLY_CERTAIN)
-#===== end func def of  segment_from_URL(IMG_URL): =====
+#===== end func def of  segment_URL(IMG_URL): =====
+
 
 if __name__=='__main__':
   if len(sys.argv) == 1:
@@ -254,8 +255,10 @@ if __name__=='__main__':
     print ("\nusage: python2 seg.py [url_of_img_containing_human(s)] \n  example: python2 seg.py http://vishalanand.net/green.jpg   \n\n")
     print ("currently segmenting image found at url: \n  "+IMG_URL)
   else:
-    IMG_URL = sys.argv[1]
-  seg_map = segment_from_URL(IMG_URL) # TODO: change local name to not conflict with the function seg_map()
-  pltshow(seg_map)
+    img_path=sys.argv[1]
+    #IMG_URL = sys.argv[1]# TODO: uncomment to segment images on the internet.
+  #segmap = segment_URL(IMG_URL) # TODO: uncomment to segment images on the internet.
+  segmap= segment_local(img_path)
+  pltshow(segmap)
 # end if __name__=='__main__':
 
