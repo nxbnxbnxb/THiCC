@@ -8,6 +8,35 @@
 
 
 
+________________________________
+
+  Mon Feb  4 09:45:01 EST 2019
+________________________________
+
+  Discuss asking Michael Black to license SMPL.
+    Scrapy if that doesn't work?
+    Scrape FB images
+    Or just do it manually & ask my friends for their measurements  (put together a silly little form letter)
+  Discuss the UI, ask Dario to put "asking for height and weight" in.  Also, someone needs to put all the pieces together.  I would suggest Dario.
+
+  Maybe Oculus should connect to someone's desktop computer?  We could just ask them to take pictures on the computer rather than muck around with the smartphone stuff.  That's probably more immersive than constantly switching platforms.
+  
+  Give the customer a similar tool to bodyvisualizer.com where they can fine-tune their model.
+
+
+
+
+  Don't mention this in the meeting, but after we have a full product, someone needs to go do customer discovery.  I would suggest Dario just because he's in NYC and it's a little more convenient.  (Also I kind of want him to just leave Simone alone and stop calling regular meetings)
+
+  https://aws.amazon.com/opendata/public-datasets/
+
+
+
+
+
+
+
+
 
 
 
@@ -15,6 +44,80 @@ ________________________________
 
   Sun Feb  3 09:45:01 EST 2019
 ________________________________
+
+  SMPL's CAESAR dataset is pay-to-play ($3500 for access)
+  It might be better, rather than brute-forcing and either looking for free data or gathering your OWN data (also very time-consuming), might be better to just read the SMPL paper or do an all-in-one-shot version of the implementation using Photo-Wake-Up.
+
+
+
+
+  What did I actually DO all morning?
+    Double-check the git log
+
+  Ask the guys: does Oculus still have to connect to someone's desktop computer?  We could just ask them to take pictures on the computer rather than muck around with the smartphone stuff.  That's probably more immersive.
+
+
+
+
+
+
+
+
+
+
+ 
+
+  Within the UI, ask for customer's weight.
+  We could get the height using Apple ARKit.  In the first iteration, let's get height by asking the customer directly.
+  Ask gender
+  Tell Dario to ask for this data (gender, weight, height,   ...,   perhaps exercise amount and/or inseam) in the beginning (in Oculus UI).  This way we don't have to make a separate website.
+
+  If you could give them the basic stuff (given a few measurements, here's the general size of the body) within a week, you can go finish your job search without as many distractions and then move on to the next step with The Mall project
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   Fix Google's deeplab segmentation w.r.t. different image resolutions, dimensions, etc.
 

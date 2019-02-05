@@ -7,7 +7,7 @@ import os
 
 import viz
 
-# TODO: make the earlier json-generation via openpose automated end-to-end like this.  Everything must be MODULAR though
+# TODO: make the earlier JSON-generation via openpose automated end-to-end like this.  Everything must be MODULAR, though
 
 #shape=np.concatenate(trapezoid,np.mean(trapezoid,axis=0),axis='x')
 

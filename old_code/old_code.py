@@ -1,6 +1,14 @@
 import numpy as np
 np.seterr(all='raise')
 
+#from smpl/smpl_webuser_hello_world/hello_smpl.py
+    '''
+    if isinstance(flabbiness, Number):
+      m.betas[2]          = flabbiness
+    else:
+      couch_potato        = m.betas[2]  # I honestly don't know how we can measure this variable.  Prob by asking the user.  But will they tell the truth?  Will they know?    (negative values for this mean a well-muscled guy)
+    '''
+
 # part of model.py's test_human():
 """
 on_locs=np.nonzero(model)
