@@ -1,6 +1,8 @@
 import imageio as ii
 import numpy as np
 import scipy.misc as scpm
+from copy import deepcopy
+
 import viz
 
 def paste_face___onto_mesh(facemask, color_img):
@@ -11,10 +13,17 @@ def face(facemask,color_img):
   return color_img and\
     np.dstack((facemask,facemask,facemask))
   '''
-  facemask_with_RGB=np.dstack((facemask,facemask,facemask))
-  print("facemask_with_RGB.shape:\n",facemask_with_RGB.shape)
-  on_locs=np.nonzero(facemask_with_RGB)
-  return color_img[on_locs]  # will probably crash
+  scpm.imshow(color_img)
+  face_img=deepcopy(color_img)
+  facemask_w_RGB=np.dstack((facemask,facemask,facemask))
+  print("facemask_with_RGB.shape:\n",facemask_w_RGB.shape)
+  for i in range(face_img.shape[0]):
+    for j in range(face_img.shape[1]):
+      for k in range(face_img.shape[2]):
+        if not facemask_w_RGB[i,j,k]:
+          face_img[i,j,k]=0
+  return face_img
+  #on_locs=np.nonzero(facemask_with_RGB) # this one DOESN'T work
   #return color_img == np.dstack((facemask,facemask,facemask))
   #return np.logical_and(color_img,
     #np.dstack((facemask,facemask,facemask))).astype('float64')
@@ -52,7 +61,7 @@ def main1():
   #print("f.shape:\n", f.shape)
   print("f.dtype:\n", f.dtype)
   print("f.shape:\n", f.shape)
-  viz.pltshow(face(facemask,color_img))
+  scpm.imshow(face(facemask,color_img))
 
 
 
