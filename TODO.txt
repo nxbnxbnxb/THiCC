@@ -5,6 +5,165 @@
 
     TODO.txt
 
+________________________________
+
+  Wed Feb  6 15:50:54 EST 2019
+________________________________
+
+  Call dad.
+  Ask the guys what else happened after I left the meeting.
+  **** Finish version-controlling, make sure you can `git push` to a remote. ****
+
+  Pier: ReSTFUL API lets the server sit there and wait for an image, then reply with a mesh file.
+    Figure out "endpoint"
+    Do AWS Elastic Beanstalk instance
+      At 1st, it's free.
+      See whether students get free / discounted
+
+    Learn Javascript?
+      Django/Flask
+
+  Back up my work in a shareable github repo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Tue Feb  5 15:50:54 EST 2019
+________________________________
+
+
+  HMR or SMPLify
+    Print out pdf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Make the milestone for Zoho
+    Look at Dario's or Pier's for example
+    Til April 25, 2019
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

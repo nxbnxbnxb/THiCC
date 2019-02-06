@@ -93,8 +93,6 @@ def custom_body(female=False, height=False, weight=False, chest=False, waist=Fal
   '''
 
 
-
-
   """
   flabbiness            = False
   broad_shoulderedness  = False
@@ -263,12 +261,12 @@ def custom_body(female=False, height=False, weight=False, chest=False, waist=Fal
     outmesh_path = './male_{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}.obj'.format(int(m.betas[0][0]),int(m.betas[1][0]),int(m.betas[2][0]),int(m.betas[3][0]),int(m.betas[4][0]),int(m.betas[5][0]),int(m.betas[6][0]),int(m.betas[7][0]),int(m.betas[8][0]),int(m.betas[9][0]))
 
   with open( outmesh_path, 'w') as fp:
-    for v in m.r:
-      fp.write( 'v %f %f %f\n' % ( v[0], v[1], v[2]) )
+    for vertex in m.r:
+      fp.write( 'v %f %f %f\n' % ( vertex[0], vertex[1], vertex[2]) )
 
-    for f in m.f+1: # Faces are 1-based, not 0-based in obj files
+    for face in m.f+1: # Faces are 1-based, not 0-based in obj files
       fp.write( 
-      'f %d %d %d\n' %  (f[0], f[1], f[2]) )
+      'f %d %d %d\n' %  (face[0], face[1], face[2]) )
 
   ## Print message
   print('..Output mesh saved to: ', outmesh_path)
