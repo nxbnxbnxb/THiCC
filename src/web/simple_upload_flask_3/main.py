@@ -1,4 +1,3 @@
-
 import os
 from app import app
 from flask import Flask, flash, request, redirect, render_template
@@ -34,7 +33,10 @@ def upload_file():
 		if file and allowed_file(file.filename):
 			filename = secure_filename(file.filename)
 			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-      IMG_FNAME= os.path.join(app.config['UPLOAD_FOLDER'], filename) # global
+      #print(app.config['UPLOAD_FOLDER'])
+      #print(filename)
+      #print(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+      #IMG_FNAME= os.path.join(app.config['UPLOAD_FOLDER'], filename)
 			flash('File(s) successfully uploaded')
 			return redirect('/')
 
