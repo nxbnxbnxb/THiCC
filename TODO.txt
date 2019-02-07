@@ -5,20 +5,142 @@
 
     TODO.txt
 
+
+
+
+
+
+
+________________________________
+
+  Thu Feb  7 08:32:59 EST 2019
+________________________________
+
+  Pier: ReSTFUL API lets the server sit there and wait for an image, then reply with a mesh file.
+    Figure out "endpoint"
+    Do this with an AWS Elastic Beanstalk instance
+      At 1st, it's free.
+      See whether students get free / discounted
+    Make flask public from my local (laptop)
+      This is the next thing.  After this, read more on HMR
+
+  Shut off the AWS VM!
+    DONE
+
+
+  Write up lawyer questions
+    Bring the voice recorder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Ask David about the VC around here  (I think it was David who mentioned this)
+
+  Suggest to Simone he go make 3-D clothing for local clothing stores.  Try to get more supply!
+    #(if we're based in LA, we can 
+
+
+  AWS account npsd:
+    Nathan
+    Pier
+    Simone
+    Dario
+
+
+
+
+  Call Mrs. Herman
+    Tell her DDonuts?
+      Maybe call 'em first and ask who pays more
+  Grandma Ann too
+    Maybe this is more flexible than the other **** jobs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ________________________________
 
   Wed Feb  6 15:50:54 EST 2019
 ________________________________
 
   Call dad.
+    done
   Ask the guys what else happened after I left the meeting.
   **** Finish version-controlling, make sure you can `git push` to a remote. ****
 
-  Pier: ReSTFUL API lets the server sit there and wait for an image, then reply with a mesh file.
-    Figure out "endpoint"
-    Do AWS Elastic Beanstalk instance
-      At 1st, it's free.
-      See whether students get free / discounted
 
     Learn Javascript?
       Django/Flask
@@ -26,6 +148,11 @@ ________________________________
   Back up my work in a shareable github repo
 
 
+
+  Women might be the biggest consumers.
+  Free alterations
+    MTailor
+  Fit before choices
 
 
 
