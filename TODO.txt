@@ -7,7 +7,93 @@
 
 
 
+________________________________
 
+  Sat Feb  9 12:33:25 EST 2019
+________________________________
+
+  Start up the 3rd ec2 instance again
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Fri Feb  8 11:25:50 EST 2019
+________________________________
+
+  .obj: PUT / POST
+  publish my IP address
+    This is faster than AWS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Black IP issue
+    If doesn't work, look for different mesh methods.
+    Guys still suggest this won't be a problem
 
 
 
