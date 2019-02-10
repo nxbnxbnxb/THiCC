@@ -37,7 +37,7 @@ def upload_file():
 
 @app.route('/send_mesh', methods=['POST', 'PUT'])
 def send_mesh():
-  time.sleep(20.0) # NOTE: this might not work within Flask. TODO TODO TODO
+  #time.sleep(20.0) # NOTE: this might not work within Flask. TODO TODO TODO
   return 'hi'
   """
   mesh_path='/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/mesh.obj'
