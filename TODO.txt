@@ -12,13 +12,25 @@ ________________________________
 ________________________________
 
   deal with git pulls & pushes & their syncs.
+  In shell scripts, use `whoami` to automatically concatenate username (ie. ubuntu, ec2-user, or n)
+    (this is better than dealing with all the hassle of Amazon CLI update-user.)
 
 
 
 
-  AWS instance && sftp in cloud
 
-  Unity download; can we open a mesh file from cmd line?
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -65,6 +77,15 @@ ________________________________
 
   Company name:
     "Magic Einstein Poop"
+
+
+  AWS instance && sftp in cloud
+    Pier says NO.
+
+  Unity download; can we open a mesh file from cmd line?
+    Pier says NO.  Do it with return .objfilestring.
+
+
 
 
 
