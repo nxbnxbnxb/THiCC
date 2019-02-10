@@ -11,8 +11,12 @@ ________________________________
   Sun Feb 10 12:33:25 EST 2019
 ________________________________
 
+  deal with git pulls & pushes & their syncs.
+
+
+
+
   AWS instance && sftp in cloud
-  *** rename instance n@ip-...   Will save someone in the future (probably you, Nathan) a whole day of confused debugging!!!!
 
   Unity download; can we open a mesh file from cmd line?
 
@@ -50,10 +54,10 @@ ________________________________
 
 
 
-
-
-
-
+  *** TODO? rename instance n@ip-172-31-44-142...   Will save someone in the future (probably you, Nathan) a whole day of confused debugging!!!!
+  It was kind of annoying to have to change all the paths, but dealing with that is at least a straightforward, well-defined task, whereas dealing with the AWS shit takes longer and it's unclear what you're supposed to do.  If you really MUST do it this way, here's where you start:
+    aws iam update-user --user-name ec2-user --new-user-name n
+ But also consider that then you have to configure all the keys, etc.  That can be someone's desk job some day; you don't have to get it PERFECT
 
 
 

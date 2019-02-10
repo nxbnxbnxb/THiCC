@@ -9,3 +9,7 @@
 
   Often what changes the world is mundane.  Your brain will not be drawn to the mundane, but the little things like "removing 1 click from the customer's experience" will indeed do much more to change things than the next hot new research technique.  Welcome to the real world, betch.  On Wednesdays, we wear p!nk.
 
+
+
+
+  Not meta, but very important for startups; don't EVER use ~ for shortcut when transfering files between machines.  I think the issue is `~` always points to your OWN home directory, and if the username on the other machine is different, it'll f*** sh!t up; (won't work).
