@@ -13,6 +13,9 @@ ________________________________
 ________________________________
 
   Start up the 3rd ec2 instance again
+    Copy venv_hmr onto AWS
+
+  Doublecheck recent chrome tabs at the bottom of this file
 
 
 
@@ -11933,3 +11936,32 @@ Alternative to SMPL:
 
   Bootstrap (some tech mentioned on MPI Tuebingen's SMPL license)
     and it's based on Bootstrap (http://getbootstrap.com/).  Lol, no, that's just a JS (or is it another web?) framework
+
+
+
+
+Chrome (last session):
+  https://stackoverflow.com/questions/1904168/how-do-i-submit-a-file-input-without-submit-button-using-javascript
+  https://duckduckgo.com/?q=html+upload+file+no+button&t=canonical&ia=images
+  https://duckduckgo.com/?q=html+upload+file+no+button&t=canonical&ia=images
+  https://duckduckgo.com/?q=what+is+an+endpoint+web+dev&t=canonical&ia=qa
+  https://www.youtube.com/watch?v=cR_FqveTewo&list=PLhW3qG5bs-L-oT0GenwPLcJAPD_SiFK3C&index=3
+  https://stackoverflow.com/questions/19261833/what-is-an-endpoint-in-flas
+  https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xxiii-application-programming-interfaces-apis
+  https://duckduckgo.com/?q=endpoints+tutorial+in+flask&t=canonical&ia=images
+  https://www.youtube.com/watch?v=7YcW25PHnAA
+  https://stackoverflow.com/questions/17256602/assertionerror-view-function-mapping-is-overwriting-an-existing-endpoint-functi
+  https://duckduckgo.com/?q=AssertionError%3A+View+function+mapping+is+overwriting+an+existing+endpoint+function%3A+upload_file&t=canonical&ia=qa
+  https://pythonhosted.org/Flask-Uploads/
+  https://www.tutorialspoint.com/flask/flask_file_uploading.htm
+  https://duckduckgo.com/?q=flask+upload_form+render_template(%27upload.html%27)&t=canonical&ia=web
+  https://reqres.in/
+  https://duckduckgo.com/?q=sample+rest+api&t=canonical&ia=web
+  https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop/related
+  https://web.postman.co/workspaces/d6b4f195-3acc-4f3e-8d72-d4d6e18de1e8/collections
+  https://duckduckgo.com/?q=postman+founder+abhinav+api&t=canonical&ia=web
+  https://web.postman.co/workspaces?type=personal
+  https://github.com/neonb88/hmr2
+  https://github.com/neonb88?tab=repositories
+  https://github.com/neonb88/hmr
+  https://www.codementor.io/dushyantbgs/deploying-a-flask-application-to-aws-gnva38cf0
