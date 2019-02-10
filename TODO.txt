@@ -6,6 +6,62 @@
     TODO.txt
 
 
+________________________________
+
+  Sun Feb 10 12:33:25 EST 2019
+________________________________
+
+  AWS instance && sftp in cloud
+
+  Unity download; can we open a mesh file from cmd line?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Company name:
+    "Magic Einstein Poop"
+
+
 
 ________________________________
 
@@ -11965,3 +12021,22 @@ Chrome (last session):
   https://github.com/neonb88?tab=repositories
   https://github.com/neonb88/hmr
   https://www.codementor.io/dushyantbgs/deploying-a-flask-application-to-aws-gnva38cf0
+
+
+
+
+
+
+
+________________________________
+
+Chrome (last session): Sun Feb 10 11:38:30 EST 2019
+ Unity3D Ubuntu:
+  https://media.readthedocs.org/pdf/flask/latest/flask.pdf
+  https://docs.unity3d.com/Manual/CommandLineArguments.html
+  https://duckduckgo.com/?q=command+line+unity+3d+open+file&t=canonical&ia=web
+  http://beta.unity3d.com/download/fd37f3680b5f/public_download.html
+  https://forum.unity.com/threads/unity-on-linux-release-notes-and-known-issues.350256/page-2
+  https://askubuntu.com/questions/774401/installing-unity3d-on-ubuntu-16-04
+  https://duckduckgo.com/?q=ubuntu+install+unity3d&t=canonical&ia=qa
+________________________________

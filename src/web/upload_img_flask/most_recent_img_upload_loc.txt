@@ -1,3 +1,2 @@
-CREATE Dario_Gentiletti.jpg
 /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/customer_imgs/
-CREATE Jobs____hungry_foolish_quote__.jpg
+CREATE super_skinny__jared_leto.jpeg
