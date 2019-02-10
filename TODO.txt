@@ -12,6 +12,7 @@ ________________________________
 ________________________________
 
   AWS instance && sftp in cloud
+  *** rename instance n@ip-...   Will save someone in the future (probably you, Nathan) a whole day of confused debugging!!!!
 
   Unity download; can we open a mesh file from cmd line?
 
