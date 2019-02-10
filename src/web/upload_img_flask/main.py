@@ -32,8 +32,9 @@ def upload_file():
 			return redirect('/upload')
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',debug=True,port=5000)
+    app.run(host='0.0.0.0',debug=True,port=80)
     # NOTE TODO
     # whenever `git pull`ing, change port 5000 to port 80
     #   and "/home/n/" to "/home/ubuntu/"
     # and vice versa.
+
