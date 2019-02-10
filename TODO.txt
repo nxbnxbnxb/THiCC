@@ -12066,3 +12066,13 @@ Chrome (last session): Sun Feb 10 11:38:30 EST 2019
   https://askubuntu.com/questions/774401/installing-unity3d-on-ubuntu-16-04
   https://duckduckgo.com/?q=ubuntu+install+unity3d&t=canonical&ia=qa
 ________________________________
+
+Chrome (last session): Sun Feb 10 17:51:49 EST 2019
+  https://duckduckgo.com/?q=amazon+output+permission&t=canonical&ia=web
+  https://us-east-2.console.aws.amazon.com/ec2/v2/home?region=us-east-2#Instances:sort=availabilityZone
+  https://console.aws.amazon.com/iam/home#/security_credentials
+  https://us-east-2.console.aws.amazon.com/console/home?region=us-east-2
+  https://www.youtube.com/results?search_query=tony+robbins+6+human+needs
+  http://18.217.52.160/upload  
+    (AWS)
+  http://localhost:5000/upload
