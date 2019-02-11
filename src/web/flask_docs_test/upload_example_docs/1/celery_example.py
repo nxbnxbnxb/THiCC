@@ -8,6 +8,8 @@ import os
 import time
 import matplotlib.pyplot as plt
 
+import demo # hmr by Akanazawa, Black, et al.
+
 #=====================================================================
 # used to be in separate file "app.py"
 UPLOAD_FOLDER = '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/'
@@ -15,6 +17,9 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'obj'])
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+all_dirs=demo.outmesh_path.split('/')
+app.config['MESH_DIR'  ]=demo.outmesh_path[:mesh_path.rfind('/')+1 ]
+app.config['MESH_FNAME']=demo.outmesh_path[ mesh_path.rfind('/')+1:]
 # end what used to be in separate file "app.py"
 #=====================================================================
 
@@ -57,27 +62,18 @@ def upload_file():
   '''
 
 @app.route('/uploads/<filename>')
-def uploaded_file(filename):
-  make_mesh.delay(filename)
-  return '''
-  <!DOCTYPE html>
-  <html>
-  <body>
-
-  <h1> Generated Image </h1>
-  <img src="{0}" width="700" height="500">
-
-  </body>
-  </html>
-  '''.format(filename)
+def uploaded_file(customer_img_fname):
+  flash('Customer image file uploaded.  Building realistic 3-D mesh of the customer...')
+  demo.make_mesh(customer_img_fname)
+  return send_from_directory(app.config['MESH_DIR'],app.config['MESH_FNAME'])
+  #return 'Image successfully uploaded'
   #return send_from_directory(app.config['UPLOAD_FOLDER'],   filename) # this returns the previously uploaded file (image)
 
 @celery.task(name='celery_example.make_mesh')
-def make_mesh(customer_img):
-  # simple unit test
-  time.sleep(10)
+def make_mesh(customer_img_fname):
+  os.system("./make_mesh.sh {0}".format(customer_img_fname))# /home/n/Documents/code/old/hmr/demo.py")
   #print("type(customer_img): \n",type(customer_img))  #this worked
-  return 'mesh' #TODO: return the make_mesh()
+  return 'mesh' #TODO: return the .obj file?  Then we'd have to hang with the process
 
 if __name__=="__main__":
   app.run( host='0.0.0.0', debug=True, port=5000)

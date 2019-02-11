@@ -5,17 +5,220 @@
 
     TODO.txt
 
+________________________________
+
+  Mon Feb 11 12:33:25 EST 2019
+________________________________
+
+  $250 rent for this month
+
+
+  Next meeting, give the guys a pep talk
+    Consult Sam Altman's advice on WHEN to give the pep talk (maybe now is not the best time)
+
+  Celery permissions error:
+    kombu.exceptions.OperationalError: Error 111 connecting to localhost:5005. Connection refused.
+    What I've tried:
+    1.  `sudo celery -A app.celery worker`
+      a.  Needed to have celery and redis installed in root.
+      b.  Get the same result (stacktrace copied below)
+        Traceback (most recent call last):
+    File "app.py", line 30, in <module>
+      result = add_together.delay(23, 42)
+    File "/home/n/.local/lib/python2.7/site-packages/celery/app/task.py", line 408, in delay
+      return self.apply_async(args, kwargs)
+    File "/home/n/.local/lib/python2.7/site-packages/celery/app/task.py", line 535, in apply_async
+      **options
+    File "/home/n/.local/lib/python2.7/site-packages/celery/app/base.py", line 745, in send_task
+      amqp.send_task_message(P, name, message, **options)
+    File "/usr/lib/python2.7/contextlib.py", line 35, in __exit__
+      self.gen.throw(type, value, traceback)
+    File "/home/n/.local/lib/python2.7/site-packages/kombu/connection.py", line 436, in _reraise_as_library_errors
+      sys.exc_info()[2])
+    File "/home/n/.local/lib/python2.7/site-packages/kombu/connection.py", line 431, in _reraise_as_library_errors
+      yield
+    File "/home/n/.local/lib/python2.7/site-packages/celery/app/base.py", line 744, in send_task
+      self.backend.on_task_call(P, task_id)
+    File "/home/n/.local/lib/python2.7/site-packages/celery/backends/redis.py", line 265, in on_task_call
+      self.result_consumer.consume_from(task_id)
+    File "/home/n/.local/lib/python2.7/site-packages/celery/backends/redis.py", line 125, in consume_from
+      return self.start(task_id)
+    File "/home/n/.local/lib/python2.7/site-packages/celery/backends/redis.py", line 107, in start
+      self._consume_from(initial_task_id)
+    File "/home/n/.local/lib/python2.7/site-packages/celery/backends/redis.py", line 132, in _consume_from
+      self._pubsub.subscribe(key)
+    File "/home/n/.local/lib/python2.7/site-packages/redis/client.py", line 3096, in subscribe
+      ret_val = self.execute_command('SUBSCRIBE', *iterkeys(new_channels))
+    File "/home/n/.local/lib/python2.7/site-packages/redis/client.py", line 3009, in execute_command
+      self._execute(connection, connection.send_command, *args)
+    File "/home/n/.local/lib/python2.7/site-packages/redis/client.py", line 3013, in _execute
+      return command(*args)
+    File "/home/n/.local/lib/python2.7/site-packages/redis/connection.py", line 619, in send_command
+      self.send_packed_command(self.pack_command(*args))
+    File "/home/n/.local/lib/python2.7/site-packages/redis/connection.py", line 594, in send_packed_command
+      self.connect()
+    File "/home/n/.local/lib/python2.7/site-packages/redis/connection.py", line 498, in connect
+      raise ConnectionError(self._error_message(e))
+  kombu.exceptions.OperationalError: Error 111 connecting to localhost:5005. Connection refused.
+
+    2.  Perhaps try harder with rabbit?
+    3.  The issue is not with the port number.  Locally I tried to connect to the same port in Flask and it didn't give me any issues.
+    4.  Now watching [this](https://www.youtube.com/watch?v=fg-JfZBetpM&list=PLXmMXHVSvS-DvYrjHcZOg7262I9sGBLFR) video;  it uses rabbitmq instead of redis, as recommended by celery's current homepage.
+    5.  The mysql server is being a pain, so I'm trying redis instead
+      a.  Tried https://dba.stackexchange.com/questions/72654/mysql-grant-all-privileges-on-brings-back-access-denied?newreg=0e4e60eb67394ee5a9428d1aeedf7591; it didn't work
+      b.  For now we're going to stop trying to stop trying to get sql up and running and instaed opt for the simplest possible solution (we know this workED on my machine from [this]() YT video
+    6.
+    7.
+ 
+     Worth trying in more depth:  http://flask.pocoo.org/docs/1.0/patterns/celery/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ________________________________
 
   Sun Feb 10 12:33:25 EST 2019
 ________________________________
 
+  Debug the 'POST' (return 'hi') 1 module at a time and 1 step @ a time
+    Got a 503 from AWS ec2 earlier;  maybe it'll be different on localhost?
+    Or maybe the issue is I need to reread the Flask documentation
+
+
+
+  Empty the trash can
+
+
+
+
+
+
+
   deal with git pulls & pushes & their syncs.
+  aws sync keeps local dir synced with ec2.  https://www.youtube.com/watch?v=bSabC1Rz46E&index=3&list=PLbk_EDDIZpfb7N_iJS9X2n5F9S6yp0t0E.
+    Use SSHFS.
+    How does this work when the ec2 instance is off?
+
   In shell scripts, use `whoami` to automatically concatenate username (ie. ubuntu, ec2-user, or n)
     (this is better than dealing with all the hassle of Amazon CLI update-user.)
+    in python, it's even easier to use ~/who.txt, but this is no good in a shell script obviously because it depends on the ~ shortcut
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NOTE:  
+  We can automate when the ec2 instance is on/off
 
 
 
@@ -12076,3 +12279,33 @@ Chrome (last session): Sun Feb 10 17:51:49 EST 2019
   http://18.217.52.160/upload  
     (AWS)
   http://localhost:5000/upload
+
+________________________________
+
+  Does Christiana Main Event have DDR?
+________________________________
+
+Chrome (last session): Mon Feb 11 10:02:31 EST 2019
+  https://www.youtube.com/results?search_query=amazon+aws+permissions+post&page=&utm_source=opensearch
+  https://www.youtube.com/watch?v=4v-D1Ng-Ebo
+ Melvin L (lots of AWS info):
+  https://www.youtube.com/watch?v=bSabC1Rz46E&index=3&list=PLbk_EDDIZpfb7N_iJS9X2n5F9S6yp0t0E
+  https://www.youtube.com/watch?v=pj9vrE_UN4M&index=7&list=PLbk_EDDIZpfb7N_iJS9X2n5F9S6yp0t0E
+  https://www.youtube.com/watch?v=HOL2eg0g0Ng&list=PLbk_EDDIZpfb7N_iJS9X2n5F9S6yp0t0E&index=6
+  https://duckduckgo.com/?q=what+is+a+serverless+framework&t=canonical&ia=about
+  https://en.wikipedia.org/wiki/Serverless_Framework
+  https://duckduckgo.com/?q=aws+chalice&t=canonical&ia=software
+  https://github.com/aws/chalice/
+  https://duckduckgo.com/?q=what+is+aws+lambda+funcdtion&t=canonical&ia=web
+  https://docs.aws.amazon.com/lambda/latest/dg/welcome.html
+  https://stackoverflow.com/questions/37783919/flask-restful-vs-flask-restless-which-should-be-used-and-when
+  https://duckduckgo.com/?q=flask+vs+flask+restful&t=canonical&ia=images
+  https://us-east-2.console.aws.amazon.com/ec2/v2/home?region=us-east-2#Instances:sort=availabilityZone
+________________________________
+
+
+
+
+
+
+
