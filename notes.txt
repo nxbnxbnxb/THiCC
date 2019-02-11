@@ -1,5 +1,73 @@
 ________________________________
 
+  Mon Feb 11 18:12:57 EST 2019
+________________________________
+
+  Btw, the current flask (server.py) is located at: /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/flask_docs_test/upload_example_docs/1
+  The virtualenv on Ubuntu laptop is aliased as "all" in .bashrc and called "hmr___and_web"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
   Sun Dec 16 16:06:19 EST 2018
 ________________________________
 
