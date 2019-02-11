@@ -10,11 +10,66 @@ ________________________________
   Mon Feb 11 12:33:25 EST 2019
 ________________________________
 
-  $250 rent for this month
+  $250 rent for this month from Jeannine
 
 
   Next meeting, give the guys a pep talk
     Consult Sam Altman's advice on WHEN to give the pep talk (maybe now is not the best time)
+
+
+  replace paths in 
+
+    1.  x/p/.../.../src/
+      a.
+    2.  
+    3.  Documents/code/old/hmr
+    4.  Maybe all of x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018
+    5.
+    6.
+    7.
+  replace the paths from /n/ to /ubuntu/  using the command found [here](https://askubuntu.com/questions/84007/find-and-replace-text-within-multiple-files)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
   Celery permissions error:
     kombu.exceptions.OperationalError: Error 111 connecting to localhost:5005. Connection refused.
@@ -71,13 +126,6 @@ ________________________________
     7.
  
      Worth trying in more depth:  http://flask.pocoo.org/docs/1.0/patterns/celery/
-
-
-
-
-
-
-
 
 
 
