@@ -51,7 +51,7 @@ doc/installation_jetson_tx2_jetpack3.3.md:41:./build/examples/openpose/openpose.
 README.md:136:./build/examples/openpose/openpose.bin --video examples/media/video.avi
 include/openpose/flags.hpp:15:// See all the available parameter options withe the `--help` flag. E.g., `build/examples/openpose/openpose.bin --help`
 examples/tutorial_api_thread/2_thread_user_input_processing_output_and_datum.cpp:21:// See all the available parameter options withe the `--help` flag. E.g., `build/examples/openpose/openpose.bin --help`
-a_useful_openpose_cmd.sh:3:./build/examples/openpose/openpose.bin --image_dir /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/2019_01_30____07:18_AM__nathan_front/ --write_json /home/n/Documents/code/openpose/output --write_images /home/n/Documents/code/openpose/output --write_images_format jpg --display 0 --render_pose 1
+a_useful_openpose_cmd.sh:3:./build/examples/openpose/openpose.bin --image_dir /home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/2019_01_30____07:18_AM__nathan_front/ --write_json /home/ubuntu/Documents/code/openpose/output --write_images /home/ubuntu/Documents/code/openpose/output --write_images_format jpg --display 0 --render_pose 1
 scripts/travis/run_tests.sh:14:  ./build/examples/openpose/openpose.bin --image_dir examples/media/ --net_resolution -1x32 --write_json output/ --write_images output/ --display 0
 scripts/tests/pose_accuracy_coco_val_foot.sh:15:OP_BIN=./build/examples/openpose/openpose.bin
 scripts/tests/pose_accuracy_coco_test_dev.sh:16:OP_BIN=./build/examples/openpose/openpose.bin

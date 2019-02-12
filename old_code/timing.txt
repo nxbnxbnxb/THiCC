@@ -1,6 +1,6 @@
 (cat_opencv3)  t p model.py
 running deeplab on image http://columbia.edu/~nxb2101/180.0.png...
-/home/n/anaconda3/envs/cat_opencv3/lib/python2.7/site-packages/numpy/core/numeric.py:301: FutureWarning: in the future, full((513, 513, 513), 128) will return an array of dtype('int64')
+/home/ubuntu/anaconda3/envs/cat_opencv3/lib/python2.7/site-packages/numpy/core/numeric.py:301: FutureWarning: in the future, full((513, 513, 513), 128) will return an array of dtype('int64')
   format(shape, fill_value, array(fill_value).dtype), FutureWarning)
 
 before rot8();   

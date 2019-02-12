@@ -28,10 +28,10 @@ def save_mesh__from_video(vid_fname,final_mesh_fname,root_img_dir,root_mask_dir,
   # TODO: move this func from m_cubes to somewhere more sensible; we ought to be able to generalize this 
 #==== end func def of  save_mesh__from_video(vid_fname,final_mesh_fname,root_img_dir,root_mask_dir,mesh_filetype='blender') ====
 def main():
-  vid_fname='/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/unclothed_outside_delaware_____uniform_background_with_wobbling.mp4'
+  vid_fname='/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/unclothed_outside_delaware_____uniform_background_with_wobbling.mp4'
   out_mesh='nathan.blend'
-  root_img_dir='/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/'
-  root_mask_dir='/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/'
+  root_img_dir='/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/'
+  root_mask_dir='/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/'
   mesh_filetype='blender'
   save_mesh__from_video(
     vid_fname,

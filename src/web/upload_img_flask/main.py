@@ -51,6 +51,6 @@ if __name__ == "__main__":
     app.run(host='0.0.0.0',debug=True,port=80)
     # NOTE TODO
     # whenever `git pull`ing, change port 5000 to port 80
-    #   and "/home/n/" to "/home/n/"
+    #   and "/home/ubuntu/" to "/home/ubuntu/"
     # and vice versa.
 

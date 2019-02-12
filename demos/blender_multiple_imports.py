@@ -3,7 +3,7 @@ import bpy
 
 # put the location to the folder where the objs are located here in this fashion
 # this line will only work on windows ie C:\objects
-path_to_obj_dir = '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world'
+path_to_obj_dir = '/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world'
 
 # get list of all files in directory
 file_list = sorted(os.listdir(path_to_obj_dir))

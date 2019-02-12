@@ -170,7 +170,7 @@ if __name__=="__main__":
   # NOTE:  esp. in the future, be wary of how important it is to use np.greater()  (segmentation doesn't just return simple "true-false")
   # whole directory of masks:
   """
-  folder='/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_01_15____11:04_AM___/'
+  folder='/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_01_15____11:04_AM___/'
   mask_fnames= sorted(glob.glob(folder+'*'),key=os.path.getmtime)
   print(mask_fnames)
   fronts_ctr=0
@@ -187,7 +187,7 @@ if __name__=="__main__":
 
 
 
-  mask_fname  = sys.argv[1]   #"/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_01_15____11:04_AM___/000000000.jpg"
+  mask_fname  = sys.argv[1]   #"/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_01_15____11:04_AM___/000000000.jpg"
   # 32, 38, 39, and 43 find the crotch to be higher  than the "nearby" images
   mask        = np.asarray(ii.imread(mask_fname))
   mask=np.greater(mask,127)
@@ -196,7 +196,7 @@ if __name__=="__main__":
   # NOTE:  there are no real units here;  it's all just a ratio that is normalized to Nathan's height and pants length
   #"""
 #==============================================================
-  # for Nathan segmentation (/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_01_15____11:04_AM___/000000000.jpg),
+  # for Nathan segmentation (/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_01_15____11:04_AM___/000000000.jpg),
   #
   #                       29.65615073829731     **** short
   #
