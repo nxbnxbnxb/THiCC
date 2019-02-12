@@ -27,7 +27,7 @@ ________________________________
     5.
     6.
     7.
-  replace the paths from /n/ to /ubuntu/  using the command found [here](https://askubuntu.com/questions/84007/find-and-replace-text-within-multiple-files)
+  replace the paths from /ubuntu/ to /ubuntu/  using the command found [here](https://askubuntu.com/questions/84007/find-and-replace-text-within-multiple-files)
 
 
 
@@ -80,39 +80,39 @@ ________________________________
         Traceback (most recent call last):
     File "app.py", line 30, in <module>
       result = add_together.delay(23, 42)
-    File "/home/n/.local/lib/python2.7/site-packages/celery/app/task.py", line 408, in delay
+    File "/home/ubuntu/.local/lib/python2.7/site-packages/celery/app/task.py", line 408, in delay
       return self.apply_async(args, kwargs)
-    File "/home/n/.local/lib/python2.7/site-packages/celery/app/task.py", line 535, in apply_async
+    File "/home/ubuntu/.local/lib/python2.7/site-packages/celery/app/task.py", line 535, in apply_async
       **options
-    File "/home/n/.local/lib/python2.7/site-packages/celery/app/base.py", line 745, in send_task
+    File "/home/ubuntu/.local/lib/python2.7/site-packages/celery/app/base.py", line 745, in send_task
       amqp.send_task_message(P, name, message, **options)
     File "/usr/lib/python2.7/contextlib.py", line 35, in __exit__
       self.gen.throw(type, value, traceback)
-    File "/home/n/.local/lib/python2.7/site-packages/kombu/connection.py", line 436, in _reraise_as_library_errors
+    File "/home/ubuntu/.local/lib/python2.7/site-packages/kombu/connection.py", line 436, in _reraise_as_library_errors
       sys.exc_info()[2])
-    File "/home/n/.local/lib/python2.7/site-packages/kombu/connection.py", line 431, in _reraise_as_library_errors
+    File "/home/ubuntu/.local/lib/python2.7/site-packages/kombu/connection.py", line 431, in _reraise_as_library_errors
       yield
-    File "/home/n/.local/lib/python2.7/site-packages/celery/app/base.py", line 744, in send_task
+    File "/home/ubuntu/.local/lib/python2.7/site-packages/celery/app/base.py", line 744, in send_task
       self.backend.on_task_call(P, task_id)
-    File "/home/n/.local/lib/python2.7/site-packages/celery/backends/redis.py", line 265, in on_task_call
+    File "/home/ubuntu/.local/lib/python2.7/site-packages/celery/backends/redis.py", line 265, in on_task_call
       self.result_consumer.consume_from(task_id)
-    File "/home/n/.local/lib/python2.7/site-packages/celery/backends/redis.py", line 125, in consume_from
+    File "/home/ubuntu/.local/lib/python2.7/site-packages/celery/backends/redis.py", line 125, in consume_from
       return self.start(task_id)
-    File "/home/n/.local/lib/python2.7/site-packages/celery/backends/redis.py", line 107, in start
+    File "/home/ubuntu/.local/lib/python2.7/site-packages/celery/backends/redis.py", line 107, in start
       self._consume_from(initial_task_id)
-    File "/home/n/.local/lib/python2.7/site-packages/celery/backends/redis.py", line 132, in _consume_from
+    File "/home/ubuntu/.local/lib/python2.7/site-packages/celery/backends/redis.py", line 132, in _consume_from
       self._pubsub.subscribe(key)
-    File "/home/n/.local/lib/python2.7/site-packages/redis/client.py", line 3096, in subscribe
+    File "/home/ubuntu/.local/lib/python2.7/site-packages/redis/client.py", line 3096, in subscribe
       ret_val = self.execute_command('SUBSCRIBE', *iterkeys(new_channels))
-    File "/home/n/.local/lib/python2.7/site-packages/redis/client.py", line 3009, in execute_command
+    File "/home/ubuntu/.local/lib/python2.7/site-packages/redis/client.py", line 3009, in execute_command
       self._execute(connection, connection.send_command, *args)
-    File "/home/n/.local/lib/python2.7/site-packages/redis/client.py", line 3013, in _execute
+    File "/home/ubuntu/.local/lib/python2.7/site-packages/redis/client.py", line 3013, in _execute
       return command(*args)
-    File "/home/n/.local/lib/python2.7/site-packages/redis/connection.py", line 619, in send_command
+    File "/home/ubuntu/.local/lib/python2.7/site-packages/redis/connection.py", line 619, in send_command
       self.send_packed_command(self.pack_command(*args))
-    File "/home/n/.local/lib/python2.7/site-packages/redis/connection.py", line 594, in send_packed_command
+    File "/home/ubuntu/.local/lib/python2.7/site-packages/redis/connection.py", line 594, in send_packed_command
       self.connect()
-    File "/home/n/.local/lib/python2.7/site-packages/redis/connection.py", line 498, in connect
+    File "/home/ubuntu/.local/lib/python2.7/site-packages/redis/connection.py", line 498, in connect
       raise ConnectionError(self._error_message(e))
   kombu.exceptions.OperationalError: Error 111 connecting to localhost:5005. Connection refused.
 
@@ -907,7 +907,7 @@ ________________________________
   Sat Feb  2 21:14:36 EST 2019
 ________________________________
 
-  Tweak the c2h_ratio_const in /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/measure.py    function (def pixel_height(mask))
+  Tweak the c2h_ratio_const in /home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/measure.py    function (def pixel_height(mask))
   (More generally, tweak the creation of the SMPL model from a few images of the person)
 
 
@@ -1249,7 +1249,7 @@ ________________________________
 
 ________________________________
 ********************************
-  cd /home/n/Documents/code/openpose/build && make -j`nproc`
+  cd /home/ubuntu/Documents/code/openpose/build && make -j`nproc`
     error msg:
       nvcc fatal   : Unsupported gpu architecture 'compute_70'
       SOLVED: just turn off gpu support in cmake-gui
@@ -3110,7 +3110,7 @@ ________________________________
 
 
 
-  SafetyError: The package for wheel located at /home/n/anaconda3/pkgs/wheel-0.32.3-py27_0
+  SafetyError: The package for wheel located at /home/ubuntu/anaconda3/pkgs/wheel-0.32.3-py27_0
   ClobberError: This transaction has incompatible packages due to a shared path.
     packages: defaults::libopenblas-0.3.3-h5a2b251_3, conda-forge::openblas-0.3.3-ha44fe06_1
       path: 'lib/libopenblasp-r0.3.3.so'
@@ -3295,7 +3295,7 @@ ________________________________
   swiss-U.S. Socket converter
     Dad - msg.  Do we have to ship more pricily to Wilkerdean?
   Python conda fix:
-    SafetyError: The package for setuptools located at /home/n/anaconda3/pkgs/setuptools-40.6.3-py27_0
+    SafetyError: The package for setuptools located at /home/ubuntu/anaconda3/pkgs/setuptools-40.6.3-py27_0
     appears to be corrupted. The path 'lib/python2.7/site-packages/easy_install.pyc'
     has an incorrect size.
       reported size: 310 bytes
@@ -3433,9 +3433,9 @@ ________________________________
 
   execute the fucking creation after compilation.  It will generate the .gnu files :)
    Where to find shit:
-    /home/n/Documents/code/voronoi_3d/voro++-0.4.6/examples/basic/Makefile
-    /home/n/Documents/code/voronoi_3d/voro++-0.4.6/config.m
-    /home/n/Documents/code/voronoi_3d/voro++-0.4.6/examples/basic/README
+    /home/ubuntu/Documents/code/voronoi_3d/voro++-0.4.6/examples/basic/Makefile
+    /home/ubuntu/Documents/code/voronoi_3d/voro++-0.4.6/config.m
+    /home/ubuntu/Documents/code/voronoi_3d/voro++-0.4.6/examples/basic/README
   Check whether voro++ includes calculations for the Delaunay dual of the 3-D graph
     qhull may be even better!
       Install here:
@@ -6323,9 +6323,9 @@ _____________________________
     ;   given: '()
     ;   context...:
     ;    /home/u/p/cat_1st_demo/render_bendich/mesh.rkt:996:4: stitch_recurs_overseer
-    ;    /home/n/racket/share/pkgs/xrepl-lib/xrepl/xrepl.rkt:1446:0
+    ;    /home/ubuntu/racket/share/pkgs/xrepl-lib/xrepl/xrepl.rkt:1446:0
     ;    [repeats 1 more time]
-    ;    /home/n/racket/collects/racket/private/misc.rkt:88:7
+    ;    /home/ubuntu/racket/collects/racket/private/misc.rkt:88:7
 
   Look at "middle" of stitch (that's where the problems arise)
     in _bug_at___stitching_across_Sept_8_2018__0___resolution_25_9__.rkt
@@ -6431,9 +6431,9 @@ _____________________________
     ;   given: '()
     ;   context...:
     ;    /home/u/p/cat_1st_demo/render_bendich/mesh.rkt:996:4: stitch_recurs_overseer
-    ;    /home/n/racket/share/pkgs/xrepl-lib/xrepl/xrepl.rkt:1446:0
+    ;    /home/ubuntu/racket/share/pkgs/xrepl-lib/xrepl/xrepl.rkt:1446:0
     ;    [repeats 1 more time]
-    ;    /home/n/racket/collects/racket/private/misc.rkt:88:7
+    ;    /home/ubuntu/racket/collects/racket/private/misc.rkt:88:7
 
   Look at "middle" of stitch (that's where the problems arise)
     in _bug_at___stitching_across_Sept_8_2018__0___resolution_25_9__.rkt
@@ -10526,7 +10526,7 @@ _____________________________
 _____________________________
 
 Abs path of virtualenv:
-    source /home/n/Documents/IMPORTANT/business_work/cat/get_clothing_sizes_from_pix/cat_1st_demo/HMR/hmr/venv_hmr/bin/activate
+    source /home/ubuntu/Documents/IMPORTANT/business_work/cat/get_clothing_sizes_from_pix/cat_1st_demo/HMR/hmr/venv_hmr/bin/activate
 _____________________________
 
     1)  Segment and model legs

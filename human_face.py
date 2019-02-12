@@ -56,8 +56,8 @@ def main1():
     RGB_img_fname=sys.argv[1]
     binary_mask_fname=sys.argv[2]
   else:
-    RGB_img_fname     = '/home/n/Pictures/jesus_pose____surfer.jpg'#'/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/2019_01_29____09:19_AM__/000000000.jpg'
-    binary_mask_fname = '/home/n/Pictures/jesus_pose____surfer.jpg____binary_mask_.jpg'#'/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/2019_01_29____09:19_AM__/000000000.jpg'
+    RGB_img_fname     = '/home/ubuntu/Pictures/jesus_pose____surfer.jpg'#'/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/2019_01_29____09:19_AM__/000000000.jpg'
+    binary_mask_fname = '/home/ubuntu/Pictures/jesus_pose____surfer.jpg____binary_mask_.jpg'#'/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/2019_01_29____09:19_AM__/000000000.jpg'
   print("cutting out face from {0} \n  using mask from {1}".format(RGB_img_fname, binary_mask_fname))
   print("cutting out face from {0} \n  using mask from {1}".format(RGB_img_fname, binary_mask_fname))
   color_img=np.asarray(ii.imread(RGB_img_fname)).astype('float64')

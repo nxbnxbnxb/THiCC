@@ -5,11 +5,13 @@ from werkzeug.utils import secure_filename
 import os
 import matplotlib.pyplot as plt
 
+import sys
+sys.path.append("/home/ubuntu/Documents/code/old/hmr") # sudo doesn't have the same environment variables from regular bash
 import demo # hmr by Akanazawa, Black, et al.
 
 #=====================================================================
 # used to be in separate file "app.py"
-IMG_UPLOAD_DIR = '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/'
+IMG_UPLOAD_DIR = '/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'obj'])
 
 app = Flask(__name__)
@@ -66,7 +68,7 @@ def mesh(body_mesh_fname):
   return send_from_directory(app.config['MESH_DIR'],app.config['MESH_FNAME'])
 
 if __name__=="__main__":
-  app.run( host='0.0.0.0', debug=True, port=5000)
+  app.run( host='0.0.0.0', debug=True, port=80)
 
 
 

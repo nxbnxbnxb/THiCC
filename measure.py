@@ -115,7 +115,7 @@ def parse_ppl_measures(json_dict):
 
     TODO: refactor.  As of Fri Feb  1 10:39:12 EST 2019, what did I mean by this?
   '''
-  # for sample file, see /home/n/Documents/code/openpose/output/front__nude__grassy_background_keypoints.json
+  # for sample file, see /home/ubuntu/Documents/code/openpose/output/front__nude__grassy_background_keypoints.json
   measures=json_dict[u'people'][0][u'pose_keypoints_2d']
   measures_dict={}
   measures_dict["RShoulder"]= {'x':measures[2*3], 'y':measures[7],      'c':measures[8]}
@@ -170,7 +170,7 @@ def measure_chest(json_fname):
     This should return the shirt size.
   '''
   # NOTE: get the order of the points right to properly calculate the 
-  json_fname='/home/n/Documents/code/openpose/output/front__nude__grassy_background_keypoints.json'
+  json_fname='/home/ubuntu/Documents/code/openpose/output/front__nude__grassy_background_keypoints.json'
   measurements_json_dict=parse_ppl_measures(load_json(json_fname))
   x_LShoulder = measurements_json_dict['LShoulder']['x'];y_LShoulder=measurements_json_dict['LShoulder']['y']
   x_RShoulder = measurements_json_dict['RShoulder']['x'];y_RShoulder=measurements_json_dict['RShoulder']['y']
@@ -227,18 +227,18 @@ if __name__=="__main__":
   customer_height = NATHANS_HEIGHT # NOTE:  instead of blanket setting customer_height = NATHANS_HEIGHT, we should set customer_height = iPhone.ARKit.measure(height) 
   #this should be made adaptive to customer's height later
 
-  orig_img=np.asarray(ii.imread('/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/2019_01_30____07:18_AM__nathan_front/front__nude__grassy_background.jpg'))
+  orig_img=np.asarray(ii.imread('/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/2019_01_30____07:18_AM__nathan_front/front__nude__grassy_background.jpg'))
   orig_imgs_height_in_pixels=orig_img.shape[0]
   # orig_img and orig_imgs_height_in_pixels are necessary because the original json measurements were fetched from an image with these (orig_img and origs_height_in_pixels) dimensions, whereas the deeplab segmentation mask has different pixel dimensions
 
-  mask=np.asarray(ii.imread('/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_01_29____09:20_AM___/000000220.jpg')).astype('float64')
-  mask=np.asarray(ii.imread('/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_01_29____09:20_AM___/000000220.jpg')).astype('float64')
+  mask=np.asarray(ii.imread('/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_01_29____09:20_AM___/000000220.jpg')).astype('float64')
+  mask=np.asarray(ii.imread('/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_01_29____09:20_AM___/000000220.jpg')).astype('float64')
   print("mask.shape:\n",mask.shape);print('\n'*1)
   height_in_pixels=pixel_height(mask)
   nathans_gender='male'
   gender=nathans_gender
 
-  json_fname='/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/front__nude__grassy_background_keypoints.json'
+  json_fname='/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/front__nude__grassy_background_keypoints.json'
   chest_area, other_body_measurements=measure_chest(json_fname) # TODO: change the measurements to shoulders,
   print("chest_area:",chest_area)
   LShoulder = np.array([ other_body_measurements['LShoulder']['x'],  other_body_measurements['LShoulder']['y']]).astype('float64')
@@ -252,7 +252,7 @@ if __name__=="__main__":
   else:
     s2h_ratio_const   = 2/5.  # TODO: empirically figure out what this s2h_ratio_const ought to be
     zero_beta__shoulder_2_hips=3.481943933038265
-    # I've empirically derived that Nathan's shoulders_hips_diff___inches in that one picture (/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/2019_01_30____07:18_AM__nathan_front/front__nude__grassy_background.jpg) is 3.48.   This is for the variable assignment "shoulders_hips_diff___inches= (L2_dist(LShoulder,RShoulder) - L2_dist(LHip,RHip)) / orig_imgs_height_in_pixels * customer_height"
+    # I've empirically derived that Nathan's shoulders_hips_diff___inches in that one picture (/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/2019_01_30____07:18_AM__nathan_front/front__nude__grassy_background.jpg) is 3.48.   This is for the variable assignment "shoulders_hips_diff___inches= (L2_dist(LShoulder,RShoulder) - L2_dist(LHip,RHip)) / orig_imgs_height_in_pixels * customer_height"
 
   # TODO: fuck with s2h_ratio_const until it's right
   shoulders_hips_diff___inches= (L2_dist(LShoulder,RShoulder) - L2_dist(LHip,RHip)) / orig_imgs_height_in_pixels * customer_height
@@ -263,17 +263,17 @@ if __name__=="__main__":
   with open('6th_beta.txt', 'w+') as fp: # overwrites *.txt      # 6th beta, 5 is the array idx
     fp.write(str(beta_shoulders_hips)+'\n')
 
-  with open('/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world/gender.py', 'w+') as fp:
+  with open('/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world/gender.py', 'w+') as fp:
     fp.write(str('gender=\'')+gender+'\'')
 
   """
   # draw relevant polygon on top of image
-  openpose_fname='/home/n/Documents/code/openpose/output/front__nude__grassy_background_rendered.jpg'
-  #openpose_fname='/home/n/Documents/code/openpose/output/openpose_success!.jpg'
+  openpose_fname='/home/ubuntu/Documents/code/openpose/output/front__nude__grassy_background_rendered.jpg'
+  #openpose_fname='/home/ubuntu/Documents/code/openpose/output/openpose_success!.jpg'
   show_overlaid_polygon_measures(openpose_fname, other_body_measurements)
   """
 
-  #os.system('source /home/n/Documents/code/hmr/venv_hmr/bin/activate && cd /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world && python2 hello_smpl.py 0 0 0 0 0 0 {0} 0 0 0 && blender'.format(chest_area)) # TODO: fiddle with chest area
+  #os.system('source /home/ubuntu/Documents/code/hmr/venv_hmr/bin/activate && cd /home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world && python2 hello_smpl.py 0 0 0 0 0 0 {0} 0 0 0 && blender'.format(chest_area)) # TODO: fiddle with chest area
 #===================================================================================================================================
 
 
