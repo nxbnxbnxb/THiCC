@@ -366,8 +366,19 @@ def pad_all(mask, biggers_shape):
 
 
 if __name__=='__main__':
+    #save_mp4_as_imgs('',
+
+
+
+
+
+
+
+
+    """
     pif(('*'*99)+'\n debug is on \n'+('*'*99))
     raise MeanHasNoPtsException(" hi i'm an exception msg")
+    """
 
 
 
