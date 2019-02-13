@@ -1,4 +1,5 @@
-  What mistakes did you make today?
+
+  What did you learn today?
 
 
 
@@ -7,19 +8,164 @@
 
 ________________________________
 
+  Tue Feb 12 13:41:23 EST 2019
+________________________________
+
+  $250 for next month for Jeannine
+  Don't quit at Results until everything is fairly stable at Panera.  First, try to bounce Nyle to another day or just remove him from the process.  It's definitely worth consulting Rowland about this.  If you want a different opinion, go ask Mr. Scott or Mr. Evans.
+
+
+  Plan out the implementation of VHMR.
+    1.  Cut up vid
+    2.  Run hmr on each slice
+    3.  Average the betas (maybe take a median?)  Idk, gotta try a bunch of ***t on all this
+
+  Write up list of conditions for Mr. Stephens The?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
   Mon Feb 11 12:33:25 EST 2019
 ________________________________
 
-  Is there a better paper that does more accurate shape-recovery than HMR?  How about keep it SMPL?
-
-
-
-
   $250 rent for this month from Jeannine (tomorrow when I go to Main Street)
+  Don't quit at Results until everything is fairly stable at Panera.  First, try to bounce Nyle to another day or just remove him from the process.  It's definitely worth consulting Rowland about this.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   Next meeting, give the guys a pep talk
     Consult Sam Altman's advice on WHEN to give the pep talk (maybe now is not the best time)
+    Alternatively, we could just try it and see how it goes.  (gather data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   replace paths in 
@@ -43,12 +189,19 @@ ________________________________
 
 
 
+  Is there a better paper that does more accurate shape-recovery than HMR?  How about keep it SMPL?
+    Try this if and only if we "fail" at VHMR.
 
 
 
 
 
 
+
+
+
+  Resolve git origin?  Or maybe just start a new git repo.
+    Don't do this unless it becomes a problem later on.  Excessive uncertainty can be as bad as (or worse than) excessive certainty
 
 
 
@@ -12361,4 +12514,4 @@ ________________________________
 
 
 
-
+What mistakes did you make today?

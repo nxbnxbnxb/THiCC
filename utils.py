@@ -124,7 +124,7 @@ def save_mp4_as_imgs(mp4_local_path, root_img_dir, freq=1/4., should_put_timesta
       https://stackoverflow.com/questions/33311153/python-extracting-and-saving-video-frames
   '''
   import cv2
-  delay=int(round(1/freq))
+  delay=int(round(1/freq))  # why the **** does "delay" have to be an int?
   img_write_dir=root_img_dir
   if not root_img_dir.endswith('/'):
     img_write_dir+='/'
@@ -157,7 +157,39 @@ def save_mp4_as_imgs(mp4_local_path, root_img_dir, freq=1/4., should_put_timesta
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,5 +1,76 @@
 
-  Search a little ****ing harder on SOverflow rather than implementing it myself.  Read textbooks, remember your calculus, etc.
+  The data seem to show that I have an attention span of ~1 week for trying some new algorithm.  This happened with VoroVari, it happened with trying to use Celery to send Pierlorenzo the mesh on delay.  To be even more precise, it's probably more like 5 days.
+  So it ought to be helpful to take an hour or so every week to reflect on this fact and reconsider my detailed-approach from a bigger picture perspective.
+
+
+  Plan out tasks locally, and only post to Zoho when something actually gets done.  This way Zoho doesn't get cluttered, and we also encourage the team a bit.
+    Prob also not worth implying that the team needs you to encourage/inspire them.  There's an extent to which you have to trust them.  Or at least, look like you trust them.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Just search a little ****ing harder and longer rather than implementing it yourself.  Read textbooks, remember your calculus, etc.
     Try to take a few steps back and think what math you could use?
 
   Or Taleb would just say grope around until you stumble upon the right answer...  But it's probably worth at least TRYING to reflect more
@@ -13,3 +84,4 @@
 
 
   Not meta, but very important for startups; don't EVER use ~ for shortcut when transfering files between machines.  I think the issue is `~` always points to your OWN home directory, and if the username on the other machine is different, it'll f*** sh!t up; (won't work).
+    Automate swap double-check, (cp, vim open R [R for recover from swap], diff, rm copy)
