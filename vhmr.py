@@ -53,8 +53,8 @@ def make_mesh(vid_fname, secs_between_frames, root_img_dir, should_put_timestamp
     # note:  "I put the imwrite() AFTER the break so if the image fails to read, we don't save an empty .jpg file."   - Nathan (Mon Jan 14 13:33:26 EST 2019)
     img_fname='img_write_dir+"{0}.{1}'.format(prepend_0s(str(i)),output_img_filetype)
     cv2.imwrite(img_fname, img)
-    sys.argv=['demo.py', '--img_path', 'hmr_input_img.png'] # FIXME:   this line (sys.argv=['...','...','...'] is very fragile and nonrobust
-    all_betas[i]=hmr.betas(img, json_path=None)
+    sys.argv=['demo.py', '--img_path', '/home/n/Pictures/jonah_hill.jpeg'] # FIXME:   this line (sys.argv=['...','...','...'] is very fragile and nonrobust
+    all_betas[i]=hmr.betas(img, json_path=None)   # TODO: copy code over from hmr.main3() to hmr.betas()
     if i < 5:
       print("all_betas[i] is {0}".format(all_betas[i]))
     i += 1
