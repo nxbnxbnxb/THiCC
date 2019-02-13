@@ -1,2 +1,0 @@
-
-  Remember, it requires the lazy susan.  Also, there's no need to go reinventing the wheel when we could just go talk to MPI Perceiving instead.
