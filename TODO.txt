@@ -8,6 +8,68 @@
 
 ________________________________
 
+  Wed Feb 13 21:00:41 EST 2019
+________________________________
+
+    ssn card
+    https://www.costumebox.com.au/blue-morphsuit-adult-costume.html  "Morph suit"
+      These are the skintight clothes I saw in high school (I think it was the likes of Jacque Woachim who were wearing them)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
   Tue Feb 12 13:41:23 EST 2019
 ________________________________
 
@@ -26,6 +88,7 @@ ________________________________
 
 
 
+  Integr8 old/hmr with this git repo
 
 
 
@@ -12515,3 +12578,5 @@ ________________________________
 
 
 What mistakes did you make today?
+
+Maybe we should delete our Facebook.  It depends how easy we want to be for strangers to contact us.

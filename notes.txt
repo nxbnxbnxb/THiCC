@@ -210,3 +210,61 @@ ________________________________________________________________________________
 
 
 
+Random thoughts about where to go with the business:
+  The market for women is much larger than for men.
+  Do women buy Oculus Rift?  Probably in smaller quantities than men.
+  Do women buy Pantera Bianca?  I'd have to ask Simone.
+  What would women want in a virtual fitting room product?  Facial reconstruction?  But that might get nasty with the uncanny valley, no blinking, etc.  As long as it's not animated, though, I don't REAALLLLLLLLY see a problem.  Hm.  But maybe we can animate in blinking?  It's possible.
+  I think that, as Barry Levine once told me, it all needs to get done.  The question of "what is the most important feature?" is not a terribly constrained one at the moment, especially seeing as we have no customers.  "You won't be able to write a killer feature; or at least, you won't know what it is at the time you write it."     - PG?  Sam Altman?
+
+Random thoughts about what women might want:
+  Lots of women aren't much like Shaina.  Shaina is clearly extreme in at least one sense; she got into Barnard when she had very little external support.  So perhaps that means she's not very "feminine."  She has described herself as a fairly asexual person, which I would agree is correct.
+  Facial 
+
+I think the data we currently have is really pretty insufficient.  mybodygallery.com is not the WORST, but it's definitely not the BEST either.
+  Is it good ENOUGH, though?
+
+
+  What I would want in an ideal dataset:
+    1.  Full body
+      a.
+    2.  Nude, or at least skintight
+    3.  All the measurements from bodyvisualizer.com
+      a.  Height
+      b.  Weight
+      c.  Chest
+      d.  Waist
+      e.  Hips
+      f.  Inseam
+      g.  Exercise 
+        In decreasing order of importance, imho.
+      h.
+    4.  3-D point cloud
+    5.
+    6.
+    7.
+
+  I think this already MOSTLY exists in the CAESAR dataset.  So whatever I do has to be (for now):
+    1.  Fast
+    3.  Cheap
+    4.  Quantity
+    5.  Quality
+     a1.  "Quality" encompasses lotsa lotsa subfeatures, including, but not limited to:
+
+      a.  Facial features
+      b.  Full body
+      c.  Point clouds
+      d.  Facial features
+
+      e.  Side view
+      f.
+      g.
+      h.
+    6.
+    7.
+
+  The question is: do I want to gather own high-quality data, or is amount worth dealing with "mybodygallery" ?
+    
+  I think the dataset I'm REALLY looking for is one of the ones created by MJBlack.  Either Dyna or FAUST or 
+  Actually, I think the dataset I'm REALLY looking for is my own.
+
