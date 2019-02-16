@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# TODO: most important cmd flags:
+#--display 0
+#--write_json output_json
+
+
+./build/examples/openpose/openpose.bin --image_dir examples/media/ --face --hand --write_json output_json/ --render_pose 0 --display 0
+./build/examples/openpose/openpose.bin --image_dir examples/media/ --face --hand --write_images output/ --render_pose 0 --display 0
+
 # work in progress:
 doc/quick_start.md:68:./build/examples/openpose/openpose.bin --image_dir examples/media/ --face --hand
 doc/quick_start.md:95:./build/examples/openpose/openpose.bin --net_resolution "1312x736" --scale_number 4 --scale_gap 0.25 --hand --hand_scale_number 6 --hand_scale_range 0.4 --face
