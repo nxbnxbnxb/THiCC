@@ -14,6 +14,24 @@ ________________________________
   Mon Feb 18 07:53:07 EST 2019
 ________________________________
 
+
+
+  What did you learn today?
+    TIL that openpose, if I use it at all, should be done wayyyyy in the background.
+    For the prototype at the very least,   we should be writing simple, debug-able, testable code.
+
+
+
+
+
+
+
+
+
+
+
+
+
   1.  Openpose on AWS (big CPU) instance
     a.  Maybe try on AWS GPU ec instance as well?
   2.  Fast functioning on my Ubuntu 16 craptop
