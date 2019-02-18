@@ -5,6 +5,11 @@
 #--write_json output_json
 
 
+#the real openpose command?
+/home/n/Documents/code/openpose/build/examples/openpose/openpose.bin --image_dir /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/tall_women/ --face --hand --write_json output_json/ --render_pose 0 --display 0
+
+'
+# good enough?
 ./build/examples/openpose/openpose.bin --image_dir examples/media/ --face --hand --write_json output_json/ --render_pose 0 --display 0
 ./build/examples/openpose/openpose.bin --image_dir examples/media/ --face --hand --write_images output/ --render_pose 0 --display 0
 
@@ -190,3 +195,4 @@ scripts/tests/hand_accuracy_test.sh:81:./build/examples/openpose/openpose.bin \
 In order to learn how to use it, run `./buil./build/examples/openpose/openpose.bin --image_dir examples/media/ --face --hand/examples/openpose/openpose.bin --help` in your bash and read all the available flags (check only the flags for `examples/openpose/openpose.cpp` itself, i.e., the section `Flags from examples/openpose/openpose.cpp:`). We detail some of them in the following sections.
 We enumerate some of the most important flags, check the `Flags Detailed Description` section or run `./buil./build/examples/openpose/openpose.bin --image_dir examples/media/ --face --hand/examples/openpose/openpose.bin --help` for a full description of all of them.
     1. Webcam calibration: `./buil./build/examples/openpose/openpose.bin --image_dir examples/media/ --face --hand/examples/openpose/openpose.bin --num_gpu 0 --write_images {intrinsic_images_folder_path}`.
+'
