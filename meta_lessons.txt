@@ -1,4 +1,7 @@
 
+  Openpose will always just be slow.  If you want to use it, you have to deal with this fact & hack around it; either by buying a better AWS CPU briefly or making the customer wait or... idk, some combination of stuffs like that.
+
+
   The data seem to show that I have an attention span of ~1 week for trying some new algorithm.  This happened with VoroVari, it happened with trying to use Celery to send Pierlorenzo the mesh on delay.  To be even more precise, it's probably more like 5 days.
   So it ought to be helpful to take an hour or so every week to reflect on this fact and reconsider my detailed-approach from a bigger picture perspective.
 

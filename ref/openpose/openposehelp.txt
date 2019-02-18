@@ -1,6 +1,5 @@
-  What are heatmaps (in the specific use case of openpose)?  (ie. why the fuck should we want them?)
 
-
+  IMPORTANT:  openpose just won't be fast.  If you need it to be fast so you can debug things, use an AWS ec2 instance.  But it certainly can't be good AND fast.  Or you can learn to sit still and deal with its slowness.  This morning (Feb 18 2019), I wasted a good 3 hours thanks to wishful thinking. 
 
   Flags that might speed shit up:
     -net_resolution 
@@ -11,6 +10,8 @@
     -output_resolution
     -profile_speed 
 
+    -net_resolution oughta be ~= widescreen TV.
+      the default `-1x368` is equivalent to `656x368` in 16:9 resolutions, e.g., full HD (1980x1080) and HD (1280x720) resolutions.  type: string default: "-1x368"
 
 
 
@@ -533,3 +534,10 @@ openpose.bin: Warning: SetUsageMessage() never called
       <module name>=<log level>. <module name> is a glob pattern, matched
       against the filename base (that is, name ignoring .cc/.h./-inl.h). <log
       level> overrides any value given by --v.) type: string default: ""
+
+
+
+  What are heatmaps (in the specific use case of openpose)?  
+    (ie. what the fuck could I do with them?)
+
+

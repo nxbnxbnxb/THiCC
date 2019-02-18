@@ -6,6 +6,75 @@
 
     TODO.txt
 
+
+
+
+________________________________
+
+  Mon Feb 18 07:53:07 EST 2019
+________________________________
+
+  1.  Openpose on AWS (big CPU) instance
+    a.  Maybe try on AWS GPU ec instance as well?
+  2.  Fast functioning on my Ubuntu 16 craptop
+  3.  Shower
+  4.  Write gramma and grampa tell 'em not to worry?  ("No news is good news."  I'm very stubborn, and you will not easily persuade me out of this.  But please don't worry too much; I am still a human being who is your family member)
+  5.
+  6.
+  7.  Find my audio recorder
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ________________________________
 
   Thu Feb 14 21:00:41 EST 2019
