@@ -301,12 +301,83 @@ def count(arr):
 # NOTE:   the most basic example of exception inheritance
 class MeanHasNoPtsException(RuntimeError):
     pass
+
+
+
+
+#=========================================================================
+def pad_color(img, biggers_shape):
+    '''
+        Pads 3-D img with zeros on the end til img.shape==biggers_shape
+    '''
+    # TODO:  debug dis bish.  we get weird cutoffs in the middle of shit
+  #=========================================================================
+    def pad_top_bot(img, biggers_shape):
+        '''
+            Puts zeros on top and bottom of img until img.shape[1] == biggers_shape[0]
+        '''
+        padded         = np.copy(img)
+
+        big_h          = biggers_shape[0]
+        img_h          = img.shape[0]
+ 
+        top_h          = (big_h - img_h) / 2.0
+        if top_h.is_integer():
+            bot_h      = int(top_h)
+        else:
+            bot_h      = int(floor(top_h + 1))
+        top_h          = int(floor(top_h))
+        # convert to int if not already 
+        pad_w          = padded.shape[1]
+        top            = np.zeros((top_h, pad_w, 3), dtype=int)
+        bottom         = np.zeros((bot_h, pad_w, 3), dtype=int)
+        padded         = np.concatenate((top, padded, bottom), axis = 0)
+
+        return padded
+    # end func def pad_top_bot(img, biggers_shape):
+  #=========================================================================
+    def pad_sides(img, biggers_shape):
+        '''
+            Puts zeros on sides of img until img.shape[1] == biggers_shape[0]
+        '''
+        padded         = np.copy(img)
+
+        big_w          = biggers_shape[1]
+        img_w          = img.shape[1]
+        left_w         = (big_w - img_w) / 2.0 
+        # NOTE: single slash is integer division in python2 unless dividing by 2.0
+        #       This is NOT true in python3, which distinguishes '/' from '//'
+        if left_w.is_integer():
+            right_w    = int(left_w)
+        else:
+            right_w    = int(floor(left_w + 1))
+        left_w         = int(floor(left_w))
+        pad_h          = padded.shape[0]
+        left           = np.zeros((pad_h, left_w,  3), dtype=int)
+        right          = np.zeros((pad_h, right_w, 3), dtype=int)  # NOTE: idk why I put "int" instead of "float"
+        padded         = np.concatenate((left, padded, right), axis = 1)
+
+        return padded
+    # end func def pad_sides(img, biggers_shape):
+  #=========================================================================
+    return pad_top_bot(
+                pad_sides(
+                    img,
+                    biggers_shape),
+                biggers_shape)
+  # end func def pad_sides(img, biggers_shape):
+#=========================================================================
+# end func def of pad_color(...args)
+#=========================================================================
+
+
+
 #=========================================================================
 def pad_all(mask, biggers_shape):
     '''
         pads 2d mask with zeros on the end til mask.shape==biggers_shape
     '''
-    # TODO:  debug dis bish.  we get weird cutoffs in the middle of shit
+    # TODO:  debug dish bish.  we get weird cutoffs in the middle of shit
   #=========================================================================
     def pad_top_bot(mask, biggers_shape):
         '''
