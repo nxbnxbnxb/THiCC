@@ -306,12 +306,17 @@ class MeanHasNoPtsException(RuntimeError):
 
 
 #=========================================================================
-def pad_color(img, biggers_shape):
+def pad_color(img, biggers_shape, pads_color='white'):
     '''
         Pads 3-D img with zeros on the end til img.shape==biggers_shape
     '''
+    # NOTE: there's probably a better way to write this function s.t. it's more general, maintainable, etc.
     # TODO:  debug dis bish.  we get weird cutoffs in the middle of shit
   #=========================================================================
+    if pads_color.lower() =='white':
+      color=WHITE=255
+    else:
+      color=BLACK=0
     def pad_top_bot(img, biggers_shape):
         '''
             Puts zeros on top and bottom of img until img.shape[1] == biggers_shape[0]
@@ -329,8 +334,8 @@ def pad_color(img, biggers_shape):
         top_h          = int(floor(top_h))
         # convert to int if not already 
         pad_w          = padded.shape[1]
-        top            = np.zeros((top_h, pad_w, 3), dtype=int)
-        bottom         = np.zeros((bot_h, pad_w, 3), dtype=int)
+        top            = np.full((top_h, pad_w, 3), color, dtype=int)
+        bottom         = np.full((bot_h, pad_w, 3), color, dtype=int)
         padded         = np.concatenate((top, padded, bottom), axis = 0)
 
         return padded
@@ -353,8 +358,8 @@ def pad_color(img, biggers_shape):
             right_w    = int(floor(left_w + 1))
         left_w         = int(floor(left_w))
         pad_h          = padded.shape[0]
-        left           = np.zeros((pad_h, left_w,  3), dtype=int)
-        right          = np.zeros((pad_h, right_w, 3), dtype=int)  # NOTE: idk why I put "int" instead of "float"
+        left           = np.full((pad_h, left_w,  3), color, dtype=int)
+        right          = np.full((pad_h, right_w, 3), color, dtype=int)  # idk why I originally put "int" instead of "float"
         padded         = np.concatenate((left, padded, right), axis = 1)
 
         return padded
