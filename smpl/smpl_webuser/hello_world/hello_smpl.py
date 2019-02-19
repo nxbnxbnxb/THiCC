@@ -147,10 +147,15 @@ def custom_body(female=False, height=False, weight=False, chest=False, waist=Fal
   #NOTE:  these constants are in order for males (ie. dwarfism is the 0th beta, stick-insectism is the 1th beta, ... pear_ness is the 5th beta
   # TODO:  complete the m.betas[i] = ...    for all of these.  Sometimes the effects they have will be negligible, and we need to test their interdependencies as well (ie. if we make stick-insect-y and dwarf-y simultaneously, do we get thinner but with other proportions equal?).
 
-  dwarfism        =(-(height-avg_height) - (waist-avg_waist)) * DWARFISM_SCALING # NOTE: if I do it this way, we need a waist measurement.  But it's better this way than just using weight; weight can be caused by big muscles, thick legs, lots of different stuff
+  #dwarfism        =(-(height-avg_height) - (waist-avg_waist)) * DWARFISM_SCALING # nOTE: if I do it this way, we need a waist measurement.  But it's better this way than just using weight; weight can be caused by big muscles, thick legs, lots of different stuff
   #dwarfism        =(-(height-avg_height)*HEIGHT_SCALING - (waist-avg_waist)*WAIST_SCALING) *DWARFISM_SCALING 
+
+  dwarfism=0
+  # nOTE: as of Tue Feb 19 09:44:45 EST 2019, we're just not going to mess with m.betas[0] (dwarfism) because betas[0] seems to mostly just change the overall scale of the SMPL model, which is something we can use a simple matrix [[2,0,0],[0,2,0],[0,0,2]] (or 0.5 for shrinking) to do instead.
+  # if we're going to use betas[0] at all, it should be for height/weight
+
   # minus signs because of the way the beta sign is handled
-  stick_insectism = ((height-avg_height) - (waist-avg_waist)) * STICK_SCALING
+  stick_insectism = ((height-avg_height) - (waist-avg_waist)) * STICK_SCALING # TODO: is this good enough?  A more complex measurement might be more accurate, but also makes it harder to debug.
   #stick_insectism = ((height-avg_height)*HEIGHT_SCALING - (waist-avg_waist)*WAIST_SCALING) * STICK_SCALING
   short_legs_fat  = (-(inseam-avg_inseam) + (waist-avg_waist)) * SHORT_LEGS_FAT_SCALING
   short_legs_thin = (-(inseam-avg_inseam) - (waist-avg_waist)) * SHORT_LEGS_THIN_SCALING
@@ -164,59 +169,14 @@ def custom_body(female=False, height=False, weight=False, chest=False, waist=Fal
   if female:
     m = load_model( '../../models/basicModel_f_lbs_10_207_0_v1.0.0.pkl' ) # TODO: detect female / male-ness from photo
   else:
-    m = load_model( '../../models/basicmodel_m_lbs_10_207_0_v1.0.0.pkl' ) # TODO: detect female / male-ness from photo
+    m = load_model( '../../models/basicModel_m_lbs_10_207_0_v1.0.0.pkl' ) # TODO: detect female / male-ness from photo
+    # note: capitalization of Model out-of-the-box from Tuebingen's website is different.  
 
   ## Assign pose and shape parameters
-  m.pose [:] = np.zeros(m.pose.size).astype('float64')
+  m.pose [:] = np.zeros(m.pose.size ).astype('float64')
   m.betas[:] = np.zeros(m.betas.size).astype('float64')
   #m.betas[:] = np.random.rand(m.betas.size) * .03
 
-  # print("m.betas.size: {0}".format(m.betas.size)) #10
-
-
-  # For women:
-  '''
-  # -10 on all means short and fat       10 on all means tall and skinny
-  #m.betas[0] = 10
-  # -10 on 0th means short and skinny,   10 on 0th means tall and fat
-  # -10 on 1st means short and fat,      10 on 1st means tall and skinny
-
-  # 5 on both DOES a tall person, but they're also p skinny.  Not what you might expect given the 1st PC does tall and fat
-  #(-3, 3) is a starving person
-  #( 3,-3) is a fat giant
-  #(-3,-3) is fatter and a tiny bit shorter
-  #( 3, 3) is very thin
-
-  #  For the "2nd" PC, even 10 isn't big enough to show a huge difference
-  #  I'm not sure if there's any "intuitive" meaning to the 2nd PC.
-
-  # For "higher" PCs, look at the .blend file.  It's unlikely any of these is going to be our moonshot to success.
-
-  #print("len(sys.argv) is {0}".format(len(sys.argv)))
-  '''
-
-  # For   men:
-  '''
-    Avg measurements, according to bodyvisualizer.com/male.html
-      Height:     70 inches
-      Weight:    180 pounds
-      Chest:      40 inches
-      Waist:      35 inches
-      Hips:       41 inches
-      Inseam:     31 inches
-      Exercise:    2 hrs/week
-
-
-    Male:
-
-      1st PC ([0]) is short and small belly  Nope.
-        1st PC ([0]) is actually "fitness" (mostly it just makes the body bigger or smaller)
-        As of Tue Feb 19 09:04:49 EST 2019, i've decided not to **** with the betas[0] and just scale the body instead.
-      2nd PC ([1]) is tall  and big   belly
-      3rd PC ([2]) is short-legs + fat
-      4rd PC ([3]) is short-legs + skinny
-  '''
-  # TODO: confirm we know exactly what all these PCs mean.  TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
   print("cmd line args (sys.argv) =\n{0}".format(sys.argv))
   if female:
     shoulder_hip_ratio  = m.betas[5]
@@ -256,25 +216,93 @@ def custom_body(female=False, height=False, weight=False, chest=False, waist=Fal
       # m.betas[5]:    for women, shoulder-broadness vs. hip-width.  Positive values mean broader shoulders and more weight in torso; Negative values mean wide hips
   print("m.betas are: \n{0}".format(m.betas))
 
-  ## Write to an .obj file
   if female:
-    outmesh_path = './female_{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}.obj'.format(int(m.betas[0][0]),int(m.betas[1][0]),int(m.betas[2][0]),int(m.betas[3][0]),int(m.betas[4][0]),int(m.betas[5][0]),int(m.betas[6][0]),int(m.betas[7][0]),int(m.betas[8][0]),int(m.betas[9][0]))
+    write_smpl(m.betas,gender='female')
+  else
+    write_smpl(m.betas,gender='male')
+  return m
+
+  # For women:
+  '''
+  # -10 on all means short and fat       10 on all means tall and skinny
+  #m.betas[0] = 10
+  # -10 on 0th means short and skinny,   10 on 0th means tall and fat
+  # -10 on 1st means short and fat,      10 on 1st means tall and skinny
+
+  # 5 on both DOES a tall person, but they're also p skinny.  Not what you might expect given the 1st PC does tall and fat
+  #(-3, 3) is a starving person
+  #( 3,-3) is a fat giant
+  #(-3,-3) is fatter and a tiny bit shorter
+  #( 3, 3) is very thin
+
+  #  For the "2nd" PC, even 10 isn't big enough to show a huge difference
+  #  I'm not sure if there's any "intuitive" meaning to the 2nd PC.
+
+  # For "higher" PCs, look at the .blend file.  It's unlikely any of these is going to be our moonshot to success.
+
+  #print("len(sys.argv) is {0}".format(len(sys.argv)))
+  '''
+
+  # For   men:
+  '''
+   Avg measurements, according to bodyvisualizer.com/male.html
+      Height:     70 inches
+      Weight:    180 pounds
+      Chest:      40 inches
+      Waist:      35 inches
+      Hips:       41 inches
+      Inseam:     31 inches
+      Exercise:    2 hrs/week
+
+
+    Male:
+
+      1st PC ([0]) is short and small belly  Nope.
+        1st PC ([0]) is actually "fitness" (mostly it just makes the body bigger or smaller)
+        As of Tue Feb 19 09:04:49 EST 2019, i've decided not to **** with the betas[0] and just scale the body instead.
+      2nd PC ([1]) is tall  and big   belly
+      3rd PC ([2]) is short-legs + fat
+      4rd PC ([3]) is short-legs + skinny
+  '''
+  # TODo: get data on people && tune this.
+# end func definition custom_body()
+#===================================================================================================================================
+def write_smpl(
+    betas=np.zeros((10,1)).astype('float64'),
+    gender='male'):
+  '''
+    parameter "betas" is shape parameters of the human (see pdf of the SMPL paper from Mahmoud, Black, et al.)
+  '''
+
+  ## Load SMPL model.
+  ## Make sure path is correct
+  if gender.lower() == 'male':
+    m = load_model( '../../models/basicModel_m_lbs_10_207_0_v1.0.0.pkl' )
   else:
-    outmesh_path = './male_{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}.obj'.format(int(m.betas[0][0]),int(m.betas[1][0]),int(m.betas[2][0]),int(m.betas[3][0]),int(m.betas[4][0]),int(m.betas[5][0]),int(m.betas[6][0]),int(m.betas[7][0]),int(m.betas[8][0]),int(m.betas[9][0]))
+    m = load_model( '../../models/basicModel_f_lbs_10_207_0_v1.0.0.pkl' )
+  ## Assign pose and shape parameters
+  m.pose     = np.zeros((m.pose.size)).astype('float64')
+  m.betas    = betas
 
+  ## Write to an .obj file
+  outmesh_path = \
+    './{10}_{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}.obj'.format(int(
+      m.betas[0][0]),int(m.betas[1][0]),int(m.betas[2][0]),int(m.betas[3][0]),int(m.betas[4][0]),int(m.betas[5][0]),int(m.betas[6][0]),int(m.betas[7][0]),int(m.betas[8][0]),int(m.betas[9][0]),
+      gender.lower())
+      # ie. male_02-20-300000.obj
   with open( outmesh_path, 'w') as fp:
-    for vertex in m.r:
-      fp.write( 'v %f %f %f\n' % ( vertex[0], vertex[1], vertex[2]) )
+      for v in m.r:
+          fp.write( 'v %f %f %f\n' % ( v[0], v[1], v[2]) )
 
-    for face in m.f+1: # Faces are 1-based, not 0-based in obj files
-      fp.write( 
-      'f %d %d %d\n' %  (face[0], face[1], face[2]) )
+      for f in m.f+1: # Faces are 1-based, not 0-based in obj files
+          fp.write( 'f %d %d %d\n' %  (f[0], f[1], f[2]) )
 
   ## Print message
   print('..Output mesh saved to: ', outmesh_path)
-# end func definition custom_body()
-#===================================================================================================================================
+  return m
+
 if __name__=="__main__":
+  '''
   #body_talk_male()
   from gender import gender  # NOTE: "sex," technically; gender is the socially-constructed one
   if gender.lower()=='male':
@@ -282,4 +310,6 @@ if __name__=="__main__":
   else:
     female=True
   custom_body(female) # TODO: refactor to say "gender" instead of clumsy boolean
+  '''
+  write_smpl()
 
