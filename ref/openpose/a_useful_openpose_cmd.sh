@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This one WORKS.  Before you throw in a million flags, make sure it WORKS (incremental improvements)
-cd ~/home/n/openpose &&\
+cd /home/n/openpose &&\
 ./build/examples/openpose/openpose.bin \
   --image_dir /home/n/Pictures/small_openpose_1/ \
   --render_pose 0 \
