@@ -55,27 +55,57 @@ from opendr.camera import ProjectPoints
 from smpl_webuser.serialization import load_model
 
 import numpy as np
+import chumpy as ch
 import sys
+import math
+from math import sin, cos
 
-## Load SMPL model (here we load the female model)
+## Load SMPL model
 m = load_model('../../models/basicModel_m_lbs_10_207_0_v1.0.0.pkl')
 
 ## Assign pose and shape parameters
-m.pose[:] = np.zeros(m.pose.size).astype('float64')  # All zeros is "Jesus pose."  #np.random.rand(m.pose.size) * .2
+m.pose[:] = np.zeros(m.pose.size).astype('float64')
+  # All zeros is "Jesus pose."  #np.random.rand(m.pose.size) * .2
 m.betas[:] = np.zeros(m.betas.size).astype('float64') 
   #betas:  .03 is normal   #50 is grotesque #100 stops looking human
+
+## Rotates (like a backflip)
+m.pose[0] = 3.4 
+#m.pose[1]
+#m.pose[1] = 0.34 # rotates roughly around the axis from bellybutton to spinal cord.
+#m.pose[2] = 0.33 # rotates rougly around the axis from foot to head
+#====
+#m.pose[3] = -0.9  # left leg back (positive)
+#m.pose[4] =  0.9 # left foot out (~marching band splayed out feet pose, positive)
+#m.pose[5] =  0.9 # left foot away 
+#====
+#m.pose[6] =  0.9  # values [6] thru [8] are identical, but for right leg, foot, etc.
+#============ right leg ================
+#m.pose[9]  =  0.9 # rotates torso down (bend over to touch toes)
+#m.pose[10] = 0.9 # rotating to crack back
+#m.pose[11] = 0.9 # torso again
+#============ left leg ================
+#m.pose[12]=0.9 # left knee
+#m.pose[13]=0.9 # left leg rotates a diff way
+#m.pose[14]=0.9 # left leg again
+#============ right leg ================
+#m.pose[15]=0.9 # right knee (tibia up into air)
+#m.pose[18]=0.9 # bend down
+m.pose[24]=1.9
+#m.pose[31]=3.9 # toes
 
 # Get betas from cmd line args
 for i in range(1,len(sys.argv)):
   m.betas[i-1]=float(sys.argv[i])  
-# The above little chunk of command-line-args (sys.argv) parsing code should be reusable wherever we do SMPL stuff.
+# The above little chunk of command-line-args (sys.argv) parsing code should be reusable wherever we do SMPL stuff.  It adapts to however many cmd line args you put in.
 
 ## Create OpenDR renderer
 rn = ColoredRenderer()
 
 ## Assign attributes to renderer
-w, h = (640, 480)
+w, h = (640, 480) # width and height
 
+# Nathan Bendich:   NOTE to self: chumpy is a pain in the ass to mutate.
 rn.camera = ProjectPoints(v=m, rt=np.zeros(3), t=np.array([0, 0, 2.]), f=np.array([w,w])/2., c=np.array([w,h])/2., k=np.zeros(5))
 rn.frustum = {'near': 1., 'far': 10., 'width': w, 'height': h}
 rn.set(v=m, f=m.f, bgcolor=np.zeros(3))
