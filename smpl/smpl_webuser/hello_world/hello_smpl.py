@@ -1,4 +1,5 @@
 NATHAN=True
+#  Design decision: this file should be able to create a realistic human body based on whatever "level" inputs measure.py gives it.  It's measure.py's job to get those measurements at a human-understandable level (ie. "height, weight, chest circumference), but it's hello_smpl.py's job to oversee all the "SMPL-esque" details of this; ie. how height and waist translate to a male's beta[1]
 '''
 Copyright 2015 Matthew Loper, Naureen Mahmood and the Max Planck Gesellschaft.  All rights reserved.
 This software is provided for research purposes only.
@@ -91,7 +92,6 @@ def custom_body(female=False, height=False, weight=False, chest=False, waist=Fal
   '''
     These params (height, weight, , stick_insectism, flabbiness, broad_shoulderedness, etc.) should be provided as numerical values if you pass the custom_body() function any parameters
   '''
-
 
   """
   flabbiness            = False
@@ -209,7 +209,9 @@ def custom_body(female=False, height=False, weight=False, chest=False, waist=Fal
 
     Male:
 
-      1st PC ([0]) is short and small belly
+      1st PC ([0]) is short and small belly  Nope.
+        1st PC ([0]) is actually "fitness" (mostly it just makes the body bigger or smaller)
+        As of Tue Feb 19 09:04:49 EST 2019, i've decided not to **** with the betas[0] and just scale the body instead.
       2nd PC ([1]) is tall  and big   belly
       3rd PC ([2]) is short-legs + fat
       4rd PC ([3]) is short-legs + skinny
@@ -219,7 +221,7 @@ def custom_body(female=False, height=False, weight=False, chest=False, waist=Fal
   if female:
     shoulder_hip_ratio  = m.betas[5]
   else: # male
-    if isinstance(dwarfism, Number): # not False, like I made the default in the parameter list
+    if isinstance(dwarfism, Number): # Number as in "not False", because I made the default value for these variables "False" in the parameter list
       m.betas[0]          = dwarfism
     else:
       short_and_thin      = m.betas[0] # TODO: kill these pointers?  (all the "else" clauses)    The point of 'em was so we could feed in measurements from outside like "short_and_thin = sys.argv[i]"

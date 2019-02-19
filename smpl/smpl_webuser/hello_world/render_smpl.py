@@ -1,3 +1,5 @@
+# This is what I was thinking I'd rebuild!   Aaargh I feel so dumb.   Tue Feb 19 08:43:06 EST 2019
+#     so if we can get the sliders in here (ie. kivy or www.bodyvisualizer.com), our job is complete.
 '''
 Copyright 2015 Matthew Loper, Naureen Mahmood and the Max Planck Gesellschaft.  All rights reserved.
 This software is provided for research purposes only.
@@ -47,19 +49,26 @@ the hello world script now by typing the following:
 
 '''
 
-import numpy as np
 from opendr.renderer import ColoredRenderer
 from opendr.lighting import LambertianPointLight
 from opendr.camera import ProjectPoints
 from smpl_webuser.serialization import load_model
 
-## Load SMPL model (here we load the female model)
-m = load_model('../../models/basicModel_f_lbs_10_207_0_v1.0.0.pkl')
+import numpy as np
+import sys
 
-## Assign random pose and shape parameters
-m.pose[:] = np.random.rand(m.pose.size) * .2
-m.betas[:] = np.random.rand(m.betas.size) * .03 #.03 is normal   #50 is grotesque #100 stops looking human
-m.pose[0] = np.pi
+## Load SMPL model (here we load the female model)
+m = load_model('../../models/basicModel_m_lbs_10_207_0_v1.0.0.pkl')
+
+## Assign pose and shape parameters
+m.pose[:] = np.zeros(m.pose.size).astype('float64')  # All zeros is "Jesus pose."  #np.random.rand(m.pose.size) * .2
+m.betas[:] = np.zeros(m.betas.size).astype('float64') 
+  #betas:  .03 is normal   #50 is grotesque #100 stops looking human
+
+# Get betas from cmd line args
+for i in range(1,len(sys.argv)):
+  m.betas[i-1]=float(sys.argv[i])  
+# The above little chunk of command-line-args (sys.argv) parsing code should be reusable wherever we do SMPL stuff.
 
 ## Create OpenDR renderer
 rn = ColoredRenderer()
