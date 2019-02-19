@@ -1,7 +1,10 @@
 #!/bin/bash
 
+# measurement code (not yet do_ALL.sh (Tue Feb 19 06:54:07 EST 2019))
+
+
 #===============================================================================================
-#   TODO:  basically just guidelines; activating virtualenv or conda doesn't work in here
+#   TODO:  basically just a recipe; activating virtualenv or conda doesn't work in here
 #===============================================================================================
 
 cd /home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018

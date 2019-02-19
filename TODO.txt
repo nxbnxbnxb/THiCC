@@ -7,6 +7,87 @@
     TODO.txt
 
 
+________________________________
+
+  Tue Feb 19 10:26:06 EST 2019
+________________________________
+
+  Modularity.  Modularity, testing, and more modularity.  THAT'S how it gets built.  And then after all the modules are finally tuned just right, I can do a codesprint and bang it all together?  Actually, it's probably not worth trying to sprint; "you have to go slow so you can go fast."
+    So let's go frontend->backend: 
+      1st) tune SMPL model on many male bodies (as few betas as possible, maybe ~3 of 'em), then 
+      2nd) use intuitive measurements like height, waist to plug into smpl.py, then 
+      3rd) get those measurements (height, waist, etc.) using a combination of openpose and some kind of segmentation.
+
+    This is the schedule I can give to Dario!
+
+
+
+
+
+
+
+
+
+  `git push` all changes!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  rot8 camera
+    DONE.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ________________________________
