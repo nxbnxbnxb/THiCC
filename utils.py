@@ -5,6 +5,7 @@
 #from   mpl_toolkits.mplot3d import Axes3D   # import no longer used (Dec. 16, 2018).  plots VERY BASIC 3d shapes
 import numpy as np
 np.seterr(all='raise')
+import imageio as ii
 
 import pickle as pkl
 
@@ -23,6 +24,7 @@ import random
 from   copy import deepcopy
 
 from   d import debug
+from PIL import Image
 
 # TODO:   vim "repeat any"
 # TODO:   vim command "undo any"
@@ -191,6 +193,8 @@ def save_mp4_as_imgs(mp4_local_path, root_img_dir, freq=1/4., should_put_timesta
 
 
 
+def np_img(img_fname):
+  return np.asarray(ii.imread(img_fname))
 
 
 
@@ -304,12 +308,39 @@ class MeanHasNoPtsException(RuntimeError):
 
 
 
+#=========================================================================
+def resize_im():
+  # NOTE:  how do we resize a 3d np array???  (segmap)
+  # sample img resize code from SOvewrflow; calling it won't actually work
+  from PIL import Image
+
+  basewidth = 300
+  img = Image.open('somepic.jpg')
+  wpercent = (basewidth/float(img.size[0]))
+  hsize = int((float(img.size[1])*float(wpercent)))
+  img = img.resize((basewidth,hsize), Image.ANTIALIAS)
+  img.save('sompic.jpg')
+#=========================================================================
+def crop():
+  from PIL import Image
+  img=Image.open('/home/n/tmp.jpg')
+  w,h=img.size  # TODO: check whether this works with a color img
+  img=img.crop(w,h)
+  # other useful image functions:
+  '''
+    from PIL import Image
+    img = Image.open(fname)
+    img = np.array(img)
+  '''
+#=========================================================================
+
 
 #=========================================================================
 def pad_color(img, biggers_shape, pads_color='white'):
     '''
         Pads 3-D img with zeros on the end til img.shape==biggers_shape
     '''
+    #there's probably already a function like this in scipy, PIL, or some other library.
     # NOTE: there's probably a better way to write this function s.t. it's more general, maintainable, etc.
     # TODO:  debug dis bish.  we get weird cutoffs in the middle of shit
   #=========================================================================
