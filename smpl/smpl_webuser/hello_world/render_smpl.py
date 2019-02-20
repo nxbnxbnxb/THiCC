@@ -53,6 +53,7 @@ from opendr.renderer import ColoredRenderer
 from opendr.lighting import LambertianPointLight
 from opendr.camera import ProjectPoints
 from smpl_webuser.serialization import load_model
+from hello_smpl import write_smpl
 
 import numpy as np
 import chumpy as ch
@@ -60,25 +61,29 @@ import sys
 import math
 from math import sin, cos
 
+gender = 'male'
 ## Load SMPL model
-m = load_model('../../models/basicModel_m_lbs_10_207_0_v1.0.0.pkl')
+if gender.lower()=='male':
+  m = load_model('../../models/basicModel_m_lbs_10_207_0_v1.0.0.pkl')
+else:
+  m = load_model('../../models/basicModel_f_lbs_10_207_0_v1.0.0.pkl')
 
 ## Assign pose and shape parameters
-m.pose[:] = np.zeros(m.pose.size).astype('float64')
-  # All zeros is "Jesus pose."  #np.random.rand(m.pose.size) * .2
+m.pose[:] = np.zeros(m.pose.size).astype('float64') # m.pose.shape is (72,).  72 pose parameters   # All zeros is "Jesus pose."  #np.random.rand(m.pose.size) * .2
 m.betas[:] = np.zeros(m.betas.size).astype('float64') 
-  #betas:  .03 is normal   #50 is grotesque #100 stops looking human
 
-## Rotates (like a backflip)
-m.pose[0] = 3.4 
+
+
+#  There might be a reference for this (what each m.pose value means) somewhere.  But I doubt it.
+
 #m.pose[1]
 #m.pose[1] = 0.34 # rotates roughly around the axis from bellybutton to spinal cord.
 #m.pose[2] = 0.33 # rotates rougly around the axis from foot to head
-#====
+#=======================================
 #m.pose[3] = -0.9  # left leg back (positive)
 #m.pose[4] =  0.9 # left foot out (~marching band splayed out feet pose, positive)
 #m.pose[5] =  0.9 # left foot away 
-#====
+#=======================================
 #m.pose[6] =  0.9  # values [6] thru [8] are identical, but for right leg, foot, etc.
 #============ right leg ================
 #m.pose[9]  =  0.9 # rotates torso down (bend over to touch toes)
@@ -91,12 +96,24 @@ m.pose[0] = 3.4
 #============ right leg ================
 #m.pose[15]=0.9 # right knee (tibia up into air)
 #m.pose[18]=0.9 # bend down
-m.pose[24]=1.9
-#m.pose[31]=3.9 # toes
 
+#m.pose[27]=1.9 # head down
+#m.pose[31]=3.9 # toes
+#m.pose[36]=1.9 # also head down.  Why??  But it doesn't look like ALL of the poses repeat cyclically.  Just a few...  Or maybe I can't recognize the subtle differences between, say, m.pose[36] and m.pose[27].
+#m.pose[39]=1.1 # a hand movement!  Good news, Chris Columbus; there IS land on the other side of the ocean.
+#m.pose[42]=1.4   # right arm pitch? yaw? roll?
+
+## Rotates (like a backflip)
+m.pose[0] =  3.4
+#m.pose[0] = 2.4
+m.pose[41]= -1.1  # m.pose[41] is shoulder-level rotation.
+m.pose[44]=  1.1  # m.pose[44] is shoulder-level rotation.
+# more poses after, but I don't have to deal with 'em right now.
+
+# TODO: put the following code snippet (sys.argv...) in hello_smpl.py.  It adapts to however many cmd line args you feed this module.
 # Get betas from cmd line args
 for i in range(1,len(sys.argv)):
-  m.betas[i-1]=float(sys.argv[i])  
+  m.betas[i-1]=float(sys.argv[i])
 # The above little chunk of command-line-args (sys.argv) parsing code should be reusable wherever we do SMPL stuff.  It adapts to however many cmd line args you put in.
 
 ## Create OpenDR renderer
@@ -126,6 +143,7 @@ cv2.imshow('render_SMPL', rn.r)
 print ('..Print any key while on the display window')
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+write_smpl(m.betas, gender=gender)
 
 
 ## Could also use matplotlib to display

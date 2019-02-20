@@ -1,10 +1,69 @@
 
   What did you learn today?
+    Modularity.
+    Get data.  Anti-Platonicity.  Act by intuition, reflect by data.
+
+
+
+
 
 
 
 
     TODO.txt
+
+
+________________________________
+
+  Wed Feb 20 14:56:58 EST 2019
+________________________________
+
+  Take pictures
+  Check whether there's an earlier "video cutout" function that you wrote
+  Start using 1-letter variable names like in mattloper's openDR (or was it chumpy?).  Makes your brain work harder, remember more, etc.  (keeps u more awake (and creative?))
+
+  change references from "hello_smpl.py" to "smpl.py" 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Github:  do what you were trying to do with a videocut function (ie. the vid cut paper Verma showed you way back in the day)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ________________________________
@@ -28,38 +87,40 @@ ________________________________
 
 
 
+
+
+
+
+
+
+
+
+
+  Change name on "render_SMPL" before you show anyone
+    DONE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   `git push` all changes!
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    DONE
 
 
 
@@ -12829,8 +12890,11 @@ Maybe we should delete our Facebook.  It depends how easy we want to be for stra
 
 
 
+________________________________
 
-
+  Idea from Mike Twardus:
+    1080pix up to 4K TV
+________________________________
 
 
 
@@ -12859,3 +12923,5 @@ Maybe we should delete our Facebook.  It depends how easy we want to be for stra
     Anything for the project.
     It won't last long enough.  The shekels give you more optionality than the laptop battery
     When you have a little more $, the battery would be gr8
+
+  Look up if there's a cmd line browser like vim that lets me split-screen
