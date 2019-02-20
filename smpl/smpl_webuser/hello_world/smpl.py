@@ -218,7 +218,7 @@ def custom_body(female=False, height=False, weight=False, chest=False, waist=Fal
 
   if female:
     write_smpl(m.betas,gender='female')
-  else
+  else:
     write_smpl(m.betas,gender='male')
   return m
 
@@ -285,6 +285,7 @@ def write_smpl(
   m.betas    = betas
 
   ## Write to an .obj file
+  # TODO: def smpl_string()
   outmesh_path = \
     './{10}_{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}.obj'.format(int(
       m.betas[0][0]),int(m.betas[1][0]),int(m.betas[2][0]),int(m.betas[3][0]),int(m.betas[4][0]),int(m.betas[5][0]),int(m.betas[6][0]),int(m.betas[7][0]),int(m.betas[8][0]),int(m.betas[9][0]),

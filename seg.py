@@ -2,28 +2,31 @@ import os, tarfile, tempfile
 import numpy as np
 np.seterr(all='raise')
 import tensorflow as tf
-import sys
 import scipy
 from io import BytesIO
 import imageio as ii
 import skimage
+from PIL import Image
+
+import sys
 
 from d import debug
 from save import save
 from viz import pltshow
+from utils import np_img
+
+if debug:
+  from matplotlib import pyplot as plt  # NOTE:  problem on Nathan's machine (Dec. 21, 2018) is JUST with pyplot.  None of the rest of matplotlib is a problem AT ALL.
+from matplotlib import gridspec
+from six.moves import urllib
+
+from copy import deepcopy
 
 '''
 import matplotlib
 matplotlib.use('Agg')      
 '''
 # The above lines didn't end up being necessary.    But it's a good FYI so future programmers can solve matplotlib display problems, though
-if debug:
-  from matplotlib import pyplot as plt  # NOTE:  problem on Nathan's machine (Dec. 21, 2018) is JUST with pyplot.  None of the rest of matplotlib is a problem AT ALL.
-from matplotlib import gridspec
-from PIL import Image
-from six.moves import urllib
-
-from copy import deepcopy
 
 class DeepLabModel(object):
   INPUT_TENSOR_NAME = 'ImageTensor:0'
@@ -180,7 +183,9 @@ def seg_map(img, model):
   if debug:
     pltshow(seg_map)
   if save:
-    ii.imwrite("_segmented____binary_mask_.jpg", seg_map)  # Dec. 14, 2018:  I think something in the saving process ***ks up the mask with noise
+    fname = "_segmented____binary_mask_.jpg"
+    print('saving segmentation map in ', fname)
+    ii.imwrite(fname, seg_map)  # Dec. 14, 2018:  I think something in the saving process ***ks up the mask with noise
   return np.rot90(seg_map,k=3) # k=3 b/c it gives us the result we want   (I tested it experimentally.  Dec. 26, 2018)
 #=========== end func def of  seg_map(img, model): ==============
 
@@ -188,28 +193,27 @@ def seg_map(img, model):
 def segment_local(local_filename):
   #img=scipy.ndimage.io.imread(local_filename)
   img=np.asarray(ii.imread(local_filename)).astype('float64') # TODO: delete this commented-out line
-
+#================================================================
+#================================================================
   LABEL_NAMES = np.asarray([
       'background', 'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus',
       'car', 'cat', 'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike',
       'person', 'pottedplant', 'sheep', 'sofa', 'train', 'tv'
   ])
-
+#================================================================
+#================================================================
   FULL_LABEL_MAP = np.arange(len(LABEL_NAMES)).reshape(len(LABEL_NAMES), 1)
   FULL_COLOR_MAP = label_to_color_image(FULL_LABEL_MAP)
   MODEL_NAME = 'mobilenetv2_coco_voctrainaug'
-
   _DOWNLOAD_URL_PREFIX = 'http://download.tensorflow.org/models/'
   _MODEL_URLS = {
       'mobilenetv2_coco_voctrainaug': 'deeplabv3_mnv2_pascal_train_aug_2018_01_29.tar.gz',
       'mobilenetv2_coco_voctrainval': 'deeplabv3_mnv2_pascal_trainval_2018_01_29.tar.gz'
   }
   _TARBALL_NAME = 'deeplab_model.tar.gz'
-
   model_dir = './'
   download_path = os.path.join(model_dir, _TARBALL_NAME)
   # urllib.request.urlretrieve(_DOWNLOAD_URL_PREFIX + _MODEL_URLS[MODEL_NAME], download_path)
-
   MODEL = DeepLabModel(download_path)
   FAIRLY_CERTAIN=127
   return seg_map(img, MODEL)
@@ -249,6 +253,7 @@ def segment_URL(IMG_URL):
 
 
 if __name__=='__main__':
+  # TODO:  put this code in a separate function
   if len(sys.argv) == 1:
     IMG_URL = 'http://columbia.edu/~nxb2101/180.0.png'
     #'http://vishalanand.net/green.jpg'
@@ -259,6 +264,39 @@ if __name__=='__main__':
     #IMG_URL = sys.argv[1]# TODO: uncomment to segment images on the internet.
   #segmap = segment_URL(IMG_URL) # TODO: uncomment to segment images on the internet.
   segmap= segment_local(img_path)
+  print('segmap.shape: {0}'.format(segmap.shape))
+  print('\n'*2)
+  img=Image.open(img_path)
+  #img=np_img(img_path) # I really OUGHT to scale the mask to fit the dimensions of the image (we'd have better resolution this way)
+  #print("img.shape : \n",img.shape)
+  segmap= segmap.reshape(segmap.shape[0],segmap.shape[1],1)
+  segmap=np.concatenate((segmap,segmap,segmap),axis=2)
+  segmap=np.rot90(segmap)
+  # 1920, 1080
+  #  513,  288
+  # NOTE: for NOW, I've hardcoded this;     TODO: change as soon as we're looking at a diff img.
+  #targ_shape=(640,360,3)
+  #pltshow(img.resize((segmap.shape[0],segmap.shape[1]), Image.ANTIALIAS))
+  img=img.resize((segmap.shape[1],segmap.shape[0]), Image.ANTIALIAS) #targ_shape, Image.ANTIALIAS)
+  print("type(img):\n",type(img))
+  # NOTE:  PIL.resize(shape)'s shape has the width and height reversed from numpy's
+  #segmap = utils.pad_color(segmap, targ_shape)
+  #img = np.asarray(img).astype('float64') np.asarray doesn't work on  type <class 'PIL.Image.Image'>
+  img = np.array(img)
+  pltshow(img)
+  print("img.dtype:\n",img.dtype)
+  print("   img.shape:\n", img.shape)
+  print("segmap.shape:\n", segmap.shape)
+  # as of (Wed Feb 20 17:49:37 EST 2019), segmap is 0 for background, 15 for human ( before astype('bool'))
   pltshow(segmap)
+  segmap=segmap.astype('bool')
+  segmap=np.logical_not(segmap)
+  img[segmap]=0
+  # cut out the human from the img
+  pltshow(img)
+  ii.imwrite('nathan_cutout.png',img)
+  # how 2 make background transparent?
+ 
 # end if __name__=='__main__':
+
 
