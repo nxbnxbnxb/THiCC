@@ -1,7 +1,7 @@
 
   What did you learn today?
     Modularity.
-    Get data.  Anti-Platonicity.  Act by intuition, reflect by data.
+    Anti-Platonicity.  Act by intuition, reflect by data.
 
 
 
@@ -12,17 +12,160 @@
 
     TODO.txt
 
+________________________________
+
+  Fri Feb 22 10:32:03 EST 2019
+________________________________
+
+  Nathan's mini-goal for the day:
+    I want to get the level where I can size people within 80% accuracy in a split second (ie. 2 minutes tops).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  1. The algorithm for smpl_fit() should first find the most extreme feature and tune around that one.  (ie. Nathan's height)
+    a.  This is the part I failed to do when first writing the code for "custom_body()" in smpl.py.
+    b.
+    c.
+  2. Then tune around the 2nd most extreme feature (ie. Nathan's skinniness)
+    a.  This is harder with something like "muscular"; we should probably give partial control to the user for something more "fuzzy" like that
+    b.
+    c.
+    d.
+    e.
+  3.  The algorithm should (ideally) take masks of the person from each of the 360 degree views and measure error as some kind of cost function    "diff"
+  4.  But this is difficult for stuff like Nathan's waist measurements, where tiny errors in the segmentation can wildly throw off the "sigma" (deviation from the mean/median)
+  Then we should try to tweak each
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ________________________________
 
   Wed Feb 20 14:56:58 EST 2019
 ________________________________
 
-  Take pictures
-  Check whether there's an earlier "video cutout" function that you wrote
-  Start using 1-letter variable names like in mattloper's openDR (or was it chumpy?).  Makes your brain work harder, remember more, etc.  (keeps u more awake (and creative?))
+  Get Nathan's measurements (first 2 Betas)
+    roughly -3.0, 2.4  works.  I feel like any minor adjustments should be given to me or another employee to control (ie. bodyvisualizer.com).  
 
-  change references from "hello_smpl.py" to "smpl.py" 
+
+  It appears the code for bodyvisualizer.com is not publicly available on github.com, etc.
+  I'm unsure whether there is a paper or technical document describing this anywhere.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Write imagespider for gay pr0nz
+    not worth it
+
+
+
+
+
+
+
+
+
+
+
+
+  Finish the overlay_imgs(img1, img2) code
+
+  Look up "antialiasing" tonight / on your break at work.
+
+
+
+  Use gay pr0n to get nude male pictures.
+  Check whether there's an earlier "video cutout" function that you wrote.
+  Start using 1-letter variable names like in mattloper's openDR (or was it chumpy?).  Makes your brain work harder, remember more, etc.  (keeps you more alert and creative)
+
+  Change references from "hello_smpl.py" to "smpl.py" 
+  Other refactoring, sorting, etc.
 
 
 

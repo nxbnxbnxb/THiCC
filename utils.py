@@ -6,6 +6,7 @@
 import numpy as np
 np.seterr(all='raise')
 import imageio as ii
+from PIL import Image
 
 import pickle as pkl
 
@@ -24,7 +25,6 @@ import random
 from   copy import deepcopy
 
 from   d import debug
-from PIL import Image
 
 # TODO:   vim "repeat any"
 # TODO:   vim command "undo any"
@@ -38,6 +38,12 @@ from PIL import Image
 #######################################################################################################
 
 
+#=========================================================================
+def neg(tup):
+  negged=()
+  for e in tup:
+    negged+=(-e,)
+  return negged
 #=========================================================================
 def pif(s=''):
     if debug: print (s)
@@ -283,6 +289,7 @@ def print_visible(s):
             (pad*"\n"))
 
 def count(arr):
+  #np.countnonzero()?
   counts={}
   if len(arr.shape)==3:
     for subarr_1 in arr:
@@ -308,6 +315,22 @@ class MeanHasNoPtsException(RuntimeError):
 
 
 
+#=========================================================================
+def no_color_shift(shift):
+  # might cause a problem with scipy.ndimage.shift()
+  shift[2]=0
+  return shift
+#=========================================================================
+def round_tuple(tup):
+  rounded=()
+  for coord in tup:
+    rounded+=(int(round(coord)),)
+  return rounded
+#=========================================================================
+def shift_img():
+  pass
+  #https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.shift.html
+  # https://docs.scipy.org/doc/scipy-0.16.1/reference/generated/scipy.ndimage.interpolation.shift.html
 #=========================================================================
 def resize_im():
   # NOTE:  how do we resize a 3d np array???  (segmap)

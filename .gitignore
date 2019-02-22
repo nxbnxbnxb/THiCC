@@ -4,6 +4,7 @@
 *.jpg
 *.pyc
 *.swp
+*.swo
 *.npy
 *.mp3
 *.mp4

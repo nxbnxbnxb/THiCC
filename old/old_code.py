@@ -9,6 +9,48 @@ np.seterr(all='raise')
       couch_potato        = m.betas[2]  # I honestly don't know how we can measure this variable.  Prob by asking the user.  But will they tell the truth?  Will they know?    (negative values for this mean a well-muscled guy)
     '''
 
+#seg.py's  overlay_imgs()   (oughta be called  "superimpose_imgs()")
+    #ii.imwrite(tmpfname,cutout2) # write specialized funcs that convert to/from PIL/np.
+    #cutout2=np_img(tmpfname)
+
+    #ii.imwrite(tmpfname,cutout1)
+    #cutout1=np_img(tmpfname)
+    #sp.call(['rm',tmpfname])
+    #ii.imwrite(tmpfname,cutout2)
+    #cutout2=np_img(tmpfname)
+    #sp.call(['rm',tmpfname])
+    #pltshow(cutout2)
+
+    #sp.call(['rm',tmpfname])
+    # TODO: finish!
+    pass
+    '''
+    # `pltshow(cutout1[x_min_1:x_max_1,y_min_1:y_max_1])` is my version of "crop()" function for numpy representations of images
+    # this ugly assignment is much shorter than the alternative (all fits on one line)
+    edge_x_1, edge_y_1  = min(locs1[0]), min(locs1[1])  
+    edge_x_2, edge_y_2  = min(locs2[0]), min(locs2[1])
+    print("edge_x_1: \n",edge_x_1)
+    print("edge_x_2: \n",edge_x_2)
+    print("edge_y_1: \n",edge_y_1)
+    print("edge_y_2: \n",edge_y_2)
+    mask1_shape = (max(locs1[0])-min(locs1[0]),  max(locs1[1])-min(locs1[0]))
+    mask2_shape = (max(locs2[0])-min(locs2[0]),  max(locs2[1])-min(locs2[0]))
+    # "0" b/c no color shift
+    pltshow(shift(cutout1, (-edge_x_1, -edge_y_1, 0)))
+    pltshow(shift(cutout2, (-edge_x_2, -edge_y_2, 0)))
+    # I'm doing this imwrite() b/c I don't know how to resize an image in np.ndarray();  I only know how to with PIL.Image.resize((x,y))
+    tmpfname='tmp.png'
+    ii.imwrite(tmpfname,cutout1)
+    cutout1=Image.open(tmpfname)
+    cutout1=cutout1.resize((mask2_shape), Image.ANTIALIAS)
+    pltshow(cutout1)
+    # TODO: scale both images s.t. they overlay
+    # TODO: crop imgs b4 overlaying
+    # TODO: finish this overlay_imgs() function!
+
+    cutout2=np.array(cutout2)
+    pltshow(cutout2+cutout1)  # looks funky.
+    '''
 # part of model.py's test_human():
 """
 on_locs=np.nonzero(model)
