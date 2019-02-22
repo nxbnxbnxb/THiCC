@@ -256,7 +256,45 @@ def custom_body(female=False, height=False, weight=False, chest=False, waist=Fal
 
 
     Male:
+      Alright, let's try to make this as SMPL as possible (no pun intended).
+      Dwarfism
+      Stick Insectism
+      SLF
+      SLT
 
+      Tall :
+        betas[0] is neg
+ 
+      a. Tall and thin
+        0.  betas[0] -
+        1.  betas[1] +
+          a.
+        2.
+        3.
+        4.
+        5.
+        6.
+        7.
+      b.  Tall and fat
+        0.  betas[0] -
+        1.  betas[1] -
+          a.
+        2.
+        3.
+        4.
+        5.
+        6.
+        7.
+      c.  Short and thin
+      d.
+      e.
+      f.
+      g.
+      h.  Short and thin
+
+     Fri Feb 22 10:59:06 EST 2019
+      1st PC (betas[0]) is (I THINK) mostly just overall height.  Super negative (ie. betas[0]==-10) tends to also make one fat, but most (short) people shouldn't have super extreme betas[0]
+        (midgets have high betas[0], giants have negative betas[0])
       1st PC ([0]) is short and small belly  Nope.
         1st PC ([0]) is actually "fitness" (mostly it just makes the body bigger or smaller)
         As of Tue Feb 19 09:04:49 EST 2019, i've decided not to **** with the betas[0] and just scale the body instead.

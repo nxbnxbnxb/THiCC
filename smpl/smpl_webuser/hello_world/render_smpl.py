@@ -139,7 +139,9 @@ rn.vc = LambertianPointLight(
 
 ## Show it using OpenCV
 import cv2
-cv2.imshow('render_SMPL', rn.r)
+#from cv2 import CV_WINDOW_NORMAL
+#cv2.namedWindow("main", CV_WINDOW_NORMAL)  # meant to resize the windows.  But I need Qt backend support to do this.  Would have to reinstall opencv for python, prob in a diff virtualenv or conda env
+cv2.imshow('SMPL_{0}'.format(m.betas), rn.r)
 print ('..Print any key while on the display window')
 cv2.waitKey(0)
 cv2.destroyAllWindows()
@@ -152,3 +154,72 @@ write_smpl(m.betas, gender=gender)
 # plt.imshow(rn.r)
 # plt.show()
 # import pdb; pdb.set_trace()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
