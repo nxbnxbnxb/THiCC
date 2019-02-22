@@ -1,3 +1,4 @@
+# TODO: rename everything "seg" rather than "segment"
 WHITE=255
 BLACK=0
 TRANSPARENT=0
@@ -14,16 +15,18 @@ import skimage
 from PIL import Image
 
 import sys
+import subprocess as sp
 
 from d import debug
 from save import save
 from viz import pltshow
-from utils import np_img
+from utils import np_img, round_tuple, neg, no_color_shift
 
 if debug:
   from matplotlib import pyplot as plt  # NOTE:  problem on Nathan's machine (Dec. 21, 2018) is JUST with pyplot.  None of the rest of matplotlib is a problem AT ALL.
 from matplotlib import gridspec
 from six.moves import urllib
+from scipy.ndimage import shift  # TODO: make all imports precisely like THIS.  from math import pi.  It's short, it's searchable (debuggable), 
 
 from copy import deepcopy
 
@@ -110,6 +113,7 @@ def create_pascal_label_colormap():
 
   return colormap
 
+#================================================================
 def label_to_color_image(label):
   if label.ndim != 2:
     raise ValueError('Expect 2-D input label')
@@ -119,6 +123,7 @@ def label_to_color_image(label):
   return colormap[label]
 
 # NOTE: don't call this function if matplotlib.pyplot crashes conda!
+#================================================================
 def vis_segmentation(image, seg_map):
   '''
     CURRENTLY NOT WORKING
@@ -192,7 +197,7 @@ def seg_map(img, model):
     print('saving segmentation map in ', fname)
     ii.imwrite(fname, seg_map)  # Dec. 14, 2018:  I think something in the saving process ***ks up the mask with noise
   return np.rot90(seg_map,k=3) # k=3 b/c it gives us the result we want   (I tested it experimentally.  Dec. 26, 2018)
-#=========== end func def of  seg_map(img, model): ==============
+#=========== end ============ seg_map(img, model): ==============  # NOTE: only need to do this if func is REALLY long.
 
 #================================================================
 def segment_local(local_filename):
@@ -259,42 +264,67 @@ def segment_URL(IMG_URL):
 
 #====================================================================
 def overlay_imgs(img_fname_1, img_fname_2):
-    cutout1,mask1=segment_black_background(img_fname_1)
-    cutout2,mask2=segment_black_background(img_fname_2)
-    CoM1=CoM(mask1)
-    CoM2=CoM(mask2)
+    '''
+      works somewhat kinda (basically not at all)
+    '''
+    # NOTE:   the reason I did all this was I was trying to be too precise about the notion of "fit" to adjust SMPL directly to each image.  
+    #   Instead, it's more of an intuitive thing: ie. "How much does this SMPL mesh look like this particular image?"
+    #TODO: get rid of allt he gross `ii.imwrite()`s and `Image.open(tmpfname)`s
+    cutout1,  mask1 = segment_black_background(img_fname_1)
+    cutout2,  mask2 = segment_black_background(img_fname_2)
+    # centers of mass; we want ints so shift(img) is easy
+    CoM1=np.round(np.array(
+      CoM(mask1)))
+    CoM2=np.round(np.array(
+      CoM(mask2)))
 
     print("img_fname_1:\n",img_fname_1)
-    pltshow(cutout1)
     print("img_fname_2:\n",img_fname_2)
-    pltshow(cutout2)
-    print("CoM1:\n",CoM1)
-    print("CoM2:\n",CoM2)
-    # TODO: finish this overlay_imgs() function!
-    pass 
+    #pltshow(cutout1)
+    #pltshow(cutout2)
+    locs1=np.nonzero(mask1)
+    locs2=np.nonzero(mask2)
+    # TODO: double-check whether x and y here are ACTUALLY x and y
+    x_min_1 = min(locs1[0])
+    x_min_1, y_min_1, x_min_2, y_min_2, x_max_1, y_max_1, x_max_2, y_max_2 =\
+       min(locs1[0]), min(locs1[1]),\
+       min(locs2[0]), min(locs2[1]),\
+       max(locs1[0]), max(locs1[1]),\
+       max(locs2[0]), max(locs2[1])
+    pltshow(cutout1[x_min_1:x_max_1,y_min_1:y_max_1])  # this version of crop() works!  TODO: use an official python `crop()` function
+    pltshow(cutout2[x_min_2:x_max_2,y_min_2:y_max_2])  # this version of crop() works!
+    cutout1=cutout1[x_min_1:x_max_1,y_min_1:y_max_1]
+    cutout2=cutout2[x_min_2:x_max_2,y_min_2:y_max_2]
 
+    mask1_shape = (y_max_1-y_min_1, x_max_1-x_min_1)
+    mask2_shape = (y_max_2-y_min_2, x_max_2-x_min_2)
+    print('\n'*2)
+    print(mask1_shape) #(152, 336)
+    print(mask2_shape) #(105, 260)
+    print('\n'*2)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    tmpfname='tmp.png'
+    ii.imwrite(tmpfname,cutout1)
+    # I'm doing these `imwrite()`s b/c I don't know how to resize an image in np.ndarray();  I only know how to with PIL.Image.resize((x,y))
+    cutout1=Image.open(tmpfname)
+    sp.call(['rm',tmpfname])
+    ii.imwrite(tmpfname,cutout2)
+    # I'm doing these `imwrite()`s b/c I don't know how to resize an image in np.ndarray();  I only know how to with PIL.Image.resize((x,y))
+    cutout2=Image.open(tmpfname)
+    sp.call(['rm',tmpfname])
+    print('hit1\n\n')
+    pltshow(cutout1.resize((mask2_shape), Image.ANTIALIAS))
+    #cutout1=cutout1.resize((mask2_shape), Image.ANTIALIAS)
+    print('hit2\n\n')
+    print(mask1_shape)
+    print(mask2_shape)
+    pltshow(cutout2.resize((mask1_shape), Image.ANTIALIAS))
+    cutout2=cutout2.resize((mask1_shape), Image.ANTIALIAS)
+    cutout1 = cutout1.convert("RGBA")
+    cutout2 = cutout2.convert("RGBA")
+    overlaid=Image.blend(cutout1, cutout2, 0.5)
+    pltshow(overlaid)
+    return overlaid
 #===== end func def of  overlay_imgs(img_fname_1, img_fname_2): =====
 
 
@@ -334,14 +364,13 @@ def segment_transparent_background(local_fname):
   # weird stuff happened when I tried to convert to 'float64' in this `np.array(Image.open(fname))` line.
   img = np.array(img) 
 
-  pltshow(img)
-  pltshow(segmap)
   # as of (Wed Feb 20 17:49:37 EST 2019), segmap is 0 for background, 15 for human ( before astype('bool'))
   segmap=segmap.astype('bool')
   segmap=np.logical_not(segmap)
   img[segmap]=WHITE
   # cut out the human from the img
-  pltshow(img)
+  if debug:
+    pltshow(img)
   fname='person_cutout.png'
   ii.imwrite(fname,img)
   cutout=Image.open(fname)
@@ -364,6 +393,7 @@ def segment_black_background(local_fname):
   '''
     BLACK is 0; so this function can be used to "add" two images together to superimpose them.
   '''
+  # TODO: debug, generalize, etc.  Something ain't working (one of the last parts)
   # NOTE:  PIL.resize(shape)'s shape has the width and height in the opposite order from numpy's height and width
   # NOTE: weird sh!t happened when I tried to convert to 'float64' in the `np.array(Image.open(fname))` line.
   segmap  = segment_local(local_fname)
@@ -380,31 +410,38 @@ def segment_black_background(local_fname):
 
   # cut out the human from the img
   img[segmap]=BLACK
-  pltshow(img)
+  if debug:
+    pltshow(img)
   fname='person_cutout__black_background.png'
   ii.imwrite(fname,img)
-  return img, np.logical_not(segmap) # mask with 1s where there's a person, not where there's background
+  return img, np.logical_not(segmap)
+  # logical_not() because mask should be where there's a person, not where there's background
 #========== end func def of  segment_black_background(params): ==========
 
 if __name__=='__main__':
+  print('\n'*2)
   if len(sys.argv) == 1:
     IMG_URL = 'http://columbia.edu/~nxb2101/180.0.png'
     #'http://vishalanand.net/green.jpg'
     print ("\nusage: python2 seg.py [url_of_img_containing_human(s)] \n  example: python2 seg.py http://vishalanand.net/green.jpg   \n\n")
     print ("currently segmenting image found at url: \n  "+IMG_URL)
-  else:
+  elif len(sys.argv) == 2:
     img_path=sys.argv[1]
     #IMG_URL = sys.argv[1]# TODO: uncomment to segment images on the internet.
-  print('\n'*2)
+    #segmap=segment_local(sys.argv[1])
+    no_background, segmap = segment_black_background(sys.argv[1])
+    pltshow(no_background)
+    pltshow(segmap.astype('float64'))
+  else:
+    fnames=sys.argv[1:] # TODO: change the analogous code in render_smpl.py
+    # TODO: if we extend seg.py (processing more cmd line args and more configuration parameters) the line `fnames=[sys.argv[1:]]` will break.
+    #   A better way to do it is with `import absl; absl.configs`
+    #     (see akanazawa's HMR for example of these configs.)
 
-  fnames=sys.argv[1:] # TODO: change the analogous code in render_smpl.py
-  # TODO: if we extend seg.py (processing more cmd line args and more configuration parameters) the line `fnames=[sys.argv[1:]]` will break.
-  #   A better way to do it is with `import absl; absl.configs`
-  #     (see akanazawa's HMR for example of these configs.)
-
-  # TODO: error checking:
-  #   if len(sys.argv) < 3:   # should it be less than 3?  more?
-  overlay_imgs(fnames[0], fnames[1])  # tODO: hardcode the fnames?
+    # TODO: error checking:
+    #   if len(sys.argv) < 3:   # should it be less than 3?  more?
+    overlay_imgs(fnames[0], fnames[1])  # tODO: hardcode the fnames?
+#============== __main__ ========================================
 
 
 
