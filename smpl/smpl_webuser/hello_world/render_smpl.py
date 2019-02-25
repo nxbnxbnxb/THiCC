@@ -53,7 +53,7 @@ from opendr.renderer import ColoredRenderer
 from opendr.lighting import LambertianPointLight
 from opendr.camera import ProjectPoints
 from smpl_webuser.serialization import load_model
-from hello_smpl import write_smpl
+from smpl import write_smpl
 
 import numpy as np
 import chumpy as ch

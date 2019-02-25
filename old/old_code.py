@@ -173,3 +173,28 @@ def test_mask_func(mask_fname):
   return model
 #====================================   end func def test_mask_func(mask_fname):   =======================================================
 
+#===================================================================================================================================
+# This code is a half-formed thought.  Probably will never use it again.
+def find_nip(mask):
+  find_nip_by_tracing()
+def find_nip_by_tracing():
+  pass
+def armpit(mask):
+  '''
+    Finds the customer's armpit given a segmented-out mask of their body
+    Customer is in "Jesus pose" as of Mon Feb 25 13:34:31 EST 2019
+  '''
+  return armpit_by_tracing(mask)
+def armpit_by_tracing(mask):
+  # Finds the armpit by locating the extended arms of the customer and then going "down" the mask the proper corresponding amount.
+  # "Jesus Pose" required
+  # TODO: update the comment above this line after I've actually written the function.
+  counts=np.count_nonzero(mask, axis=1)
+  fingertips_y_idx=np.argmax(counts)
+  CONST=10
+  pltshow(mask)
+  pltshow(mask[fingertips_y_idx-CONST:fingertips_y_idx+CONST])
+  pltshow(mask)
+  # TODO: paste this code into the function "chest_circum(json_fname, front_fname, side_fname)"
+#===================================================================================================================================
+

@@ -12,6 +12,25 @@ from d import debug
 from save import save 
 
 
+  """
+    Glossary as of Mon Feb 25 09:07:23 EST 2019:
+      def find_toes(mask___face_on):
+      def find_crotch(mask___portrait_view):
+      def get_waist(mask,customers_height):
+      def pixel_height(mask):
+      def measure_leg(crotch,toes):
+      def leg_len(mask,customers_height):
+  """
+  """
+    Point is, we have height and weight (from customer) and inseam
+      TODO:
+        Chest
+        Waist
+        Hips
+
+        exercise???  (if we get this at all, it should just be by askign.  Althgouh people will not necessarily know the answer off the top of their heads, they will prooooooooooooobably be able to estimate REASONabblllly well.
+  """
+
 
 
 
@@ -36,6 +55,8 @@ def find_toes(mask___face_on):
           1. Try to find the toe that is both closest to the left corner and farthest from the crotch, and
           2. Find        the toe that is closest to the right corner and farthest from the crotch)
   '''
+  #     minimum distance from bottom right corner (one toe)
+  # and minimum distance from bottom left corner  (the other toe)
   mask        = mask___face_on
   bot_left    = np.array([mask.shape[0]-1,0               ])
   bot_right   = np.array([mask.shape[0]-1,mask.shape[1]-1 ])
@@ -48,6 +69,7 @@ def find_toes(mask___face_on):
 
 #==============================================================
 def find_crotch(mask___portrait_view):
+  # Given a photo with the customer's legs spread, trace the inside of the left leg up until you find the crotch.
   '''
     As of Thu Jan 17 09:15:12 EST 2019,
       This func assumes 0 noise in the mask, which is an unrealistic assumption
@@ -59,10 +81,12 @@ def find_crotch(mask___portrait_view):
                                                            /
                                                           /
   '''
+  # Given a photo with the customer's legs spread, trace the inside of the left leg up until you find the crotch.
   mask=mask___portrait_view
   locs=np.nonzero(mask)
   toe_height=np.amax(locs[0])
   both_feet_height=float('inf')
+  # return "crotch" as dict at the end
   crotch={};crotch['x_loc']=float("inf");crotch['height']=float("inf")
   left_leg_inner_x=0 # assume the person is facing away from us;   then their left is our left
   for height in range(toe_height,0,-1):
@@ -232,7 +256,8 @@ if __name__=="__main__":
   #
   #
   #
-  #
+  #  NOTE: this doesn't use openpose; will probably be more dependent on the customer posing a certain way, dependent on the segmentation coming out right, etc.
+  #    slightly less robust to 
   #
   #
   #
@@ -250,8 +275,6 @@ if __name__=="__main__":
   #
   #
  
-
-
 
 
 

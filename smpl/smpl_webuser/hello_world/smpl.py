@@ -48,6 +48,10 @@ import numpy as np
 import sys
 from numbers import Number
 
+from opendr.renderer import ColoredRenderer
+from opendr.lighting import LambertianPointLight
+from opendr.camera import ProjectPoints
+
 #===================================================================================================================================
 def body_talk_male():
 #===================================================================================================================================
@@ -305,9 +309,80 @@ def custom_body(female=False, height=False, weight=False, chest=False, waist=Fal
   # TODo: get data on people && tune this.
 # end func definition custom_body()
 #===================================================================================================================================
+def male_SMPL(height=70., weight=180.):
+  # doesn't fucking work yet.
+  if len(sys.argv) > 1:
+    height = float(sys.argv[1])
+    weight = float(sys.argv[2])
+  gender='male'
+  avg_height      =  70. # NOTE: INCHES!  Must convert for SI units
+  avg_weight      = 180. # pounds
+  std_dev_height  =   3. # inches     From http://www.fathersmanifesto.net/standarddeviationheight.htm
+  std_dev_weight  =  15. # pounds     NOTE: I just made up this standard deviation for weight.  Height I got from 
+  if abs(height-avg_height)/std_dev_height > abs(weight-avg_weight)/std_dev_weight :
+    more_important = 'height'
+  else:
+    more_important = 'weight'
+
+  # betas: shape params
+  betas = np.zeros(10).astype('float64')
+  if more_important == 'height':
+    height_off_avg = height - avg_height
+    MALE_SCALE_0TH = 0.2
+    MALE_SCALE_1TH = 0.3
+    betas[0] = -height_off_avg * MALE_SCALE_0TH # dwarfism
+    betas[1] =  height_off_avg * MALE_SCALE_1TH # stick insectism
+    print('betas = \n{0}'.format(betas))
+  else:
+    # TODO: later
+    betas[:]=0
+
+  ## Load SMPL model
+  if gender.lower()=='male':
+    m = load_model('../../models/basicModel_m_lbs_10_207_0_v1.0.0.pkl')
+  else:
+    m = load_model('../../models/basicModel_f_lbs_10_207_0_v1.0.0.pkl')
+
+  ## Assign pose and shape parameters
+  m.pose[:] = np.zeros(m.pose.size).astype('float64') # m.pose.shape is (72,).  72 pose parameters   # All zeros is "Jesus pose."  #np.random.rand(m.pose.size) * .2
+  m.betas[:] = betas
+  ## the line "m.pose[0] =  3.4" rotates the model (like a backflip).
+  m.pose[0] =  3.4
+
+  ## Create OpenDR renderer
+  rn = ColoredRenderer()
+
+  ## Assign attributes to renderer
+  w, h = (640, 480) # width and height
+
+  # Nathan Bendich:   NOTE to self: chumpy is a pain in the ass to mutate.
+  rn.camera = ProjectPoints(v=m, rt=np.zeros(3), t=np.array([0, 0, 2.]), f=np.array([w,w])/2., c=np.array([w,h])/2., k=np.zeros(5))
+  rn.frustum = {'near': 1., 'far': 10., 'width': w, 'height': h}
+  rn.set(v=m, f=m.f, bgcolor=np.zeros(3))
+
+  ## Construct point light source
+  rn.vc = LambertianPointLight(
+      f=m.f,
+      v=rn.v,
+      num_verts=len(m),
+      light_pos=np.array([-1000,-1000,-2000]),
+      vc=np.ones_like(m)*.9,
+      light_color=np.array([1., 1., 1.]))
+
+
+  ## Show it using OpenCV
+  import cv2
+  #from cv2 import CV_WINDOW_NORMAL
+  #cv2.namedWindow("main", CV_WINDOW_NORMAL)  # meant to resize the windows.  But I need Qt backend support to do this.  Would have to reinstall opencv for python, prob in a diff virtualenv or conda env
+  cv2.imshow('SMPL_{0}'.format(m.betas), rn.r)
+  print ('..Print any key while on the display window')
+  cv2.waitKey(0)
+  cv2.destroyAllWindows()
+  write_smpl(m.betas, gender=gender)
+#===================================================================================================================================
 def write_smpl(
-    betas=np.zeros((10,1)).astype('float64'),
-    gender='male'):
+  betas=np.zeros((10,1)).astype('float64'),
+  gender='male'):
   '''
     parameter "betas" is shape parameters of the human (see pdf of the SMPL paper from Mahmoud, Black, et al.)
   '''
@@ -340,6 +415,7 @@ def write_smpl(
   print('..Output mesh saved to: ', outmesh_path)
   return m
 
+#==============================================================================================================
 if __name__=="__main__":
   '''
   #body_talk_male()
@@ -350,5 +426,7 @@ if __name__=="__main__":
     female=True
   custom_body(female) # TODO: refactor to say "gender" instead of clumsy boolean
   '''
-  write_smpl()
+  male_SMPL() # takes cmd line args internally; height and weight
+  #write_smpl()
+#============================================ __main__ ==========================================
 

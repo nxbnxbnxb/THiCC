@@ -1,4 +1,106 @@
 
+  Get data from online
+    3 days for males
+    Try scrapy?
+    Probably we want all standing pose
+  Fit first 2 betas based on this data (give scrapy a shot too)
+    Pitch it
+  1 week for females
+
+  What does Dario actually NEED to fix the visa issues?
+    When does this need to be done BY?
+      Walk backwards from this and be aggressive (get a worst-case scenario)
+
+  1.
+    a.
+  2.
+  3.
+  4.
+  5.
+  6.
+  7.
+  8.
+  9.
+  10.
+  11.
+  12.
+  13.
+  14.
+  15.
+  16.
+  17.
+  18.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   For "VHMR" (360-degree-Video-HMR), I think the steps should be (all modular as possible:
     Cut up
     Get best-estimated SMPL object out of the single image

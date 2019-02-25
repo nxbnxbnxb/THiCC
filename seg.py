@@ -228,6 +228,7 @@ def segment_local(local_filename):
   FAIRLY_CERTAIN=127
   return seg_map(img, MODEL)
 #=====  end func def of   segment_local(local_filename) =====
+#seg_local = segment_local   # instead of using this "seg_local = segment_local," I did "from seg import segment_local as seg_local"
 
 #==================================================
 def segment_URL(IMG_URL):

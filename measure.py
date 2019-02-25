@@ -6,6 +6,10 @@ import imageio as ii
 import os
 
 import viz
+from viz import pltshow
+from seg import segment_local as seg_local, segment_black_background as seg_black_back
+from utils import pn
+import sympy as s
 
 # TODO: make the earlier JSON-generation via openpose automated end-to-end like this.  Everything must be MODULAR, though
 
@@ -109,6 +113,9 @@ def load_json(json_fname):
     data = json.load(json_data)
     return data
 #===================================================================================================================================
+def measure(json_fname):
+  return parse_ppl_measures(load_json(json_fname))
+#===================================================================================================================================
 def parse_ppl_measures(json_dict):
   '''
     NOTE: Extensible to whatever measurements we want later
@@ -183,6 +190,239 @@ Python code, given a polygon represented as a list of (x,y) vertex coordinates, 
 	'''
 	return 0.5 * abs(sum(x0*y1 - x1*y0
 											 for ((x0, y0), (x1, y1)) in segments(polygon))) # cross product
+"""
+#===================================================================================================================================
+def estim8_w8(json_fname, front_fname, side_fname, height):
+  # NOTE: probably they can supply us height and weight in the beginning.
+  '''
+    json from openpose
+    mask from seg.py
+  '''
+  # NOTE: running openpose is ALWAYS dirt slow.  If you want a bunch of openpose jsons, make a shell script and just run it in the background somehow.
+  # BIG picture function; we should build from ground-up too.  To estimate weight, we prob need:
+    #  height
+    #  rough volume of mask
+  measurements = get_keypoints(json_fname)
+
+
+
+  Height
+  Weight
+  Chest
+  Waist
+  Hips
+  Inseam
+  Exercise
+"""
+  
+
+
+#===================================================================================================================================
+def chest_circum_overview(json_fname, front_img, side_img):
+  # BIG PICTURE FUNCTION.  Will almost certainly not come out quite this cleanly; we have to do bottom-up programming too.  But this is the Platonic ideal of how it should look.
+  '''
+    circumference (perimeter) of body at the nipple level
+
+    params:
+    ------
+    json_fname is keypoints from openpose
+  '''
+  # TODO: scale for actual real-world height.  See how to do this from working code previously written.
+  front_mask    = seg_local(front_img)
+  side_mask     = seg_local( side_img)
+  torso_len     = hip_h - shoulder_h
+
+  # nipple height is where we measure the chest, according to www.bodyvisualizer.com ("chest")
+  nip_h         = shoulder_h + (torso_len*1./3.) # double check sign!   (depends whether hip_h or shoulder_h is bigger)   
+  # NOTE;  no part of the customers' arms are at the same height ("y value") as the customer's nipples.
+  chest_w=np.count_nonzero(front_mask[nip_h])
+  chest_l=np.count_nonzero(side_mask[nip_h])  # "length," but what this really means is distance from back to nipple.
+  return ellipse_perim(chest_w, chest_l)
+#===================================================================================================================================
+def chest_circum(json_fname, front_fname, side_fname):
+  # PROBLEM: everyone's torso is a tad different.
+  '''
+    Circumference (perimeter) of body at the nipple level
+    This method of finding the chest circumference assumes the customer's arms are perpendicular to the person's height (I call this "jesus pose,").  They don't NEED to be in this pose, but they definitely cannot be relaxed at the person's sides or "below" parallel to the ground.
+
+    -------
+    Params:
+    -------
+    json_fname:  keypoints from openpose
+    front_fname: person in color from the front (looking them in the face)
+    side_fname:  person in color from the side (I think this is called "profile view")
+
+    ------
+    Notes:
+    ------
+    This method of finding the chest circumference assumes the customer's arms are perpendicular to the person's height (I call this "jesus pose,").  They don't NEED to be in this pose, but they definitely cannot be relaxed at the person's sides or "below" parallel to the ground.
+    Hardcoded 1./3. won't work.  It's better to trace the edge of the mask with a method like seen in old_measure.py's "find_toes(), find_crotch(), etc."
+    Better still would be to train a separate neural network to identify nipples, but this would take too much time for the MVP/prototype.
+  '''
+
+  # TODO:
+  '''
+    0.  Clean up this function ("chest_circum()")
+    1.  Deal with slight up-down shifts of the body during stepping rotation by shifting the whole mask up or down
+      a.  ie. we have 1) frontal photo and 2) side photo.  Front mask starts higher than side mask, so we shift side mask "up" by np.min(front_mask)-np.min(side_mask)
+    2.  Find armpits like I wrote the function find_crotch() to do in "old_measure.py"
+      a. how?
+    3.  Standardize the rotation pose for all get_measurements() code. (ie. all Jesus pose)
+    4.  Write in the code for get_Ellipse_circum()
+    5.  Test this function
+    6.  F
+    7.
+    8.
+    9.
+    10.
+    11.
+    12.
+  '''
+  # ideas:  How to find armpit
+  '''
+    1.  Maximize dist from bottom left corner
+      a.
+    2.  Maximize dist from bottom right corner (for other armpit)
+      a.
+    3.  1 and 2 while also
+      a.  Trace the arm until you hit the body
+      b.  Trace the leg until you hit the arm
+      c.
+      d.
+      e.
+      f.
+    4.
+    5.
+    6.
+    7.
+    8.
+    9.
+    10.
+    11.
+    12.
+  '''
+  measurements  = measure(json_fname)
+
+  # NOTE: because of how "y" is set up, Hip['y'] is larger than LShoulder['y'], despite the fact that the hip is below the shoulder in real life.
+  shoulder_h    = measurements['Neck']['y']
+  hip_h         = measurements['MidHip']['y']
+  torso_len     = hip_h - shoulder_h
+  print("torso_len: \n",torso_len)
+  print("hip_h: \n",hip_h)
+  print("shoulder_h: \n",shoulder_h)
+  print("torso_len: \n",torso_len)
+  # nipple height is where we measure the chest, according to www.bodyvisualizer.com ("chest")
+
+  NIP_IN_TORSO  = 0.31460 #0.31460 is approximately 28/89, derived empirically from ONE image of myself 
+  # previous values: 1./3., 2./5.
+  nip_h         = shoulder_h + (torso_len*NIP_IN_TORSO) 
+  pn(3)
+  front_mask    = np.rot90(seg_local(front_fname))
+  side_mask     = np.rot90(seg_local( side_fname))
+  pn(3)
+  #origs_height  = orig_pix_h(front_fname) # not necessary
+  orig_h        = np.asarray(ii.imread(front_fname)).shape[0]
+  masks_h       = front_mask.shape[0]
+  print("masks_h:",masks_h)
+  print("orig_h:",orig_h)
+  nip_h        *= float(masks_h)/float(orig_h)
+  nip_h         = int(round(nip_h))
+  print("nip_h is \n",nip_h)
+  # TODO: pltshow() in parallel (ie. like hmr)
+
+  # show nipple identified
+  cutout,segmap=seg_black_back(front_fname)
+  WHITE=255
+  cutout[nip_h]=WHITE 
+  pltshow(cutout)   # success on /home/n/N.jpg
+
+  # test nipple identified from side view
+  cutout,segmap=seg_black_back(side_fname)
+  cutout[nip_h]=WHITE 
+  pltshow(cutout)
+  # Data:
+  #   For these particular images, the side view is 7 units shifted "up" from the   front view
+  #   NOTE: we ought to identify a rotation point where from the side view the arms are directly at the customer's sides.
+
+  CONST=10
+  #pltshow(front_mask[nip_h-CONST:nip_h+CONST,:])
+  #pltshow(front_mask[int(shoulder_h*float(masks_h)/float(orig_h)):int(hip_h*float(masks_h)/float(orig_h)),:])
+  #pltshow(front_mask)
+  print("front_mask.shape = \n",front_mask.shape)
+  print("side_mask.shape = \n",side_mask.shape)
+  pltshow( side_mask)
+
+  # NOTE;  no part of the customers' arms are at the same height ("y value") as the customer's nipples.
+  chest_w=np.count_nonzero(front_mask[nip_h]) # TODO; rename more descriptively?
+  chest_l=np.count_nonzero( side_mask[nip_h])  # "length," but what this really means is distance from back to nipple.
+  # ellipse circumference
+  return ellipse_circum(chest_w/2., chest_l/2.)
+  # TODO: try to catch all bugs before they get too serious
+#================================================= chest_circum() ======================================================================
+
+#=======================================================================================================================================
+def ellipse_circum(a, b):
+  '''
+  '''
+  #major and minor axes
+  # https://en.wikipedia.org/wiki/Ellipse
+  # https://stackoverflow.com/questions/22560342/calculate-an-integral-in-python
+  # TODO: generalize this s.t.  the bigger of a and b gets assigned as a and  the smaller as b
+  # TODO: finish this function and integrate it into chest_circum().
+  # TODO: conda install sympy into env "cat"
+  # TODO: finish this function and integrate it into chest_circum().
+
+  # perhaps use an approximation of ellipse_circ() instead (https://www.mathsisfun.com/geometry/ellipse-perimeter.html 
+  #                                                         and/or wikipedia.org/wiki/Ellipse)
+
+  if b > a:
+    tmp=a; a=b; b=tmp # swap s.t. a is always the semi-major axis
+
+  e=math.sqrt(1-(b**2)/(a**2))
+  theta=s.symbols('theta')
+  return s.integrate(
+    s.sqrt(
+      1-\
+      e**2*s.sin(theta)**2),
+    (theta, 0, math.pi/2.))
+  # rename oval_perim()?  slightly shorter and less intimidating
+#================================================= ellipse_cirum() =====================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 #===================================================================================================================================
 def measure_chest(json_fname):
   '''
@@ -239,7 +479,78 @@ def pixel_height(mask):
   locs=np.nonzero(mask)
   return np.amax(locs[0])-np.amin(locs[0])
 #===================================================================================================================================
+def pix_h(mask):
+  return pixel_height(mask)
+#===================================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#===================================================================================================================================
+def orig_pix_h(img_fname):
+  '''
+    Pixel height is different in the original vs. after deeplab is done with it
+    The result spit out after deeplab segmentation is resized
+    See: pix_h(img_fname)
+  '''
+  # h = height
+  orig_img=np.asarray(ii.imread(img_fname))
+  orig_h=orig_img.shape[0]
+  mask=np.rot90(seg_local(img_fname))
+  h_after_seg=pix_h(mask)
+  h_as_frac_of_frame=h_after_seg / mask.shape[0] # python3 so no need for (+ 0.0)
+  return h_as_frac_of_frame * orig_h
+#===================================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+#===================================================================================================================================
+def test_chest_circ():
+  # NATHAN
+  json_fname  = '/home/n/Dropbox/vr_mall_backup/IMPORTANT/front__nude__grassy_background_keypoints.json'
+  #'/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/front__nude__grassy_background_keypoints.json'
+  front_fname = '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/front__nude__grassy_background.jpg'
+  side_fname  = '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/unclothed_outside_delaware_____uniform_background_with_wobbling/000000143.jpg'
+  chest_circum(json_fname,front_fname,side_fname)
+#===================================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#===================================================================================================================================
 if __name__=="__main__":
+  test_chest_circ()
+  '''
   # all code here assumes the person we're dealing with is Nathan.  
   #   ie. Nathan is Male, height=tall, width=small, shoulders-hip ratio is reasonable
 
@@ -294,6 +605,7 @@ if __name__=="__main__":
   """
 
   #os.system('source /home/ubuntu/Documents/code/hmr/venv_hmr/bin/activate && cd /home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world && python2 hello_smpl.py 0 0 0 0 0 0 {0} 0 0 0 && blender'.format(chest_area)) # TODO: fiddle with chest area
+  '''
 #===================================================================================================================================
 
 
