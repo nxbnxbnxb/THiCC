@@ -1,6 +1,58 @@
 import numpy as np
 np.seterr(all='raise')
 
+
+
+
+#measure.py calculation of circumference of ellipse
+  #  My current understanding is that perfect calculation for the ellipse circumference is impossible.  So trying to brute-force by sympy.integrate() just won't work; I need an acceptable approximation.
+#=======================================================================================================================================
+def ellipse_circum_approx(a, b, precision=9):
+  # TODO: Document this function
+  '''
+    precision
+    https://www.mathsisfun.com/geometry/ellipse-perimeter.html:
+    See: "Infinite Series 2"
+ 
+    Picked this one because I can get it arbitrarily accurate.  Also, calculation is quick.
+  '''
+  #=======================================================================================================================================
+  def fac(n):
+    # rewrote this b.c. I didn't find a library that could do half-factorials.
+    # n is any mixed number with "1/2" as the fraction at the end. n must also be greater than or equal to -0.5. (ie. -0.5, 0.5, 1.5, 2.5, ... etc.)
+    #assert n-0.5 == int(n-0.5) and n >= -0.5   # asserts sometimes **** up in python just b/c... idek why.
+    # TODO: double-check that n-0.5==int(n-0.5) works in all cases.
+    if n ==-0.5:
+      # base case for recursion
+      return math.sqrt(math.pi)
+    else:
+      return n*fac(n-1)
+  #=======================================================================================================================================
+  def half_c_n(n):
+    #choose_n
+    #(0.5)
+    #( n )
+    #assert int(n) == n # integer   # asserts sometimes **** up in python just b/c... idek why.
+    from math import factorial as f
+    return fac(0.5)/\
+      (f(n) * fac(n-0.5))
+  #=======================================================================================================================================
+  def series(n,h):
+    # https://www.mathsisfun.com/numbers/factorial.html [and more www.mathsisfun.com links]
+
+    # TODO: clean up all the "n"s and "i"s floating around and confusing things
+    return np.sum([half_c_n(i)**2*(h**i) for i in range(n)])
+  if b > a:
+    tmp=a; a=b; b=tmp # swap such that a is always the semi-major axis (bigger than b)
+  # TODO: double-check this is right
+  h   = ((a-b)**2) / ((a+b)**2)
+  return 4*a*math.pi*(a+b)*series(precision,h)
+#==================================== ellipse_circum_approx() ==========================================================================
+
+
+
+
+
 #from smpl/smpl_webuser_hello_world/hello_smpl.py
     '''
     if isinstance(flabbiness, Number):

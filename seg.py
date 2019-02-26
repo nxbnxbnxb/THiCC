@@ -419,6 +419,7 @@ def segment_black_background(local_fname):
   # logical_not() because mask should be where there's a person, not where there's background
 #========== end func def of  segment_black_background(params): ==========
 
+#========================================================================
 if __name__=='__main__':
   print('\n'*2)
   if len(sys.argv) == 1:
@@ -442,7 +443,7 @@ if __name__=='__main__':
     # TODO: error checking:
     #   if len(sys.argv) < 3:   # should it be less than 3?  more?
     overlay_imgs(fnames[0], fnames[1])  # tODO: hardcode the fnames?
-#============== __main__ ========================================
+#========================== __main__ =====================================
 
 
 

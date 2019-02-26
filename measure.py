@@ -1,15 +1,17 @@
 import json
 import numpy as np
 import math
+from math import pi
 import matplotlib.pyplot as plt
 import imageio as ii
 import os
+import sys
 
 import viz
 from viz import pltshow
 from seg import segment_local as seg_local, segment_black_background as seg_black_back
 from utils import pn
-import sympy as s
+#import sympy as s
 
 # TODO: make the earlier JSON-generation via openpose automated end-to-end like this.  Everything must be MODULAR, though
 
@@ -214,7 +216,7 @@ def estim8_w8(json_fname, front_fname, side_fname, height):
   Inseam
   Exercise
 """
-  
+ 
 
 
 #===================================================================================================================================
@@ -239,7 +241,7 @@ def chest_circum_overview(json_fname, front_img, side_img):
   chest_l=np.count_nonzero(side_mask[nip_h])  # "length," but what this really means is distance from back to nipple.
   return ellipse_perim(chest_w, chest_l)
 #===================================================================================================================================
-def chest_circum(json_fname, front_fname, side_fname):
+def chest_circum(json_fname, front_fname, side_fname, cust_height):
   # PROBLEM: everyone's torso is a tad different.
   '''
     Circumference (perimeter) of body at the nipple level
@@ -301,25 +303,23 @@ def chest_circum(json_fname, front_fname, side_fname):
     11.
     12.
   '''
+  # func chest_circum()
   measurements  = measure(json_fname)
 
   # NOTE: because of how "y" is set up, Hip['y'] is larger than LShoulder['y'], despite the fact that the hip is below the shoulder in real life.
   shoulder_h    = measurements['Neck']['y']
   hip_h         = measurements['MidHip']['y']
   torso_len     = hip_h - shoulder_h
-  print("torso_len: \n",torso_len)
-  print("hip_h: \n",hip_h)
-  print("shoulder_h: \n",shoulder_h)
-  print("torso_len: \n",torso_len)
   # nipple height is where we measure the chest, according to www.bodyvisualizer.com ("chest")
 
   NIP_IN_TORSO  = 0.31460 #0.31460 is approximately 28/89, derived empirically from ONE image of myself 
   # previous values: 1./3., 2./5.
   nip_h         = shoulder_h + (torso_len*NIP_IN_TORSO) 
-  pn(3)
+  pn(3) # b/c seg_local prints some shit to stdout
   front_mask    = np.rot90(seg_local(front_fname))
   side_mask     = np.rot90(seg_local( side_fname))
-  pn(3)
+  pn(3) # b/c seg_local prints some shit to stdout
+  pix_height    = pix_h(front_mask)
   #origs_height  = orig_pix_h(front_fname) # not necessary
   orig_h        = np.asarray(ii.imread(front_fname)).shape[0]
   masks_h       = front_mask.shape[0]
@@ -330,7 +330,7 @@ def chest_circum(json_fname, front_fname, side_fname):
   print("nip_h is \n",nip_h)
   # TODO: pltshow() in parallel (ie. like hmr)
 
-  # show nipple identified
+  # show nipple identified (front view)
   cutout,segmap=seg_black_back(front_fname)
   WHITE=255
   cutout[nip_h]=WHITE 
@@ -343,22 +343,130 @@ def chest_circum(json_fname, front_fname, side_fname):
   # Data:
   #   For these particular images, the side view is 7 units shifted "up" from the   front view
   #   NOTE: we ought to identify a rotation point where from the side view the arms are directly at the customer's sides.
+  #   NOTE: TODO TODO TODO TODO TODO TODO TODO TODO get a better video of you s.t. all the measurements can be taken (try Jesus pose first)
 
   CONST=10
   #pltshow(front_mask[nip_h-CONST:nip_h+CONST,:])
   #pltshow(front_mask[int(shoulder_h*float(masks_h)/float(orig_h)):int(hip_h*float(masks_h)/float(orig_h)),:])
-  #pltshow(front_mask)
-  print("front_mask.shape = \n",front_mask.shape)
-  print("side_mask.shape = \n",side_mask.shape)
-  pltshow( side_mask)
 
   # NOTE;  no part of the customers' arms are at the same height ("y value") as the customer's nipples.
   chest_w=np.count_nonzero(front_mask[nip_h]) # TODO; rename more descriptively?
   chest_l=np.count_nonzero( side_mask[nip_h])  # "length," but what this really means is distance from back to nipple.
+  # wrong unless the image 
+  print("chest_w: {0}".format(chest_w))
+  print("chest_l: {0}".format(chest_l))
+  pltshow(front_mask)
+  pltshow(side_mask)
   # ellipse circumference
-  return ellipse_circum(chest_w/2., chest_l/2.)
+  return ellipse_circum(chest_w/2., chest_l/2.)/pix_height*cust_height
   # TODO: try to catch all bugs before they get too serious
 #================================================= chest_circum() ======================================================================
+
+#======================================= all for ellipse circum calculation.  Doesn't work yet.  def ellipse_circum_approx(a,b, precision=2): =======================================
+#=======================================================================================================================================
+def fac(n):
+  # rewrote this b.c. I didn't find a library that could do half-factorials.
+  # n is any mixed number with "1/2" as the fraction at the end. n must also be greater than or equal to -0.5. (ie. -0.5, 0.5, 1.5, 2.5, ... etc.)
+  #assert n-0.5 == int(n-0.5) and n >= -0.5  for some reason this assertion aint workin
+  # TODO: double-check that n-0.5==int(n-0.5) works in all cases.
+  if n ==-0.5:
+    # base case for recursion
+    return math.sqrt(math.pi)
+  else:
+    return n*fac(n-1.)
+#=======================================================================================================================================
+def half_c_n(n):
+  #choose_n
+  #(0.5)
+  #( n )
+  assert int(n) == n # integer
+  from math import factorial as f
+  #print(fac(0.5))
+  #print(f(n))
+  #print(fac(n-0.5))
+  return fac(0.5)/\
+    (f(n) * fac(n-0.5))
+#=======================================================================================================================================
+def sequence(n,h):
+  # https://www.mathsisfun.com/numbers/factorial.html [and more www.mathsisfun.com links]
+
+  # TODO: clean up all the "n"s and "i"s floating around and confusing things
+  return [half_c_n(i)**2*(h**i) for i in range(n)]  # sequence, technically
+#=======================================================================================================================================
+def series(n,h):
+  # https://www.mathsisfun.com/numbers/factorial.html [and more www.mathsisfun.com links]
+
+  # TODO: clean up all the "n"s and "i"s floating around and confusing things
+  return np.sum([half_c_n(i)**2*(h**i) for i in range(n)])
+#=======================================================================================================================================
+def perim_e(a, b, precision=6):
+  """Get perimeter (circumference) of ellipse
+
+  Parameters
+  ----------
+  %(input)s
+  a : scalar
+    Length of one of the SEMImajor axes (like radius, not diameter)
+  b : scalar
+    Length of the other semimajor axis
+  precision : int
+    How close to the actual circumference we want to get.  Note: this function will always underestimate the ellipse's circumference.
+
+  Returns
+  -------
+  float
+    Perimeter
+  gaussian_filter : ndarray
+      Returned array of same shape as `input`.
+
+  Notes
+  -----
+  As far as I can tell from ~5 hours working on this, the precise circumference of an ellipse is an open problem in mathematics.  If you see the integral on Wikipedia and have some idea how to solve it, please let the mathematics community (and me: [nathanbendich@gmail.com]) know!
+  The real ellipse's circumference will always be more than what this infinite series predicts because the infinite series is a sum of a positive sequence.
+
+  According to https://www.mathsisfun.com/geometry/ellipse-perimeter.html, Ramanujan's approximation that perimeter ~= pi*(a+b)*(1+(3h/(10+sqrt(4-3*h)))) seems to be higher than this series approximation.
+  I think Sympy uses Approx. 3 from that ellipse page (https://www.mathsisfun.com/geometry/ellipse-perimeter.html).  I only tested for a = 10 and values of b on the page https://www.mathsisfun.com/geometry/ellipse-perimeter.html (I really hope this link doesn't end up breaking)
+    But sympy is slowwww.  Maybe for refactoring, use Ramanujan's approx 3 but turn it into pure python or numpy or something fast?  Or take the mean of this series and Ramanujan's approx. 3?  There's no analytical reason for that; I'm just basing it off the fact that this series undershoots and Ramanujan's approximation overshoots.
+  Another potential improvement is to actually take the time to understand the "Binomial Coefficient with half-integer factorials" mentioned on https://www.mathsisfun.com/geometry/ellipse-perimeter.html.  I attempted this for awhile, but got caught on some bug I didn't understand, opting for hard-coding 6 "levels of precision" instead.  So long as there are no overflows, extending this to arbitrary precision should be doable; it just takes a little more mathematical rigor and care than I'm giving right now.  Anyway, I've spent too long writing this documentation, but it was very personally satisfying to take the time to do this right.  I really need to be practical about churning out code faster though, haha.  While just prototyping, this level of detail might not be practical.
+
+  Examples
+  --------
+  """
+  # This function uses approximations mentioned in these sources:
+  #   1.(https://www.mathsisfun.com/geometry/ellipse-perimeter.html) and 
+  #   2. https://en.wikipedia.org/wiki/Ellipse
+  #   3. https://stackoverflow.com/questions/42310956/how-to-calculate-perimeter-of-ellipse
+  #   4. 
+  # For more reading while refactoring, please consult the wikipedia page, https://math.stackexchange.com/, or wherever else.
+  # func perim_e():
+  funcname=  sys._getframe().f_code.co_name
+  if b > a:
+    tmp=a; a=b; b=tmp # swap such that a is always the semi-major axis (bigger than b)
+  if precision <= 0:
+    pn(2); print("In function ",funcname); print("WARNING:  precision cannot be that low"); pn(2)
+  if precision >  6:
+    # precision higher than 6 not supported as of Tue Feb 26 12:06:35 EST 2019
+    pn(2); print("In function ",funcname); print("WARNING:  precision that high is not yet supported"); pn(2)
+  # To understand what each symbol (h, seq, a, b) means, please see our sponsor at 
+  #   https://www.mathsisfun.com/geometry/ellipse-perimeter.html.
+  h=((a-b)**2)/((a+b)**2)
+  seq=[  1/          h**0,
+         1/        4*h**1,
+         1/       64*h**2,
+         1/      256*h**3,
+        25/    16384*h**4, 
+        49/    65536*h**5, 
+       441/  1048576*h**6]  # only up to 7 terms
+  perim=pi*(a+b)*sum(seq[:precision])
+  return perim
+#=====================================================    perim_e()   ==================================================================
+
+#=======================================================================================================================================
+def ellipse_circum_approx(a, b, precision=6):
+  return perim_e(a, b, precision=6)
+#=============================================    ellipse_circum_approx()   ============================================================
+ 
+
 
 #=======================================================================================================================================
 def ellipse_circum(a, b):
@@ -371,21 +479,10 @@ def ellipse_circum(a, b):
   # TODO: finish this function and integrate it into chest_circum().
   # TODO: conda install sympy into env "cat"
   # TODO: finish this function and integrate it into chest_circum().
-
-  # perhaps use an approximation of ellipse_circ() instead (https://www.mathsisfun.com/geometry/ellipse-perimeter.html 
-  #                                                         and/or wikipedia.org/wiki/Ellipse)
-
+  # sympy is TOO SLOW.
   if b > a:
-    tmp=a; a=b; b=tmp # swap s.t. a is always the semi-major axis
-
-  e=math.sqrt(1-(b**2)/(a**2))
-  theta=s.symbols('theta')
-  return s.integrate(
-    s.sqrt(
-      1-\
-      e**2*s.sin(theta)**2),
-    (theta, 0, math.pi/2.))
-  # rename oval_perim()?  slightly shorter and less intimidating
+    tmp=a; a=b; b=tmp # swap such that a is always the semi-major axis (bigger than b)
+  return ellipse_circum_approx(a, b)
 #================================================= ellipse_cirum() =====================================================================
 
 
@@ -527,11 +624,14 @@ def orig_pix_h(img_fname):
 #===================================================================================================================================
 def test_chest_circ():
   # NATHAN
+  NATHAN_H    = 75 # inches
   json_fname  = '/home/n/Dropbox/vr_mall_backup/IMPORTANT/front__nude__grassy_background_keypoints.json'
   #'/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/front__nude__grassy_background_keypoints.json'
   front_fname = '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/front__nude__grassy_background.jpg'
   side_fname  = '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/unclothed_outside_delaware_____uniform_background_with_wobbling/000000143.jpg'
-  chest_circum(json_fname,front_fname,side_fname)
+  chest_circ=chest_circum(json_fname,front_fname,side_fname, NATHAN_H)
+  print(chest_circ)
+  return chest_circ
 #===================================================================================================================================
 
 
