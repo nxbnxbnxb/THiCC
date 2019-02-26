@@ -1,8 +1,8 @@
 
   What did you learn today?
-    Modularity.
-    Anti-Platonicity.  Act by intuition, reflect by data.
+    Modularity.  Anti-Platonicity.  Act by intuition, reflect by data.
 
+  Try to keep this TODO.txt for TheMall project ONLY.
 
 
 
@@ -17,16 +17,80 @@ ________________________________
   Tue Feb 26 07:04:46 EST 2019
 ________________________________
 
+  Tomorrow morning, figure out how to get better data for chest-circum_get().
+  Auto-resizing-before-seg.py
+    img=Image.open("img.png")
+    seg.py:71:    resized_image = image.convert('RGB').resize(target_size, Image.ANTIALIAS)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   Every 3 months do:
     Update family on progress
-    Fucking SOMETHING else.
+    There was something else.  But I forgot. 
   Delete ...
     It was something related to Nyle and/or Results Tutoring
     Negotiating w/ Tivon?
     Fuck, feel like it was important.  Come back to this.
   Kill Greenpeace payment.  $20/month?  /week?
-    Kill BoA monthly maintainance fee.  How much is the minimum balance for this, again?  $500?
+    I sent an e-mail to info@wdc.greenpeace.org
+      Follow up on e-mail
+    I called SF, CA at  (415) 255-9221
+       D.C. office:     (202) 462-1177
+    They have the answering machine be annoying and refer me to info@wdc.greenpeace.org.
+
+    
+
+  Kill BoA monthly maintainance fee.  How much is the minimum balance for this, again?  $500?
+
+
   Discipline Tivon (make sure he actually COMES)
+    I texted Mr. Evans about this
+
   Text opendatadelaware Slack about local programming competitions, hackathons, etc.
 
 
