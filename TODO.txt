@@ -14,13 +14,70 @@
 
 ________________________________
 
+  Wed Feb 27 12:36:46 EST 2019
+________________________________
+
+  Take 360 degree video in 200 Wilkerdean's backyard with laptop webcam
+    If segmentation works on this, grassy background is what's helpful.  Idk why, but it is.  Many other attempts to get proper segmentation from 720x1280 resolution video on my webcam, and they have all failed.  Therefore, without understanding why, I ought to be able to get proper results just by taking 360 degree video at home, if I can EVER get proper results from my shitty Ubuntu laptop webcam.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
   Tue Feb 26 07:04:46 EST 2019
 ________________________________
 
   Tomorrow morning, figure out how to get better data for chest-circum_get().
+    We're trying video-take from home-backyard
   Auto-resizing-before-seg.py
     img=Image.open("img.png")
     seg.py:71:    resized_image = image.convert('RGB').resize(target_size, Image.ANTIALIAS)
+
 
 
 

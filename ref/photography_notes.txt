@@ -1,0 +1,5 @@
+
+  Outside is good for diffuse light, but you want the right brightness
+  Also the right background
+  Basically, you need numpy/scipy/tensorflow to be able to tell where your body is relative to the background.
+  I AM sure that with Shaina's Android camera in the 200 Wilkerdean house's backyard, segmentation worked well.  The question is just why, or what combination of "why"s

@@ -1,11 +1,10 @@
 
 # imports useful for access in python shell rather than for use in utils.py
-#import imageio as ii
 #import pandas as pd
 #from   mpl_toolkits.mplot3d import Axes3D   # import no longer used (Dec. 16, 2018).  plots VERY BASIC 3d shapes
 import numpy as np
 np.seterr(all='raise')
-import imageio as ii
+import imageio as ii # not in hmr venv for some reason.  Can comment out when necessary.
 from PIL import Image
 
 import pickle as pkl

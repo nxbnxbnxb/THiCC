@@ -2,6 +2,44 @@ import numpy as np
 np.seterr(all='raise')
 
 
+# seg.py manually cropping "Jesus pose"
+
+#================================================================
+def seg_local_man_crop(local_filename):
+  # man_crop means "manual crop"
+  # tried, didn't work, at least on the shitty photo I took in the library.  (n_jesus_pose___library_0___plt_nums.png in my Google Drive)
+
+  #img=scipy.ndimage.io.imread(local_filename)
+  img=np.asarray(ii.imread(local_filename)).astype('float64') # TODO: delete this commented-out line
+  img=img[200:1000] # crop for 
+  #================================================================
+  #================================================================
+  LABEL_NAMES = np.asarray([
+      'background', 'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus',
+      'car', 'cat', 'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike',
+      'person', 'pottedplant', 'sheep', 'sofa', 'train', 'tv'
+  ])
+  #================================================================
+  #================================================================
+  FULL_LABEL_MAP = np.arange(len(LABEL_NAMES)).reshape(len(LABEL_NAMES), 1)
+  FULL_COLOR_MAP = label_to_color_image(FULL_LABEL_MAP)
+  MODEL_NAME = 'mobilenetv2_coco_voctrainaug'
+  _DOWNLOAD_URL_PREFIX = 'http://download.tensorflow.org/models/'
+  _MODEL_URLS = {
+      'mobilenetv2_coco_voctrainaug': 'deeplabv3_mnv2_pascal_train_aug_2018_01_29.tar.gz',
+      'mobilenetv2_coco_voctrainval': 'deeplabv3_mnv2_pascal_trainval_2018_01_29.tar.gz'
+  }
+  _TARBALL_NAME = 'deeplab_model.tar.gz'
+  model_dir = './'
+  download_path = os.path.join(model_dir, _TARBALL_NAME)
+  # urllib.request.urlretrieve(_DOWNLOAD_URL_PREFIX + _MODEL_URLS[MODEL_NAME], download_path)
+  MODEL = DeepLabModel(download_path) # segment_local()
+  FAIRLY_CERTAIN=127
+  return seg_map(img, MODEL)
+#=====  end func def of   segment_local(local_filename) =====
+#=======================================================================================================================================
+#=======================================================================================================================================
+#=======================================================================================================================================
 
 
 #measure.py calculation of circumference of ellipse

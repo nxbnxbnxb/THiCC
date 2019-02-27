@@ -20,7 +20,7 @@ import subprocess as sp
 from d import debug
 from save import save
 from viz import pltshow
-from utils import np_img, round_tuple, neg, no_color_shift
+from utils import np_img, round_tuple, neg, no_color_shift, pn
 
 if debug:
   from matplotlib import pyplot as plt  # NOTE:  problem on Nathan's machine (Dec. 21, 2018) is JUST with pyplot.  None of the rest of matplotlib is a problem AT ALL.
@@ -36,6 +36,7 @@ matplotlib.use('Agg')
 '''
 # The above lines didn't end up being necessary.    But it's a good FYI so future programmers can solve matplotlib display problems, though
 
+#================================================================
 class DeepLabModel(object):
   INPUT_TENSOR_NAME = 'ImageTensor:0'
   OUTPUT_TENSOR_NAME = 'SemanticPredictions:0'
@@ -88,9 +89,21 @@ class DeepLabModel(object):
     # NOTE:  this really oughta be just a one-liner; probably no need for this function to have a name
     # style  NOTE:   I don't really like encapsulation; it can make it harder to debug shit.  A programmer on this project ought to be smart enough that they can handle a few levels of nesting with a comment to explain shit?  Open to hearing other opinions, but that's mine. ----- NXB (Nathan Xin-Yu Bendich): Mon Jan 14 19:57:16 EST 2019
     width, height, RGB = img.shape
+    #print("orig_size:{0}".format(img.shape))    # these "print()" comments were left on   Wed Feb 27 10:42:16 EST 2019
     resize_ratio = float(self.INPUT_SIZE / max(width, height))
-    target_size = (int(resize_ratio * width), int(resize_ratio * height),3)
+    target_size = (int(resize_ratio * width), int(resize_ratio * height), 3)
+    #print("target_size:",target_size)
+    #pn(3)
+    '''
+    return (self.sess.run(
+        self.OUTPUT_TENSOR_NAME,
+        feed_dict={self.INPUT_TENSOR_NAME: [img]})[0],
+      resized_image)
+    ''' # As expected, before resizing, tensorflow (deeplab, technically) doesn't work.
     resized_image = skimage.transform.resize(img,target_size, anti_aliasing=True)
+    print("resized_image.shape:   \n{0}".format(resized_image.shape))
+    pn(3); print('resized_image going into deeplab')
+    pltshow(resized_image)   # I bet this doesn't work super well b/c it's HSV.  TODO: test my guess later.
     return (self.sess.run(
         self.OUTPUT_TENSOR_NAME,
         feed_dict={self.INPUT_TENSOR_NAME: [resized_image]})[0], 
@@ -203,15 +216,15 @@ def seg_map(img, model):
 def segment_local(local_filename):
   #img=scipy.ndimage.io.imread(local_filename)
   img=np.asarray(ii.imread(local_filename)).astype('float64') # TODO: delete this commented-out line
-#================================================================
-#================================================================
+  #================================================================
+  #================================================================
   LABEL_NAMES = np.asarray([
       'background', 'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus',
       'car', 'cat', 'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike',
       'person', 'pottedplant', 'sheep', 'sofa', 'train', 'tv'
   ])
-#================================================================
-#================================================================
+  #================================================================
+  #================================================================
   FULL_LABEL_MAP = np.arange(len(LABEL_NAMES)).reshape(len(LABEL_NAMES), 1)
   FULL_COLOR_MAP = label_to_color_image(FULL_LABEL_MAP)
   MODEL_NAME = 'mobilenetv2_coco_voctrainaug'
@@ -224,7 +237,7 @@ def segment_local(local_filename):
   model_dir = './'
   download_path = os.path.join(model_dir, _TARBALL_NAME)
   # urllib.request.urlretrieve(_DOWNLOAD_URL_PREFIX + _MODEL_URLS[MODEL_NAME], download_path)
-  MODEL = DeepLabModel(download_path)
+  MODEL = DeepLabModel(download_path) # segment_local()
   FAIRLY_CERTAIN=127
   return seg_map(img, MODEL)
 #=====  end func def of   segment_local(local_filename) =====
@@ -397,7 +410,8 @@ def segment_black_background(local_fname):
   # TODO: debug, generalize, etc.  Something ain't working (one of the last parts)
   # NOTE:  PIL.resize(shape)'s shape has the width and height in the opposite order from numpy's height and width
   # NOTE: weird sh!t happened when I tried to convert to 'float64' in the `np.array(Image.open(fname))` line.
-  segmap  = segment_local(local_fname)
+  segmap  = segment_local(local_fname) # segment_black_background()
+  #print("segmap.shape: \n{0}".format(segmap.shape)) # (513, 288).  Everything important happens in "segment_local()"
   segmap  = segmap.reshape(segmap.shape[0],segmap.shape[1],1)
   segmap  = np.rot90(       np.concatenate((segmap,segmap,segmap),axis=2)        )
   # I really OUGHT to scale the mask to fit the dimensions of the image (we'd have better resolution this way)
@@ -431,6 +445,8 @@ if __name__=='__main__':
     img_path=sys.argv[1]
     #IMG_URL = sys.argv[1]# TODO: uncomment to segment images on the internet.
     #segmap=segment_local(sys.argv[1])
+    pltshow(np_img(sys.argv[1]))
+    #pltshow(np.rot90(np_img(sys.argv[1]),k=1))
     no_background, segmap = segment_black_background(sys.argv[1])
     pltshow(no_background)
     pltshow(segmap.astype('float64'))
