@@ -1,0 +1,10 @@
+
+Wed Feb 27 10:46:38 EST 2019
+
+  Before going into pltshow, I get this bug (seg.py's segment_nparr(self, img), right before the return statement): 
+
+  resized_image going into deeplab
+  Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
+  saving segmentation map in  _segmented____binary_mask_.jpg
+  WARNING:root:Lossy conversion from int64 to uint8. Range [0, 15]. Convert image to uint8 prior to saving to suppress this warning.
+
