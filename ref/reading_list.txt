@@ -1,26 +1,10 @@
 
+
+
 Specific:
   Body-part-segmentation:
     https://github.com/tangzhenyu/SemanticSegmentation_DL
       Has links to various papers (kind of a glossary/index of the field of segmentation)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -52,6 +36,9 @@ Meta-learning / big-picture stuff:
 
 
 
+ Python:
+  # TODO: pltshow() in parallel (ie. like hmr) 
+
 
  CVision
   https://computervisionblog.wordpress.com/2012/02/10/the-most-cited-papers-in-computer-vision/
@@ -65,4 +52,66 @@ Meta-learning / big-picture stuff:
     Sounds kinda like what Verma said about unsupervised learning.
       I think it's critically important for real AI that the approaches be more unsupervised
     But right now all I care about is accuracy of human sizing
-    
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

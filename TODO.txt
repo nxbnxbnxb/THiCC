@@ -1,8 +1,9 @@
 
   What did you learn today?
-    Modularity.  Anti-Platonicity.  Act by intuition, reflect by data.
+    Just do it.
 
-  Try to keep this TODO.txt for TheMall project ONLY.
+  Try to keep this TODO.txt for direct actions supporting TheMall project ONLY.
+    Separate TODO should be for other things (part-time jobs, arubaitos, money, friends, classes that might INdirectly develop into mall proj relevance, etc.)
 
 
 
@@ -14,11 +15,307 @@
 
 ________________________________
 
+  Thu Feb 28 11:27:09 EST 2019
+________________________________
+
+  0.  Auto-crop with 1st segmentation, then leave a lil space over the top of the head and the bottom of the feet
+  1.  Shift s.t. mean of top and bottom are in the same location for both
+  2.  Schedule a call with Dario & the guys
+
+  Git commit && gpus
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/home/n/anaconda3/envs/cat/lib/python3.6/site-packages/skimage/transform/_warps.py:105: UserWarning: The default mode, 'constant', will be changed to 'reflect' in skimage 0.15.
+  warn("The default mode, 'constant', will be changed to 'reflect' in "
+  resized_image.shape:   
+  (513, 288, 3)
+
+
+
+
+  resized_image going into deeplab
+  saving segmentation map in  _segmented____binary_mask_.jpg
+  WARNING:root:Lossy conversion from int64 to uint8. Range [0, 15]. Convert image to uint8 prior to saving to suppress this warning.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  refactor seg.py; it's a huge pain.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  1.  Nipple-height-finding doesn't quite work.
+    a.  Ideal solution involves a Conv neural network trained on labeled locations of people's nipples
+      1.  And then a vertical shift from the front view to the size view (ie. bottoms of feet should be at same height)
+        a.  The vertical shift ought to be more subtly tuned than I was doing earlier.  Perhaps the center of the top and bottom should be in the same place.
+    b.  Oh wait but also women can't do that.  Unless we want bust size ON TOP of the breasts.  Hm.  Maybe for clothes that actually IS what we want.
+  2.  The assumption that chest circumference is exactly an ellipse overshoots the actual chest measurement.
+    a.  Solve by adding a constant?
+  3.  If we reverse-engineer www.bodyvisualizer.com, we'll have to find a way to convert that mesh to SMPL.
+    a.  Also, we may be able to figure out which body mesh Black et al. are using in bodyvisualizer by chronologically going through the list of papers on Tuebingen.edu/black
+  4.
+  5.
+  6.
+  7.
+  8.
+  9.
+  10.
+  11.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
   Wed Feb 27 12:36:46 EST 2019
 ________________________________
 
+  If we reverse-engineer www.bodyvisualizer.com, we'll have to find a way to convert that mesh to SMPL.
+    1.  Also, we may be able to figure out which body mesh Black et al. are using in bodyvisualizer by chronologically going through the list of papers on Tuebingen.edu/black
+      a.
+    2.
+    3.
+    4.
+    5.
+    6.
+    7.
+    8.
+    9.
+    10.
+    11.
+    12.
+    13.
+    14.
+    15.
+    16.
+    17.
+    18.
+
+  "n8" is better than "n."  We could also do "nxb;" similar to Stallman's "rms"
+  On openDataDelaware Slack, ask about local programming competitions/hackathons/   CVision, graphics, or VR conventions.  Do this while sitting in graphics class.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Run openpose (JSON) on the frontal position.  
+    /home/n/Dropbox/vr_mall_backup/imgs/n8_front___jesus_legs_closed/000000500.jpg
+  No GUI, etc.
+  Save "keypoints_rendered" image
+    DONE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   Take 360 degree video in 200 Wilkerdean's backyard with laptop webcam
     If segmentation works on this, grassy background is what's helpful.  Idk why, but it is.  Many other attempts to get proper segmentation from 720x1280 resolution video on my webcam, and they have all failed.  Therefore, without understanding why, I ought to be able to get proper results just by taking 360 degree video at home, if I can EVER get proper results from my shitty Ubuntu laptop webcam.
+    DONE.
 
 
 
@@ -13393,5 +13690,8 @@ ________________________________
     Anything for the project.
     It won't last long enough.  The shekels give you more optionality than the laptop battery
     When you have a little more $, the battery would be gr8
+    DONE!
 
   Look up if there's a cmd line browser like vim that lets me split-screen
+
+    Modularity.  Anti-Platonicity.  Act by intuition, reflect by data.

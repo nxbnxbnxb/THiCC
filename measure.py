@@ -11,7 +11,7 @@ import sys
 import viz
 from viz import pltshow
 from seg import segment_local as seg_local, segment_black_background as seg_black_back
-from utils import pn
+from utils import pn, crop_person
 #import sympy as s
 
 # TODO: make the earlier JSON-generation via openpose automated end-to-end like this.  Everything must be MODULAR, though
@@ -221,27 +221,6 @@ def estim8_w8(json_fname, front_fname, side_fname, height):
 
 
 #===================================================================================================================================
-def chest_circum_overview(json_fname, front_img, side_img):
-  # BIG PICTURE FUNCTION.  Will almost certainly not come out quite this cleanly; we have to do bottom-up programming too.  But this is the Platonic ideal of how it should look.
-  '''
-    circumference (perimeter) of body at the nipple level
-
-    params:
-    ------
-    json_fname is keypoints from openpose
-  '''
-  # TODO: scale for actual real-world height.  See how to do this from working code previously written.
-  front_mask    = seg_local(front_img)
-  side_mask     = seg_local( side_img)
-  torso_len     = hip_h - shoulder_h
-
-  # nipple height is where we measure the chest, according to www.bodyvisualizer.com ("chest")
-  nip_h         = shoulder_h + (torso_len*1./3.) # double check sign!   (depends whether hip_h or shoulder_h is bigger)   
-  # NOTE;  no part of the customers' arms are at the same height ("y value") as the customer's nipples.
-  chest_w=np.count_nonzero(front_mask[nip_h])
-  chest_l=np.count_nonzero(side_mask[nip_h])  # "length," but what this really means is distance from back to nipple.
-  return ellipse_perim(chest_w, chest_l)
-#===================================================================================================================================
 def chest_circum(json_fname, front_fname, side_fname, cust_height):
   # PROBLEM: everyone's torso is a tad different.
   '''
@@ -276,10 +255,6 @@ def chest_circum(json_fname, front_fname, side_fname, cust_height):
     6.  F
     7.
     8.
-    9.
-    10.
-    11.
-    12.
   '''
   # ideas:  How to find armpit
   '''
@@ -292,22 +267,13 @@ def chest_circum(json_fname, front_fname, side_fname, cust_height):
       b.  Trace the leg until you hit the arm
       c.
       d.
-      e.
-      f.
     4.
-    5.
-    6.
-    7.
-    8.
-    9.
-    10.
-    11.
-    12.
   '''
-  # func chest_circum()
+  # We're within func chest_circum()
   measurements  = measure(json_fname)
 
-  # NOTE: because of how "y" is set up, Hip['y'] is larger than LShoulder['y'], despite the fact that the hip is below the shoulder in real life.
+  # Because of how openpose sets up 'y', Hip['y'] is larger than LShoulder['y'], 
+    # even though the hip is below the shoulder in real life.
   shoulder_h    = measurements['Neck']['y']
   hip_h         = measurements['MidHip']['y']
   torso_len     = hip_h - shoulder_h
@@ -316,9 +282,15 @@ def chest_circum(json_fname, front_fname, side_fname, cust_height):
   NIP_IN_TORSO  = 0.31460 #0.31460 is approximately 28/89, derived empirically from ONE image of myself 
   # previous values: 1./3., 2./5.
   nip_h         = shoulder_h + (torso_len*NIP_IN_TORSO) 
-  pn(3) # b/c seg_local prints some shit to stdout
+  orig_imgs_nip_h=int(round(nip_h))
   front_mask    = np.rot90(seg_local(front_fname))
   side_mask     = np.rot90(seg_local( side_fname))
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO: crop somewhere around here; 
+  #   integr8 the cropped (more accur8) segmentation into chest_circum()
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
   pn(3) # b/c seg_local prints some shit to stdout
   pix_height    = pix_h(front_mask)
   #origs_height  = orig_pix_h(front_fname) # not necessary
@@ -326,39 +298,30 @@ def chest_circum(json_fname, front_fname, side_fname, cust_height):
   masks_h       = front_mask.shape[0]
   print("masks_h:",masks_h)
   print("orig_h:",orig_h)
+
+  # changing nip_h to be within the mask's "height scale" :
   nip_h        *= float(masks_h)/float(orig_h)
   nip_h         = int(round(nip_h))
   print("nip_h is \n",nip_h)
-  # TODO: pltshow() in parallel (ie. like hmr)
 
-  # show nipple identified (front view)
-  cutout,segmap=seg_black_back(front_fname)
-  WHITE=255
-  cutout[nip_h]=WHITE 
-  pltshow(cutout)   # success on /home/n/N.jpg
-
-  # test nipple identified from side view
-  cutout,segmap=seg_black_back(side_fname)
-  cutout[nip_h]=WHITE 
-  pltshow(cutout)
   # Data:
   #   For these particular images, the side view is 7 units shifted "up" from the   front view
-  #   NOTE: we ought to identify a rotation point where from the side view the arms are directly at the customer's sides.
-  #   NOTE: TODO TODO TODO TODO TODO TODO TODO TODO get a better video of you s.t. all the measurements can be taken (try Jesus pose first)
+  #   NOTE: we ought to identify a rotation point where from the side view the arms are directly at the customer's sides.  We also need to tell the customer exactly how to put their arms to enable easy measurement (ideally straight out; no angles)
 
   CONST=10
   #pltshow(front_mask[nip_h-CONST:nip_h+CONST,:])
   #pltshow(front_mask[int(shoulder_h*float(masks_h)/float(orig_h)):int(hip_h*float(masks_h)/float(orig_h)),:])
 
-  # NOTE;  no part of the customers' arms are at the same height ("y value") as the customer's nipples.
-  chest_w=np.count_nonzero(front_mask[nip_h]) # TODO; rename more descriptively?
+  # NOTE:  no part of the customers' arms are at the same height ("y value") as the customer's nipples.
+  chest_w=np.count_nonzero(front_mask[nip_h]) 
   chest_l=np.count_nonzero( side_mask[nip_h])  # "length," but what this really means is distance from back to nipple.
-  # wrong unless the image 
+  # TODO; rename chest_w and chest_l more descriptively?
+
   print("chest_w: {0}".format(chest_w))
   print("chest_l: {0}".format(chest_l))
   pltshow(front_mask)
   pltshow(side_mask)
-  # ellipse circumference
+  # ellipse circumference is approximately chest circumference (it overestimates a teensy bit)
   return ellipse_circum(chest_w/2., chest_l/2.)/pix_height*cust_height
   # TODO: try to catch all bugs before they get too serious
 #================================================= chest_circum() ======================================================================
@@ -624,12 +587,25 @@ def orig_pix_h(img_fname):
 
 #===================================================================================================================================
 def test_chest_circ():
+  # as of Feb 28, 2019,  timing is:  
+  #   real     0m 48.063s
+  #   user     0m 18.796s
+  #   sys      0m  0.747s
+  # in other words, much much much better than openpose.
+
   # NATHAN
   NATHAN_H    = 75 # inches
-  json_fname  = '/home/n/Dropbox/vr_mall_backup/IMPORTANT/front__nude__grassy_background_keypoints.json'
+  json_fname  = '/home/n/Dropbox/vr_mall_backup/json_imgs_openpose/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE____keypoints.json'
+  #'/home/n/Dropbox/vr_mall_backup/IMPORTANT/n8_front___jesus_pose__legs_closed___nude__grassy_background_keypoints.json'
+  #'/home/n/Dropbox/vr_mall_backup/IMPORTANT/front__nude__grassy_background_keypoints.json'
   #'/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/front__nude__grassy_background_keypoints.json'
-  front_fname = '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/front__nude__grassy_background.jpg'
-  side_fname  = '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/unclothed_outside_delaware_____uniform_background_with_wobbling/000000143.jpg'
+
+  # orig front and side imgs
+  front_fname = '/home/n/Dropbox/vr_mall_backup/imgs/n8_front___jesus_legs_closed/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE___.jpg'
+  # '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/front__nude__grassy_background.jpg'
+  side_fname  = '/home/n/Dropbox/vr_mall_backup/imgs/n8_side___jesus_pose_legs_closed/n8_side___jesus_pose___legs_closed___nude___grassy_background_Newark_DE___.jpg'
+  # '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/unclothed_outside_delaware_____uniform_background_with_wobbling/000000143.jpg'
+
   chest_circ=chest_circum(json_fname,front_fname,side_fname, NATHAN_H)
   print(chest_circ)
   return chest_circ

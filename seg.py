@@ -103,7 +103,7 @@ class DeepLabModel(object):
     resized_image = skimage.transform.resize(img,target_size, anti_aliasing=True)
     print("resized_image.shape:   \n{0}".format(resized_image.shape))
     pn(3); print('resized_image going into deeplab')
-    pltshow(resized_image)   # I bet this doesn't work super well b/c it's HSV.  TODO: test my guess later.
+    #pltshow(resized_image)   # I bet this doesn't work super well b/c it's HSV.  TODO: test my guess later.
     return (self.sess.run(
         self.OUTPUT_TENSOR_NAME,
         feed_dict={self.INPUT_TENSOR_NAME: [resized_image]})[0], 

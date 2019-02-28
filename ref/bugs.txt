@@ -1,4 +1,59 @@
 
+
+
+
+
+======================================================================
+Thu Feb 28 11:27:09 EST 2019
+
+
+
+
+  These aren't precisely "bugs," but records of why measure.py doesn't work yet:
+
+  1.  Nipple-height-finding doesn't quite work.
+    a.  Ideal solution involves a Conv neural network trained on labeled locations of people's nipples
+      1.  And then a vertical shift from the front view to the size view (ie. bottoms of feet should be at same height)
+        a.  The vertical shift ought to be more subtly tuned than I was doing earlier.  Perhaps the center of the top and bottom should be in the same place.
+    b.  Oh wait but also women can't do that.  Unless we want bust size ON TOP of the breasts.  Hm.  Maybe for clothes that actually IS what we want.
+  2.  The assumption that chest circumference is exactly an ellipse overshoots the actual chest measurement.
+    a.  Solve by adding a constant?
+  3.
+  4.
+  5.
+  6.
+  7.
+  8.
+  9.
+  10.
+  11.
+  12.
+  13.
+  14.
+  15.
+  16.
+  17.
+  18.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+======================================================================
 Wed Feb 27 10:46:38 EST 2019
 
   Before going into pltshow, I get this bug (seg.py's segment_nparr(self, img), right before the return statement): 

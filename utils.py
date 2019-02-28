@@ -2,10 +2,12 @@
 # imports useful for access in python shell rather than for use in utils.py
 #import pandas as pd
 #from   mpl_toolkits.mplot3d import Axes3D   # import no longer used (Dec. 16, 2018).  plots VERY BASIC 3d shapes
+import imageio as ii # imageio is not in hmr virtualenv.  I can comment out when necessary.
+
 import numpy as np
 np.seterr(all='raise')
-import imageio as ii # not in hmr venv for some reason.  Can comment out when necessary.
 from PIL import Image
+import skimage
 
 import pickle as pkl
 
@@ -24,6 +26,7 @@ import random
 from   copy import deepcopy
 
 from   d import debug
+from viz import pltshow
 
 # TODO:   vim "repeat any"
 # TODO:   vim command "undo any"
@@ -298,6 +301,7 @@ def hist():
     print ('\n'*2)
 
 h=hist
+H=h
 
 def print_dict(d):
     print_dict_recurs(d, 0)
@@ -419,6 +423,50 @@ def crop():
     img = Image.open(fname)
     img = np.array(img)
   '''
+#=========================================================================
+def crop_person(img, mask):
+  '''
+    ------
+    Params:
+    ------
+    mask and img both numpy arrays representing images  (see chest_circum() in measure.py)
+
+    Get mask by calling seg.seg_local(fname).   (in seg.py)
+  '''
+  # reuse of mask from earlier call to seg(imgfname)
+  # Make mask and img the same size
+  if img.shape != mask.shape:
+    mask=skimage.transform.resize(mask.astype('float64'),
+      img.shape[:2], anti_aliasing=True)
+  mask=np.round(mask).astype('int64')
+
+  # Adaptive PAD (width of img)
+  PAD=int(round(img.shape[1]*0.10)) 
+  ons   = np.nonzero(mask)
+
+  # Here I use max(), min() b/c adding PADding might land bounds outside of img
+  top   = max(  np.min(ons[0])-PAD,     0)
+  bot   = min(  np.max(ons[0])+PAD,     mask.shape[0])
+  # left and right are from our (an onlooker's) perspective, 
+  #   not the perspective of a person within the picture's view
+  left  = max(  np.min(ons[1])-PAD,     0)
+  right = min(  np.max(ons[1])+PAD,     mask.shape[1])
+
+  # Crop.
+  RGB=3
+  if len(img.shape) == RGB:
+    cropped=img[top:bot, left:right,:]
+  else:
+    cropped=img[top:bot, left:right]
+  crop_amts={
+    # TODO: there might be an extra +-1 offset here depending on how we use dist_bot, etc. later
+    'crop_amt_bot':img.shape[0]-bot,
+    'crop_amt_top':top,
+    'crop_amt_left':img.shape[1]-left,
+    'crop_amt_right':right,
+  }
+  #pltshow(cropped) # for debugging
+  return cropped, offsets
 #=========================================================================
 
 
