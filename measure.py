@@ -6,12 +6,14 @@ from math import pi
 import matplotlib.pyplot as plt
 import imageio as ii
 import os
+import subprocess as sp
 import sys
 
 import viz
 from viz import pltshow
-from seg import segment_local as seg_local, segment_black_background as seg_black_back
-from utils import pn, crop_person
+from seg import segment_local as seg_local, segment_black_background as seg_black_back, seg_img
+from utils import pn, crop_person, np_img
+from d import debug
 #import sympy as s
 
 # TODO: make the earlier JSON-generation via openpose automated end-to-end like this.  Everything must be MODULAR, though
@@ -270,6 +272,7 @@ def chest_circum(json_fname, front_fname, side_fname, cust_height):
     4.
   '''
   # We're within func chest_circum()
+  # as of Thu Feb 28 14:05:11 EST 2019, params are  def chest_circum(json_fname, front_fname, side_fname, cust_height):
   measurements  = measure(json_fname)
 
   # Because of how openpose sets up 'y', Hip['y'] is larger than LShoulder['y'], 
@@ -283,21 +286,55 @@ def chest_circum(json_fname, front_fname, side_fname, cust_height):
   # previous values: 1./3., 2./5.
   nip_h         = shoulder_h + (torso_len*NIP_IN_TORSO) 
   orig_imgs_nip_h=int(round(nip_h))
+  import imageio
+  print('Hi, just entering the function   measure.py\n\n\n\n')
+  front_img=np_img(front_fname)
+  print("front_img:  "); print('front_img.shape:{0}'.format(front_img.shape))
+  pltshow(front_img)
+  side_img=np_img(side_fname)
+  print("side_img:  ") ; print('side_img.shape:{0} '.format(side_img.shape ))
+  pltshow(side_img)
+
   front_mask    = np.rot90(seg_local(front_fname))
   side_mask     = np.rot90(seg_local( side_fname))
-  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-  # TODO: crop somewhere around here; 
-  #   integr8 the cropped (more accur8) segmentation into chest_circum()
-  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-  pn(3) # b/c seg_local prints some shit to stdout
+
+  # crop so deeplab segmentation works better the next time we segment
+  front_img, front_crops  = crop_person(np_img(front_fname), front_mask)
+  side_img,  side_crops   = crop_person(np_img(side_fname) , side_mask)
+  print("front_img:  "); print('front_img.shape:{0}'.format(front_img.shape))
+  pltshow(front_img)
+  print("side_img:  ") ; print('side_img.shape:{0} '.format(side_img.shape ))
+  pltshow(side_img)
+
+  tmp_fname='tmp.png'
+
+  # hacking around some HSV-RGB shit or SOMETHING.  Not 100% sure what's happening
+  #   still not working.  Try to get crop_person() working
+  imageio.imsave(tmp_fname,front_img)
+  front_img=np_img(tmp_fname)
+  imageio.imsave(tmp_fname,side_img)
+  side_img=np_img(tmp_fname)
+  sp.call(['rm',tmp_fname])
+  if debug:
+    pltshow(front_img)
+    pltshow(side_img )
+  front_mask              = seg_img(front_img)
+  side_mask               = seg_img(side_img)
+  '''
+  print("front_mask:  ")
+  pltshow(front_mask)
+  print("\n\n side_mask:  ")
+  pltshow(side_mask)
+  '''
+  pn(3) # I call "pn(3)" because seg_local() prints some shit to stdout
   pix_height    = pix_h(front_mask)
   #origs_height  = orig_pix_h(front_fname) # not necessary
   orig_h        = np.asarray(ii.imread(front_fname)).shape[0]
   masks_h       = front_mask.shape[0]
+  '''
   print("masks_h:",masks_h)
   print("orig_h:",orig_h)
+  '''
 
   # changing nip_h to be within the mask's "height scale" :
   nip_h        *= float(masks_h)/float(orig_h)
@@ -319,9 +356,11 @@ def chest_circum(json_fname, front_fname, side_fname, cust_height):
 
   print("chest_w: {0}".format(chest_w))
   print("chest_l: {0}".format(chest_l))
+  '''
   pltshow(front_mask)
   pltshow(side_mask)
-  # ellipse circumference is approximately chest circumference (it overestimates a teensy bit)
+  '''
+  # ellipse circumference is approximately chest circumference (I THINK it overestimates a teensy bit.  TODO: doublecheck this)
   return ellipse_circum(chest_w/2., chest_l/2.)/pix_height*cust_height
   # TODO: try to catch all bugs before they get too serious
 #================================================= chest_circum() ======================================================================
@@ -591,7 +630,7 @@ def test_chest_circ():
   #   real     0m 48.063s
   #   user     0m 18.796s
   #   sys      0m  0.747s
-  # in other words, much much much better than openpose.
+  # in other words, much much much faster than openpose.
 
   # NATHAN
   NATHAN_H    = 75 # inches
