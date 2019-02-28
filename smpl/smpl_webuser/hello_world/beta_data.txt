@@ -1,0 +1,88 @@
+I'll just be the imagespider and neural net for now.  It gives me more control, etc.
+  There seems to be a lack of muscled arms in SMPL.  Johnny Sins will have to look a little flabbier than he oughta.
+  Focus on the "outsiders" (my theory is still that the tall people will be our best target market)
+
+
+
+
+
+   Subject      betas[0]  betas[1] betas[2] betas[3] betas[4] betas[5]
+
+=====================================================================
+NBendich            -3.0       2.4
+H   6 ft 3 in
+W   160 lbs?
+Get Nathan's measurements (first 2 Betas)
+    roughly -3.0, 2.4  works.  I feel like any minor adjustments should be given to the user to control (ie. bodyvisualizer.com).
+=====================================================================
+Johnny Sins          0.7       0.8
+
+Height: 5 ft 3 in (160 cm)
+Weight: 119 lbs (54 kg)
+  Hella buff.  This is the type of client we'd have to customize for.  I doubt most people will be THIS muscular or extremely skinny or, etc.  Although some of our most diligent customers WILL probably be oddly shaped, I doubt super-buff people will be super into cashmere sweaters.  Only time will tell.
+  Legs oughta be longer.  Is this even a real data point?  FUCK.  Why does it have to be so ambiguous?
+
+=====================================================================
+James Deen          -0.5       1.0     -4.0
+                     0.4                        (just 2 betas)
+Height: 5 ft 8 in (173 cm)
+Weight: 152 lbs (69 kg)
+Dick  : 7-9"
+
+  Deen's legs are longer than avg male (0 0 ... 0) scanned @ Tuebingen.
+=====================================================================
+
+Rocco Siffredi        0
+ 6 ft 3 in (191 cm)
+
+I think Rocco has pretty "normal" proportions.  He's definitely tall, but he's not like super fat or super skinny or super buff.
+=====================================================================
+
+Manuel Ferrara
+ 6 ft 0 in (183 cm)
+=====================================================================
+
+
+Jordi El Nino Polla
+I couldn't find full-length pics either on google.com or pornhub.com
+=====================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
