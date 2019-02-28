@@ -3,3 +3,18 @@ Tutorial:
   http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/
 Prof's graphics page:
   http://nameless.cis.udel.edu/class_wiki/index.php/Main_Page
+
+
+
+  Ask about bicubic interpolation?
+    "bilinear interpolation"
+      Prof: "interpolate between the interpolants"
+
+  "Callback" (when_mousedown___do_x())
+
+  "Rasterization"
+    What is this?  Similar at all to interpolation?
+  "First class object" :   what's this?
+  "Hidden surface elimination"
+    Occlusion of object behind other object
+  You can write parallelized code for GPU in OpenGL

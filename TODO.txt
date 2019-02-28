@@ -19,6 +19,7 @@ ________________________________
 ________________________________
 
   0.  Auto-crop with 1st segmentation, then leave a lil space over the top of the head and the bottom of the feet
+    a.  Some issues with img formatting
   1.  Shift s.t. mean of top and bottom are in the same location for both
   2.  Schedule a call with Dario & the guys
 

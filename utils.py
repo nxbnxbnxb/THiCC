@@ -466,7 +466,7 @@ def crop_person(img, mask):
     'crop_amt_right':right,
   }
   #pltshow(cropped) # for debugging
-  return cropped, offsets
+  return cropped, crop_amts
 #=========================================================================
 
 

@@ -1,10 +1,40 @@
-
-
-
-
-
 ======================================================================
 Thu Feb 28 11:27:09 EST 2019
+
+   p3 measure.py 
+running deeplab on image
+resized_image.shape:   
+(513, 162, 3)
+
+
+
+
+resized_image going into deeplab
+
+
+
+
+Traceback (most recent call last):
+  File "measure.py", line 639, in <module>
+    test_chest_circ()
+  File "measure.py", line 619, in test_chest_circ
+    chest_circ=chest_circum(json_fname,front_fname,side_fname, NATHAN_H)
+  File "measure.py", line 305, in chest_circum
+    pix_height    = pix_h(front_mask)
+  File "measure.py", line 554, in pix_h
+    return pixel_height(mask)
+  File "measure.py", line 551, in pixel_height
+    return np.amax(locs[0])-np.amin(locs[0])
+  File "/home/n/anaconda3/envs/cat/lib/python3.6/site-packages/numpy/core/fromnumeric.py", line 2334, in amax
+    initial=initial)
+  File "/home/n/anaconda3/envs/cat/lib/python3.6/site-packages/numpy/core/fromnumeric.py", line 83, in _wrapreduction
+    return ufunc.reduce(obj, axis, dtype, out, **passkwargs)
+ValueError: zero-size array to reduction operation maximum which has no identity
+
+
+
+
+
 
 
 

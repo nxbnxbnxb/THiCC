@@ -1,3 +1,4 @@
+
 # TODO: rename everything "seg" rather than "segment"
 WHITE=255
 BLACK=0
@@ -87,23 +88,23 @@ class DeepLabModel(object):
     # TODO: fill out docstring above once this is finalized
     #  NOTE NOTE NOTE:   the below "NOTE"s are no longer relevant; I realized why Vishal included them; it was to resize the image properly.  Nonetheless, there is some useful info contained within those 2 comments.
     # NOTE:  this really oughta be just a one-liner; probably no need for this function to have a name
-
-    # TODO:  properly resize the image here.  Don't just assume the aspect ratio is correct.
+    # style  NOTE:   I don't really like encapsulation; it can make it harder to debug shit.  A programmer on this project ought to be smart enough that they can handle a few levels of nesting with a comment to explain shit?  Open to hearing other opinions, but that's mine. ----- NXB (Nathan Xin-Yu Bendich): Mon Jan 14 19:57:16 EST 2019
     width, height, RGB = img.shape
     #print("orig_size:{0}".format(img.shape))    # these "print()" comments were left on   Wed Feb 27 10:42:16 EST 2019
     resize_ratio = float(self.INPUT_SIZE / max(width, height))
-    target_size = (513,288,3)#(int(resize_ratio * width), int(resize_ratio * height), 3)   TODO TODO TODO
-
-    print('in function segment_nparr(), img.shape is {0}    before resizing'.format(img.shape))
-    print("target_size:",target_size)
+    target_size = (int(resize_ratio * width), int(resize_ratio * height), 3)
+    #print("target_size:",target_size)
+    #pn(3)
+    '''
+    return (self.sess.run(
+        self.OUTPUT_TENSOR_NAME,
+        feed_dict={self.INPUT_TENSOR_NAME: [img]})[0],
+      resized_image)
+    ''' # As expected, before resizing, tensorflow (deeplab, technically) doesn't work.
     resized_image = skimage.transform.resize(img,target_size, anti_aliasing=True)
-    print('in function segment_nparr(), img.shape is {0}    AFTER  resizing'.format(resized_image.shape))
     print("resized_image.shape:   \n{0}".format(resized_image.shape))
     pn(3); print('resized_image going into deeplab')
-    pltshow(resized_image)   # I bet this doesn't work super well b/c it's HSV.  TODO: test my guess later.
-
-    # at this point, desired size of image is (513, 288).
-    # before resizing to (513,288), tensorflow (deeplab, technically) doesn't work.
+    #pltshow(resized_image)   # I bet this doesn't work super well b/c it's HSV.  TODO: test my guess later.
     return (self.sess.run(
         self.OUTPUT_TENSOR_NAME,
         feed_dict={self.INPUT_TENSOR_NAME: [resized_image]})[0], 
@@ -214,16 +215,8 @@ def seg_map(img, model):
 
 #================================================================
 def segment_local(local_filename):
-  # TODO: delete this commented-out line
   #img=scipy.ndimage.io.imread(local_filename)
-  img=np.asarray(ii.imread(local_filename)).astype('float64')
-  # the .astype('float64') was causing the weird white-washing.  Perhaps double-check whether we want that.
-
-  #pltshow(img)
-  return seg_img(img)
-#================================================================
-def seg_img(img):
-  # TODO: check whether this is a dupulicate of segment_nparr()
+  img=np.asarray(ii.imread(local_filename)).astype('float64') # TODO: delete this commented-out line
   #================================================================
   #================================================================
   LABEL_NAMES = np.asarray([
@@ -539,6 +532,7 @@ if __name__=='__main__':
   segment_black_background(img_path)
   # TODO: more thorough tests.  For now, I'm going to move on b/c I wanna sleep and there are more important things.  But if you think of any bugs, please fix ASAP rather than 3 months from now.
   '''
+
 
 
 

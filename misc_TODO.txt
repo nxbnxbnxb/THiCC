@@ -6,3 +6,7 @@ ________________________________
 
   OpenDataDelaware
   Find good coders (hackathons, code golf, etc.)
+
+  Ask about bicubic interpolation?
+    "bilinear interpolation"
+      Prof: "interpolate between the interpolants"
