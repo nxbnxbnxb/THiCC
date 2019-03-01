@@ -8,16 +8,15 @@ import matplotlib.pyplot as plt
 import imageio as ii
 import os
 import sys
+#import sympy as s
 
 import viz
 from viz import pltshow
 from seg import segment_local as seg_local, segment_black_background as seg_black_back
-from utils import pn, crop_person, get_mask_y_shift, np_img
-#import sympy as s
+from utils import pn, crop_person, get_mask_y_shift, np_img, pif
+from d import debug
 
 # TODO: make the earlier JSON-generation via openpose automated end-to-end like this.  Everything must be MODULAR, though
-
-#shape=np.concatenate(trapezoid,np.mean(trapezoid,axis=0),axis='x')
 
 
 
@@ -222,8 +221,7 @@ def estim8_w8(json_fname, front_fname, side_fname, height):
 
 
 #===================================================================================================================================
-def chest_circum(json_fname, front_fname, side_fname, cust_height):
-  # PROBLEM: everyone's torso is a tad different.
+def chest_waist_hips_circum(json_fname, front_fname, side_fname, cust_height):
   '''
     Circumference (perimeter) of body at the nipple level
     This method of finding the chest circumference assumes the customer's arms are perpendicular to the person's height (I call this "jesus pose,").  They don't NEED to be in this pose, but they definitely cannot be relaxed at the person's sides or "below" parallel to the ground.
@@ -241,17 +239,19 @@ def chest_circum(json_fname, front_fname, side_fname, cust_height):
     This method of finding the chest circumference assumes the customer's arms are perpendicular to the person's height (I call this "jesus pose,").  They don't NEED to be in this pose, but they definitely cannot be relaxed at the person's sides or "below" parallel to the ground.
     Hardcoded 1./3. won't work.  It's better to trace the edge of the mask with a method like seen in old_measure.py's "find_toes(), find_crotch(), etc."
     Better still would be to train a separate neural network to identify nipples, but this would take too much time for the MVP/prototype.
+
+    -------------
+    Improvements:
+    -------------
+    Everyone's torso is a tad different.  This hard-coded ratio that finds the nipples won't always work.
   '''
 
   # TODO:
   '''
-    0.  Clean up this function ("chest_circum()")
-    1.  Deal with slight up-down shifts of the body during stepping rotation by shifting the whole mask up or down
-      a.  ie. we have 1) frontal photo and 2) side photo.  Front mask starts higher than side mask, so we shift side mask "up" by np.min(front_mask)-np.min(side_mask)
+    0.  Clean up this function ("chest_waist_hips_circum()")
     2.  Find armpits like I wrote the function find_crotch() to do in "old_measure.py"
       a. how?
     3.  Standardize the rotation pose for all get_measurements() code. (ie. all Jesus pose)
-    4.  Write in the code for get_Ellipse_circum()
     5.  Test this function
     6.  F
     7.
@@ -270,7 +270,7 @@ def chest_circum(json_fname, front_fname, side_fname, cust_height):
       d.
     4.
   '''
-  # We're within func chest_circum()
+  # We're within func chest_waist_hips_circum()
   measurements  = measure(json_fname)
 
   # Because of how openpose sets up 'y', Hip['y'] is larger than LShoulder['y'], 
@@ -281,15 +281,17 @@ def chest_circum(json_fname, front_fname, side_fname, cust_height):
   # nipple height is where we measure the chest, according to www.bodyvisualizer.com ("chest")
 
   NIP_IN_TORSO  = 0.31460 #0.31460 is approximately 28/89, derived empirically from ONE image of myself 
+  BELLY_IN_TORSO= 0.8175225846406439
+  # empirically derived, albeit from an off-orthogonal photo of myself (Shaina was holding the camera at like a 85 degree angle)
+
   # previous values: 1./3., 2./5.
   nip_h         = shoulder_h + (torso_len*NIP_IN_TORSO) 
+  belly_button_h= shoulder_h + (torso_len*BELLY_IN_TORSO) # belbut
+  # I'm going to assume everyone wears pants way up near the belly button.  Then they won't need to wear a belt.
+  # It's probably easiest if we standardize this such that everyone wears their pants at the same height.
   orig_imgs_nip_h=int(round(nip_h))
-  front_mask    = np.rot90(seg_local(front_fname))
-  side_mask     = np.rot90(seg_local( side_fname))
-  '''
-  print("front_mask.shape:\n",front_mask.shape) # (513, 288)
-  print("side_mask.shape: \n",side_mask.shape)
-  '''
+  front_mask    = np.rot90(seg_local(front_fname)) # shape == (513, 288)
+  side_mask     = np.rot90(seg_local( side_fname)) # shape == (513, 288)
   pn(3) # b/c seg_local prints some shit to stdout
   pix_height    = pix_h(front_mask)
   #origs_height  = orig_pix_h(front_fname) # not necessary
@@ -298,42 +300,92 @@ def chest_circum(json_fname, front_fname, side_fname, cust_height):
   print("masks_h: ",masks_h)
   print("orig_h:  ",orig_h)
 
-  # changing nip_h to be within the mask's "height scale" :
-  nip_h        *= float(masks_h)/float(orig_h)
+  # Change heights (ie. nip_h, hip_h) to be within the mask's "height scale" :
+  # mask_scaling is here because deeplab spits out segmaps of shape (513,288)
+  mask_scaling  = float(masks_h)/float(orig_h)
+  nip_h        *= mask_scaling
   nip_h         = int(round(nip_h))
   print("nip_h is \n",nip_h)
+  belly_button_h*= mask_scaling # TODO: separate scale variable for this (  "float(masks_h)/float(orig_h)" )
+  belly_button_h = int(round(belly_button_h))
+  print("belly_button_h is \n",belly_button_h)
+  hip_h        *= mask_scaling
+  hip_h         = int(round(hip_h))
+  print("hip_h is \n",hip_h)
 
   # Data:
   #   For these particular images, the side view is 7 units shifted "up" from the   front view
   #   NOTE: we ought to identify a rotation point where from the side view the arms are directly at the customer's sides.  We also need to tell the customer exactly how to put their arms to enable easy measurement (ideally straight out; no angles)
 
-  CONST=10
-  # NOTE:  picture/video should be taken  such that no part of the customers' arms are at the same height ("y value") as the customer's nipples.
-  chest_w=np.count_nonzero(front_mask[nip_h]) 
-  print(front_mask.shape)
-  print(front_mask[np.nonzero(front_mask)]) # 15s
-  print(front_mask.dtype) # int64
+  # NOTE:  picture/video should be taken  such that no part of the customers' arms are at the same height ("y value") as the customer's nipples.  "Jesus pose" or "Schwarzenegger pose"
+  chest_w = np.count_nonzero(front_mask[nip_h])
+  waist_w = np.count_nonzero(front_mask[belly_button_h])
+  hip_w   = np.count_nonzero(front_mask[hip_h])
+
   pltshow(front_mask)
   front_mask[nip_h-1:nip_h+1]=0
+  front_mask[belly_button_h-1:belly_button_h+1]=0
+  front_mask[hip_h-1:hip_h+1]=0
   pltshow(front_mask)
-
-  print(side_mask.shape)
-  print(side_mask.dtype)  # int64
+  if debug:
+    print(front_mask.shape)
+    print(front_mask[np.nonzero(front_mask)]) # 15s
+    print(front_mask.dtype) # int64
+    print(side_mask.shape)
+    print(side_mask.dtype)  # int64
   pltshow(side_mask)
-  nip_h+=get_mask_y_shift(front_mask, side_mask)  # TODO TODO TODO TODO TODO TODO
+  # People shift up-down when rotating themselves for the camera.   
+  # We have to identify the heights of body parts in both views so we can estimate the waist circumference, hip circumference, etc.
+  y_shift=get_mask_y_shift(front_mask, side_mask)
+  nip_h           +=  y_shift
+  belly_button_h  +=  y_shift
+  hip_h           +=  y_shift
   print("after adjustment, \n  nip_h is \n    ",nip_h)
-  chest_l=np.count_nonzero( side_mask[nip_h])  # "length," but what this really means is distance from back to nipple.
-  side_mask[nip_h-1:nip_h+1]=0
+  chest_l=np.count_nonzero( side_mask[nip_h])           # "length," but what this really means is distance from back to nipple.
+  waist_l=np.count_nonzero( side_mask[belly_button_h])  # "length," but what this really means is distance from back to nipple.
+  hip_l=np.count_nonzero( side_mask[hip_h])  # "length," but what this really means is distance from back to nipple.
+  side_mask[nip_h-1         :nip_h+1          ] = 0
+  side_mask[belly_button_h-1:belly_button_h+1 ] = 0
+  side_mask[hip_h-1         :hip_h+1          ] = 0
   pltshow(side_mask)
+
+  real_h_scale=cust_height/pix_height
 
   # tODO: rename chest_w and chest_l more descriptively?
   print("chest_w: {0}".format(chest_w))
   print("chest_l: {0}".format(chest_l))
+  print("waist_w: {0}".format(waist_w))
+  print("waist_l: {0}".format(waist_l))
+  print("hip_w: {0}".format(hip_w))
+  print("hip_l: {0}".format(hip_l))
+  print("chest_circ: {0}".format(ellipse_circum(chest_w/2., chest_l/2.)*real_h_scale))
+  print("waist_circ: {0}".format(ellipse_circum(waist_w/2., waist_l/2.)*real_h_scale))
+  print("hip_circ: {0}".format(ellipse_circum(hip_w/2., hip_l/2.)*real_h_scale))
   # ellipse circumference is approximately chest circumference (it MAY overestimate a teensy bit.  TODO: double-check whether ellipse circ overestim8s or underestim8s)
-  return ellipse_circum(chest_w/2., chest_l/2.)/pix_height*cust_height
-  # printed out 34.57594624711... inches, and I measured 34 inches.  This doesn't mean it's 100% foolproof, but it's DEFINITELY a start.
-  # TODO: try to catch all bugs before they get too serious
-#================================================= chest_circum() ======================================================================
+  return ellipse_circum(chest_w/2., chest_l/2.)*real_h_scale
+  '''
+  This algorithm:
+
+  Nathan:
+    waist_circ: 33.588036015115584     
+    chest_circ: 34.57594624711054
+    hip_circ  : 36.59951865808404
+
+    Waist  was      a failure.  I bet it's a segmentation issue, not a circumference-finding issue.
+    Hip    was also a failure.  Requires highly-precise segmentation
+
+  Actual empirical measurements:
+    # I measured myself.  Customers won't want to do this; it took awhile and I had to find a measuring tape and a mirror
+    height      =  75.
+    weight      = 157.4
+    chest       =  34.
+    waist       =  30.
+    hips        =  32.
+    inseam      =  35.
+
+  '''
+  # tODO: try to catch all bugs before they get too serious
+#================================================= chest_waist_hips_circum() ======================================================================
 
 #======================================= all for ellipse circum calculation.  Doesn't work yet.  def ellipse_circum_approx(a,b, precision=2): =======================================
 #=======================================================================================================================================
@@ -445,7 +497,7 @@ def ellipse_circum_approx(a, b, precision=6):
 def ellipse_circum(a, b):
   '''
   '''
-  #major and minor axes
+  # semi-major and semi-minor axes
   # https://en.wikipedia.org/wiki/Ellipse
   # https://stackoverflow.com/questions/22560342/calculate-an-integral-in-python
   # TODO: generalize this s.t.  the bigger of a and b gets assigned as a and  the smaller as b
@@ -595,7 +647,7 @@ def orig_pix_h(img_fname):
 
 
 #===================================================================================================================================
-def test_chest_circ():
+def test_measure():
   # as of Feb 28, 2019,  timing is:  
   #   real     0m 48.063s
   #   user     0m 18.796s
@@ -615,8 +667,9 @@ def test_chest_circ():
   side_fname  = '/home/n/Dropbox/vr_mall_backup/imgs/n8_side___jesus_pose_legs_closed/n8_side___jesus_pose___legs_closed___nude___grassy_background_Newark_DE___.jpg'
   # '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/unclothed_outside_delaware_____uniform_background_with_wobbling/000000143.jpg'
 
-  chest_circ=chest_circum(json_fname,front_fname,side_fname, NATHAN_H)
-  print(chest_circ)
+  chest_circ=chest_waist_hips_circum(json_fname,front_fname,side_fname, NATHAN_H)
+  pn(3)
+  print("chest_circ: ",chest_circ)
   return chest_circ
 #===================================================================================================================================
 
@@ -635,7 +688,7 @@ def test_chest_circ():
 
 #===================================================================================================================================
 if __name__=="__main__":
-  test_chest_circ()
+  test_measure()
   '''
   # all code here assumes the person we're dealing with is Nathan.  
   #   ie. Nathan is Male, height=tall, width=small, shoulders-hip ratio is reasonable
@@ -758,3 +811,48 @@ if __name__=="__main__":
 
 
 
+# Glossary:
+'''
+  Function definitions (function headers)
+
+  As of Fri Mar  1 06:53:14 EST 2019,
+    115: load_json(json_fname):
+    120: measure(json_fname):
+    123: parse_ppl_measures(json_dict):
+    159: segments(polygon):
+    165: area_polygon(polygon):
+    199: estim8_w8(json_fname, front_fname, side_fname, height):
+    225: chest_circum(json_fname, front_fname, side_fname, cust_height):
+    340: fac(n):
+    351: half_c_n(n):
+    363: sequence(n,h):
+    369: series(n,h):
+    375: perim_e(a, b, precision=6):
+    438: ellipse_circum_approx(a, b, precision=6):
+    445: ellipse_circum(a, b):
+    497: measure_chest(json_fname):
+    518: show_overlaid_polygon_measures(pic_filename___with_openpose_keypoints_, openpose_keypts_dict, N=4):
+    544: L2_dist(pt1, pt2):
+    548: pixel_height(mask):
+    552: pix_h(mask):
+    571: orig_pix_h(img_fname):
+    598: test_chest_circ():
+
+
+  Chest
+    Measure the circumference of your chest at your nipple level. Hold the end of the measuring tape in the middle of your chest at your nipple level. Evenly wrap the measuring tape around your chest. Note the measurement at the point where the tape measure meets at the 0 mark.
+    Note: When taking your measurements, relax your muscles and stand with weight equally distributed on both feet. Make sure that the measuring tape is kept at an even horizontal level around your body.
+
+  Waist
+    Measure the circumference of your waist at your preferred waistline. Your preferred waistline is where you typically wear the waist of your pants. After exhaling, hold the beginning of the measuring tape in front of your body in the middle of your waistline. Evenly wrap the measuring tape around your waist. Note the measurement at the point where the tape measure meets at the 0 mark.
+    Note: When taking your measurements, relax your muscles and stand with weight equally distributed on both feet. Make sure that the measuring tape is kept at an even horizontal level around your body.
+
+  Hips
+    Measure the circumference of your hips at the level where your hips are widest. Hold the beginning of the measuring tape in front of your body in the middle of your hip line. Evenly wrap the measuring tape around your hips. Note the measurement at the point where the tape measure meets at the 0 mark.
+    Note: When taking your measurements, relax your muscles and stand with weight equally distributed on both feet. Make sure that the measuring tape is kept at an even horizontal level around your body.
+
+  Inseam
+    Measure your inseam from your crotch to the floor. Your crotch is the inner, uppermost point of leg. Hold the beginning of the tape measure at your crotch. Make sure you are holding it at the 0 mark. Pull the tape measure down to the floor where your foot is situated. Note the measurement at the point where the tape measure meets at the 0 mark.
+    Note: When taking your measurements, relax your muscles and stand with weight equally distributed on both feet. Make sure that the measuring tape is kept at an even horizontal level around your body.
+
+'''
