@@ -12,7 +12,7 @@ import sys
 import viz
 from viz import pltshow
 from seg import segment_local as seg_local, segment_black_background as seg_black_back
-from utils import pn, crop_person
+from utils import pn, crop_person, get_mask_y_shift, np_img
 #import sympy as s
 
 # TODO: make the earlier JSON-generation via openpose automated end-to-end like this.  Everything must be MODULAR, though
@@ -286,13 +286,17 @@ def chest_circum(json_fname, front_fname, side_fname, cust_height):
   orig_imgs_nip_h=int(round(nip_h))
   front_mask    = np.rot90(seg_local(front_fname))
   side_mask     = np.rot90(seg_local( side_fname))
+  '''
+  print("front_mask.shape:\n",front_mask.shape) # (513, 288)
+  print("side_mask.shape: \n",side_mask.shape)
+  '''
   pn(3) # b/c seg_local prints some shit to stdout
   pix_height    = pix_h(front_mask)
   #origs_height  = orig_pix_h(front_fname) # not necessary
   orig_h        = np.asarray(ii.imread(front_fname)).shape[0]
   masks_h       = front_mask.shape[0]
-  print("masks_h:",masks_h)
-  print("orig_h:",orig_h)
+  print("masks_h: ",masks_h)
+  print("orig_h:  ",orig_h)
 
   # changing nip_h to be within the mask's "height scale" :
   nip_h        *= float(masks_h)/float(orig_h)
@@ -304,19 +308,28 @@ def chest_circum(json_fname, front_fname, side_fname, cust_height):
   #   NOTE: we ought to identify a rotation point where from the side view the arms are directly at the customer's sides.  We also need to tell the customer exactly how to put their arms to enable easy measurement (ideally straight out; no angles)
 
   CONST=10
-  #pltshow(front_mask[nip_h-CONST:nip_h+CONST,:])
-  #pltshow(front_mask[int(shoulder_h*float(masks_h)/float(orig_h)):int(hip_h*float(masks_h)/float(orig_h)),:])
-
-  # NOTE:  no part of the customers' arms are at the same height ("y value") as the customer's nipples.
+  # NOTE:  picture/video should be taken  such that no part of the customers' arms are at the same height ("y value") as the customer's nipples.
   chest_w=np.count_nonzero(front_mask[nip_h]) 
-  chest_l=np.count_nonzero( side_mask[nip_h])  # "length," but what this really means is distance from back to nipple.
-  # TODO; rename chest_w and chest_l more descriptively?
+  print(front_mask.shape)
+  print(front_mask[np.nonzero(front_mask)]) # 15s
+  print(front_mask.dtype) # int64
+  pltshow(front_mask)
+  front_mask[nip_h-1:nip_h+1]=0
+  pltshow(front_mask)
 
+  print(side_mask.shape)
+  print(side_mask.dtype)  # int64
+  pltshow(side_mask)
+  nip_h+=get_mask_y_shift(front_mask, side_mask)  # TODO TODO TODO TODO TODO TODO
+  print("after adjustment, \n  nip_h is \n    ",nip_h)
+  chest_l=np.count_nonzero( side_mask[nip_h])  # "length," but what this really means is distance from back to nipple.
+  side_mask[nip_h-1:nip_h+1]=0
+  pltshow(side_mask)
+
+  # tODO: rename chest_w and chest_l more descriptively?
   print("chest_w: {0}".format(chest_w))
   print("chest_l: {0}".format(chest_l))
-  pltshow(front_mask)
-  pltshow(side_mask)
-  # ellipse circumference is approximately chest circumference (it overestimates a teensy bit)
+  # ellipse circumference is approximately chest circumference (it MAY overestimate a teensy bit.  TODO: double-check whether ellipse circ overestim8s or underestim8s)
   return ellipse_circum(chest_w/2., chest_l/2.)/pix_height*cust_height
   # TODO: try to catch all bugs before they get too serious
 #================================================= chest_circum() ======================================================================

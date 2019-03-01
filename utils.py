@@ -304,6 +304,7 @@ h=hist
 H=h
 
 def print_dict(d):
+    # do pprint.pprint() instead
     print_dict_recurs(d, 0)
 
 def print_dict_recurs(d, indent_lvl):
@@ -467,6 +468,23 @@ def crop_person(img, mask):
   }
   #pltshow(cropped) # for debugging
   return cropped, crop_amts
+#=========================================================================
+def get_mask_y_shift(mask1, mask2):
+  '''
+    Should I be finding midpoint?  Perhaps diff btwn toes is better?
+    Ultimately, there should be a function specializing in "nipple shift" (where nip is in one mask vs. the other)
+  '''
+  ons   = np.nonzero(mask1)
+  top   = np.min(ons[0])
+  bot   = np.max(ons[0])
+  midpt1=int(round(np.mean([bot,top])))
+  print("midpt1 is ",midpt1)
+  ons   = np.nonzero(mask2)
+  top   = np.min(ons[0])
+  bot   = np.max(ons[0])
+  midpt2=int(round(np.mean([bot,top])))
+  print("midpt2 is ",midpt2)
+  return midpt2-midpt1  # TODO: make this consistent (either always n1-n2 or n2-n1)
 #=========================================================================
 
 

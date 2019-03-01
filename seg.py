@@ -293,10 +293,11 @@ def overlay_imgs(img_fname_1, img_fname_2):
     CoM2=np.round(np.array(
       CoM(mask2)))
 
-    print("img_fname_1:\n",img_fname_1)
-    print("img_fname_2:\n",img_fname_2)
-    #pltshow(cutout1)
-    #pltshow(cutout2)
+    if debug:
+      print("img_fname_1:\n",img_fname_1)
+      print("img_fname_2:\n",img_fname_2)
+      pltshow(cutout1)
+      pltshow(cutout2)
     locs1=np.nonzero(mask1)
     locs2=np.nonzero(mask2)
     # TODO: double-check whether x and y here are ACTUALLY x and y
