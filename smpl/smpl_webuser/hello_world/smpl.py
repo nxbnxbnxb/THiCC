@@ -430,3 +430,13 @@ if __name__=="__main__":
   #write_smpl()
 #============================================ __main__ ==========================================
 
+'''
+  As of Fri Mar  1 11:23:46 EST 2019,
+    SMPL Glossary:
+      56: def body_talk_male():
+      94: def custom_body(female=False, height=False, weight=False, chest=False, waist=False, hips=False, inseam=False, exercise=False):
+      312:def male_SMPL(height=70., weight=180.):
+      383:def write_smpl(
+      401:  # TODO: def smpl_string()
+
+'''

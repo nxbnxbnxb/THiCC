@@ -1,5 +1,5 @@
 # This is what I was thinking I'd rebuild!   Aaargh I feel so dumb.   Tue Feb 19 08:43:06 EST 2019
-#     so if we can get the sliders in here (ie. kivy or www.bodyvisualizer.com), our job is complete.
+#     So if we can get the sliders in here (ie. kivy or www.bodyvisualizer.com), our job is complete.
 '''
 Copyright 2015 Matthew Loper, Naureen Mahmood and the Max Planck Gesellschaft.  All rights reserved.
 This software is provided for research purposes only.

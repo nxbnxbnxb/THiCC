@@ -2,8 +2,9 @@
   What did you learn today?
     Just do it.
 
-  Try to keep this TODO.txt for direct actions supporting TheMall project ONLY.
-    Separate TODO should be for other things (part-time jobs, arubaitos, money, friends, classes that might INdirectly develop into mall proj relevance, etc.)
+  Keep this TODO.txt for direct actions supporting TheMall project ONLY.
+    Separate TODO should be for other things (various forms of procrasination) 
+      (ie. part-time jobs, arubaitos, money, friends, classes that might INdirectly develop into mall proj relevance, etc.)
 
 
 
@@ -18,10 +19,19 @@ ________________________________
   Fri Mar  1 09:42:45 EST 2019
 ________________________________
 
+  Push changes in save_mp4_as_imgs() in utils.py
+
+  Print out the gameplan from [here] (ink @ home):
+    /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/ref/nn_fitting_plan.txt
+
   Plug measurements into SMPL
     Before I do this, I should find the betas for a SMPL model of Nathan Bendich
     Then I can somehow map the real measurements to the betas with a function that makes SOME intuitive sense
-  Call the guys
+    I guess the best way to start is to try out something that's close and spin it around in Blender from all angles until I can't tell the difference between it and me.
+    After all, I have 360 degree video of myself.
+
+  Sched meeting w/ the guys
+
 
 
 

@@ -1,8 +1,10 @@
+# python 2/3 compatibility
+from __future__ import print_function
 
 # imports useful for access in python shell rather than for use in utils.py
 #import pandas as pd
 #from   mpl_toolkits.mplot3d import Axes3D   # import no longer used (Dec. 16, 2018).  plots VERY BASIC 3d shapes
-import imageio as ii # imageio is not in hmr virtualenv.  I can comment out when necessary.
+#import imageio as ii # imageio is not in hmr virtualenv.  I can comment out when necessary.
 
 import numpy as np
 np.seterr(all='raise')
@@ -125,43 +127,55 @@ def prepend_0s(int_str, num_digits=9):
   return '0'*(num_digits-len(int_str))+int_str
 #==============================================================
 
-#================================================================
-def save_mp4_as_imgs(mp4_local_path, root_img_dir, freq=1/4., should_put_timestamps=True, output_img_filetype='jpg'):
-  # TODO: finish this function, test the 1st part of it
-  # TODO: generalize this to multiple vid filetypes, not just mp4
+#==============================================================
+def save_mp4_as_imgs(mp4_local_path, root_img_dir, fps=1., should_put_timestamps=True, output_img_filetype='jpg'):
   '''
     Mutates the local file directory with new image files
 
     Sources:
       https://stackoverflow.com/questions/25182278/opencv-python-video-playback-how-to-set-the-right-delay-for-cv2-waitkey
       https://stackoverflow.com/questions/33311153/python-extracting-and-saving-video-frames
+
+    -------
+    Params:
+    -------
+
+    fps: decrease to chop video up into tinier bits, increase to speed up processing
   '''
+  # TODO: change "freq" to "fps"
+  # TODO: finish this function, test the 1st part of it
+  # tODO: generalize this to multiple vid filetypes, not just mp4.  
+  #   At least it worked on a .webm file!
   import cv2
-  delay=int(round(1/freq))  # why the **** does "delay" have to be an int?
+  delay=int(round(10/fps)) # cv2 defaults to opening a new frame every 0.1 seconds
+  # "1000" in delay=int(round(1000/freq))   because waitKey(int delay) takes a delay in MILLIseconds, not seconds
   img_write_dir=root_img_dir
   if not root_img_dir.endswith('/'):
     img_write_dir+='/'
   if should_put_timestamps:
     timestamp=datetime.datetime.now().strftime('%Y_%m_%d____%H:%M_%p__') # p is for P.M. vs. A.M.
     img_write_dir+=timestamp+'/'
-  os.system('mkdir '+img_write_dir) # NOTE: if directory is already there, execution will continue
+  print("Saving images to ",img_write_dir)
+  print("Frames per Second is ",fps)
+  os.system('mkdir '+img_write_dir) # If directory already exists, code keeps going
 
-  print(mp4_local_path)
-  vidcap = cv2.VideoCapture(mp4_local_path)
+  vidcap  = cv2.VideoCapture(mp4_local_path)
   success = True
-  count = 0
+  count   = 0
   while success:
     success, img = vidcap.read()
     if count < 1:
       if debug:
-        print('We just read a new frame, true or false? ', success)
+        print('We just read a new frame, true or false?    : ', success)
     if cv2.waitKey(delay) &  0xFF == ord('q'):
       break
-    # NOTE:  "I put the imwrite() AFTER the break so if the image fails to read, we don't save an empty .jpg file."   - Nathan (Mon Jan 14 13:33:26 EST 2019)
-    cv2.imwrite(img_write_dir+"{0}.{1}".format(prepend_0s(str(count)),output_img_filetype), img) # TODO: there's probably a better way to do the prepend_0s() function
+    # I put this cv2.imwrite() AFTER the "break" statement because if the image fails to read, we don't save an empty .jpg file.   -nxb, Mon Jan 14 13:33:26 EST 2019
+    if count % delay == 0:
+      cv2.imwrite(img_write_dir+"{0}.{1}".format(prepend_0s(str(count)),output_img_filetype), img)
+    # tODO: there's probably a better way to do the prepend_0s() function
     count += 1
-  return 0 # success
-# NOTE: in order to get the masks at the ideal angles of the body's rotation, we gotta come up with some smart way of calculating the angles.  Maybe counting the total number of img files between 0 and 360 degrees and just dividing?  It'll probably do for now, but unfortunately stepping in a circle is not like a smooth lazy-susan
+  return img_write_dir # success
+# nOTE: in order to get the masks at the ideal angles of the body's rotation, we gotta come up with some smart way of calculating the angles.  Maybe counting the total number of img files between 0 and 360 degrees and just dividing?  It'll probably do for now, but unfortunately stepping in a circle is not like a smooth lazy-susan
 #===== end func def of  save_mp4_as_imgs(**lotsa_params): =====
 
 
