@@ -2,7 +2,8 @@
 
 # using this hack-y method because I can't get all the modules to ****ing compile with each other.  (cv2 and matplotlib have been the troublesome ones lately, can't get 'em to cooperate with each other (lately as in: Tue Jan 29 07:58:08 EST 2019)
 
-freq=10.00 # TODO NOTE: decrease to chop video up into tinier bits, increase to speed up processing
+# TODO NOTE: decrease freq to chop video up into tinier bits, increase to speed up processing
+freq=1.0
 
 source /home/n/Documents/code/hmr/venv_hmr/bin/activate &&\
 python2 cut_up_video.py \

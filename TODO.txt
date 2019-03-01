@@ -19,8 +19,6 @@ ________________________________
   Fri Mar  1 09:42:45 EST 2019
 ________________________________
 
-  Push changes in save_mp4_as_imgs() in utils.py
-
   Print out the gameplan from [here] (ink @ home):
     /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/ref/nn_fitting_plan.txt
 
@@ -87,6 +85,9 @@ ________________________________
 
 
 
+
+  Push changes in save_mp4_as_imgs() in utils.py
+    DONE.
 
 
 ________________________________

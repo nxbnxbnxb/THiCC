@@ -1,0 +1,214 @@
+
+  This plan WILL change, but at the same time it's important to organize ideas.
+
+  Basically, the idea is to:
+  1.  Force data acquisition in Jesus pose (or really any controlled pose)
+  2.  frames  = cut(vid)
+  3.  mask    = seg(frame)
+  4.  angle   = detect(mask, vid) 
+    #Autodetect angle of frame
+  5.  model   = upd8(model, mask, angle)
+    #Use that angle and the image (and resultant segmentation mask) at that angle to mask the voxels
+  6.  smpl    = fit(model)
+    #Based on some loss function, fit SMPL model to data from customer video.
+    #Potential metrics:
+    a.  L2 distance between shell and SMPL mesh pts
+    b.  Perimeter of a convex hull surrounding the points at that height
+    c.  Area of slice @ that height vs area of a slice of the SMPL model @ that height
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Basically, the idea is to:
+  1.  Force data acquisition in Jesus pose (or really any controlled pose)
+  2.  frames = cut(vid)
+    a.  Color images, variable time between frames
+  3.  mask  = seg(frame)
+  4.  Autodetect angle of frame
+    a.  Front frame: 0th frame ought to be frontal (ie. Jesus)
+      1.  All front/back frames have long wingspan
+        a. ie. 0 degrees, 180 degrees
+      2.
+      3.
+    b.  Side frame: after 0th frame, minimize x-spread of mask (something like   "frame_idx=np.argmin(np.max(x_spreads))")
+      1.  All side frames have "small wingspan"
+        a. ie. 90 degrees, 270 degrees
+      2.
+      3.
+      4.
+    c.
+    d.
+    e.
+  5.  Use that angle and the image (and resultant segmentation mask) at that angle to mask the voxels
+    a.  The voxel shell gives us something easy to visualize & debug.
+      1.  Marching Cubes ====> shitty mesh
+      2.
+    b.
+    c.
+  6.  Based on some metric (loss function), fit the SMPL model to the shell (skin voxel data).  Potential metrics:
+    a.  L2 distance between shell and SMPL mesh pts
+      1.  Try closest 2 points (ie. kdtree)
+      2.  Distance along a normal vector between the point and the SMPL model?  But that assumes we can somehow get the normal in the 1st place...
+    b.  Perimeter of a convex hull surrounding the points at that height
+    c.  Area of slice @ that height vs area of a slice of the SMPL model @ that height
+    d.
+
+    e.  NOTE:  Use coordinate/gradient descent/ascent on only a fewwww betas (ie. 0th beta, 1th beta, 2th beta, etc.)
+    f.  Regularization is important.  We want those betas SMALL.
+    g.
+    h.  But how do we differentiate the loss function w.r.t a particular beta?
+      1.  I know how I'd set this up with coordinate ascent, but idk how to take a derivative.  Maybe with the definition of a derivative (ie. limit of best-fitting line through a few points; plz picture a few noisy data points with a best-fit line through them.   Beta is on the x-axis and L2 error btwn SMPL and the voxels is on the y-axis.) then take the slope and that's your derivative
+    i.
+  7.  Since chumpy does lots of the work itself, maybe we don't need tensorflow?
+    a.  Lookup whether tensorflow can do coordinate descent
+    b.  Also TODO: look @ HMR for example tensorflow code
+    c.
+    d.
+    e.
+    f.
+  8.
+  9.
+  10.
+  11.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

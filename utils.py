@@ -147,7 +147,7 @@ def save_mp4_as_imgs(mp4_local_path, root_img_dir, fps=1., should_put_timestamps
   # tODO: generalize this to multiple vid filetypes, not just mp4.  
   #   At least it worked on a .webm file!
   import cv2
-  delay=int(round(10/fps)) # cv2 defaults to opening a new frame every 0.1 seconds
+  delay=int(round(10/fps)) # cv2 defaults to opening a new frame approx every 0.1 seconds
   # "1000" in delay=int(round(1000/freq))   because waitKey(int delay) takes a delay in MILLIseconds, not seconds
   img_write_dir=root_img_dir
   if not root_img_dir.endswith('/'):
@@ -157,6 +157,7 @@ def save_mp4_as_imgs(mp4_local_path, root_img_dir, fps=1., should_put_timestamps
     img_write_dir+=timestamp+'/'
   print("Saving images to ",img_write_dir)
   print("Frames per Second is ",fps)
+  print("so we're saving every {0} seconds".format(fps))
   os.system('mkdir '+img_write_dir) # If directory already exists, code keeps going
 
   vidcap  = cv2.VideoCapture(mp4_local_path)
