@@ -331,6 +331,7 @@ def chest_circum(json_fname, front_fname, side_fname, cust_height):
   print("chest_l: {0}".format(chest_l))
   # ellipse circumference is approximately chest circumference (it MAY overestimate a teensy bit.  TODO: double-check whether ellipse circ overestim8s or underestim8s)
   return ellipse_circum(chest_w/2., chest_l/2.)/pix_height*cust_height
+  # printed out 34.57594624711... inches, and I measured 34 inches.  This doesn't mean it's 100% foolproof, but it's DEFINITELY a start.
   # TODO: try to catch all bugs before they get too serious
 #================================================= chest_circum() ======================================================================
 
