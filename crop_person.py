@@ -1,6 +1,7 @@
 import numpy as np
 import skimage
 from viz import pltshow
+import seg
 
 #===================================================================================================================================
 def crop_person(img, mask):
@@ -100,3 +101,8 @@ def center_vert(cropped1, cropped2):
   mid2=((max(mask2)-min(mask2))/2) + min(mask2)
   crop()
 #===================================================================================================================================
+
+
+
+if __name__=="__main__":
+  crop_person()

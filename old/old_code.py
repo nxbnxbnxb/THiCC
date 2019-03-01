@@ -141,6 +141,155 @@ def ellipse_circum_approx(a, b, precision=9):
     cutout2=np.array(cutout2)
     pltshow(cutout2+cutout1)  # looks funky.
     '''
+#====================================================================
+def overlay_imgs(img_fname_1, img_fname_2):
+    '''
+      works somewhat kinda (basically not at all)
+    '''
+    # nOTE:   the reason I did all this was I was trying to be too precise about the notion of "fit" to adjust SMPL directly to each image.  
+    cutout1,  mask1 = segment_black_background(img_fname_1)
+    cutout2,  mask2 = segment_black_background(img_fname_2)
+    # centers of mass; we want ints so shift(img) is easy
+    CoM1=np.round(np.array(
+      CoM(mask1)))
+    CoM2=np.round(np.array(
+      CoM(mask2)))
+
+    if debug:
+      print("img_fname_1:\n",img_fname_1)
+      print("img_fname_2:\n",img_fname_2)
+      pltshow(cutout1)
+      pltshow(cutout2)
+    locs1=np.nonzero(mask1)
+    locs2=np.nonzero(mask2)
+    # TODO: double-check whether x and y here are ACTUALLY x and y
+    x_min_1 = min(locs1[0])
+    x_min_1, y_min_1, x_min_2, y_min_2, x_max_1, y_max_1, x_max_2, y_max_2 =\
+       min(locs1[0]), min(locs1[1]),\
+       min(locs2[0]), min(locs2[1]),\
+       max(locs1[0]), max(locs1[1]),\
+       max(locs2[0]), max(locs2[1])
+    pltshow(cutout1[x_min_1:x_max_1,y_min_1:y_max_1])  # this version of crop() works!  TODO: use an official python `crop()` function
+    pltshow(cutout2[x_min_2:x_max_2,y_min_2:y_max_2])  # this version of crop() works!
+    cutout1=cutout1[x_min_1:x_max_1,y_min_1:y_max_1]
+    cutout2=cutout2[x_min_2:x_max_2,y_min_2:y_max_2]
+
+    mask1_shape = (y_max_1-y_min_1, x_max_1-x_min_1)
+    mask2_shape = (y_max_2-y_min_2, x_max_2-x_min_2)
+    print('\n'*2)
+    print(mask1_shape) #(152, 336)
+    print(mask2_shape) #(105, 260)
+    print('\n'*2)
+
+    tmpfname='tmp.png'
+    ii.imwrite(tmpfname,cutout1)
+    # I'm doing these `imwrite()`s b/c I don't know how to resize an image in np.ndarray();  I only know how to with PIL.Image.resize((x,y))
+    cutout1=Image.open(tmpfname)
+    sp.call(['rm',tmpfname])
+    ii.imwrite(tmpfname,cutout2)
+    # I'm doing these `imwrite()`s b/c I don't know how to resize an image in np.ndarray();  I only know how to with PIL.Image.resize((x,y))
+    cutout2=Image.open(tmpfname)
+    sp.call(['rm',tmpfname])
+    print('hit1\n\n')
+    pltshow(cutout1.resize((mask2_shape), Image.ANTIALIAS))
+    #cutout1=cutout1.resize((mask2_shape), Image.ANTIALIAS)
+    print('hit2\n\n')
+    print(mask1_shape)
+    print(mask2_shape)
+    pltshow(cutout2.resize((mask1_shape), Image.ANTIALIAS))
+    cutout2=cutout2.resize((mask1_shape), Image.ANTIALIAS)
+    cutout1 = cutout1.convert("RGBA")
+    cutout2 = cutout2.convert("RGBA")
+    overlaid=Image.blend(cutout1, cutout2, 0.5)
+    pltshow(overlaid)
+    return overlaid
+#===== end func def of  overlay_imgs(img_fname_1, img_fname_2): =====
+
+
+
+
+
+
+
+# NOTE: don't call vis_segmentation() if matplotlib.pyplot crashes conda!
+#================================================================
+def vis_segmentation(image, seg_map):
+  # NOTE:  currently not working.  To debug, please look backwards at prev version in git
+  plt.figure(figsize=(15, 5))
+  grid_spec = gridspec.GridSpec(1, 4, width_ratios=[6, 6, 6, 1])
+
+  plt.subplot(grid_spec[0])
+  plt.imshow(image)
+  plt.axis('off')
+  plt.title('input image')
+
+  plt.subplot(grid_spec[1])
+  seg_image = label_to_color_image(seg_map).astype(np.uint8)
+  #ii.imwrite("_segmented____binary_.jpg", binarize(seg_image))
+  #  NOTE:  saving is happening outside this method; we should have no side effects besides "show_img()" in this func
+  plt.imshow(seg_image)
+  plt.axis('off')
+  plt.title('segmentation map')
+
+  plt.subplot(grid_spec[2])
+  plt.imshow(image)
+  plt.imshow(seg_image, alpha=0.7)
+  plt.axis('off')
+  plt.title('segmentation overlay')
+
+  unique_labels = np.unique(seg_map)
+  ax = plt.subplot(grid_spec[3])
+  plt.imshow(FULL_COLOR_MAP[unique_labels].astype(np.uint8), interpolation='nearest')
+  ax.yaxis.tick_right()
+  plt.yticks(range(len(unique_labels)), LABEL_NAMES[unique_labels])
+  plt.xticks([], [])
+  ax.tick_params(width=0.0)
+  plt.show()
+# end func def of   vis_segmentation(image, seg_map):
+
+# Doesn't really work
+#====================================================================
+def segment_transparent_background(local_fname):
+  # TODO: clear out messy comments, old print statements, etc.
+  # TODO:  put some of this code in a separate function
+  # TODO: cleanup like "segment_black_background(local_fname); all NOTES at the top, etc.
+  segmap= segment_local(local_fname)
+  img   = Image.open(local_fname)
+  # TODO: I really OUGHT to scale the mask to fit the dimensions of the image (we'd have better resolution this way)
+  segmap= segmap.reshape(segmap.shape[0],segmap.shape[1],1)
+  segmap=np.concatenate((segmap,segmap,segmap),axis=2)
+  segmap=np.rot90(segmap)
+
+  # NOTE:  PIL.resize(shape)'s shape has the width and height reversed from numpy's
+  img=img.resize((segmap.shape[1],segmap.shape[0]), Image.ANTIALIAS)
+
+  # weird stuff happened when I tried to convert to 'float64' in this `np.array(Image.open(fname))` line.
+  img = np.array(img) 
+
+  # as of (Wed Feb 20 17:49:37 EST 2019), segmap is 0 for background, 15 for human ( before astype('bool'))
+  segmap=segmap.astype('bool')
+  segmap=np.logical_not(segmap)
+  img[segmap]=WHITE
+  # cut out the human from the img
+  if debug:
+    pltshow(img)
+  fname='person_cutout.png'
+  ii.imwrite(fname,img)
+  cutout=Image.open(fname)
+  os.system('rm '+fname) # cleaning up the intermediate step
+  cutout=cutout.convert('RGBA')
+  datas =cutout.getdata()
+  newData=[]
+  for item in datas:
+      if item[0] == WHITE and item[1] == WHITE and item[2] == WHITE:
+          newData.append((WHITE, WHITE, WHITE, TRANSPARENT))
+      else:
+          newData.append(item)
+  cutout.putdata(newData)
+  cutout.save("person_cutout_transparent_background.png", "PNG")
+  return img, np.logical_not(segmap) # NOTE: returns white background b/c can't return transparent in numpy arrs
+#======== end func def of  segment_transparent_background(params): ========
+
 # part of model.py's test_human():
 """
 on_locs=np.nonzero(model)

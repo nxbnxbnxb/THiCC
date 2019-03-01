@@ -389,41 +389,6 @@ def chest_waist_hips_circum(json_fname, front_fname, side_fname, cust_height):
 
 #======================================= all for ellipse circum calculation.  Doesn't work yet.  def ellipse_circum_approx(a,b, precision=2): =======================================
 #=======================================================================================================================================
-def fac(n):
-  # rewrote this b.c. I didn't find a library that could do half-factorials.
-  # n is any mixed number with "1/2" as the fraction at the end. n must also be greater than or equal to -0.5. (ie. -0.5, 0.5, 1.5, 2.5, ... etc.)
-  #assert n-0.5 == int(n-0.5) and n >= -0.5  for some reason this assertion aint workin
-  # TODO: double-check that n-0.5==int(n-0.5) works in all cases.
-  if n ==-0.5:
-    # base case for recursion
-    return math.sqrt(math.pi)
-  else:
-    return n*fac(n-1.)
-#=======================================================================================================================================
-def half_c_n(n):
-  #choose_n
-  #(0.5)
-  #( n )
-  assert int(n) == n # integer
-  from math import factorial as f
-  #print(fac(0.5))
-  #print(f(n))
-  #print(fac(n-0.5))
-  return fac(0.5)/\
-    (f(n) * fac(n-0.5))
-#=======================================================================================================================================
-def sequence(n,h):
-  # https://www.mathsisfun.com/numbers/factorial.html [and more www.mathsisfun.com links]
-
-  # TODO: clean up all the "n"s and "i"s floating around and confusing things
-  return [half_c_n(i)**2*(h**i) for i in range(n)]  # sequence, technically
-#=======================================================================================================================================
-def series(n,h):
-  # https://www.mathsisfun.com/numbers/factorial.html [and more www.mathsisfun.com links]
-
-  # TODO: clean up all the "n"s and "i"s floating around and confusing things
-  return np.sum([half_c_n(i)**2*(h**i) for i in range(n)])
-#=======================================================================================================================================
 def perim_e(a, b, precision=6):
   """Get perimeter (circumference) of ellipse
 

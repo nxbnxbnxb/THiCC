@@ -15,6 +15,72 @@
 
 ________________________________
 
+  Fri Mar  1 09:42:45 EST 2019
+________________________________
+
+  Plug measurements into SMPL
+    Before I do this, I should find the betas for a SMPL model of Nathan Bendich
+    Then I can somehow map the real measurements to the betas with a function that makes SOME intuitive sense
+  Call the guys
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
   Thu Feb 28 11:27:09 EST 2019
 ________________________________
 
