@@ -1,11 +1,104 @@
 
+
+
+________________________________
+
+  Sat Mar  2 07:48:37 EST 2019
+________________________________
+
+  Download "Joel on software"'s pdf
+  Is there a dowhile in python?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ________________________________
 
   Thu Feb 28 11:27:09 EST 2019
 ________________________________
 
+
   OpenDataDelaware
   Find good coders (hackathons, code golf, etc.)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   Ask about bicubic interpolation?
     "bilinear interpolation"
