@@ -6,8 +6,86 @@ ________________________________
   Sat Mar  2 07:48:37 EST 2019
 ________________________________
 
+  earbuds from home
   Download "Joel on software"'s pdf
+    all import matplotlib.pyplot as plt
+
+  free Audiobooks websites
+    https://www.reddit.com/r/libgen/comments/70o5bl/library_genesis_for_audiobooks/
+    https://www.quora.com/What-are-some-good-websites-to-download-free-audio-books
+
+    http://audiobookbay.nl/
+    http://booksdescr.org/item/index.php?md5=31AD5D5A2A38C19A0AC6B252054002BA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   Is there a dowhile in python?
+    No.
 
 
 

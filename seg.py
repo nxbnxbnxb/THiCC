@@ -5,6 +5,7 @@ BLACK=0
 TRANSPARENT=0
 
 import os, tarfile, tempfile
+from glob import glob
 import numpy as np
 np.seterr(all='raise')
 import tensorflow as tf
@@ -24,6 +25,8 @@ from viz import pltshow
 from utils import np_img, round_tuple, neg, no_color_shift, pn
 
 if debug:
+  import matplotlib
+  matplotlib.use('Agg')      
   from matplotlib import pyplot as plt  # NOTE:  problem on Nathan's machine (Dec. 21, 2018) is JUST with pyplot.  None of the rest of matplotlib is a problem AT ALL.
 from matplotlib import gridspec
 from six.moves import urllib
@@ -35,7 +38,7 @@ from copy import deepcopy
 import matplotlib
 matplotlib.use('Agg')      
 '''
-# The above lines didn't end up being necessary.    But it's a good FYI so future programmers can solve matplotlib display problems, though
+# NOTE: The above lines didn't end up being necessary.    But it's a good FYI so future programmers can solve matplotlib display problems, though
 
 #================================================================
 class DeepLabModel(object):
@@ -88,7 +91,7 @@ class DeepLabModel(object):
         self.OUTPUT_TENSOR_NAME,
         feed_dict={self.INPUT_TENSOR_NAME: [resized_image]})[0], 
       resized_image)
-  #===== end func def of    segment_nparr(self, img): =====
+  #=============== end segment_nparr(self, img): ===============
   #================================================================
 # end class definition DeepLabModel()
 #================================================================
@@ -120,7 +123,7 @@ def binarize(mask_3_colors):
   RED=0; CERTAIN=256.0; probable = np.array(int(CERTAIN / 2)-1) # default color is magenta, but the red part shows 
   mask_binary = deepcopy(mask_3_colors[:,:,RED])
   return mask_binary.astype('bool')
-# end def binarize(mask_3_colors):
+# end binarize(mask_3_colors):
 #================================================================
 def run_visualization(url, model):
   try:
@@ -139,11 +142,11 @@ def run_visualization(url, model):
   #PROBABLE = 127  # NOTE:  experimental from 1 data point;  PLEASE DOUBLE CHECK if u get a noisy segmentation
   #ii.imwrite("_segmented____binary_mask_.jpg", np.greater(seg_map, PROBABLE).astype('bool'))
   return np.rot90(seg_map,k=3) # k=3 b/c it gives us the result we want   (I tested it experimentally.  Dec. 26, 2018)   # this is true for the URL version, not the other
-#===== end func def of  run_visualization(url): =====
+#===== end run_visualization(url): =====
 #================================================================
 def seg_map(img, model):
   print('running deeplab on image')
-  seg_map, resized_im = model.segment_nparr(img)
+  seg_map, resized_im = model.segment_nparr(img) # within def seg_map(img, model)
   if debug:
     pltshow(seg_map)
   if save:
@@ -153,6 +156,31 @@ def seg_map(img, model):
   return np.rot90(seg_map,k=3) # k=3 b/c it gives us the result we want   (I tested it experimentally.  Dec. 26, 2018)
 #=========== end ============ seg_map(img, model): ==============  # NOTE: only need to do this if func is REALLY long.
 
+#================================================================
+def seg(img):
+  #================================================================
+  LABEL_NAMES = np.asarray([
+      'background', 'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus',
+      'car', 'cat', 'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike',
+      'person', 'pottedplant', 'sheep', 'sofa', 'train', 'tv'
+  ])
+  #================================================================
+  FULL_LABEL_MAP = np.arange(len(LABEL_NAMES)).reshape(len(LABEL_NAMES), 1)
+  FULL_COLOR_MAP = label_to_color_image(FULL_LABEL_MAP)
+  MODEL_NAME = 'mobilenetv2_coco_voctrainaug'
+  _DOWNLOAD_URL_PREFIX = 'http://download.tensorflow.org/models/'
+  _MODEL_URLS = {
+      'mobilenetv2_coco_voctrainaug': 'deeplabv3_mnv2_pascal_train_aug_2018_01_29.tar.gz',
+      'mobilenetv2_coco_voctrainval': 'deeplabv3_mnv2_pascal_trainval_2018_01_29.tar.gz'
+  }
+  _TARBALL_NAME = 'deeplab_model.tar.gz'
+  model_dir = './'
+  download_path = os.path.join(model_dir, _TARBALL_NAME)
+  # urllib.request.urlretrieve(_DOWNLOAD_URL_PREFIX + _MODEL_URLS[MODEL_NAME], download_path)
+  MODEL = DeepLabModel(download_path) # segment_local()
+  FAIRLY_CERTAIN=127
+  return seg_map(img, MODEL)
+#=====  end segment_local(local_filename) =====
 #================================================================
 def segment_local(local_filename):
   #img=scipy.ndimage.io.imread(local_filename)
@@ -181,9 +209,10 @@ def segment_local(local_filename):
   MODEL = DeepLabModel(download_path) # segment_local()
   FAIRLY_CERTAIN=127
   return seg_map(img, MODEL)
-#=====  end func def of   segment_local(local_filename) =====
+#=====  end segment_local(local_filename) =====
 #seg_local = segment_local   # instead of using this "seg_local = segment_local," I did "from seg import segment_local as seg_local"
 
+#================================================================
 #==================================================
 def segment_URL(IMG_URL):
   '''
@@ -215,7 +244,7 @@ def segment_URL(IMG_URL):
 
   FAIRLY_CERTAIN=127
   return np.greater(run_visualization(IMG_URL, MODEL), FAIRLY_CERTAIN)
-#===== end func def of  segment_URL(IMG_URL): =====
+#===== end segment_URL(IMG_URL): =====
 
 
 
@@ -249,7 +278,7 @@ def segment_black_background(local_fname):
   ii.imwrite(fname,img)
   return img, np.logical_not(segmap)
   # logical_not() because mask should be where there's a person, not where there's background
-#========== end func def of  segment_black_background(params): ==========
+#========== end segment_black_background(params): ==========
 
 #========================================================================
 if __name__=='__main__':
@@ -277,7 +306,7 @@ if __name__=='__main__':
     # TODO: error checking:
     #   if len(sys.argv) < 3:   # should it be less than 3?  more?
     overlay_imgs(fnames[0], fnames[1])  # tODO: hardcode the fnames?
-#========================== __main__ =====================================
+#========================== end __main__ =====================================
 
 
 
@@ -291,18 +320,6 @@ if __name__=='__main__':
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-# end if __name__=='__main__':
 
 
 
@@ -370,5 +387,25 @@ if __name__=='__main__':
 
 
 
+# Glossary:
+'''
+  Function definitions (function headers)
+
+  As of Sat Mar  2 07:39:17 EST 2019,
+
+    47:  def __init__(self, tarball_path):
+    63:  def run(self, image):
+    75:  def segment_nparr(self, img):
+    98:def create_pascal_label_colormap():
+    109:def label_to_color_image(label):
+    119:def binarize(mask_3_colors):
+    125:def run_visualization(url, model):
+    144:def seg_map(img, model):
+    157:def segment_local(local_filename):
+    188:def segment_URL(IMG_URL):
+    224:def segment_black_background(local_fname):
+
+  tags glossary gloss defs funcs britney bitch
+'''
 
 

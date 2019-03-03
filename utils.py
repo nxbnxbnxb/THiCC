@@ -1,11 +1,309 @@
 # python 2/3 compatibility
 from __future__ import print_function
+#import cv2
+
+
+#======================================================================================================
+#======================================================================================================
+# imports from seg.py:                          NOTE start seg.py copy-paste
+#======================================================================================================
+#======================================================================================================
+
+
+WHITE=255
+BLACK=0
+TRANSPARENT=0
+
+import os, tarfile, tempfile
+from glob import glob
+import numpy as np
+np.seterr(all='raise')
+import tensorflow as tf
+import scipy
+from scipy.ndimage.measurements import center_of_mass as CoM
+from io import BytesIO
+import imageio as ii
+import skimage
+from PIL import Image
+
+import sys
+import subprocess as sp
+
+from d import debug
+from save import save
+from viz import pltshow
+
+
+if debug:
+  import matplotlib
+  matplotlib.use('Agg')      
+  from matplotlib import pyplot as plt  # NOTE:  problem on Nathan's machine (Dec. 21, 2018) is JUST with pyplot.  None of the rest of matplotlib is a problem AT ALL.
+from matplotlib import gridspec
+from six.moves import urllib
+from scipy.ndimage import shift  # TODO: make all imports precisely like THIS.  from math import pi.  It's short, it's searchable (debuggable), 
+
+from copy import deepcopy
+
+'''
+import matplotlib
+matplotlib.use('Agg')      
+'''
+# NOTE: The above lines didn't end up being necessary.    But it's a good FYI so future programmers can solve matplotlib display problems, though
+
+#================================================================
+class DeepLabModel(object):
+  INPUT_TENSOR_NAME = 'ImageTensor:0'
+  OUTPUT_TENSOR_NAME = 'SemanticPredictions:0'
+  INPUT_SIZE = 513
+  FROZEN_GRAPH_NAME = 'frozen_inference_graph'
+
+  def __init__(self, tarball_path):
+    self.graph = tf.Graph()
+    graph_def = None
+    tar_file = tarfile.open(tarball_path)
+    for tar_info in tar_file.getmembers():
+      if self.FROZEN_GRAPH_NAME in os.path.basename(tar_info.name):
+        file_handle = tar_file.extractfile(tar_info)
+        graph_def = tf.GraphDef.FromString(file_handle.read())
+        break
+
+    tar_file.close()
+
+    with self.graph.as_default():
+      tf.import_graph_def(graph_def, name='')
+    self.sess = tf.Session(graph=self.graph)
+#================================================================
+  def run(self, image):
+    #print(type(image)) # type(image) is    <class 'PIL.PngImagePlugin.PngImageFile'>
+    width, height = image.size
+    resize_ratio = float(self.INPUT_SIZE / max(width, height))
+    target_size = (int(resize_ratio * width), int(resize_ratio * height))
+    resized_image = image.convert('RGB').resize(target_size, Image.ANTIALIAS)
+    batch_seg_map = self.sess.run(
+        self.OUTPUT_TENSOR_NAME,
+        feed_dict={self.INPUT_TENSOR_NAME: [np.asarray(resized_image)]})
+    seg_map = batch_seg_map[0]
+    return resized_image, seg_map
+#================================================================
+  def segment_nparr(self, img):
+    '''
+      Segments many shapes of images
+      In the method, we resize to a shape (ie. (513,288)) where one of the dimensions is 513 is required
+    '''
+    # tODO: understand better
+    width, height, RGB = img.shape
+    resize_ratio = float(self.INPUT_SIZE / max(width, height)) # 513/ bigger of width and height
+    target_size = (int(resize_ratio * width), int(resize_ratio * height), 3)
+    resized_image = skimage.transform.resize(img,target_size, anti_aliasing=True)
+
+    # return segmentation mask
+    return (self.sess.run(
+        self.OUTPUT_TENSOR_NAME,
+        feed_dict={self.INPUT_TENSOR_NAME: [resized_image]})[0], 
+      resized_image)
+  #=============== end segment_nparr(self, img): ===============
+  #================================================================
+# end class definition DeepLabModel()
+#================================================================
+
+
+#================================================================
+def create_pascal_label_colormap():
+  colormap = np.zeros((256, 3), dtype=int)
+  ind = np.arange(256, dtype=int)
+
+  for shift in reversed(range(8)):
+    for channel in range(3):
+      colormap[:, channel] |= ((ind >> channel) & 1) << shift
+    ind >>= 3
+
+  return colormap
+#================================================================
+def label_to_color_image(label):
+  if label.ndim != 2:
+    raise ValueError('Expect 2-D input label')
+  colormap = create_pascal_label_colormap()
+  if np.max(label) >= len(colormap):
+    raise ValueError('label value too large.')
+  return colormap[label]
+
+
+#================================================================
+def binarize(mask_3_colors):
+  RED=0; CERTAIN=256.0; probable = np.array(int(CERTAIN / 2)-1) # default color is magenta, but the red part shows 
+  mask_binary = deepcopy(mask_3_colors[:,:,RED])
+  return mask_binary.astype('bool')
+# end binarize(mask_3_colors):
+#================================================================
+def run_visualization(url, model):
+  try:
+    f = urllib.request.urlopen(url)
+    jpeg_str = f.read()
+    original_im = Image.open(BytesIO(jpeg_str))
+  except IOError:
+    print('Cannot retrieve image. Please check url: ' + url)
+    return
+  if debug:
+    print('running deeplab on image %s...' % url)
+  resized_im, seg_map = model.run(original_im)
+  if save:
+    ii.imwrite("_segmented____binary_mask_.jpg", seg_map)  
+    # I think something in the saving process ***ks up the mask with noise.  Dec. 14, 2018
+  #PROBABLE = 127  # NOTE:  experimental from 1 data point;  PLEASE DOUBLE CHECK if u get a noisy segmentation
+  #ii.imwrite("_segmented____binary_mask_.jpg", np.greater(seg_map, PROBABLE).astype('bool'))
+  return np.rot90(seg_map,k=3) # k=3 b/c it gives us the result we want   (I tested it experimentally.  Dec. 26, 2018)   # this is true for the URL version, not the other
+#===== end run_visualization(url): =====
+#================================================================
+def seg_map(img, model):
+  print('running deeplab on image')
+  seg_map, resized_im = model.segment_nparr(img) # within def seg_map(img, model)
+  if debug:
+    pltshow(seg_map)
+  if save:
+    fname = "_segmented____binary_mask_.jpg"
+    print('saving segmentation map in ', fname)
+    ii.imwrite(fname, seg_map)  # Dec. 14, 2018:  I think something in the saving process ***ks up the mask with noise
+  return np.rot90(seg_map,k=3) # k=3 b/c it gives us the result we want   (I tested it experimentally.  Dec. 26, 2018)
+#=========== end ============ seg_map(img, model): ==============  # NOTE: only need to do this if func is REALLY long.
+
+#================================================================
+def seg(img):
+  #================================================================
+  LABEL_NAMES = np.asarray([
+      'background', 'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus',
+      'car', 'cat', 'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike',
+      'person', 'pottedplant', 'sheep', 'sofa', 'train', 'tv'
+  ])
+  #================================================================
+  FULL_LABEL_MAP = np.arange(len(LABEL_NAMES)).reshape(len(LABEL_NAMES), 1)
+  FULL_COLOR_MAP = label_to_color_image(FULL_LABEL_MAP)
+  MODEL_NAME = 'mobilenetv2_coco_voctrainaug'
+  _DOWNLOAD_URL_PREFIX = 'http://download.tensorflow.org/models/'
+  _MODEL_URLS = {
+      'mobilenetv2_coco_voctrainaug': 'deeplabv3_mnv2_pascal_train_aug_2018_01_29.tar.gz',
+      'mobilenetv2_coco_voctrainval': 'deeplabv3_mnv2_pascal_trainval_2018_01_29.tar.gz'
+  }
+  _TARBALL_NAME = 'deeplab_model.tar.gz'
+  model_dir = './'
+  download_path = os.path.join(model_dir, _TARBALL_NAME)
+  # urllib.request.urlretrieve(_DOWNLOAD_URL_PREFIX + _MODEL_URLS[MODEL_NAME], download_path)
+  MODEL = DeepLabModel(download_path) # segment_local()
+  FAIRLY_CERTAIN=127
+  return seg_map(img, MODEL)
+#=====  end segment_local(local_filename) =====
+#================================================================
+def segment_local(local_filename):
+  #img=scipy.ndimage.io.imread(local_filename)
+  img=np.asarray(ii.imread(local_filename)).astype('float64') # TODO: delete this commented-out line
+  #================================================================
+  #================================================================
+  LABEL_NAMES = np.asarray([
+      'background', 'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus',
+      'car', 'cat', 'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike',
+      'person', 'pottedplant', 'sheep', 'sofa', 'train', 'tv'
+  ])
+  #================================================================
+  #================================================================
+  FULL_LABEL_MAP = np.arange(len(LABEL_NAMES)).reshape(len(LABEL_NAMES), 1)
+  FULL_COLOR_MAP = label_to_color_image(FULL_LABEL_MAP)
+  MODEL_NAME = 'mobilenetv2_coco_voctrainaug'
+  _DOWNLOAD_URL_PREFIX = 'http://download.tensorflow.org/models/'
+  _MODEL_URLS = {
+      'mobilenetv2_coco_voctrainaug': 'deeplabv3_mnv2_pascal_train_aug_2018_01_29.tar.gz',
+      'mobilenetv2_coco_voctrainval': 'deeplabv3_mnv2_pascal_trainval_2018_01_29.tar.gz'
+  }
+  _TARBALL_NAME = 'deeplab_model.tar.gz'
+  model_dir = './'
+  download_path = os.path.join(model_dir, _TARBALL_NAME)
+  # urllib.request.urlretrieve(_DOWNLOAD_URL_PREFIX + _MODEL_URLS[MODEL_NAME], download_path)
+  MODEL = DeepLabModel(download_path) # segment_local()
+  FAIRLY_CERTAIN=127
+  return seg_map(img, MODEL)
+#=====  end segment_local(local_filename) =====
+#seg_local = segment_local   # instead of using this "seg_local = segment_local," I did "from seg import segment_local as seg_local"
+
+#================================================================
+#==================================================
+def segment_URL(IMG_URL):
+  '''
+    NOTE: segmentation requires internet connection
+  '''
+  # TODO:   allow us to set the URL from parameter
+  LABEL_NAMES = np.asarray([
+      'background', 'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus',
+      'car', 'cat', 'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike',
+      'person', 'pottedplant', 'sheep', 'sofa', 'train', 'tv'
+  ])
+
+  FULL_LABEL_MAP = np.arange(len(LABEL_NAMES)).reshape(len(LABEL_NAMES), 1)
+  FULL_COLOR_MAP = label_to_color_image(FULL_LABEL_MAP)
+  MODEL_NAME = 'mobilenetv2_coco_voctrainaug'
+
+  _DOWNLOAD_URL_PREFIX = 'http://download.tensorflow.org/models/'
+  _MODEL_URLS = {
+      'mobilenetv2_coco_voctrainaug': 'deeplabv3_mnv2_pascal_train_aug_2018_01_29.tar.gz',
+      'mobilenetv2_coco_voctrainval': 'deeplabv3_mnv2_pascal_trainval_2018_01_29.tar.gz'
+  }
+  _TARBALL_NAME = 'deeplab_model.tar.gz'
+
+  model_dir = './'
+  download_path = os.path.join(model_dir, _TARBALL_NAME)
+  # urllib.request.urlretrieve(_DOWNLOAD_URL_PREFIX + _MODEL_URLS[MODEL_NAME], download_path)
+
+  MODEL = DeepLabModel(download_path)
+
+  FAIRLY_CERTAIN=127
+  return np.greater(run_visualization(IMG_URL, MODEL), FAIRLY_CERTAIN)
+#===== end segment_URL(IMG_URL): =====
+
+
+
+
+#====================================================================
+def segment_black_background(local_fname):
+  '''
+    BLACK is 0; so this function can be used to "add" two images together to superimpose them.
+  '''
+  # TODO: debug, generalize, etc.  Something ain't working (one of the last parts)
+  # NOTE:  PIL.resize(shape)'s shape has the width and height in the opposite order from numpy's height and width
+  # NOTE: weird sh!t happened when I tried to convert to 'float64' in the `np.array(Image.open(fname))` line.
+  segmap  = segment_local(local_fname) # segment_black_background()
+  #print("segmap.shape: \n{0}".format(segmap.shape)) # (513, 288).  Everything important happens in "segment_local()"
+  segmap  = segmap.reshape(segmap.shape[0],segmap.shape[1],1)
+  segmap  = np.rot90(       np.concatenate((segmap,segmap,segmap),axis=2)        )
+  # I really OUGHT to scale the mask to fit the dimensions of the image (we'd have better resolution this way)
+  img     = Image.open(local_fname)
+  img     = img.resize((segmap.shape[1],segmap.shape[0]), Image.ANTIALIAS)
+  img     = np.array(img) 
+  if debug:
+    pltshow(img); pltshow(segmap)
+  # as of (Wed Feb 20 17:49:37 EST 2019), segmap is 0 for background, 15 for human ( before astype('bool'))
+  segmap=np.logical_not(segmap.astype('bool'))
+
+  # cut out the human from the img
+  img[segmap]=BLACK
+  if debug:
+    pltshow(img)
+  fname='person_cutout__black_background.png'
+  ii.imwrite(fname,img)
+  return img, np.logical_not(segmap)
+  # logical_not() because mask should be where there's a person, not where there's background
+#========== end segment_black_background(params): ==========
+
+#======================================================================================================
+#======================================================================================================
+#                                               NOTE end copy-paste from seg.py
+#======================================================================================================
+#======================================================================================================
+
+
 
 # imports useful for access in python shell rather than for use in utils.py
 #import pandas as pd
 #from   mpl_toolkits.mplot3d import Axes3D   # import no longer used (Dec. 16, 2018).  plots VERY BASIC 3d shapes
 #import imageio as ii # imageio is not in hmr virtualenv.  I can comment out when necessary.
 
+import cv2
 import numpy as np
 np.seterr(all='raise')
 from PIL import Image
@@ -127,14 +425,102 @@ def prepend_0s(int_str, num_digits=9):
   return '0'*(num_digits-len(int_str))+int_str
 #==============================================================
 
+#============================================================================================================================
+#======================================================== NOTE ==============================================================
+#============================================================================================================================
+#=============================================== BIG PICTURE FUNCTION =======================================================
+#============================================================================================================================
+#======================================================== NOTE ==============================================================
+#============================================================================================================================
+def vid_2_mesh(
+  vid_local_path="/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_jesus_pose_legs_together_0227191404.mp4",
+  secs_btwn_frames=1/3.):
+  '''
+    -------
+    Params:
+    -------
+    vid_local_path:     string.  supported 1 trial of .mp4 and 1 trial of .webm.
+    secs_btwn_frames:    float.  1/3. is empirical; 15 degree angles from nathan_jesus_pose_legs_together_0227191404.mp4
+
+    ------ 
+    Notes:
+    ------ 
+    Sources:
+      https://stackoverflow.com/questions/33311153/python-extracting-and-saving-video-frames
+
+    -------
+     TODOS
+    -------
+    Testing
+    Generalize this to multiple vid filetypes, not just mp4.  
+      It worked on a .webm file!
+  '''
+  '''
+    Big picture:
+  2.  frames  = cut(vid)
+  3.  mask    = seg(frame)
+  4.  angle   = detect(mask, vid) 
+  5.  model   = upd8(model, mask, angle)
+    #Use that angle and the image (and resultant segmentation mask) at that angle to mask the voxels
+  6.  smpl    = fit(model)
+  '''
+  # You're in function "vid_2_mesh(params):"
+
+  # This "10" in delay=int(round(10 * secs_btwn_frames)) is because cv2 defaults to opening a new frame approx every 0.1 seconds
+  delay = int(round(10 * secs_btwn_frames))
+  print("Reading a frame from the video every {0} seconds".format(secs_btwn_frames))
+
+  # Get frames from the input video file and process them.
+  vidcap  = cv2.VideoCapture(vid_local_path)
+  count   = 0
+  # The following is basically a "do while:"
+  success, img  =vidcap.read()
+  while success:
+    # Make mask, upd8 voxels, build SMPL.
+    if count % delay == 0:
+
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # BGR to RGB
+      img=img[:,:,::-1]
+      pltshow(img)
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      mask = seg(img) # color is off.  seg returns nothing.
+      pltshow(mask)
+    count += 1
+    success, img = vidcap.read()
+  return root_img_dir #img_write_dir # success
+#==================== vid_2_mesh ==============================
+
+#============================================================================================================================
+#======================================================== NOTE ==============================================================
+#============================================================================================================================
+#=============================================== BIG PICTURE FUNCTION =======================================================
+#============================================================================================================================
+#======================================================== NOTE ==============================================================
+#============================================================================================================================
+
 #==============================================================
-def save_mp4_as_imgs(mp4_local_path, root_img_dir, fps=1., should_put_timestamps=True, output_img_filetype='jpg'):
+def save_vid_as_imgs(
+  vid_local_path="/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_jesus_pose_legs_together_0227191404.mp4",
+  root_img_dir="/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs",
+  secs_btwn_frames=1/3.,
+  should_put_timestamps=True,
+  output_img_filetype='jpg'):
   '''
     -------
     Params:
     -------
 
-    fps: decrease to chop video up into tinier bits, increase to speed up processing
+    secs_btwn_frames=1/3. is empirical; 15 degree angles from nathan_jesus_pose_legs_together_0227191404.mp4
 
 
     ------ 
@@ -165,12 +551,12 @@ def save_mp4_as_imgs(mp4_local_path, root_img_dir, fps=1., should_put_timestamps
         count += 1
         success, img = vidcap.read()
   '''
-  # This function is called "save_mp4_as_imgs(params):"
+  # This function is called "save_vid_as_imgs(params):"
 
-  import cv2 
+  #import cv2 
   #"import cv2" is in this local function ONLY because I was having issues installing cv2 into the conda "cat" environment.  I wish I remembered which package was the issue off the top of my head.
-  delay=int(round(10/fps))
-  # "10" in delay=int(round(10/freq)) because cv2 defaults to opening a new frame approx every 0.1 seconds
+  delay = int(round(10 * secs_btwn_frames))
+  # The "10" in delay=int(round(10 * secs_btwn_frames)) is because cv2 defaults to opening a new frame approx every 0.1 seconds
 
   # Make folder to store the images
   img_write_dir=root_img_dir
@@ -180,22 +566,23 @@ def save_mp4_as_imgs(mp4_local_path, root_img_dir, fps=1., should_put_timestamps
     timestamp=datetime.datetime.now().strftime('%Y_%m_%d____%H:%M_%p__') # p is for P.M. vs. A.M.
     img_write_dir+=timestamp+'/'
   print("Saving images to: ",img_write_dir)
-  print("Saving a frame from the video every {0} seconds".format(delay))
+  print("Saving a frame from the video every {0} seconds".format(secs_btwn_frames))
   os.system('mkdir '+img_write_dir)
   # Even if the folder to be created already exists,  the frames of the video STILL get written into the already-existing folder
 
   # Write images from the input video file
-  vidcap  = cv2.VideoCapture(mp4_local_path)
+  vidcap  = cv2.VideoCapture(vid_local_path)
   count   = 0
   # The following is basicaaly a "do while:"
   success, img  =vidcap.read()
   while success:
     if count % delay == 0:
-      cv2.imwrite(img_write_dir+"{0}.{1}".format(prepend_0s(str(count)),output_img_filetype), img)
+      fname=img_write_dir+"{0}.{1}".format(prepend_0s(str(count)),output_img_filetype)
+      cv2.imwrite(fname, img)
     count += 1
     success, img = vidcap.read()
-  return img_write_dir # success
-#===== end func def of  save_mp4_as_imgs(**lotsa_params): =====
+  return root_img_dir #img_write_dir # success
+#===== end func def of  save_vid_as_imgs(**lotsa_params): =====
 
 
 
@@ -237,6 +624,7 @@ def save_mp4_as_imgs(mp4_local_path, root_img_dir, fps=1., should_put_timestamps
 
 
 
+#=======================================================================================================================================
 def np_img(img_fname):
   return np.asarray(ii.imread(img_fname))
 
@@ -656,11 +1044,61 @@ def pad_all(mask, biggers_shape):
                 biggers_shape)
   # end func def pad_sides(mask, biggers_shape):
 #=========================================================================
-                
+def files_from_dir(dir_name):
+  if '/' == dir_name[-1]:
+    dir_name=dir_name+'*'
+  else:
+    dir_name=dir_name+'/*'  # '*' means grab all dirs
+  return glob.glob(dir_name)
+#===================================================================================================================================
+def save_masks_from_imgs(
+  root_img_dir="/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs",
+  root_mask_dir="/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks",
+  img_file_extension='jpg'):
+
+  masks=[]
+  list_of_files=files_from_dir(root_img_dir)
+  latest_img_dir = max(list_of_files, key=os.path.getctime)+'/' # https://docs.python.org/2/library/os.path.html.  lots of varieties, but getmtime() suits our purposes for now.  Tue Jan 15 10:16:14 EST 2019
+  #oldest first
+  if '/' == latest_img_dir[-1]:
+    cmd=latest_img_dir+'*'
+  else:
+    cmd=latest_img_dir+'/*' # '*' means grab all dirs
+  img_filenames = sorted(glob.glob(cmd), key=os.path.getmtime)
+  timestamp=datetime.datetime.now().strftime('%Y_%m_%d____%H:%M_%p') # p for P.M. vs. A.M.
+  curr_mask_dir=root_mask_dir+timestamp+"___"
+  pn(3); print('='*99); print('saving masks in '+curr_mask_dir+'  ...'); print('='*99); pn(3)
+  make="mkdir "+curr_mask_dir
+  os.system(make)
+  #print(img_filenames) #00000.jpg, 00001.jpg, etc.
+  for i,img_fname in enumerate(img_filenames):
+    if img_fname.endswith(img_file_extension):
+      segmap = seg.segment_local(img_fname)
+      masks.append(segmap)
+      if debug:
+        pltshow(np.rot90(segmap,k=1))
+      mask_fname=curr_mask_dir+'/'+prepend_0s(str(i))+'.'+img_file_extension
+      ii.imwrite(
+              mask_fname,
+              np.rot90(segmap,k=1))
+  return masks  # TODO: standardize the return-values-upon-success for all functions in all code (in C/C++ it's '0')
+  # TODO:  activate cleanup if the code is out for prod:
+  '''
+  if cleanup:
+    os.system('rm -rf '+latest_img_dir) # NOTE: don't wanna keep their nudes.  But while we're just testing, no need to remove everything
+  '''
+#===== end func def of   save_masks_from_imgs(root_img_dir,root_mask_dir,file_extension='jpg'): ===== }
+ 
 
 
 if __name__=='__main__':
-    #save_mp4_as_imgs('',
+    vid_2_mesh()
+    '''
+    frames_dir=save_vid_as_imgs()
+    masks=save_masks_from_imgs(frames_dir)
+    for mask in masks:
+        pltshow(mask)
+    '''
 
 
 

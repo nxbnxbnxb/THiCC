@@ -1,12 +1,11 @@
 
   What did you learn today?
     Just do it.
+    Apply Spolsky's "Joel on Software" to our work stuff
+      4.Do you have a bug database?
+        Not a good one 
 
-  Keep this TODO.txt for direct actions supporting TheMall project ONLY.
-    Separate TODO should be for other things (various forms of procrasination) 
-      (ie. part-time jobs, arubaitos, money, friends, classes that might INdirectly develop into mall proj relevance, etc.)
-
-
+  Only for TheMall.  see misc_TODO.txt for non-proj things
 
 
 
@@ -19,8 +18,98 @@ ________________________________
   Fri Mar  1 09:42:45 EST 2019
 ________________________________
 
+  Get a conda environment working with all the necessary dependencies.  1st step done.
+    try to put flask, celery, etc. in there too.
+    Scrapy?  Kivy?
+
+  test cat12 with all *.py files.
+
+
+
+
+
+  edit Go!
+  /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/ref/nn_fitting_plan.txt
+
+
+  Get a conda environment working with all the necessary dependencies.  1st step done.
+    try to put flask, celery, etc. in there too.
+    It will help you refactor "frames=cut_vid()" so "cut_vid()" is simple, maintainable, etc.
+    cat12, cat11 and cat4 are working!!!
+      But NOTE! more packages should be added to them as well.
+
+  write in "np.seterr(all='raise')" everywhere I import np
+  see whether we can do ALL imports in ONE conda environment (gr -r import\  > imports.py)
+  When waiting for stuff, do something short (ie. clean out e-mail or do some menial, small task related to the currect task).  Don't get overly involved in something long and complicated.
+
+  clean out old conda environments
+  deal with gst alterations (too much crap on my screen)
+
+  finish with /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imports.py
+
+  zsh would probably make conda packages hella easier
+    or:
+      - bash
+      - fish
+      - tcsh
+      - xonsh
+      - zsh
+      - powershell
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  replicate cat3 conda install process
+    DONE
+
+
   Print out the gameplan from [here] (ink @ home):
     /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/ref/nn_fitting_plan.txt
+
+  Sched meeting w/ the guys
+    Write something to Dario
+    Discuss exit (sell @ what valuation?)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   Plug measurements into SMPL
     Before I do this, I should find the betas for a SMPL model of Nathan Bendich
@@ -28,7 +117,6 @@ ________________________________
     I guess the best way to start is to try out something that's close and spin it around in Blender from all angles until I can't tell the difference between it and me.
     After all, I have 360 degree video of myself.
 
-  Sched meeting w/ the guys
 
 
 
@@ -67,26 +155,9 @@ ________________________________
 
 
 
+  Kill all function endings in all files.   ("========== end def of ===========" => "========= end save_vid_as_imgs() ===============")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  Push changes in save_mp4_as_imgs() in utils.py
+  Push changes in save_vid_as_imgs() in utils.py
     DONE.
 
 
@@ -13773,3 +13844,114 @@ ________________________________
   Look up if there's a cmd line browser like vim that lets me split-screen
 
     Modularity.  Anti-Platonicity.  Act by intuition, reflect by data.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  cmd:
+    grep -r -i --include \*.py --exclude-dir=src file_contents_targ_txt
+
+
+
+  The Joel Test
+
+  1.Do you use source control?
+    Yes, but I don't really know how git works
+  2.Can you make a build in one step?
+    No?
+  3.Do you make daily builds?
+    No.
+  4.Do you have a bug database?
+    Not a good one
+  5.Do you fix bugs before writing new code?
+    No.
+  6.Do you have an up-to-date schedule?
+    No.
+  7.Do you have a spec?
+    No.
+  8.Do programmers have quiet working conditions?
+    Yes!
+  9.Do you use the best tools money can buy?
+    We don't have hella money.  But no.
+ 10.Do you have testers?
+    Just me.
+ 11.Do new candidates write code during their interview?
+    What?
+ 12.Do you do hallway usability testing?
+    Idk what this is.
+
+

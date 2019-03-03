@@ -108,6 +108,7 @@
       1.  All front/back frames have long wingspan
         a. ie. 0 degrees, 180 degrees
       2.
+# nOTE: in order to get the masks at the ideal angles of the body's rotation, we gotta come up with some smart way of calculating the angles.  Maybe counting the total number of img files between 0 and 360 degrees and just dividing?  It'll probably do for now, but unfortunately stepping in a circle is not like a smooth lazy-susan
       3.
     b.  Side frame: after 0th frame, minimize x-spread of mask (something like   "frame_idx=np.argmin(np.max(x_spreads))")
       1.  All side frames have "small wingspan"

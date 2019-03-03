@@ -2,8 +2,11 @@
 #TODO? rename to mzr?
 import json
 import numpy as np
+np.seterr(all='raise')
 import math
 from math import pi
+import matplotlib as mpl
+mpl.use('TkAgg')
 import matplotlib.pyplot as plt
 import imageio as ii
 import os

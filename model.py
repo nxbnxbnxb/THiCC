@@ -8,7 +8,6 @@ import imageio as ii
 
 # our files/modules.  
 import seg
-from out_4_customers import cleanup
 from viz      import * # TODO: narrow down so fewer naming conflicts
 from d        import debug 
 from save     import save
@@ -40,46 +39,6 @@ class BadInputException(RuntimeError):
 #===================================================================================================================================
 class DimensionMismatchException(RuntimeError):
     pass
-#===================================================================================================================================
-def save_masks_from_imgs(root_img_dir,root_mask_dir,img_file_extension='jpg'):
-  import glob
-  import os
-  if '/' == root_img_dir[-1]:
-    root=root_img_dir+'*'
-  else:
-    root=root_img_dir+'/*'  # '*' means grab all dirs
-
-  list_of_files = glob.glob(root)
-  latest_img_dir = max(list_of_files, key=os.path.getctime)+'/' # https://docs.python.org/2/library/os.path.html.  lots of varieties, but getmtime() suits our purposes for now.  Tue Jan 15 10:16:14 EST 2019
-  #oldest first
-  if '/' == latest_img_dir[-1]:
-    cmd=latest_img_dir+'*'
-  else:
-    cmd=latest_img_dir+'/*' # '*' means grab all dirs
-  img_filenames = sorted(glob.glob(cmd), key=os.path.getmtime)
-  timestamp=datetime.datetime.now().strftime('%Y_%m_%d____%H:%M_%p') # p for P.M. vs. A.M.
-  curr_mask_dir=root_mask_dir+timestamp+"___"
-  make="mkdir "+curr_mask_dir
-  os.system(make)
-  #print(img_filenames) #00000.jpg, 00001.jpg, etc.
-  for i,img_fname in enumerate(img_filenames):
-    if img_fname.endswith(img_file_extension):
-      print("img_fname  is:\n   {0}".format(img_fname))
-      #segmap = seg.segment_from_local(img_fname)
-      if debug:
-        pltshow(np.rot90(segmap,k=1))
-      mask_fname=curr_mask_dir+'/'+prepend_0s(str(i))+'.'+img_file_extension
-      print("mask_fname is:\n   {0}".format(mask_fname))
-      ii.imwrite(
-              mask_fname,
-              np.rot90(segmap,k=1))
-  if cleanup:
-    os.system('rm -rf '+latest_img_dir) # NOTE: don't wanna keep their nudes.  But while we're just testing, no need to remove everything
-  return True  # TODO: standardize the return-values-upon-success for all functions in all code (in C/C++ it's '0')
-  # TODO:  clean up all the old image files laying around ('rm' them)
-#===== end func def of   save_masks_from_imgs(root_img_dir,root_mask_dir,file_extension='jpg'): ===== }
-
-
 #===================================================================================================================================
 def mask(model, mask, axis='x'):
   '''
