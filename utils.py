@@ -1,6 +1,14 @@
 # python 2/3 compatibility
 from __future__ import print_function
-#import cv2
+import cv2
+
+from d import debug
+from save import save
+from viz import pltshow
+if debug:
+  import matplotlib as mpl
+  mpl.use('Agg')      
+  from matplotlib import pyplot as plt  # NOTE:  problem on Nathan's machine (Dec. 21, 2018) is JUST with pyplot.  None of the rest of matplotlib is a problem AT ALL.
 
 
 #======================================================================================================
@@ -29,15 +37,7 @@ from PIL import Image
 import sys
 import subprocess as sp
 
-from d import debug
-from save import save
-from viz import pltshow
 
-
-if debug:
-  import matplotlib
-  matplotlib.use('Agg')      
-  from matplotlib import pyplot as plt  # NOTE:  problem on Nathan's machine (Dec. 21, 2018) is JUST with pyplot.  None of the rest of matplotlib is a problem AT ALL.
 from matplotlib import gridspec
 from six.moves import urllib
 from scipy.ndimage import shift  # TODO: make all imports precisely like THIS.  from math import pi.  It's short, it's searchable (debuggable), 
@@ -85,16 +85,17 @@ class DeepLabModel(object):
     seg_map = batch_seg_map[0]
     return resized_image, seg_map
 #================================================================
-  def segment_nparr(self, img):
+  def seg_nparr(self, img):
     '''
       Segments many shapes of images
       In the method, we resize to a shape (ie. (513,288)) where one of the dimensions is 513 is required
     '''
     # tODO: understand better
+    print('running deeplab segmentation on image')
     width, height, RGB = img.shape
     resize_ratio = float(self.INPUT_SIZE / max(width, height)) # 513/ bigger of width and height
     target_size = (int(resize_ratio * width), int(resize_ratio * height), 3)
-    resized_image = skimage.transform.resize(img,target_size, anti_aliasing=True)
+    resized_image = skimage.transform.resize(img, target_size, mode='constant', anti_aliasing=True)
 
     # return segmentation mask
     return (self.sess.run(
@@ -155,8 +156,9 @@ def run_visualization(url, model):
 #===== end run_visualization(url): =====
 #================================================================
 def seg_map(img, model):
+  # basically total fluff.  TODO: kill.
   print('running deeplab on image')
-  seg_map, resized_im = model.segment_nparr(img) # within def seg_map(img, model)
+  seg_map, resized_im = model.seg_nparr(img) # within def seg_map(img, model)
   if debug:
     pltshow(seg_map)
   if save:
@@ -168,7 +170,8 @@ def seg_map(img, model):
 
 #================================================================
 def seg(img):
-  #================================================================
+  img=img.astype("float64")
+  #================================================================  labels
   LABEL_NAMES = np.asarray([
       'background', 'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus',
       'car', 'cat', 'chair', 'cow', 'diningtable', 'dog', 'horse', 'motorbike',
@@ -184,13 +187,14 @@ def seg(img):
       'mobilenetv2_coco_voctrainval': 'deeplabv3_mnv2_pascal_trainval_2018_01_29.tar.gz'
   }
   _TARBALL_NAME = 'deeplab_model.tar.gz'
-  model_dir = './'
+  model_dir = './' # tODO: generalize this location
   download_path = os.path.join(model_dir, _TARBALL_NAME)
   # urllib.request.urlretrieve(_DOWNLOAD_URL_PREFIX + _MODEL_URLS[MODEL_NAME], download_path)
   MODEL = DeepLabModel(download_path) # segment_local()
   FAIRLY_CERTAIN=127
-  return seg_map(img, MODEL)
-#=====  end segment_local(local_filename) =====
+  seg_map, resized_im = MODEL.seg_nparr(img)
+  return seg_map
+#=====  end seg(params) =====
 #================================================================
 def segment_local(local_filename):
   #img=scipy.ndimage.io.imread(local_filename)
@@ -220,7 +224,6 @@ def segment_local(local_filename):
   FAIRLY_CERTAIN=127
   return seg_map(img, MODEL)
 #=====  end segment_local(local_filename) =====
-#seg_local = segment_local   # instead of using this "seg_local = segment_local," I did "from seg import segment_local as seg_local"
 
 #================================================================
 #==================================================
@@ -303,7 +306,6 @@ def segment_black_background(local_fname):
 #from   mpl_toolkits.mplot3d import Axes3D   # import no longer used (Dec. 16, 2018).  plots VERY BASIC 3d shapes
 #import imageio as ii # imageio is not in hmr virtualenv.  I can comment out when necessary.
 
-import cv2
 import numpy as np
 np.seterr(all='raise')
 from PIL import Image
@@ -432,6 +434,31 @@ def prepend_0s(int_str, num_digits=9):
 #============================================================================================================================
 #======================================================== NOTE ==============================================================
 #============================================================================================================================
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 def vid_2_mesh(
   vid_local_path="/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_jesus_pose_legs_together_0227191404.mp4",
   secs_btwn_frames=1/3.):
@@ -479,25 +506,15 @@ def vid_2_mesh(
     # Make mask, upd8 voxels, build SMPL.
     if count % delay == 0:
 
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
       # BGR to RGB
       img=img[:,:,::-1]
-      pltshow(img)
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      mask = seg(img) # color is off.  seg returns nothing.
-      pltshow(mask)
+      mask = seg(img)
+      #mask=mask.astype('bool')
+    # end if count % delay == 0:
     count += 1
     success, img = vidcap.read()
-  return root_img_dir #img_write_dir # success
+  mesh=np.eye(3) # TODO:   This is just a placeholder for mesh.  Real one should use smpl or some other complex but accurate method of returning the mesh
+  return mesh
 #==================== vid_2_mesh ==============================
 
 #============================================================================================================================
@@ -507,6 +524,26 @@ def vid_2_mesh(
 #============================================================================================================================
 #======================================================== NOTE ==============================================================
 #============================================================================================================================
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 
 #==============================================================
 def save_vid_as_imgs(

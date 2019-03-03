@@ -4,6 +4,7 @@ WHITE=255
 BLACK=0
 TRANSPARENT=0
 
+import cv2
 import os, tarfile, tempfile
 from glob import glob
 import numpy as np
@@ -183,8 +184,10 @@ def seg(img):
 #=====  end segment_local(local_filename) =====
 #================================================================
 def segment_local(local_filename):
-  #img=scipy.ndimage.io.imread(local_filename)
-  img=np.asarray(ii.imread(local_filename)).astype('float64') # TODO: delete this commented-out line
+  img=np.asarray(ii.imread(local_filename))
+  if debug:
+    pltshow(img)
+  img=img.astype("float64")
   #================================================================
   #================================================================
   LABEL_NAMES = np.asarray([
@@ -251,6 +254,7 @@ def segment_URL(IMG_URL):
 
 #====================================================================
 def segment_black_background(local_fname):
+  # NOTE: WORKING.
   '''
     BLACK is 0; so this function can be used to "add" two images together to superimpose them.
   '''
@@ -258,7 +262,6 @@ def segment_black_background(local_fname):
   # NOTE:  PIL.resize(shape)'s shape has the width and height in the opposite order from numpy's height and width
   # NOTE: weird sh!t happened when I tried to convert to 'float64' in the `np.array(Image.open(fname))` line.
   segmap  = segment_local(local_fname) # segment_black_background()
-  #print("segmap.shape: \n{0}".format(segmap.shape)) # (513, 288).  Everything important happens in "segment_local()"
   segmap  = segmap.reshape(segmap.shape[0],segmap.shape[1],1)
   segmap  = np.rot90(       np.concatenate((segmap,segmap,segmap),axis=2)        )
   # I really OUGHT to scale the mask to fit the dimensions of the image (we'd have better resolution this way)
@@ -288,6 +291,7 @@ if __name__=='__main__':
     #'http://vishalanand.net/green.jpg'
     print ("\nusage: python2 seg.py [url_of_img_containing_human(s)] \n  example: python2 seg.py http://vishalanand.net/green.jpg   \n\n")
     print ("currently segmenting image found at url: \n  "+IMG_URL)
+    pltshow(segment_URL(IMG_URL))
   elif len(sys.argv) == 2:
     img_path=sys.argv[1]
     #IMG_URL = sys.argv[1]# TODO: uncomment to segment images on the internet.
