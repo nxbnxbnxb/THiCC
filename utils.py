@@ -9,6 +9,7 @@ if debug:
   import matplotlib as mpl
   mpl.use('Agg')      
   from matplotlib import pyplot as plt  # NOTE:  problem on Nathan's machine (Dec. 21, 2018) is JUST with pyplot.  None of the rest of matplotlib is a problem AT ALL.
+ACROSS=1
 
 
 #======================================================================================================
@@ -459,6 +460,7 @@ def prepend_0s(int_str, num_digits=9):
       # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
       # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
       # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+#============================================================================================================================
 def vid_2_mesh(
   vid_local_path="/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_jesus_pose_legs_together_0227191404.mp4",
   secs_btwn_frames=1/3.):
@@ -502,6 +504,7 @@ def vid_2_mesh(
   count   = 0
   # The following is basically a "do while:"
   success, img  =vidcap.read()
+  print("img.shape is ",img.shape)
   while success:
     # Make mask, upd8 voxels, build SMPL.
     if count % delay == 0:
@@ -509,6 +512,7 @@ def vid_2_mesh(
       # BGR to RGB
       img=img[:,:,::-1]
       mask = seg(img)
+      print("mask.shape = ",mask.shape) # (513,288)
       #mask=mask.astype('bool')
     # end if count % delay == 0:
     count += 1
@@ -516,6 +520,100 @@ def vid_2_mesh(
   mesh=np.eye(3) # TODO:   This is just a placeholder for mesh.  Real one should use smpl or some other complex but accurate method of returning the mesh
   return mesh
 #==================== vid_2_mesh ==============================
+def vid_2_mesh_sandbox(
+  vid_local_path="/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_jesus_pose_legs_together_0227191404.mp4",
+  secs_btwn_frames=1/3.):
+  '''
+    -------
+    Params:
+    -------
+    vid_local_path:     string.  supported 1 trial of .mp4 and 1 trial of .webm.
+    secs_btwn_frames:    float.  1/3. is empirical; 15 degree angles from nathan_jesus_pose_legs_together_0227191404.mp4
+
+    ------ 
+    Notes:
+    ------ 
+    Sources:
+      https://stackoverflow.com/questions/33311153/python-extracting-and-saving-video-frames
+
+    -------
+     TODOS
+    -------
+    Testing
+    Generalize this to multiple vid filetypes, not just mp4.  
+      It worked on a .webm file!
+  '''
+  '''
+    Big picture:
+  2.  frames  = cut(vid)
+  3.  mask    = seg(frame)
+  4.  angle   = detect(mask, vid) 
+  5.  model   = upd8(model, mask, angle)
+    #Use that angle and the image (and resultant segmentation mask) at that angle to mask the voxels
+  6.  smpl    = fit(model)
+  '''
+  # You're in function "vid_2_mesh_sandbox(params):"
+
+
+
+  STILL_FRAMES=10 # This one I made up; we should test to see which value gives the best result
+  # This "10" in delay=int(round(10 * secs_btwn_frames)) is because cv2 defaults to opening a new frame approx every 0.1 seconds.  I got this empirically from 1 example, but cv2 says it's 30 in the command "vidcap.get(cv2.CAP_PROP_FPS)"
+  fps=10
+  #fps = vidcap.get(cv2.CAP_PROP_FPS) # Is this correct, though?  It said 30 for '/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_jesus_pose_legs_together_0227191404.mp4'
+  delay = int(round(fps * secs_btwn_frames))
+  print("Reading a frame from the video every {0} seconds".format(secs_btwn_frames))
+
+  # Get frames from the input video file and process them.
+  vidcap  = cv2.VideoCapture(vid_local_path)
+  count   = 0
+  success, img  =vidcap.read() # img.shape == (1920,1020)
+
+  vidcap.set(cv2.CAP_PROP_POS_AVI_RATIO,1) # vid's end
+  endtime=vidcap.get(cv2.CAP_PROP_POS_MSEC) / 1000.
+  # "endtime" initially in millisecs, 1000 puts it in seconds
+  num_masks=int(round((endtime*fps)+STILL_FRAMES+1)) # if I made a fencepost error somewhere, the +1 will fix it and not cost too much extra space
+  print("num_masks = ",num_masks)
+  vidcap.set(cv2.CAP_PROP_POS_AVI_RATIO,0) # vid's beginning
+
+  if success:
+    mask=seg(img) #  mask.shape == (513,288)
+    masks=np.zeros((*mask.shape,num_masks)) # what is the default type?
+    mask_ws=np.zeros(num_masks)
+    # might not matter to be this precise "(masks=np.zeros((*mask.shape,num_masks)))," but if I do the work of already making it ready for optimization, it'll be easier to optimize (speed up) later
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  mask_idx=0
+  # read in all the masks
+  while success:
+    # Make mask, upd8 voxels, build SMPL.
+    if count < STILL_FRAMES or count % delay == 0:
+      img=img[:,:,::-1] # BGR to RGB
+      mask=seg(img)
+      masks[:,:,mask_idx]= mask
+      # Something is wrong either with storage or segmentation here.  I just got a bunch of blank masks
+      mask_ws[mask_idx]=np.max(np.count_nonzero(mask,axis=ACROSS))
+      mask_idx+=1
+    # end if count % delay == 0:
+    count += 1
+    success, img = vidcap.read()
+  side_2_front_idxes=np.argsort(mask_ws) # the masks of the side views ought to be at the beginning of this variable
+
+  # show the first n masks
+  n=10
+  for i in range(10):
+    pltshow(masks[:,:,side_2_front_idxes[i]])
+    pltshow(masks[:,:,side_2_front_idxes[len(side_2_front_idxes)-i]])
+  #print("masks: ",masks)
+  '''
+  for mask in masks:
+    pltshow(mask) # BUNCH of blanks
+  '''
+  mesh=np.eye(3) # TODO:   This is just a placeholder for mesh.  Real one should use smpl or some other complex but accurate method of returning the mesh
+  return mesh
+#==================== vid_2_mesh_sandbox ==============================
 
 #============================================================================================================================
 #======================================================== NOTE ==============================================================
@@ -1129,7 +1227,8 @@ def save_masks_from_imgs(
 
 
 if __name__=='__main__':
-    vid_2_mesh()
+    #vid_2_mesh()
+    vid_2_mesh_sandbox()
     '''
     frames_dir=save_vid_as_imgs()
     masks=save_masks_from_imgs(frames_dir)
