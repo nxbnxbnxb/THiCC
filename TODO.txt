@@ -18,6 +18,80 @@ ________________________________
   Fri Mar  1 09:42:45 EST 2019
 ________________________________
 
+  git push
+  utils.py vid_2_mesh()
+    detect_angle(mask)
+  contact the Mall Mafia dudes
+
+  "Cache" the masks (save to a dir, then just load them when testing.  Repetitive segmentation takes ~10 minutes and doesn't let you get into a workflow)
+    Also finish what you wrote out
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   Get a conda environment working with all the necessary dependencies.  1st step done.
     try to put flask, celery, etc. in there too.
     Scrapy?  Kivy?
