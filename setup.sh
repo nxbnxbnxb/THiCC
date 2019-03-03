@@ -1,44 +1,104 @@
 #!/bin/bash
-#
-#     Dec. 27, 2018
-#
-#########################################
-#       Installation time (approx)
-#
-#            real   1m34.194s
-#            user   1m10.520s
-#            sys    0m7.909s
-#########################################
-#
-#
-
-# download model necessary for segmentation images of people
-#wget http://columbia.edu/~nxb2101/deeplab_model.tar.gz  # TODO: uncomment if you are NOT Nathan Bendich on his Ubuntu laptop
-
-# new env
-conda create -y --name cat python=3.6.6 && source activate cat
-# NOTE: this one is done so far.
-
-#
-pip install --upgrade pip # version 19.0.1 supported tensorflow-1.12.  timestamp is: (Sun Jan 27 19:49:32 EST 2019).  idk if this will keep supporting it.
 
 
-# install
-conda install -yc conda-forge scikit-image==0.14.1 && pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.12.0-cp36-cp36m-linux_x86_64.whl && conda install -y matplotlib==2.2.3
-# '-y' flag is for auto-yes to all conda prompts
+# The following "conda create ..." and "conda activate ..." breaks within this shitty bash script, but it still shows you how this is done
 
-# as of Dec. 27, 2018, :
-  # skimage   also installs six, qt, pyqt, imageio, matplotlib, scipy, and numpy 1.15.4
-  # tf CPU, py 3.6
-  # the newest matplotlib crashes my machine, so I put the 2nd's version info at the end
+echo "==============================================================================================================================================================================================================="
+echo "==============================================================================================================================================================================================================="
+echo "==============================================================================================================================================================================================================="
+echo "                                    Please NOTE:                                          "
+echo "                 CONDA VERSION 4.6.1 assumed in this script.                              "
+echo "        Also, you may have to manually execute each command within this bash script;      "
+echo "  I have included this message and this 'pause' so you pay attention and save yourself some time. "
+echo "==============================================================================================================================================================================================================="
+echo "==============================================================================================================================================================================================================="
+echo "==============================================================================================================================================================================================================="
+
+sleep 60 # stalls the user to make them read.
 
 
-# test proper install by calling python3.6 tests/install_tests/all_tests.py
-cd tests/install_tests/ && python3.6 all_tests.py
+
+#env=cat12
+## TODO: pip version number == 19.0.1
+## TODO: conda version number == 4.6.1
+#conda create -y --name $env python=3.6.8
+#conda activate $env # as of now, I don't know how to make "conda activate" work within bash script.  TODO NOTE
+
+pip install pip==19.0.1 &&\
+conda install -yc menpo opencv==3.4.2  &&\
+conda install -y matplotlib=2.2.3  &&\
+conda install -yc anaconda scikit-image && pip install --upgrade scikit-image==0.14.2 &&\
+conda install -y sympy==1.3  &&\
+pip install --ignore-installed --upgrade  https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.12.0-cp36-cp36m-linux_x86_64.whl &&\
+python3.6 /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/tests/install_tests/all_tests.py &&\
+python3.6 /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/tests/install_tests/test_imports.py
+# cmd line args
 
 
 
 
-#TODO:
-  #cv ?
-  # we were having trouble with compatibility for this.  Mon Jan 14 14:50:21 EST 2019
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
