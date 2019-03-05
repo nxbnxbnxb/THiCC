@@ -610,6 +610,53 @@ def orig_pix_h(img_fname):
 
 
 
+#===================================================================================================================================
+def measure_obj_file(obj_fname):
+  '''
+    Gets hip, waist, and chest measurements (circumferences) from an .obj file describing a human body.
+  '''
+  #obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'
+  verts=[]
+  faces=[]
+  with open(obj_fname, 'rb') as f:
+    for line in f.readlines():
+      print(line) # NOTE: what's this "b" at the beginning of the line?   b'f 6310 1331 4688\n'
+  #obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'
+  verts=[]
+  faces=[]
+  with open(obj_fname, 'rb') as f:
+    for line in f.readlines():
+      print(line) # NOTE: what's this "b" at the beginning of the line?   b'f 6310 1331 4688\n'
+
+    for line in f.readlines():
+      print(line)
+      if line.startswith('v'):
+        verts.append(line)
+      elif line.startswith('f'):
+        faces.append(line)
+  vs=np.zeros((len(faces), 3)).astype("float64")
+  X,Y,Z=1,2,3
+  for idx,v in enumerate(verts):
+    v=v.split(' ')
+    vs[idx]=v[X],v[Y],v[Z]
+  # TODO: sort the vertices by z value.
+  print("vertices:\n",vs)
+  DOWN=0
+  maxes = np.max(vs,axis=DOWN)
+  mins  = np.min(vs,axis=DOWN)
+  print("maxes:\n",maxes)
+  print("mins: \n",mins)
+  # TODO: find median / medians w.r.t. z
+  '''
+  Z=2
+  
+  vertical_midpt=
+  if 
+  faces=k
+    meshf.read()
+  mesh =  
+  '''
+#===================================================================================================================================
 
 
 
@@ -656,6 +703,8 @@ def test_measure():
 
 #===================================================================================================================================
 if __name__=="__main__":
+  obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'
+  measure_obj_file(obj_fname)
   test_measure()
   '''
   # all code here assumes the person we're dealing with is Nathan.  
