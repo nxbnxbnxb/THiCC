@@ -841,6 +841,16 @@ def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   #                  pt1: [  24.0617395    13.36335661 5040.39916411]
   #                  pt2: [  28.02287236   12.0112951  5030.3883187 ]
   #                  pt3: [  29.74478009    6.43362254 5036.59004338]
+  # TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  shrink_chest_again("pts0-3")
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO
 
   pr("Chest circumference in inches: ", calced_chest)
   # NOTES: went down to 38.04621572659287   (b4 STRETCH, was 40.22217968662046).   The real (empirical) measurement for Nathan's chest_circum is 34.575946247110544 inches.   Hm.... I was thinking it ought to be SMALLER than the real measurement.  I think it's because the STRETCH increases the magnitude of chest_circum enough to cancel out the decrease from it being quad instead of ~elliptical
