@@ -1,8 +1,13 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
 
 #TODO? rename to mzr?
 import json
 import numpy as np
 np.seterr(all='raise')
+from scipy.spatial import cKDTree
 import math
 from math import pi
 import matplotlib as mpl
@@ -112,6 +117,8 @@ from d import debug
 
 
 
+pr=print  
+# NOTE: in my infinite quest for conciseness, I may have turned some other pprint() function into ppr(), which will break the code
 
 #===================================================================================================================================
 def load_json(json_fname):
@@ -224,7 +231,8 @@ def estim8_w8(json_fname, front_fname, side_fname, height):
 
 
 #===================================================================================================================================
-def chest_waist_hips_circum(json_fname, front_fname, side_fname, cust_height):
+def measure_body_viz(json_fname, front_fname, side_fname, cust_h):
+# used to be called "chest_waist_hips_circum(json_fname, front_fname, side_fname, cust_h)"
   '''
     Circumference (perimeter) of body at the nipple level
     This method of finding the chest circumference assumes the customer's arms are perpendicular to the person's height (I call this "jesus pose,").  They don't NEED to be in this pose, but they definitely cannot be relaxed at the person's sides or "below" parallel to the ground.
@@ -300,21 +308,21 @@ def chest_waist_hips_circum(json_fname, front_fname, side_fname, cust_height):
   #origs_height  = orig_pix_h(front_fname) # not necessary
   orig_h        = np.asarray(ii.imread(front_fname)).shape[0]
   masks_h       = front_mask.shape[0]
-  print("masks_h: ",masks_h)
-  print("orig_h:  ",orig_h)
+  pr("masks_h: ",masks_h)
+  pr("orig_h:  ",orig_h)
 
   # Change heights (ie. nip_h, hip_h) to be within the mask's "height scale" :
   # mask_scaling is here because deeplab spits out segmaps of shape (513,288)
   mask_scaling  = float(masks_h)/float(orig_h)
   nip_h        *= mask_scaling
   nip_h         = int(round(nip_h))
-  print("nip_h is \n",nip_h)
+  pr("nip_h is \n",nip_h)
   belly_button_h*= mask_scaling # TODO: separate scale variable for this (  "float(masks_h)/float(orig_h)" )
   belly_button_h = int(round(belly_button_h))
-  print("belly_button_h is \n",belly_button_h)
+  pr("belly_button_h is \n",belly_button_h)
   hip_h        *= mask_scaling
   hip_h         = int(round(hip_h))
-  print("hip_h is \n",hip_h)
+  pr("hip_h is \n",hip_h)
 
   # Data:
   #   For these particular images, the side view is 7 units shifted "up" from the   front view
@@ -325,60 +333,83 @@ def chest_waist_hips_circum(json_fname, front_fname, side_fname, cust_height):
   waist_w = np.count_nonzero(front_mask[belly_button_h])
   hip_w   = np.count_nonzero(front_mask[hip_h])
 
-  pltshow(front_mask)
-  front_mask[nip_h-1:nip_h+1]=0
-  front_mask[belly_button_h-1:belly_button_h+1]=0
-  front_mask[hip_h-1:hip_h+1]=0
-  pltshow(front_mask)
   if debug:
-    print(front_mask.shape)
-    print(front_mask[np.nonzero(front_mask)]) # 15s
-    print(front_mask.dtype) # int64
-    print(side_mask.shape)
-    print(side_mask.dtype)  # int64
-  pltshow(side_mask)
+    pltshow(front_mask)
+    front_mask[nip_h-1:nip_h+1]=0
+    front_mask[belly_button_h-1:belly_button_h+1]=0
+    front_mask[hip_h-1:hip_h+1]=0
+    pltshow(front_mask)
+    pr(front_mask.shape)
+    pr(front_mask[np.nonzero(front_mask)]) # 15s
+    pr(front_mask.dtype) # int64
+    pr(side_mask.shape)
+    pr(side_mask.dtype)  # int64
+    pltshow(side_mask)
   # People shift up-down when rotating themselves for the camera.   
   # We have to identify the heights of body parts in both views so we can estimate the waist circumference, hip circumference, etc.
   y_shift=get_mask_y_shift(front_mask, side_mask)
   nip_h           +=  y_shift
   belly_button_h  +=  y_shift
   hip_h           +=  y_shift
-  print("after adjustment, \n  nip_h is \n    ",nip_h)
+  pr("after adjustment, \n  nip_h is \n    ",nip_h)
   chest_l=np.count_nonzero( side_mask[nip_h])           # "length," but what this really means is distance from back to nipple.
   waist_l=np.count_nonzero( side_mask[belly_button_h])  # "length," but what this really means is distance from back to nipple.
   hip_l=np.count_nonzero( side_mask[hip_h])  # "length," but what this really means is distance from back to nipple.
-  side_mask[nip_h-1         :nip_h+1          ] = 0
-  side_mask[belly_button_h-1:belly_button_h+1 ] = 0
-  side_mask[hip_h-1         :hip_h+1          ] = 0
-  pltshow(side_mask)
+  real_h_scale=cust_h/pix_height
+  if debug:
+    side_mask[nip_h-1         :nip_h+1          ] = 0
+    side_mask[belly_button_h-1:belly_button_h+1 ] = 0
+    side_mask[hip_h-1         :hip_h+1          ] = 0
+    pltshow(side_mask)
+    # tODO: rename chest_w and chest_l more descriptively?
+    pr("chest_w: {0}".format(chest_w)); pr("chest_l: {0}".format(chest_l))
+    pr("waist_w: {0}".format(waist_w)); pr("waist_l: {0}".format(waist_l))
+    pr("hip_w: {0}".format(hip_w)); pr("hip_l: {0}".format(hip_l))
+    pr("chest_circ: {0}".format(ellipse_circum(chest_w/2., chest_l/2.)*real_h_scale))
+    pr("waist_circ: {0}".format(ellipse_circum(waist_w/2., waist_l/2.)*real_h_scale))
+    pr("hip_circ: {0}".format(ellipse_circum(hip_w/2., hip_l/2.)*real_h_scale))
+    # ellipse circumference is approximately chest circumference (it MAY overestimate a teensy bit.  TODO: double-check whether ellipse circ overestim8s or underestim8s)
+  measurements['chest_circum_inches'] = ellipse_circum(chest_w/2., chest_l/2.)  * real_h_scale
+  measurements['waist_circum_inches'] = ellipse_circum(waist_w/2., waist_l/2.)  * real_h_scale
+  measurements['hip_circum_inches']   = ellipse_circum(hip_w/2.  , hip_l/2.)    * real_h_scale
 
-  real_h_scale=cust_height/pix_height
+  # Find actual heights of various body parts:
+  #   In numpy, 0,0 is at the top left.  so we have to switch indexes to more intuitive human "height"
+  side_locs=np.nonzero(side_mask)
+  mask_pix_foot_loc=side_mask.shape[0]- np.max(side_locs[0])
+  chest_h         = side_mask.shape[0]- nip_h           - mask_pix_foot_loc
+  hip_h           = side_mask.shape[0]- hip_h           - mask_pix_foot_loc
+  waist_h         = side_mask.shape[0]- belly_button_h  - mask_pix_foot_loc
 
-  # tODO: rename chest_w and chest_l more descriptively?
-  print("chest_w: {0}".format(chest_w))
-  print("chest_l: {0}".format(chest_l))
-  print("waist_w: {0}".format(waist_w))
-  print("waist_l: {0}".format(waist_l))
-  print("hip_w: {0}".format(hip_w))
-  print("hip_l: {0}".format(hip_l))
-  print("chest_circ: {0}".format(ellipse_circum(chest_w/2., chest_l/2.)*real_h_scale))
-  print("waist_circ: {0}".format(ellipse_circum(waist_w/2., waist_l/2.)*real_h_scale))
-  print("hip_circ: {0}".format(ellipse_circum(hip_w/2., hip_l/2.)*real_h_scale))
-  # ellipse circumference is approximately chest circumference (it MAY overestimate a teensy bit.  TODO: double-check whether ellipse circ overestim8s or underestim8s)
-  return ellipse_circum(chest_w/2., chest_l/2.)*real_h_scale
+  if debug: 
+    pr("side_locs is \n", side_locs)
+    pr('foot_loc_np: \n',foot_loc_np)
+    pr("mask_pix_foot_loc:\n",mask_pix_foot_loc)
+    pltshow(side_mask)
+  # Scale from pixels to inches:
+  measurements['chest_height_inches'] = chest_h * real_h_scale
+  measurements['waist_height_inches'] = waist_h * real_h_scale
+  measurements['hip_height_inches']   = hip_h   * real_h_scale
+  return measurements
   '''
   This algorithm:
 
   Nathan:
-    waist_circ: 33.588036015115584     
-    chest_circ: 34.57594624711054
-    hip_circ  : 36.59951865808404
+   'chest_circum_inches': 34.575946247110544,
+   'hip_circum_inches':   36.59951865808404,
+   'waist_circum_inches': 33.58803601511559,
+   'chest_height_inches': 55.90405904059041,    # I got 56 inches.
+   'hip_height_inches':   41.78966789667897,    # I measured 44 inches.  Also, what openpose calls the "hip" is lower than the hipbone.
+   'waist_height_inches': 45.664206642066425}
+
+
+    Waist is subjective; I think I measured it from where my pantsline is in the picture /home/n/Dropbox/vr_mall_backup/IMPORTANT/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE____rendered.png
 
     Waist  was      a failure.  I bet it's a segmentation issue, not a circumference-finding issue.
     Hip    was also a failure.  Requires highly-precise segmentation
 
-  Actual empirical measurements:
-    # I measured myself.  Customers won't want to do this; it took awhile and I had to find a measuring tape and a mirror
+  Actual empirical measurements (circumferences):
+    # I measured myself.  Customers won't want to do this; it took awhile, and I had to find a measuring tape and a mirror
     height      =  75.
     weight      = 157.4
     chest       =  34.
@@ -436,10 +467,10 @@ def perim_e(a, b, precision=6):
   if b > a:
     tmp=a; a=b; b=tmp # swap such that a is always the semi-major axis (bigger than b)
   if precision <= 0:
-    pn(2); print("In function ",funcname); print("WARNING:  precision cannot be that low"); pn(2)
+    pn(2); pr("In function ",funcname); pr("WARNING:  precision cannot be that low"); pn(2)
   if precision >  6:
     # precision higher than 6 not supported as of Tue Feb 26 12:06:35 EST 2019
-    pn(2); print("In function ",funcname); print("WARNING:  precision that high is not yet supported"); pn(2)
+    pn(2); pr("In function ",funcname); pr("WARNING:  precision that high is not yet supported"); pn(2)
   # To understand what each symbol (h, seq, a, b) means, please see our sponsor at 
   #   https://www.mathsisfun.com/geometry/ellipse-perimeter.html.
   h=((a-b)**2)/((a+b)**2)
@@ -544,7 +575,7 @@ def show_overlaid_polygon_measures(pic_filename___with_openpose_keypoints_, open
   '''
   img_w_keypts = np.asarray(ii.imread(pic_filename___with_openpose_keypoints_))
   measurements=openpose_keypts_dict # TODO: rename in the function header too?
-  print("img_w_keypts.shape: \n",img_w_keypts.shape)
+  pr("img_w_keypts.shape: \n",img_w_keypts.shape)
   plt.imshow(img_w_keypts)
   if N==4:
     # shirt-sizing with 4 torso-points (as you can probably see below, Right and Left Shoulders, and   Right and Left Hips.
@@ -561,7 +592,9 @@ def show_overlaid_polygon_measures(pic_filename___with_openpose_keypoints_, open
   return
 
 #===================================================================================================================================
-def L2_dist(pt1, pt2):
+def dist(pt1, pt2, norm='L2'):
+  # This function "dist()" should be easily vectorizable.
+
   # points as np arrays
   return math.sqrt(np.sum(np.square(pt1-pt2)))
 #===================================================================================================================================
@@ -611,52 +644,224 @@ def orig_pix_h(img_fname):
 
 
 #===================================================================================================================================
-def measure_obj_file(obj_fname):
-  '''
-    Gets hip, waist, and chest measurements (circumferences) from an .obj file describing a human body.
-  '''
-  #obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'
-  verts=[]
-  faces=[]
-  with open(obj_fname, 'rb') as f:
-    for line in f.readlines():
-      print(line) # NOTE: what's this "b" at the beginning of the line?   b'f 6310 1331 4688\n'
-  #obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'
-  verts=[]
-  faces=[]
-  with open(obj_fname, 'rb') as f:
-    for line in f.readlines():
-      print(line) # NOTE: what's this "b" at the beginning of the line?   b'f 6310 1331 4688\n'
+  # NOTE: what's this "b" at the beginning of the line?   b'f 6310 1331 4688\n'  from 'rb' in with open(fname, 'rb') as f:       guessing it means binary or something like that.
+  # with open(fname, 'rb') as f:
 
+#===================================================================================================================================
+def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
+  # TODO: finalize docstring once function is closer 2 finalized
+  '''
+    Finds how far the mesh in the .obj file from the real person's measurements.  ("error")
+
+    Gets hip, waist, and chest circumferences from an .obj file describing a human body.
+
+    0.  Get hip height from openpose json keypoints
+      a.  Scale hip height to real height
+    1. Get stuff to calculate circumferences
+     -a.  Make sure mesh is in proper "z=up" position  (rotations/pltshow()/KDTree, etc.)
+      0.  Get back from belly button 
+      a.  First shift the model to the (+,+,+) octant.
+      b.  Then scale the .obj mesh (model) to cust_h
+      c.  Find points at heights hip, waist, chest
+        1.  Is it worth the time complexity investment in a  KDTree?    Not octree; KDTrees sort more like distance-finders whereas octrees are more about partitioning the space (~BSTree but Cartesian)
+          a.  Almost certainly; tflow and openpose are by far the most complex, time-consuming dependencies
+        1st, set point at (0,0,hip_h); query the KDTree().query() to find the 1st pt
+        2nd, set another pt at (x_max, y_max, hip_h), call KDTree.query(pt2) to find the last endpt
+        3rd, set another pt at (    0, y_max, hip_h), call KDTree.query(pt3) to find the 3rd endpt
+        4th, set another pt at (x_max,     0, hip_h), call KDTree.query(pt4) to find the last endpt
+        This (4 pts) takes a few more queries than using a triangle, but it's prob slightly easier to understand and debug than trying to get an equilateral triangle and do it that way.
+        Then u gotta figure out how to do directed graph search on 4 pts in R3.
+      d.
+      e.  Be able to visualize mesh so I can rotate nathan_mesh.obj to the correct orientation (where z=up) before I can find points at chest_height
+
+    2.  Calculate circumference
+      2.  Left  path from belly to back
+        a.  A* search
+      3.  Right path from belly to back
+      4.  Connect those 2 paths (right and left) into a polygon
+      5.  Elliptic curves would probably be more accurate than said polygon, but more complex to code.
+
+    3.  Or simpler, calculate the polygon perimeter directly and subtract some constant for up-down shift
+    4. 
+ 
+    ------
+    Params
+    ------
+    vs: vertices
+
+  '''
+  # yet TODO:
+  '''
+    0.  Get back from belly button
+      b.  Make sure mesh is in proper "z=up" position  (rotations/pltshow()/KDTree, etc.)
+      c.  Find points at heights hip, waist, chest
+        1st, set point at (0,0,hip_h); query the KDTree().query() to find the 1st pt
+        2nd, set another pt at (x_max, y_max, hip_h), call KDTree.query(pt2) to find the last endpt
+        3rd, set another pt at (    0, y_max, hip_h), call KDTree.query(pt3) to find the 3rd endpt
+        4th, set another pt at (x_max,     0, hip_h), call KDTree.query(pt4) to find the last endpt
+        This (4 pts) takes a few more queries than using a triangle, but it's prob slightly easier to understand and debug than trying to get an equilateral triangle and do it that way.
+        Then u gotta figure out how to do directed graph search on 4 pts in R3.
+      d.
+      e.  Be able to visualize mesh so I can rotate nathan_mesh.obj to the correct orientation (where z=up) before I can find points at chest_height.  Hook render_smpl() up to arbitrary .obj (verts) mesh?
+
+    2.  Calculate circumference
+      2.  Left  path from belly to back
+        a.  A* search
+      3.  Right path from belly to back
+      4.  Connect those 2 paths (right and left) into a polygon
+      5.  Elliptic curves would probably be more accurate than said polygon, but more complex to code.
+      6.  Perhaps we could take the np.mean() of the quadrilateral() and jagged() paths.
+
+    3.  Or simpler, calculate the polygon perimeter directly and subtract some constant for up-down shift
+    4. 
+
+  '''
+
+
+
+  #obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'
+  # Load .obj file
+  verts=[]
+  faces=[]
+  with open(obj_fname, 'r') as f:
     for line in f.readlines():
-      print(line)
       if line.startswith('v'):
         verts.append(line)
       elif line.startswith('f'):
         faces.append(line)
-  vs=np.zeros((len(faces), 3)).astype("float64")
+  vs=np.zeros((len(verts), 3)).astype("float64") # means verts
+  heights=np.zeros(len(verts)).astype("float64")
   X,Y,Z=1,2,3
   for idx,v in enumerate(verts):
     v=v.split(' ')
     vs[idx]=v[X],v[Y],v[Z]
-  # TODO: sort the vertices by z value.
-  print("vertices:\n",vs)
-  DOWN=0
-  maxes = np.max(vs,axis=DOWN)
-  mins  = np.min(vs,axis=DOWN)
-  print("maxes:\n",maxes)
-  print("mins: \n",mins)
-  # TODO: find median / medians w.r.t. z
+
+  # NOTES:  I think currently y is  "height," x is "width," and z is "depth"
+  #               but we want z     "height," x    "width," and y is "depth"     (helpfully, this is ALSO how blender does it)
+  #           This yz_swap solution below: (Wed Mar  6 13:49:35 EST 2019) is specifically tailored to:
+  #             obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'
+  yz_swap=np.array([[   1,   0,   0],
+                    [   0,   0,   1],
+                    [   0,  -1,   0]]).astype('float64')
+                    # NOTE: this 
+  # TODO: somehow ensure this transformation doesn't turn our mesh "upside down."  Maybe use pltshow() combined with the cKDTree.  
+  #   Funny, for the "approx mask" operation we'd really like to have that KDTree() "all-neighbors queries functionality".  https://stackoverflow.com/questions/6931209/difference-between-scipy-spatial-kdtree-and-scipy-spatial-ckdtree
+
+  # Simple transformations:
+  # Rotate
+  vs=vs.dot(yz_swap)
+  vs=to_1st_octant(vs)
+  x_max = np.max(vs[:,0]); x_min = np.min(vs[:,0]); y_max = np.max(vs[:,1]); y_min = np.min(vs[:,1]); z_max = np.max(vs[:,2]); z_min = np.min(vs[:,2])
+  x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
+  pn(3); pr("AFTER ROTATION,  ======================================================================= : ");pn()
+  pr("x_max:",x_max); pr("x_min:",x_min); pr("y_max:",y_max); pr("y_min:",y_min); pr("z_max:",z_max); pr("z_min:",z_min);pn(2)
+  pr("x_len:",x_len); pr("y_len:",y_len); pr("z_len:",z_len);pn() 
+  pn(9)
+  #pr("vs.shape:",vs.shape) # (~6000,3)  ie. (BIG,3)
+  # no good if in "Jesus pose" and wingspan is longer than height; we just want +z to be "up."
+  assert z_len > y_len and z_len > x_len  # TODO remove this assert ...
+
+  # Scale to real-life-sizes (inches):
+  vs     = vs * cust_h / z_max
+  x_max = np.max(vs[:,0]); y_max = np.max(vs[:,1]); z_max = np.max(vs[:,2])
+  x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
+  pn(3); pr("AFTER RESCALING, ======================================================================= : ");pn()
+  pr("x_max:",x_max); pr("x_min:",x_min); pr("y_max:",y_max); pr("y_min:",y_min); pr("z_max:",z_max); pr("z_min:",z_min);pn(2)
+  pr("x_len:",x_len); pr("y_len:",y_len); pr("z_len:",z_len);pn() 
+  pn(9)
   '''
-  Z=2
-  
-  vertical_midpt=
-  if 
-  faces=k
-    meshf.read()
-  mesh =  
+  vt=cKDTree(vs, copy_data=True) # TODo: make sure these names are consistent (ie. either all short like v_t or all descriptive like vert_tree)
+  # Note: Testing whether model is oriented correctly:     It seems it is.
+  cube=np.array([ [      0,      0,      0,],
+                  [      0,      0, z_max ,],
+                  [      0, y_max ,      0,],
+                  [      0, y_max , z_max ,],
+                  [ x_max ,      0,      0,],
+                  [ x_max ,      0, z_max ,],
+                  [ x_max , y_max ,      0,],
+                  [ x_max , y_max , z_max ,],]).astype("float64")
+  p0=vt.data[vt.query(cube[0])[1]]; p1=vt.data[vt.query(cube[1])[1]]; p2=vt.data[vt.query(cube[2])[1]]; p3=vt.data[vt.query(cube[3])[1]]; p4=vt.data[vt.query(cube[4])[1]]; p5=vt.data[vt.query(cube[5])[1]]; p6=vt.data[vt.query(cube[6])[1]]; p7=vt.data[vt.query(cube[7])[1]]
+
+  #                                   RESULTS:
+  pr("p0:",p0)                          # p0: [ 9.85292562 18.25485839  8.2885409 ]
+  pr("p1:",p1)                          # p1: [24.11407082  7.41028286 72.78951963]
+  pr("p2:",p2)                          # p2: [ 0.45696223 29.51314676  0.21197051]
+  pr("p3:",p3)                          # p3: [25.9614062  14.3200455  74.71568264]
+  pr("p4:",p4)                          # p4: [55.20888442 19.38908581 11.33892357]
+  pr("p5:",p5)                          # p5: [30.59125137  6.16716044 72.10696399]
+  pr("p6:",p6)                          # p6: [60.91727507 25.42253024  8.94314535]
+  pr("p7:",p7)                          # p7: [29.14528445 15.35900081 74.65673826]
   '''
+  vt=cKDTree(vs, copy_data=True) # TODo: make sure these names are consistent (ie. either all short like v_t or all descriptive like vert_tree)
+
+
+  # Use openpose to get other measurements
+  measures=measure_body_viz(json_fname, front_fname, side_fname, cust_h)
+  from pprint import pprint as p
+  pr('measures: ')
+  p(measures); pn(3)
+  chest_h=measures['chest_height_inches']
+
+  # Todo: refactor decision: 0 vs. (x_min or y_min)?
+  quad=np.array([ [      0,      0,chest_h,],
+                  [      0, x_max ,chest_h,],
+                  [ x_max , y_max ,chest_h,],
+                  [ x_max ,      0,chest_h,],]).astype("float64")
+  # NOTE: I chose to put the points of "quad" in this weird, illogical order b/c it makes calculating approximate perimeter easier later
+  K=1
+  IDX=1
+  pt0=vt.data[vt.query(quad[0])[IDX]]; pt1=vt.data[vt.query(quad[1])[IDX]]; pt2=vt.data[vt.query(quad[2])[IDX]]; pt3=vt.data[vt.query(quad[3])[IDX]]
+  pn(69)
+  pr("pt0:",pt0); pr("pt1:",pt1); pr("pt2:",pt2); pr("pt3:",pt3)
+  calced_chest=dist(pt0,pt1)+dist(pt1,pt2)+dist(pt1,pt2)+dist(pt2,pt3)
+  pr("Chest circumference in inches: ",calced_chest)
+  # TODO: Somehow weight KDTree's distance metric s.t. we always get points that 
+
+  err = calced_chest-measures['chest_circum_inches'] # TODO: make more comprehensive
+  return err, measures, vs
+#=========================== end obj_err() ==================
+
 #===================================================================================================================================
+def scale(v, s):
+  '''
+    v vertices
+    s scale
+  '''
+  return v * s
+#===================================================================================================================================
+def rot8_obj(v, rotation):
+  '''
+    v = vertices
+    rotation = 3x3 np.ndarray
+  '''
+  return v.dot(rotation)
+#===================================================================================================================================
+def shift_obj(v, del_x, del_y, del_z):
+  '''
+    v = vertices
+  '''
+  shifted=v+\
+    np.concatenate((
+      np.full((v.shape[0], 1),del_x), # v.shape[0] is num_verts
+      np.full((v.shape[0], 1),del_y),
+      np.full((v.shape[0], 1),del_z)),axis=1)
+  return shifted
+#===================================================================================================================================
+def to_1st_octant(v):
+  # more like "move_2_origin(v)"
+  '''
+    v = vertices
+  '''
+  return shift_obj(v, -np.min(v[:,0]), -np.min(v[:,1]), -np.min(v[:,2]))
+#===================================================================================================================================
+
+
+
+
+
+
+
+
 
 
 
@@ -682,10 +887,10 @@ def test_measure():
   side_fname  = '/home/n/Dropbox/vr_mall_backup/imgs/n8_side___jesus_pose_legs_closed/n8_side___jesus_pose___legs_closed___nude___grassy_background_Newark_DE___.jpg'
   # '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/unclothed_outside_delaware_____uniform_background_with_wobbling/000000143.jpg'
 
-  chest_circ=chest_waist_hips_circum(json_fname,front_fname,side_fname, NATHAN_H)
+  measures=measure_body_viz(json_fname,front_fname,side_fname, NATHAN_H)
   pn(3)
-  print("chest_circ: ",chest_circ)
-  return chest_circ
+  pr("chest_circ: ",measures['chest_circum_inches'])
+  return measures['chest_circum_inches']
 #===================================================================================================================================
 
 
@@ -703,9 +908,13 @@ def test_measure():
 
 #===================================================================================================================================
 if __name__=="__main__":
-  obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'
-  measure_obj_file(obj_fname)
-  test_measure()
+  NATHANS_HEIGHT_INCHES=75
+  json_fname  = '/home/n/Dropbox/vr_mall_backup/json_imgs_openpose/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE____keypoints.json'
+  side_fname  = '/home/n/Dropbox/vr_mall_backup/imgs/n8_side___jesus_pose_legs_closed/n8_side___jesus_pose___legs_closed___nude___grassy_background_Newark_DE___.jpg'
+  front_fname = '/home/n/Dropbox/vr_mall_backup/imgs/n8_front___jesus_legs_closed/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE___.jpg'
+  obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'; pr("obj_fname: ",obj_fname)
+  pr(obj_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)) #if __name__=="__main__": 
+  #test_measure()
   '''
   # all code here assumes the person we're dealing with is Nathan.  
   #   ie. Nathan is Male, height=tall, width=small, shoulders-hip ratio is reasonable
@@ -720,33 +929,33 @@ if __name__=="__main__":
 
   mask=np.asarray(ii.imread('/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_01_29____09:20_AM___/000000220.jpg')).astype('float64')
   mask=np.asarray(ii.imread('/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_01_29____09:20_AM___/000000220.jpg')).astype('float64')
-  print("mask.shape:\n",mask.shape);print('\n'*1)
+  pr("mask.shape:\n",mask.shape);pr('\n'*1)
   height_in_pixels=pixel_height(mask)
   nathans_gender='male'
   gender=nathans_gender
 
   json_fname='/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/front__nude__grassy_background_keypoints.json'
   chest_area, other_body_measurements=measure_chest(json_fname) # TODO: change the measurements to shoulders,
-  print("chest_area:",chest_area)
+  pr("chest_area:",chest_area)
   LShoulder = np.array([ other_body_measurements['LShoulder']['x'],  other_body_measurements['LShoulder']['y']]).astype('float64')
   RShoulder = np.array([ other_body_measurements['RShoulder']['x'],  other_body_measurements['RShoulder']['y']]).astype('float64')
   LHip      = np.array([ other_body_measurements['LHip']['x']     ,  other_body_measurements['LHip']['y']]     ).astype('float64')
   RHip      = np.array([ other_body_measurements['RHip']['x']     ,  other_body_measurements['RHip']['y']]     ).astype('float64')
-  print("LShoulder,RShoulder,LHip,RHip:",LShoulder,RShoulder,LHip,RHip)
+  pr("LShoulder,RShoulder,LHip,RHip:",LShoulder,RShoulder,LHip,RHip)
   if gender.lower()=='female':
     s2h_ratio_const   = 1/3.
     # TODO:  find "zero point" for shoulders to hips for a female.
   else:
     s2h_ratio_const   = 2/5.  # TODO: empirically figure out what this s2h_ratio_const ought to be
     zero_beta__shoulder_2_hips=3.481943933038265
-    # I've empirically derived that Nathan's shoulders_hips_diff___inches in that one picture (/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/2019_01_30____07:18_AM__nathan_front/front__nude__grassy_background.jpg) is 3.48.   This is for the variable assignment "shoulders_hips_diff___inches= (L2_dist(LShoulder,RShoulder) - L2_dist(LHip,RHip)) / orig_imgs_height_in_pixels * customer_height"
+    # I've empirically derived that Nathan's shoulders_hips_diff___inches in that one picture (/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/2019_01_30____07:18_AM__nathan_front/front__nude__grassy_background.jpg) is 3.48.   This is for the variable assignment "shoulders_hips_diff___inches= (dist(LShoulder,RShoulder) - dist(LHip,RHip)) / orig_imgs_height_in_pixels * customer_height"
 
   # TODO: fuck with s2h_ratio_const until it's right
-  shoulders_hips_diff___inches= (L2_dist(LShoulder,RShoulder) - L2_dist(LHip,RHip)) / orig_imgs_height_in_pixels * customer_height
+  shoulders_hips_diff___inches= (dist(LShoulder,RShoulder) - dist(LHip,RHip)) / orig_imgs_height_in_pixels * customer_height
   # NOTE: we have to make sure the image is well-cropped (consistently cropped) s.t. the customer height is a consistent fraction of the total image height.  TODO TODO!
-  print("shoulders_hips_diff___inches:\n",shoulders_hips_diff___inches)
+  pr("shoulders_hips_diff___inches:\n",shoulders_hips_diff___inches)
   beta_shoulders_hips = (shoulders_hips_diff___inches - zero_beta__shoulder_2_hips) * s2h_ratio_const 
-  print("beta_shoulders_hips:    {0}".format(beta_shoulders_hips))
+  pr("beta_shoulders_hips:    {0}".format(beta_shoulders_hips))
   with open('6th_beta.txt', 'w+') as fp: # overwrites *.txt      # 6th beta, 5 is the array idx
     fp.write(str(beta_shoulders_hips)+'\n')
 
@@ -839,7 +1048,7 @@ if __name__=="__main__":
     159: segments(polygon):
     165: area_polygon(polygon):
     199: estim8_w8(json_fname, front_fname, side_fname, height):
-    225: chest_circum(json_fname, front_fname, side_fname, cust_height):
+    225: chest_circum(json_fname, front_fname, side_fname, cust_h):
     340: fac(n):
     351: half_c_n(n):
     363: sequence(n,h):
@@ -849,7 +1058,7 @@ if __name__=="__main__":
     445: ellipse_circum(a, b):
     497: measure_chest(json_fname):
     518: show_overlaid_polygon_measures(pic_filename___with_openpose_keypoints_, openpose_keypts_dict, N=4):
-    544: L2_dist(pt1, pt2):
+    544: dist(pt1, pt2):
     548: pixel_height(mask):
     552: pix_h(mask):
     571: orig_pix_h(img_fname):
