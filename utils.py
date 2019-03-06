@@ -7,7 +7,7 @@ from save import save
 from viz import pltshow
 if debug:
   import matplotlib as mpl
-  mpl.use('Agg')      
+  mpl.use('Agg')      # TkAgg
   from matplotlib import pyplot as plt  # NOTE:  problem on Nathan's machine (Dec. 21, 2018) is JUST with pyplot.  None of the rest of matplotlib is a problem AT ALL.
 ACROSS=1
 
@@ -24,7 +24,7 @@ BLACK=0
 TRANSPARENT=0
 
 import os, tarfile, tempfile
-from glob import glob
+import glob
 import numpy as np
 np.seterr(all='raise')
 import tensorflow as tf
@@ -350,7 +350,7 @@ def neg(tup):
     negged+=(-e,)
   return negged
 #=========================================================================
-def pn(n):
+def pn(n=0):
   print('\n'*n)
 #=========================================================================
 def pif(s=''):
@@ -520,6 +520,34 @@ def vid_2_mesh(
   mesh=np.eye(3) # TODO:   This is just a placeholder for mesh.  Real one should use smpl or some other complex but accurate method of returning the mesh
   return mesh
 #==================== vid_2_mesh ==============================
+#============================================================================================================================
+#======================================================== NOTE ==============================================================
+#============================================================================================================================
+#=============================================== BIG PICTURE FUNCTION =======================================================
+#============================================================================================================================
+#======================================================== NOTE ==============================================================
+#============================================================================================================================
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+#============================================================================================================================
 def vid_2_mesh_sandbox(
   vid_local_path="/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_jesus_pose_legs_together_0227191404.mp4",
   secs_btwn_frames=1/3.):
@@ -553,7 +581,6 @@ def vid_2_mesh_sandbox(
   6.  smpl    = fit(model)
   '''
   # You're in function "vid_2_mesh_sandbox(params):"
-
 
 
   STILL_FRAMES=10 # This one I made up; we should test to see which value gives the best result
@@ -603,9 +630,9 @@ def vid_2_mesh_sandbox(
 
   # show the first n masks
   n=10
-  for i in range(10):
+  for i in range(n):
     pltshow(masks[:,:,side_2_front_idxes[i]])
-    pltshow(masks[:,:,side_2_front_idxes[len(side_2_front_idxes)-i]])
+    pltshow(masks[:,:,side_2_front_idxes[len(side_2_front_idxes)-1-i]]) # -1 b/c fencepost error
   #print("masks: ",masks)
   '''
   for mask in masks:
@@ -614,35 +641,215 @@ def vid_2_mesh_sandbox(
   mesh=np.eye(3) # TODO:   This is just a placeholder for mesh.  Real one should use smpl or some other complex but accurate method of returning the mesh
   return mesh
 #==================== vid_2_mesh_sandbox ==============================
+#============================================================================================================================
+def masks_2_angles_sandbox(
+  mask_dir="/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_03_03____09:08_AM___/",
+  secs_btwn_frames=1/3.):
+  '''
+    Uses cached masks: (load masks from directory)
+    Precondition: the user will give video where they take small, incremental steps instead of continuously rotating in a circle and constantly changing their pose in order to take those steps
+  '''
 
-#============================================================================================================================
-#======================================================== NOTE ==============================================================
-#============================================================================================================================
-#=============================================== BIG PICTURE FUNCTION =======================================================
-#============================================================================================================================
-#======================================================== NOTE ==============================================================
-#============================================================================================================================
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-      # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  mask_fnames=files_from_dir(mask_dir)
+  mask_fnames=sorted(mask_fnames,key=os.path.getctime)
+  num_masks=len(mask_fnames)
+  mask=np_img(mask_fnames[0])
+  masks=np.zeros((*mask.shape, num_masks)) # What is the default type?
+  mask_ws=np.zeros(num_masks)
 
+  for mask_idx in range(num_masks):
+    mask=np_img(mask_fnames[mask_idx])
+    masks[:,:,mask_idx]= mask
+    mask_ws[mask_idx]=np.max(np.count_nonzero(mask,axis=ACROSS))
+    if 5 < mask_idx < 12:
+      pltshow(mask)
+  side_2_front_idxes=np.argsort(mask_ws) # the masks of the side views ought to be at the beginning of this variable
+  # show the first n masks
+  n=10 # This "n" should be adapted to the particular video case.  For instance, it depends whether there are any "zero width" masks
+  #longest=mask_ws[side_2_front_idxes[num_masks-n:]]
+  longest=mask_ws[num_masks-1] # TODO: denoise somehow
+  shortest=mask_ws[side_2_front_idxes[:n]]
+  torso_w_pix=np.median(shortest)
+  both_arms_max_w=np.median(longest)
+  max_wingspan=both_arms_max_w-torso_w_pix
+  print("torso_w_pix  : ",torso_w_pix)
+  print("max_wingspan : ",max_wingspan)
+  print("\n"*5)
+  for mask_idx in range(num_masks):
+    mask        = masks[:,:,mask_idx]
+    curr_w      = mask_ws[mask_idx]
+    curr_arms_w = curr_w-torso_w_pix
+    angle       = np.arccos(curr_arms_w /max_wingspan) # arccos() returns radians
+    angle      *= 180/pi
+    print("curr angle = ",angle)
+    pltshow(mask)
+  """
+  for i in range(n):
+    pltshow(masks[:,:,side_2_front_idxes[i]])
+    '''
+    pltshow(masks[:,:,side_2_front_idxes[len(side_2_front_idxes)-1-i]])
+    '''
+    # works
+  #
+  """
+  # This'll just HAVE to be easier with a motorized lazy susan.  It's hard to see a way around it.  Even with the motorized lazy susan, the noise from the segmasks will make it very very hard to do properly.
+  # All this is almost certainly why hmr did it the way they did it: getting all the data from one front-facing picture sure makes things easier.
+  return
+#==================== masks_2_angle_sandbox ==============================
+
+
+#==============================================================
+def vid_cut(
+  vid_local_path="/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_jesus_pose_legs_together_0227191404.mp4",
+  root_img_dir="/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs",
+  should_put_timestamps=True,
+  output_img_filetype='jpg',
+  how_many_angles=8):
+  '''
+    Assumes constant angular velocity omega during video of 360 degree rotation of body.
+ 
+    -------
+    Params:
+    -------
+
+    secs_btwn_frames=1/3. is empirical; 15 degree angles from nathan_jesus_pose_legs_together_0227191404.mp4
+
+
+    ------ 
+    Notes:
+    ------ 
+    Sources:
+      https://stackoverflow.com/questions/25182278/opencv-python-video-playback-how-to-set-the-right-delay-for-cv2-waitkey
+      https://stackoverflow.com/questions/33311153/python-extracting-and-saving-video-frames
+
+
+    -------
+     TODOS
+    -------
+    Testing
+    Generalize this to multiple vid filetypes, not just mp4.  
+      It worked on a .webm file!
+    Get cv2 integrated with conda environment "cat"
+      This might work with a new version of conda, etc.
+    There's probably a better (simpler, more pythonic) way to do the prepend_0s() function
+
+    Refactor?
+      This "do while" can be made into a for loop with a break condition:
+
+      success, img  =vidcap.read()
+      while success:
+        if count % delay == 0:
+          cv2.imwrite(img_write_dir+"{0}.{1}".format(prepend_0s(str(count)),output_img_filetype), img)
+        count += 1
+        success, img = vidcap.read()
+  '''
+
+  delay = int(round(10 * secs_btwn_frames))
+  # The "10" in delay=int(round(10 * secs_btwn_frames)) is because cv2 defaults to opening a new frame approx every 0.1 seconds
+
+  # Make folder to store the images
+  img_write_dir=root_img_dir
+  if not root_img_dir.endswith('/'):
+    img_write_dir+='/'
+  if should_put_timestamps:
+    timestamp=datetime.datetime.now().strftime('%Y_%m_%d____%H:%M_%p__') # p is for P.M. vs. A.M.
+    img_write_dir+=timestamp+'/'
+  print("Saving images to: ",img_write_dir)
+  print("Saving a frame from the video every {0} seconds".format(secs_btwn_frames))
+  os.system('mkdir '+img_write_dir)
+  # Even if the folder to be created already exists,  the frames of the video STILL get written into the already-existing folder
+
+  # Write images from the input video file
+  vidcap  = cv2.VideoCapture(vid_local_path)
+  count   = 0
+  # The following is basicaaly a "do while:"
+  success, img  =vidcap.read()
+  while success:
+    if count % delay == 0:
+      img=img[:,:,::-1] # BGR 2 RGB
+      pltshow(img)
+      if input("Save this image? y/n").lower()=='y':
+        fname=img_write_dir+"{0}.{1}".format(prepend_0s(str(count)),output_img_filetype)
+        cv2.imwrite(fname, img)
+    count += 1
+    success, img = vidcap.read()
+  return root_img_dir #img_write_dir # success
+#===== end func def of  manual_vid_cut(**lotsa_params): =====
+def manual_vid_cut(
+  vid_local_path="/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_jesus_pose_legs_together_0227191404.mp4",
+  root_img_dir="/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs",
+  secs_btwn_frames=1/3.,
+  should_put_timestamps=True,
+  output_img_filetype='jpg'):
+  '''
+    -------
+    Params:
+    -------
+
+    secs_btwn_frames=1/3. is empirical; 15 degree angles from nathan_jesus_pose_legs_together_0227191404.mp4
+
+
+    ------ 
+    Notes:
+    ------ 
+    Sources:
+      https://stackoverflow.com/questions/25182278/opencv-python-video-playback-how-to-set-the-right-delay-for-cv2-waitkey
+      https://stackoverflow.com/questions/33311153/python-extracting-and-saving-video-frames
+
+
+    -------
+     TODOS
+    -------
+    Testing
+    Generalize this to multiple vid filetypes, not just mp4.  
+      It worked on a .webm file!
+    Get cv2 integrated with conda environment "cat"
+      This might work with a new version of conda, etc.
+    There's probably a better (simpler, more pythonic) way to do the prepend_0s() function
+
+    Refactor?
+      This "do while" can be made into a for loop with a break condition:
+
+      success, img  =vidcap.read()
+      while success:
+        if count % delay == 0:
+          cv2.imwrite(img_write_dir+"{0}.{1}".format(prepend_0s(str(count)),output_img_filetype), img)
+        count += 1
+        success, img = vidcap.read()
+  '''
+  # This function is called "manual_vid_cut(params):"
+
+  delay = int(round(10 * secs_btwn_frames))
+  # The "10" in delay=int(round(10 * secs_btwn_frames)) is because cv2 defaults to opening a new frame approx every 0.1 seconds
+
+  # Make folder to store the images
+  img_write_dir=root_img_dir
+  if not root_img_dir.endswith('/'):
+    img_write_dir+='/'
+  if should_put_timestamps:
+    timestamp=datetime.datetime.now().strftime('%Y_%m_%d____%H:%M_%p__') # p is for P.M. vs. A.M.
+    img_write_dir+=timestamp+'/'
+  print("Saving images to: ",img_write_dir)
+  print("Saving a frame from the video every {0} seconds".format(secs_btwn_frames))
+  os.system('mkdir '+img_write_dir)
+  # Even if the folder to be created already exists,  the frames of the video STILL get written into the already-existing folder
+
+  # Write images from the input video file
+  vidcap  = cv2.VideoCapture(vid_local_path)
+  count   = 0
+  # The following is basicaaly a "do while:"
+  success, img  =vidcap.read()
+  while success:
+    if count % delay == 0:
+      img=img[:,:,::-1] # BGR 2 RGB
+      pltshow(img)
+      if input("Save this image? y/n").lower()=='y':
+        fname=img_write_dir+"{0}.{1}".format(prepend_0s(str(count)),output_img_filetype)
+        cv2.imwrite(fname, img)
+    count += 1
+    success, img = vidcap.read()
+  return root_img_dir #img_write_dir # success
+#===== end func def of  manual_vid_cut(**lotsa_params): =====
 #==============================================================
 def save_vid_as_imgs(
   vid_local_path="/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_jesus_pose_legs_together_0227191404.mp4",
@@ -1182,6 +1389,8 @@ def pad_all(mask, biggers_shape):
 def files_from_dir(dir_name):
   if '/' == dir_name[-1]:
     dir_name=dir_name+'*'
+  elif '*' == dir_name[-1]:
+    dir_name=dir_name
   else:
     dir_name=dir_name+'/*'  # '*' means grab all dirs
   return glob.glob(dir_name)
@@ -1227,8 +1436,10 @@ def save_masks_from_imgs(
 
 
 if __name__=='__main__':
+    manual_vid_cut()
+    #masks_2_angles_sandbox()
     #vid_2_mesh()
-    vid_2_mesh_sandbox()
+    #vid_2_mesh_sandbox()
     '''
     frames_dir=save_vid_as_imgs()
     masks=save_masks_from_imgs(frames_dir)

@@ -1,3 +1,234 @@
+
+Joel recommends 5 things for tracking bugs:
+
+1.  Complete steps to reproduce the bug
+  a.
+2.  Expected behavior
+3.  Observed (buggy) behavior
+4.  Who it's assigned to
+5.  Whether it's been fixed or not
+6.
+
+______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+  Complete steps to reproduce the bug                                                                       |         Expected Behavior         |      Observed (buggy) behavior         |   Who it's assigned to       | Fixed yet? |        things I've tried
+______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+                                                                                                            |                                   |                                        |                              |            | 
+  #!/bin/bash                                                                                               |                                   |                                        |                              |            | 
+  env_name=cat3                                                                                             |                                   |                                        |                              |            | 
+  conda create -y --name $env_name python=3.6.6 &&\                                                         | >>>import matplotlib.pyplot       |  Segmentation fault                    |     Nathan Bendich           |  Yes       |  Solution : Always do mpl.use('TkAgg') (or mpl.use('Agg')) before import matplotlib.pyplot as plt
+    python3.6.6 && source activate $env_name                                                                | >>>                               |  >>> import cv2                        |                              |            | 
+  pip install --upgrade pip                                                                                 | # doesn't crash                   |  >>> import numpy                      |                              |            | 
+    # version 19.0.1 supported tensorflow-1.12.                                                             |                                   |  >>> import matplotlib.pyplot as plt   |                              |            | 
+    #   version 19.0.1 does this properly as of                                                             |                                   |  Segmentation fault (core dumped)      |                              |            | 
+    #     Sun Jan 27 19:49:32 EST 2019.                                                                     |                                   |                                        |                              |            | 
+  conda install -yc conda-forge scikit-image==0.14.1 &&\                                                    |                                   |                                        |                              |            | 
+  pip install --ignore-installed --upgrade\                                                                 |                                   |                                        |                              |            | 
+  https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.12.0-cp36-cp36m-linux_x86_64.whl &&\     |                                   |                                        |                              |            | 
+  conda install -y matplotlib==2.2.3                                                                        |                                   |                                        |                              |            | 
+                                                                                                            |                                   |                                        |                              |            |
+  conda install -c conda-forge opencv                                                                       |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+  Perhaps the issue is the version of matplotlib?                                                           |                                   |                                        |                              |            |
+    pkgs/main::matplotlib-2.2.3-py36hb69d~                                                                  |                                   |                                        |                              |            |
+______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+  Always do mpl.use('TkAgg') before import matplotlib.pyplot as plt                                         |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+                                                                                                            |                                   |                                        |                              |            |
+______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+                                                                                                                                                                                                        
+Bug C.
+
+
+
+
+ 
+
+1.    Do `git checkout 8759307` and `./setup.sh` and `python3 utils.py`, and you'll replicate the bug.  setup.sh may need some finessing before it works.
+  a.
+2.    Expected behavior:
+  a.  Should show segmented images from a video.
+3.  Buggy behavior
+  a.  "ImportError: /usr/lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.22' not found (required by /home/n/anaconda3/envs/cat12/lib/python3.6/site-packages/../../libopencv_objdetect.so.3.4)"
+4.  Who it's assigned to:
+  a.  Nathan Bendich
+5.  Fixed yet?
+  a.  No.
+6.  NOTES: I suspect this has something to do with matplotlib.use('Agg') or matplotlib.use('TkAgg'), but I don't really know; that's just a theory
+7.  Solution:  always put "import cv2" at the TOP of a file.
+8.
+9.
+10.
+11.
+12.
+13.
+14.
+15.
+16.
+17.
+18.
+
+
+
+
+
+
+
+
+
+
+somewhere in seg:
+  /home/n/anaconda3/envs/cat12/lib/python3.6/site-packages/skimage/transform/_warps.py:105: UserWarning: The default mode, 'constant', will be changed to 'reflect' in skimage 0.15.
+    warn("The default mode, 'constant', will be changed to 'reflect' in "
+    mask_fname is:
+     /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks2019_03_03____08:57_AM___/000000000.jpg
+     Lossy conversion from int64 to uint8. Range [0, 15]. Convert image to uint8 prior to saving to suppress this warning.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+For software tips: 
+
+
+  The Joel Test
+
+  1.Do you use source control?
+    Yes
+  2.Can you make a build in one step?
+    No?
+  3.Do you make daily builds?
+    No.
+  4.Do you have a bug database?
+    Not a good one
+  5.Do you fix bugs before writing new code?
+    No.
+  6.Do you have an up-to-date schedule?
+    No.
+  7.Do you have a spec?
+    No.
+  8.Do programmers have quiet working conditions?
+    Yes!
+  9.Do you use the best tools money can buy?
+    We don't have hella money.  But no.
+ 10.Do you have testers?
+    Just me.
+ 11.Do new candidates write code during their interview?
+    What?
+ 12.Do you do hallway usability testing?
+    Idk what this is.
+
+
 ======================================================================
 Thu Feb 28 11:27:09 EST 2019
 

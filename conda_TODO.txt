@@ -1,0 +1,69 @@
+
+  
+
+  Get a conda environment working with all the necessary dependencies.  1st step done.
+    try to put flask, celery, etc. in there too.
+    Scrapy?  Kivy?
+  Curr working conda env is cat12 (Sun Mar  3 08:14:45 EST 2019)
+    All details ought to be in setup.sh.
+    If cat12 works, turn "cat" into the working conda env.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

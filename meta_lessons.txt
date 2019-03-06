@@ -1,13 +1,58 @@
 
-  Openpose will always just be slow.  If you want to use it, you have to deal with this fact & hack around it; either by buying a better AWS CPU briefly or making the customer wait or... idk, some combination of stuffs like that.
+
+  When waiting for stuff, do something short (ie. clean out e-mail or do some menial, small task related to the currect task).  Don't get overly involved in something long and complicated.
+
+  Plan out tasks locally, and only post to Zoho when something actually gets done.  This way Zoho doesn't get cluttered, and we also encourage the team a bit.
+    Prob also not worth implying that the team needs you to encourage/inspire them.  There's an extent to which you have to trust them.  Or at least, look like you trust them.
+
+  Leave code with a working test() stub in its __main__
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Openpose might just always be slow.  If you want to use it, you have to deal with this fact & hack around it; either by buying a better AWS CPU briefly or making the customer wait or... idk, some combination of stuffs like that.
 
 
   The data seem to show that I have an attention span of ~1 week for trying some new algorithm.  This happened with VoroVari, it happened with trying to use Celery to send Pierlorenzo the mesh on delay.  To be even more precise, it's probably more like 5 days.
   So it ought to be helpful to take an hour or so every week to reflect on this fact and reconsider my detailed-approach from a bigger picture perspective.
 
 
-  Plan out tasks locally, and only post to Zoho when something actually gets done.  This way Zoho doesn't get cluttered, and we also encourage the team a bit.
-    Prob also not worth implying that the team needs you to encourage/inspire them.  There's an extent to which you have to trust them.  Or at least, look like you trust them.
 
 
 
@@ -88,3 +133,8 @@
 
   Not meta, but very important for startups; don't EVER use ~ for shortcut when transfering files between machines.  I think the issue is `~` always points to your OWN home directory, and if the username on the other machine is different, it'll f*** sh!t up; (won't work).
     Automate swap double-check, (cp, vim open R [R for recover from swap], diff, rm copy)
+
+TODO.txt:
+  Keep this TODO.txt for direct actions supporting TheMall project ONLY.
+    Separate TODO should be for other things (various forms of procrasination) 
+      (ie. part-time jobs, arubaitos, money, friends, classes that might INdirectly develop into mall proj relevance, etc.)

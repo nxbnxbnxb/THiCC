@@ -149,6 +149,8 @@ write_smpl(m.betas, gender=gender)
 
 
 ## Could also use matplotlib to display
+#import matplotlib as mpl
+#mpl.use('TkAgg')
 # import matplotlib.pyplot as plt
 # plt.ion()
 # plt.imshow(rn.r)

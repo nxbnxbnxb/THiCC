@@ -426,8 +426,8 @@ if __name__=="__main__":
     female=True
   custom_body(female) # TODO: refactor to say "gender" instead of clumsy boolean
   '''
-  male_SMPL() # takes cmd line args internally; height and weight
-  #write_smpl()
+  #male_SMPL() # takes cmd line args internally; height and weight
+  write_smpl()
 #============================================ __main__ ==========================================
 
 '''

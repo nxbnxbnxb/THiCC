@@ -1,4 +1,5 @@
 import numpy as np
+np.seterr(all='raise')
 import skimage
 from viz import pltshow
 import seg

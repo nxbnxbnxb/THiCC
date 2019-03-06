@@ -12,6 +12,257 @@
 
 
     TODO.txt
+________________________________
+
+  Tue Mar  5 08:23:50 EST 2019
+________________________________
+
+  "Scale" the points in z to give us higher likelihood of hitting the chest, waist, etc.
+    vt=KDTree(vs[x,y,z*10])
+
+
+  We're selling TheMall as a boost to self-esteem, status, etc.
+    Esp. if you're tall and awkward looking
+
+
+
+
+
+
+
+
+
+
+  Get rid of THIS warning in measure.py:
+    /home/n/anaconda3/envs/cat12/lib/python3.6/site-packages/skimage/transform/_warps.py:105: UserWarning: The default mode, 'constant', will be changed to 'reflect' in skimage 0.15.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Take numerical measurements of how good/bad hmr performs
+    Waist, chest, hip circumferences from mesh
+  How do I locate the waist, chest, hip on SMPL?
+    measure_obj_file()
+      sort
+
+    Yeah, given an arbitrary .obj file, how can I locate anything?
+    Halfway z, add a new vertex to the end of the .obj file and some faces corresponding to it, then reload the mesh.
+
+  What is actually IN FAUST?
+
+
+
+Impatient idea was:
+  We're gonna try 1 mask => smpl.
+
+  Very brief analysis:
+    1.  Good UX
+      a.
+    2.  Easy to understand
+      a.
+    3.  Slow?
+      a.  But in the beginning, ANYTHING I do will be slow.
+    4.
+      a.
+    5.
+      a.
+    6.
+      a.
+    7.
+      a.
+    8.
+      a.
+    9.
+      a.
+    10.
+      a.
+    11.
+      a.
+    12.
+      a.
+    13.
+      a.
+    14.
+    15.
+    16.
+    17.
+    18.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Mon Mar  4 08:46:09 EST 2019
+________________________________
+
+  Slow rotation of lazy susan
+    Buy used motor in Wilmington
+
+  That (motor) would be for a super-high-end version of the product
+  There's also the computer vision / graphics projection-mapping to consider.
+    Orthographic view != real camera view
+    Simply put, the input to a camera is not perfectly Cartesian.  To properly mask the voxels, we either need to map the mask or the image to the "Cartesian" view
+
+  I actually think we NEED the 360 degree video to make the surface mesh properly.  We need enough images that we can throw out the noisy A) images and B) masks.
+
+  Or maybe the 3+ measurements would be enough (waist, chest, hips)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    But EVEN IF we do absolutely EVERYTHING necessary:
+      1.  Mapping perspective to the "Cartesian" numpy voxels    (ie. how an infinite road ahead of you would look like it vanishes at the horizon, but actually the sides of the road are parallel so the road couldn't POSSIBLY vanish)
+        a.
+      2.  Tossing noisy video frames (images)
+      3.  Tossing noisy segmentation masks
+      4.  Properly training the "neural network" to "learn" the right SMPL model
+        a.  ie. wiggle the betas
+      5.  Center the masks on the SMPL model such that the points actually correspond to each other
+      6.  Rescale the masks to the size of the SMPL model
+      7.  Make it run QUICKLY enough that people don't get bored waiting (~17 seconds without another person in the room)
+      8.  Fit the customer's face onto the SMPL mesh's face and make it look not-creepy (ie. add blinking, whatever else people find uncanny about virtual avatars)
+      9.
+      10.
+      11.
+      12.
+      13.
+      14.
+      15.
+      16.
+      17.
+      18.
+
+    People still might not want it and we'd have to sell sell sell.  But maybe by that time, the market would actually be ready for such a product (ie. more developers making apps for Oculus) and we'd be able to find customers more easily.  But then they also have to either A) buy the motorized lazy susan or B) live within walking distance of one of us.
+    Anyway, that's the 50,000 foot view; I don't really have time to worry about this right now.  But I DO know there's just far too many SMPL betas to tune them each manually.  The only possible successful route involves getting 80% of the way to 
+    Plus, the margin on clothing sales can't be that great.  That's probably why people insist on doing AR/VR with furniture instead; the higher the profit margin, the better the business.
+
+    But I may as well see it through.  I would regret it otherwise.  Plus, how am I going to have anything on my resume if I quit?  Nah, we're either gonna A) win or B) go down swinging.
+    It may not take as long as you fear, though.  Besides, by the time it's all done, you'll be able to look back at everything and laugh.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ________________________________
 
@@ -21,11 +272,15 @@ ________________________________
   git push
   utils.py vid_2_mesh()
     detect_angle(mask)
+    Finish this before moving on to the SMPL-neural-network.
   contact the Mall Mafia dudes
 
   "Cache" the masks (save to a dir, then just load them when testing.  Repetitive segmentation takes ~10 minutes and doesn't let you get into a workflow)
     Also finish what you wrote out
 
+  Buy the turntable
+    Either at Home Depot or Amazon
+    Done.
 
 
 
@@ -64,6 +319,11 @@ ________________________________
 
 
 
+
+
+  Make a spec?
+    See Spolsky.
+  Nah.  We don't know what we're doing yet.  Gotta just keep trying sh!t.
 
 
 
