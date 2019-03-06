@@ -23,6 +23,8 @@ from viz import pltshow
 from seg import segment_local as seg_local, segment_black_background as seg_black_back
 from utils import pn, crop_person, get_mask_y_shift, np_img, pif
 from d import debug
+from pprint import pprint as p
+from copy import deepcopy
 
 # TODO: make the earlier JSON-generation via openpose automated end-to-end like this.  Everything must be MODULAR, though
 
@@ -692,17 +694,14 @@ def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   '''
   # yet TODO:
   '''
-    0.  Get back from belly button
-      b.  Make sure mesh is in proper "z=up" position  (rotations/pltshow()/KDTree, etc.)
-      c.  Find points at heights hip, waist, chest
-        1st, set point at (0,0,hip_h); query the KDTree().query() to find the 1st pt
-        2nd, set another pt at (x_max, y_max, hip_h), call KDTree.query(pt2) to find the last endpt
-        3rd, set another pt at (    0, y_max, hip_h), call KDTree.query(pt3) to find the 3rd endpt
-        4th, set another pt at (x_max,     0, hip_h), call KDTree.query(pt4) to find the last endpt
-        This (4 pts) takes a few more queries than using a triangle, but it's prob slightly easier to understand and debug than trying to get an equilateral triangle and do it that way.
+    0.  Get shape to take perim of 
+      b. scale points in z direction
+      c. generalize the assert
+
+      d.  Make sure mesh is in proper "z=up" position  (rotations/pltshow()/KDTree, etc.);  TODO: generalize c.  Find points at heights hip, waist, chest
+      e.  Be able to visualize mesh so I can rotate nathan_mesh.obj to the correct orientation (where z=up) before I can find points at chest_height.  Hook render_smpl() up to arbitrary .obj (verts) mesh?
         Then u gotta figure out how to do directed graph search on 4 pts in R3.
       d.
-      e.  Be able to visualize mesh so I can rotate nathan_mesh.obj to the correct orientation (where z=up) before I can find points at chest_height.  Hook render_smpl() up to arbitrary .obj (verts) mesh?
 
     2.  Calculate circumference
       2.  Left  path from belly to back
@@ -792,12 +791,12 @@ def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   pr("p6:",p6)                          # p6: [60.91727507 25.42253024  8.94314535]
   pr("p7:",p7)                          # p7: [29.14528445 15.35900081 74.65673826]
   '''
+
   vt=cKDTree(vs, copy_data=True) # TODo: make sure these names are consistent (ie. either all short like v_t or all descriptive like vert_tree)
 
 
   # Use openpose to get other measurements
   measures=measure_body_viz(json_fname, front_fname, side_fname, cust_h)
-  from pprint import pprint as p
   pr('measures: ')
   p(measures); pn(3)
   chest_h=measures['chest_height_inches']
@@ -808,16 +807,48 @@ def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
                   [ x_max , y_max ,chest_h,],
                   [ x_max ,      0,chest_h,],]).astype("float64")
   # NOTE: I chose to put the points of "quad" in this weird, illogical order b/c it makes calculating approximate perimeter easier later
-  K=1
-  IDX=1
+  K=1; IDX=1
   pt0=vt.data[vt.query(quad[0])[IDX]]; pt1=vt.data[vt.query(quad[1])[IDX]]; pt2=vt.data[vt.query(quad[2])[IDX]]; pt3=vt.data[vt.query(quad[3])[IDX]]
-  pn(69)
-  pr("pt0:",pt0); pr("pt1:",pt1); pr("pt2:",pt2); pr("pt3:",pt3)
+  pn(69); pr("pt0:",pt0); pr("pt1:",pt1); pr("pt2:",pt2); pr("pt3:",pt3)
   calced_chest=dist(pt0,pt1)+dist(pt1,pt2)+dist(pt1,pt2)+dist(pt2,pt3)
-  pr("Chest circumference in inches: ",calced_chest)
-  # TODO: Somehow weight KDTree's distance metric s.t. we always get points that 
+  pr("Chest circumference in inches: ",calced_chest); pr("chest_h:",chest_h)
+  err = calced_chest-measures['chest_circum_inches']
+  #                  pt0: [21.74963849 11.08709837 46.94066765]
+  #                  pt1: [23.13935033 16.36705111 47.54809897]
+  #                  pt2: [32.86014707 13.87639756 46.46942123]
+  #                  pt3: [31.42370296  6.02317215 58.62576271]
 
-  err = calced_chest-measures['chest_circum_inches'] # TODO: make more comprehensive
+
+  # Stretch vertices in z direction:
+  STRETCH=90; Z=2
+  svs=deepcopy(vs)
+  svs[:,Z]*=STRETCH
+  chest_h*=STRETCH
+  pn(9); pr("chest_h: ",chest_h); pr("STRETCH: ",STRETCH)
+  svt=cKDTree(svs, copy_data=True) # TODo: make sure these names are consistent (ie. either all short like v_t or all descriptive like vert_tree)
+  pr(" PREVIOUSLY    :");pr("x_max: ",x_max); pr("y_max: ",y_max); pr("z_max: ",z_max); pn(9)
+  x_max = np.max(svs[:,0]); y_max = np.max(svs[:,1]); z_max = np.max(svs[:,2])
+  x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
+  pr(" AFTER STRETCH :");pr("x_max: ",x_max); pr("y_max: ",y_max); pr("z_max: ",z_max); pn(9)
+  s_quad=np.array([ [      0,      0,chest_h,],
+                    [      0, x_max ,chest_h,],
+                    [ x_max , y_max ,chest_h,],
+                    [ x_max ,      0,chest_h,],]).astype("float64")
+  pt0=svt.data[svt.query(s_quad[0])[IDX]]; pt1=svt.data[svt.query(s_quad[1])[IDX]]; pt2=svt.data[svt.query(s_quad[2])[IDX]]; pt3=svt.data[svt.query(s_quad[3])[IDX]]
+  pn(9); pr("pt0:",pt0); pr("pt1:",pt1); pr("pt2:",pt2); pr("pt3:",pt3)
+  calced_chest=dist(pt0,pt1)+dist(pt1,pt2)+dist(pt1,pt2)+dist(pt2,pt3)
+  #                  pt0: [  24.78644235   10.96347829 5032.98328219]
+  #                  pt1: [  24.0617395    13.36335661 5040.39916411]
+  #                  pt2: [  28.02287236   12.0112951  5030.3883187 ]
+  #                  pt3: [  29.74478009    6.43362254 5036.59004338]
+
+  pr("Chest circumference in inches: ", calced_chest)
+  # NOTES: went down to 38.04621572659287   (b4 STRETCH, was 40.22217968662046).   The real (empirical) measurement for Nathan's chest_circum is 34.575946247110544 inches.   Hm.... I was thinking it ought to be SMALLER than the real measurement.  I think it's because the STRETCH increases the magnitude of chest_circum enough to cancel out the decrease from it being quad instead of ~elliptical
+  # TODO: Somehow weight KDTree's distance metric s.t. we always get points that are at a similar z value.
+
+  # TODO: make "err" calculation much much much more comprehensive
+  err = calced_chest-measures['chest_circum_inches']
+
   return err, measures, vs
 #=========================== end obj_err() ==================
 
