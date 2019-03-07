@@ -312,21 +312,23 @@ def measure_body_viz(json_fname, front_fname, side_fname, cust_h):
   #origs_height  = orig_pix_h(front_fname) # not necessary
   orig_h        = np.asarray(ii.imread(front_fname)).shape[0]
   masks_h       = front_mask.shape[0]
-  pr("masks_h: ",masks_h)
-  pr("orig_h:  ",orig_h)
+  if debug:
+    pr("masks_h: ",masks_h)
+    pr("orig_h:  ",orig_h)
 
   # Change heights (ie. nip_h, hip_h) to be within the mask's "height scale" :
   # mask_scaling is here because deeplab spits out segmaps of shape (513,288)
   mask_scaling  = float(masks_h)/float(orig_h)
   nip_h        *= mask_scaling
   nip_h         = int(round(nip_h))
-  pr("nip_h is \n",nip_h)
   belly_button_h*= mask_scaling # TODO: separate scale variable for this (  "float(masks_h)/float(orig_h)" )
   belly_button_h = int(round(belly_button_h))
-  pr("belly_button_h is \n",belly_button_h)
   hip_h        *= mask_scaling
   hip_h         = int(round(hip_h))
-  pr("hip_h is \n",hip_h)
+  if debug:
+    pr("belly_button_h is \n",belly_button_h)
+    pr("nip_h is \n",nip_h)
+    pr("hip_h is \n",hip_h)
 
   # Data:
   #   For these particular images, the side view is 7 units shifted "up" from the   front view
@@ -355,7 +357,7 @@ def measure_body_viz(json_fname, front_fname, side_fname, cust_h):
   nip_h           +=  y_shift
   belly_button_h  +=  y_shift
   hip_h           +=  y_shift
-  pr("after adjustment, \n  nip_h is \n    ",nip_h)
+  if debug: pr("after adjustment, \n  nip_h is \n    ",nip_h)
   chest_l=np.count_nonzero( side_mask[nip_h])           # "length," but what this really means is distance from back to nipple.
   waist_l=np.count_nonzero( side_mask[belly_button_h])  # "length," but what this really means is distance from back to nipple.
   hip_l=np.count_nonzero( side_mask[hip_h])  # "length," but what this really means is distance from back to nipple.
@@ -653,6 +655,16 @@ def orig_pix_h(img_fname):
 
 #===================================================================================================================================
 def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
+  # TODO:  debug.  Ideal would be us somehow simultaneously seeing the whole mesh and also the cross-section plane intersecting it.  State of the program as of Thu Mar  7 11:46:02 EST 2019 is the waist_circum calculation doesn't work.  1st we have to be able to accurate locate the chest, then 2nd we have to get all the intersections of the plane with the SMPL model (much harder with .obj files than it looks).  Unfortunately, if we don't precisely get the curve where SMPL intersects that height plane, it's hard to evaluate the chest circumference.
+#=====================================================================
+  # Program's curr state: (Mar 7, 2019):
+  # 1. Find height from openpose keypoints json (debug)
+  # 2. Use height to approximately find the points in SMPL that should correspond to the chest circumference  (this step is currently VERY complicated and needs double-debugging)
+  #   a.  Many substeps
+  # 3. Take the perimeter of that polygon (the approx cross-section of SMPL)
+  # 4. 
+#=====================================================================
+
   # TODO: finalize docstring once function is closer 2 finalized
   '''
     Finds how far the mesh in the .obj file from the real person's measurements.  ("error")
@@ -718,8 +730,7 @@ def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
     4. 
 
   '''
-
-
+ # Todo: make sure these names are consistent (ie. either all short like v_t or all descriptive like vert_tree)
 
   #obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'
   # Load .obj file
@@ -755,10 +766,10 @@ def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   vs=to_1st_octant(vs)
   x_max = np.max(vs[:,0]); x_min = np.min(vs[:,0]); y_max = np.max(vs[:,1]); y_min = np.min(vs[:,1]); z_max = np.max(vs[:,2]); z_min = np.min(vs[:,2])
   x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
-  pn(3); pr("AFTER ROTATION,  ======================================================================= : ");pn()
-  pr("x_max:",x_max); pr("x_min:",x_min); pr("y_max:",y_max); pr("y_min:",y_min); pr("z_max:",z_max); pr("z_min:",z_min);pn(2)
-  pr("x_len:",x_len); pr("y_len:",y_len); pr("z_len:",z_len);pn() 
-  pn(9)
+  if debug:
+    pn(3); pr("AFTER ROTATION,  ======================================================================= : ");pn()
+    pr("x_max:",x_max); pr("x_min:",x_min); pr("y_max:",y_max); pr("y_min:",y_min); pr("z_max:",z_max); pr("z_min:",z_min);pn(2)
+    pr("x_len:",x_len); pr("y_len:",y_len); pr("z_len:",z_len);pn() ; pn(9)
   #pr("vs.shape:",vs.shape) # (~6000,3)  ie. (BIG,3)
   # no good if in "Jesus pose" and wingspan is longer than height; we just want +z to be "up."
   assert z_len > y_len and z_len > x_len  # TODO remove this assert ...
@@ -767,10 +778,11 @@ def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   vs     = vs * cust_h / z_max
   x_max = np.max(vs[:,0]); y_max = np.max(vs[:,1]); z_max = np.max(vs[:,2])
   x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
-  pn(3); pr("AFTER RESCALING, ======================================================================= : ");pn()
-  pr("x_max:",x_max); pr("x_min:",x_min); pr("y_max:",y_max); pr("y_min:",y_min); pr("z_max:",z_max); pr("z_min:",z_min);pn(2)
-  pr("x_len:",x_len); pr("y_len:",y_len); pr("z_len:",z_len);pn() 
-  pn(9)
+  if debug:
+    pn(3); pr("AFTER RESCALING, ======================================================================= : ");pn()
+    pr("x_max:",x_max); pr("x_min:",x_min); pr("y_max:",y_max); pr("y_min:",y_min); pr("z_max:",z_max); pr("z_min:",z_min);pn(2)
+    pr("x_len:",x_len); pr("y_len:",y_len); pr("z_len:",z_len);pn() 
+    pn(9)
   '''
   vt=cKDTree(vs, copy_data=True) # TODo: make sure these names are consistent (ie. either all short like v_t or all descriptive like vert_tree)
   # Note: Testing whether model is oriented correctly:     It seems it is.
@@ -797,29 +809,26 @@ def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
 
   vt=cKDTree(vs, copy_data=True) # TODo: make sure these names are consistent (ie. either all short like v_t or all descriptive like vert_tree)
 
-
   # Use openpose to get other measurements
   measures=measure_body_viz(json_fname, front_fname, side_fname, cust_h)
-  pr('measures: ')
-  p(measures); pn(3)
+  if debug:
+    pr('measures: ')
+    p(measures); pn(3)
   chest_h=measures['chest_height_inches']
 
   # Todo: refactor decision: 0 vs. (x_min or y_min)?
   quad=np.array([ [      0,      0,chest_h,],
-                  [      0, x_max ,chest_h,],
+                  [      0, y_max ,chest_h,],
                   [ x_max , y_max ,chest_h,],
                   [ x_max ,      0,chest_h,],]).astype("float64")
   # NOTE: I chose to put the points of "quad" in this weird, illogical order b/c it makes calculating approximate perimeter easier later
+  pr("quad:\n{0}   \n\n(we're getting the endpoints of the chest cross-section from this)\n".format(quad))
   K=1; IDX=1
-  pt0=vt.data[vt.query(quad[0])[IDX]]; pt1=vt.data[vt.query(quad[1])[IDX]]; pt2=vt.data[vt.query(quad[2])[IDX]]; pt3=vt.data[vt.query(quad[3])[IDX]]
-  pn(69); pr("pt0:",pt0); pr("pt1:",pt1); pr("pt2:",pt2); pr("pt3:",pt3)
-  calced_chest=dist(pt0,pt1)+dist(pt1,pt2)+dist(pt1,pt2)+dist(pt2,pt3)
-  pr("Chest circumference in inches: ",calced_chest); pr("chest_h:",chest_h)
-  err = calced_chest-measures['chest_circum_inches']
-  #                  pt0: [21.74963849 11.08709837 46.94066765]
-  #                  pt1: [23.13935033 16.36705111 47.54809897]
-  #                  pt2: [32.86014707 13.87639756 46.46942123]
-  #                  pt3: [31.42370296  6.02317215 58.62576271]
+  #  quad:                                                                                      NO GOOD.     
+  # [[ 0.          0.         55.90405904]          pt0: [21.74963849 11.08709837 46.94066765]
+  #  [ 0.         62.4291962  55.90405904]    ==>   pt1: [23.13935033 16.36705111 47.54809897]
+  #  [62.4291962  30.58900293 55.90405904]          pt2: [32.86014707 13.87639756 46.46942123]
+  #  [62.4291962   0.         55.90405904]]         pt3: [31.42370296  6.02317215 58.62576271]
 
 
   # Stretch vertices in z direction:
@@ -827,15 +836,20 @@ def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   STRETCH=100.; Z=2
   svs=deepcopy(vs)
   svs[:,Z]*=STRETCH
+  pn(1); pr("chest_h: ",chest_h); pr("STRETCH: ",STRETCH) 
   chest_h*=STRETCH
-  #pn(9); pr("chest_h: ",chest_h); pr("STRETCH: ",STRETCH)
+  pn(1); pr("chest_h: ",chest_h); pr("STRETCH: ",STRETCH) 
+  # orig_chest_h ==   55.9            inches
+  #   chest_h:      5590.405904059041
+
   svt=cKDTree(svs, copy_data=True) # TODo: make sure these names are consistent (ie. either all short like v_t or all descriptive like vert_tree)
   #pr(" PREVIOUSLY    :");pr("x_max: ",x_max); pr("y_max: ",y_max); pr("z_max: ",z_max); pn(9)
   x_max = np.max(svs[:,0]); y_max = np.max(svs[:,1]); z_max = np.max(svs[:,2])
   x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
-  pr(" AFTER STRETCH :");pr("x_max: ",x_max); pr("y_max: ",y_max); pr("z_max: ",z_max); pn(9)
+  if debug:
+    pr(" AFTER STRETCH :");pr("x_max: ",x_max); pr("y_max: ",y_max); pr("z_max: ",z_max); pn(9)
   s_quad=np.array([ [      0,      0,chest_h,],
-                    [      0, x_max ,chest_h,],
+                    [      0, y_max ,chest_h,],
                     [ x_max , y_max ,chest_h,],
                     [ x_max ,      0,chest_h,],]).astype("float64")
   K=70 # if K is higher, we get more of the potential polygon points.  But we also get more noise
@@ -857,44 +871,16 @@ def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   hull=ConvHull(xy_pts)
   vertices = hull.vertices.tolist() + [hull.vertices[0]] # Todo: shorten
   pe(69);pn(9);pr("xy vertices: \n",xy_pts[vertices]);pn(9);pe(69)
-  hull_edgepts=xy_pts[vertices]
-  pr('hull_edgepts: \n',hull_edgepts)
-  pr('hull_edgepts.shape:',hull_edgepts.shape)
+  perim_edgepts=xy_pts[vertices]
+  pr('perim_edgepts: \n',perim_edgepts)
+  pr('perim_edgepts.shape:',perim_edgepts.shape)
   X=0; Y=1
-  plt.scatter(hull_edgepts[:,X],hull_edgepts[:,Y]); plt.show()
-  perim     = np.sum([euclidean(x, y) for x, y in zip(hull_edgepts, hull_edgepts[1:])])
+  plt.title("Nathan\'s Chest cross section:   ConvexHull")
+  plt.scatter(perim_edgepts[:,X],perim_edgepts[:,Y]); plt.show()
+  perim     = np.sum([euclidean(x, y) for x, y in zip(perim_edgepts, perim_edgepts[1:])])
   calced_chest=perim
 
-  pr("calced_chest (wrong coords):",calced_chest); pn(3)
-
-  #shrink_chest_again("pts0-3")
-  pt0[2]/=STRETCH; pt1[2]/=STRETCH; pt2[2]/=STRETCH; pt3[2]/=STRETCH
-  pr("pts:\n{0}\n{1}\n{2}\n{3}".format(pt0,pt1,pt2,pt3))
-  calced_chest=dist(pt0,pt1)+dist(pt1,pt2)+dist(pt2,pt3)+dist(pt3,pt0)
-  pr("calced_chest (RIGHT coords),   calculated with dist() manually:",calced_chest)
-  # In the below line, I use the tuple (pt0,pt1,pt2,pt3) b/c immutability is always a good thing:
-  calced_chest=perim_poly((pt0,pt1,pt2,pt3))
-  # in the degenerate case (STRETCH is tooooo big), we get pt0==pt1==pt2==pt3.  Before then, we get a line (pt0==pt1 and pt2==pt3).
-  # solution: stretch once 2 find the right quadrilateral, then do the A* search after a bigger stretch
-  # easier solution: try to leave it with fairly small value of STRETCH.
-  pr("calced_chest (RIGHT coords),   calculated with perim_poly():",calced_chest)
-  '''
-  pts:
-  [  24.78644235   10.96347829 5032.98328219]
-  [  24.0617395    13.36335661 5040.39916411]
-  [  28.02287236   12.0112951  5030.3883187 ]
-  [  29.74478009    6.43362254 5036.59004338]
-  calced_chest (wrong coords): 38.04621572659287
-
-  pts:
-  [24.78644235 10.96347829 55.92203647]
-  [24.0617395  13.36335661 56.00443516]
-  [28.02287236 12.0112951  55.89320354]
-  [29.74478009  6.43362254 55.96211159]
-  calced_chest (RIGHT coords): 19.249215525477638        WAYYYYYYYYY too low
-  '''
-
-  # NOTES: went down to 38.04621572659287   (b4 STRETCH, was 40.22217968662046).  As of commit [TODO: insert commit number], the chest calculation is 27.196557168098682.   The real (empirical) measurement for Nathan's chest_circum is 34.575946247110544 inches.   Hm.... I was thinking it ought to be SMALLER than the real measurement.  I think it's because the STRETCH increases the magnitude of chest_circum enough to cancel out the decrease from it being quad instead of ~elliptical
+  # NOTES: went down to 38.04621572659287   (b4 STRETCH, was 40.22217968662046).  As of commit 692fc87, the chest calculation is 27.196557168098682.   The real (empirical) measurement for Nathan's chest_circum is 34.575946247110544 inches.   Hm.... I was thinking it ought to be SMALLER than the real measurement.  I think it's because the STRETCH increases the magnitude of chest_circum enough to cancel out the decrease from it being quad instead of ~elliptical
   #                  pt0: [  24.78644235   10.96347829 5032.98328219]
   #                  pt1: [  24.0617395    13.36335661 5040.39916411]
   #                  pt2: [  28.02287236   12.0112951  5030.3883187 ]
@@ -904,8 +890,9 @@ def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   pr("Chest circumference in inches: ", calced_chest)
 
   # TODO: make "err" calculation much much much more comprehensive
-  err = calced_chest-measures['chest_circum_inches']
-  pn(29)
+  err = (calced_chest-measures['chest_circum_inches'])/measures['chest_circum_inches']
+  pe(69); pr("Leaving function ",sys._getframe().f_code.co_name); pe(69)
+  pn(49)
   return err, measures, vs
 #=========================== end obj_err() ==================
 
