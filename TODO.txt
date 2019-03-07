@@ -12,6 +12,184 @@
 
 
     TODO.txt
+
+________________________________
+
+  Thu Mar  7 09:12:03 EST 2019
+________________________________
+
+  SHIP with HMR.
+    When you talk to Dario about this, sound as reasonable as possible.  Even if he raises his voice, keep yours low, have confident body posture and tone of voice, and always stay calm, regardless of how much he raises his voice.  You will persuade the guys by doing this.
+    Or, get everyone excited by painting the big picture.  They will suspend their critical thinking.
+    Bring it up at the end of the meeting when everyone is tired.
+
+  Use Blender to cut up the SMPL model and try to find the perim that way.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Or pretend you just ran the tests.  And the error rate was...  (go into long dry, boring numbers that illustrate how rigorous you are)
+    No lying.  It is destructive in the long run.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Ship.  Just ship with hmr.  As soon as we have a prototype, we'll know what to build.  Could be any number of things (facial reconstruction, animations, etc.).
+    When we get enough DATA from customers about what to build, we'll have a priority list and we'll get to actually working on this thing.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Pier => github.com
+    This will probably just HAVE To happen once we start integrating stuff.
+
+  Get rid of THIS warning in measure.py:
+    /home/n/anaconda3/envs/cat12/lib/python3.6/site-packages/skimage/transform/_warps.py:105: UserWarning: The default mode, 'constant', will be changed to 'reflect' in skimage 0.15.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ________________________________
 
   Tue Mar  5 08:23:50 EST 2019
@@ -19,10 +197,12 @@ ________________________________
 
   "Scale" the points in z to give us higher likelihood of hitting the chest, waist, etc.
     vt=KDTree(vs[x,y,z*10])
+    DONE.
 
 
   We're selling TheMall as a boost to self-esteem, status, etc.
     Esp. if you're tall and awkward looking
+    We have to take care of EVERYTHING for our customers; fashion tips, formality level, resizing, etc.
 
 
 
