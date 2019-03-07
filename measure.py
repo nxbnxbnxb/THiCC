@@ -8,6 +8,8 @@ import json
 import numpy as np
 np.seterr(all='raise')
 from scipy.spatial import cKDTree
+from scipy.spatial.distance import euclidean
+from scipy.spatial.qhull import ConvexHull as ConvHull
 import math
 from math import pi
 import matplotlib as mpl
@@ -21,7 +23,7 @@ import sys
 import viz
 from viz import pltshow
 from seg import segment_local as seg_local, segment_black_background as seg_black_back
-from utils import pn, crop_person, get_mask_y_shift, np_img, pif
+from utils import pn, crop_person, get_mask_y_shift, np_img, pif, pe
 from d import debug
 from pprint import pprint as p
 from copy import deepcopy
@@ -694,8 +696,9 @@ def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   '''
   # yet TODO:
   '''
-    0.  Get shape to take perim of 
-      b. scale points in z direction
+    0.  Get the RIGHT shape to take perim of 
+      b0.  Given the K points, take only their (x,y) values (ie. set z=0), poly=CHull(pts), perim=perim_poly(hull_edge_pts), and use perim.
+      b1.  Do we HAVE to do the ellipse?
       c. generalize the assert
 
       d.  Make sure mesh is in proper "z=up" position  (rotations/pltshow()/KDTree, etc.);  TODO: generalize c.  Find points at heights hip, waist, chest
@@ -820,13 +823,14 @@ def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
 
 
   # Stretch vertices in z direction:
-  STRETCH=90; Z=2
+  # Note: The bigger STRETCH is, the more likely we are to get only verts at the same z value.
+  STRETCH=100.; Z=2
   svs=deepcopy(vs)
   svs[:,Z]*=STRETCH
   chest_h*=STRETCH
-  pn(9); pr("chest_h: ",chest_h); pr("STRETCH: ",STRETCH)
+  #pn(9); pr("chest_h: ",chest_h); pr("STRETCH: ",STRETCH)
   svt=cKDTree(svs, copy_data=True) # TODo: make sure these names are consistent (ie. either all short like v_t or all descriptive like vert_tree)
-  pr(" PREVIOUSLY    :");pr("x_max: ",x_max); pr("y_max: ",y_max); pr("z_max: ",z_max); pn(9)
+  #pr(" PREVIOUSLY    :");pr("x_max: ",x_max); pr("y_max: ",y_max); pr("z_max: ",z_max); pn(9)
   x_max = np.max(svs[:,0]); y_max = np.max(svs[:,1]); z_max = np.max(svs[:,2])
   x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
   pr(" AFTER STRETCH :");pr("x_max: ",x_max); pr("y_max: ",y_max); pr("z_max: ",z_max); pn(9)
@@ -834,34 +838,90 @@ def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
                     [      0, x_max ,chest_h,],
                     [ x_max , y_max ,chest_h,],
                     [ x_max ,      0,chest_h,],]).astype("float64")
+  K=70 # if K is higher, we get more of the potential polygon points.  But we also get more noise
   pt0=svt.data[svt.query(s_quad[0])[IDX]]; pt1=svt.data[svt.query(s_quad[1])[IDX]]; pt2=svt.data[svt.query(s_quad[2])[IDX]]; pt3=svt.data[svt.query(s_quad[3])[IDX]]
+  pts_near_chest0=svt.data[svt.query(pt0,k=K)[1]] # Todo: rename
+  pts_near_chest1=svt.data[svt.query(pt1,k=K)[1]]
+  pts_near_chest2=svt.data[svt.query(pt2,k=K)[1]]
+  pts_near_chest3=svt.data[svt.query(pt3,k=K)[1]]
+  pts_near_chest=np.unique(np.concatenate((pts_near_chest0,pts_near_chest1,pts_near_chest2,pts_near_chest3),axis=0),axis=0)
+  pr("pts_near_chest.shape:  ", pts_near_chest.shape)
+  pr(K*4)                     # 80 total pts
+  pr(pts_near_chest.shape[0]) # 24 unique pts
+  pr("pts_near_chest:\n ",pts_near_chest);pn(3)
   pn(9); pr("pt0:",pt0); pr("pt1:",pt1); pr("pt2:",pt2); pr("pt3:",pt3)
-  calced_chest=dist(pt0,pt1)+dist(pt1,pt2)+dist(pt1,pt2)+dist(pt2,pt3)
+  calced_chest=perim_poly((pt0,pt1,pt2,pt3))
+  #pts_near_chest=pts_near_chest[] # should be only the xy pts (project the chest polygon onto the z=0 plane)
+  pr("pts:\n{0}\n{1}\n{2}\n{3}".format(pt0,pt1,pt2,pt3))
+  xy_pts=pts_near_chest[:,:pts_near_chest.shape[1]-1] # shape (n,2)
+  hull=ConvHull(xy_pts)
+  vertices = hull.vertices.tolist() + [hull.vertices[0]] # Todo: shorten
+  pe(69);pn(9);pr("xy vertices: \n",xy_pts[vertices]);pn(9);pe(69)
+  hull_edgepts=xy_pts[vertices]
+  pr('hull_edgepts: \n',hull_edgepts)
+  pr('hull_edgepts.shape:',hull_edgepts.shape)
+  X=0; Y=1
+  plt.scatter(hull_edgepts[:,X],hull_edgepts[:,Y]); plt.show()
+  perim     = np.sum([euclidean(x, y) for x, y in zip(hull_edgepts, hull_edgepts[1:])])
+  calced_chest=perim
+
+  pr("calced_chest (wrong coords):",calced_chest); pn(3)
+
+  #shrink_chest_again("pts0-3")
+  pt0[2]/=STRETCH; pt1[2]/=STRETCH; pt2[2]/=STRETCH; pt3[2]/=STRETCH
+  pr("pts:\n{0}\n{1}\n{2}\n{3}".format(pt0,pt1,pt2,pt3))
+  calced_chest=dist(pt0,pt1)+dist(pt1,pt2)+dist(pt2,pt3)+dist(pt3,pt0)
+  pr("calced_chest (RIGHT coords),   calculated with dist() manually:",calced_chest)
+  # In the below line, I use the tuple (pt0,pt1,pt2,pt3) b/c immutability is always a good thing:
+  calced_chest=perim_poly((pt0,pt1,pt2,pt3))
+  # in the degenerate case (STRETCH is tooooo big), we get pt0==pt1==pt2==pt3.  Before then, we get a line (pt0==pt1 and pt2==pt3).
+  # solution: stretch once 2 find the right quadrilateral, then do the A* search after a bigger stretch
+  # easier solution: try to leave it with fairly small value of STRETCH.
+  pr("calced_chest (RIGHT coords),   calculated with perim_poly():",calced_chest)
+  '''
+  pts:
+  [  24.78644235   10.96347829 5032.98328219]
+  [  24.0617395    13.36335661 5040.39916411]
+  [  28.02287236   12.0112951  5030.3883187 ]
+  [  29.74478009    6.43362254 5036.59004338]
+  calced_chest (wrong coords): 38.04621572659287
+
+  pts:
+  [24.78644235 10.96347829 55.92203647]
+  [24.0617395  13.36335661 56.00443516]
+  [28.02287236 12.0112951  55.89320354]
+  [29.74478009  6.43362254 55.96211159]
+  calced_chest (RIGHT coords): 19.249215525477638        WAYYYYYYYYY too low
+  '''
+
+  # NOTES: went down to 38.04621572659287   (b4 STRETCH, was 40.22217968662046).  As of commit [TODO: insert commit number], the chest calculation is 27.196557168098682.   The real (empirical) measurement for Nathan's chest_circum is 34.575946247110544 inches.   Hm.... I was thinking it ought to be SMALLER than the real measurement.  I think it's because the STRETCH increases the magnitude of chest_circum enough to cancel out the decrease from it being quad instead of ~elliptical
   #                  pt0: [  24.78644235   10.96347829 5032.98328219]
   #                  pt1: [  24.0617395    13.36335661 5040.39916411]
   #                  pt2: [  28.02287236   12.0112951  5030.3883187 ]
   #                  pt3: [  29.74478009    6.43362254 5036.59004338]
-  # TODO
-  # TODO TODO TODO TODO TODO TODO TODO TODO TODO
-  # TODO TODO TODO TODO TODO TODO TODO TODO TODO
-  # TODO TODO TODO TODO TODO TODO TODO TODO TODO
-  # TODO TODO TODO TODO TODO TODO TODO TODO TODO
-  shrink_chest_again("pts0-3")
-  # TODO TODO TODO TODO TODO TODO TODO TODO TODO
-  # TODO TODO TODO TODO TODO TODO TODO TODO TODO
-  # TODO TODO TODO TODO TODO TODO TODO TODO TODO
-  # TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # Todo:
 
   pr("Chest circumference in inches: ", calced_chest)
-  # NOTES: went down to 38.04621572659287   (b4 STRETCH, was 40.22217968662046).   The real (empirical) measurement for Nathan's chest_circum is 34.575946247110544 inches.   Hm.... I was thinking it ought to be SMALLER than the real measurement.  I think it's because the STRETCH increases the magnitude of chest_circum enough to cancel out the decrease from it being quad instead of ~elliptical
-  # TODO: Somehow weight KDTree's distance metric s.t. we always get points that are at a similar z value.
 
   # TODO: make "err" calculation much much much more comprehensive
   err = calced_chest-measures['chest_circum_inches']
-
+  pn(29)
   return err, measures, vs
 #=========================== end obj_err() ==================
 
+#===================================================================================================================================
+def perim_poly(verts):
+  '''
+    verts have to be in order
+  '''
+  pn(3);pr("within ",sys._getframe().f_code.co_name)
+  prev=verts[-1]
+  p=0
+  for v in verts:
+    print(v)
+    p+=dist(prev,v)
+    prev=v
+  return p
 #===================================================================================================================================
 def scale(v, s):
   '''
@@ -954,7 +1014,8 @@ if __name__=="__main__":
   side_fname  = '/home/n/Dropbox/vr_mall_backup/imgs/n8_side___jesus_pose_legs_closed/n8_side___jesus_pose___legs_closed___nude___grassy_background_Newark_DE___.jpg'
   front_fname = '/home/n/Dropbox/vr_mall_backup/imgs/n8_front___jesus_legs_closed/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE___.jpg'
   obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'; pr("obj_fname: ",obj_fname)
-  pr(obj_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)) #if __name__=="__main__": 
+  err,measures,vs=obj_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)
+  #pr(obj_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)) #if __name__=="__main__": 
   #test_measure()
   '''
   # all code here assumes the person we're dealing with is Nathan.  
