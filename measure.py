@@ -763,21 +763,96 @@ def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   # Simple transformations:
   # Rotate
   vs=vs.dot(yz_swap)
+  # Shift
   vs=to_1st_octant(vs)
+  print("vs.shape:",vs.shape)
   x_max = np.max(vs[:,0]); x_min = np.min(vs[:,0]); y_max = np.max(vs[:,1]); y_min = np.min(vs[:,1]); z_max = np.max(vs[:,2]); z_min = np.min(vs[:,2])
   x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
   if debug:
     pn(3); pr("AFTER ROTATION,  ======================================================================= : ");pn()
     pr("x_max:",x_max); pr("x_min:",x_min); pr("y_max:",y_max); pr("y_min:",y_min); pr("z_max:",z_max); pr("z_min:",z_min);pn(2)
     pr("x_len:",x_len); pr("y_len:",y_len); pr("z_len:",z_len);pn() ; pn(9)
+    #AFTER ROTATION,  ======================================================================= : 
+    #x_max: 1.4160439999999999
+    #x_min: 0.0
+    #y_max: 0.693832
+    #y_min: 0.0
+    #z_max: 1.70118
+    #z_min: 0.0
+
   #pr("vs.shape:",vs.shape) # (~6000,3)  ie. (BIG,3)
   # no good if in "Jesus pose" and wingspan is longer than height; we just want +z to be "up."
-  assert z_len > y_len and z_len > x_len  # TODO remove this assert ...
+  assert z_len > y_len and z_len > x_len  # TODO: revise this assert ...
 
+  # Use openpose to get other measurements
+  measures=measure_body_viz(json_fname, front_fname, side_fname, cust_h)
+  chest_h=measures['chest_height_inches']  # Nathan's chest_h is 57 inches
+  #print("chest_h:", chest_h) # measured, 55.9 inches is ~correct
   # Scale to real-life-sizes (inches):
-  vs     = vs * cust_h / z_max
+  if debug:
+    pr("x_max:",x_max); pr("x_min:",x_min); pr("y_max:",y_max); pr("y_min:",y_min); pr("z_max:",z_max); pr("z_min:",z_min);pn(2)
+    pr("x_len:",x_len); pr("y_len:",y_len); pr("z_len:",z_len);pn() ; pn(9)
+    pr('measures: ')
+    p(measures); pn(3)
+    print("cust_h: ",cust_h)
+    print("vs[:10]:\n",vs[:10])
+    print("z_max : ",z_max)
+    print("z_min : ",z_min)
+    #print("z_len:",z_len) # 75 inches.  TODO remeasure your own chest
+    print("x_len:\n{0}\n y_len:\n{1}\n z_len:\n{2}\n".format(x_len,y_len,z_len))
+  vs    = vs * cust_h / z_max
   x_max = np.max(vs[:,0]); y_max = np.max(vs[:,1]); z_max = np.max(vs[:,2])
+  x_min = np.min(vs[:,0]); y_min = np.min(vs[:,1]); z_min = np.min(vs[:,2])
   x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
+  CHEST_HEIGHT_RATIO=1./75. # 3 inch chest; 75 inch height
+  # x_len: #62.42919620498712
+  # y_len: #30.58900292737982
+  # z_len: #75.0
+
+  chest_len=z_len*CHEST_HEIGHT_RATIO
+  chest_top=chest_h +  ( chest_len/2.)
+  chest_bot=chest_h -  ( chest_len/2.)
+  if debug:
+    print("chest_top:",chest_top)
+    print("chest_bot:",chest_bot)
+    print("vs.shape: ",vs.shape)
+    print("vs[:,2].shape:",vs[:,2].shape)
+    print("vs[:10]",vs[:10])
+  sorted_vs=deepcopy(vs) #sort axis=0
+  X=0; Y=1; Z=2
+  sorted_vs=vs[np.argsort(vs[:,Z])] ##### sort
+  found_bot=False
+  found_top=False
+  for i,z in enumerate(sorted_vs[:,Z]):
+    if (not found_bot) and (z > chest_bot):
+      # Note: only finds once b/c found_bot turns the search "off"
+      found_bot=True
+      bot_idx=i
+    if (not found_top) and (z > chest_top):
+      # Note: only finds once b/c found_top turns the search "off"
+      found_top=True
+      top_idx=i
+  print("top_idx:",top_idx)
+  print("bot_idx:",bot_idx)
+  print("sorted_vs.shape:",sorted_vs.shape)
+  pn(4)
+  chest_vs=sorted_vs[bot_idx:top_idx]
+  print("chest_vs:",chest_vs)
+  chest_vs_xy=chest_vs[:,:Z]
+  plt.title("Vertices in the SMPL mesh near the Chest \n   {0} inches up ".format(chest_h))
+  plt.scatter(chest_vs_xy[:,X],chest_vs_xy[:,Y]); plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
   if debug:
     pn(3); pr("AFTER RESCALING, ======================================================================= : ");pn()
     pr("x_max:",x_max); pr("x_min:",x_min); pr("y_max:",y_max); pr("y_min:",y_min); pr("z_max:",z_max); pr("z_min:",z_min);pn(2)
@@ -809,13 +884,6 @@ def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
 
   vt=cKDTree(vs, copy_data=True) # TODo: make sure these names are consistent (ie. either all short like v_t or all descriptive like vert_tree)
 
-  # Use openpose to get other measurements
-  measures=measure_body_viz(json_fname, front_fname, side_fname, cust_h)
-  if debug:
-    pr('measures: ')
-    p(measures); pn(3)
-  chest_h=measures['chest_height_inches']
-
   # Todo: refactor decision: 0 vs. (x_min or y_min)?
   quad=np.array([ [      0,      0,chest_h,],
                   [      0, y_max ,chest_h,],
@@ -833,7 +901,7 @@ def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
 
   # Stretch vertices in z direction:
   # Note: The bigger STRETCH is, the more likely we are to get only verts at the same z value.
-  STRETCH=100.; Z=2
+  STRETCH=  5.; Z=2
   svs=deepcopy(vs)
   svs[:,Z]*=STRETCH
   pn(1); pr("chest_h: ",chest_h); pr("STRETCH: ",STRETCH) 
@@ -924,7 +992,7 @@ def rot8_obj(v, rotation):
   '''
   return v.dot(rotation)
 #===================================================================================================================================
-def shift_obj(v, del_x, del_y, del_z):
+def shift_obj(v, del_x, del_y, del_z): # TODO: RENAME
   '''
     v = vertices
   '''
