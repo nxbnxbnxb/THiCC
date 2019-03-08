@@ -654,7 +654,7 @@ def orig_pix_h(img_fname):
   # with open(fname, 'rb') as f:
 
 #===================================================================================================================================
-def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
+def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   # TODO:  debug.  Ideal would be us somehow simultaneously seeing the whole mesh and also the cross-section plane intersecting it.  State of the program as of Thu Mar  7 11:46:02 EST 2019 is the waist_circum calculation doesn't work.  1st we have to be able to accurate locate the chest, then 2nd we have to get all the intersections of the plane with the SMPL model (much harder with .obj files than it looks).  Unfortunately, if we don't precisely get the curve where SMPL intersects that height plane, it's hard to evaluate the chest circumference.
 #=====================================================================
   # Program's curr state: (Mar 7, 2019):
@@ -707,6 +707,7 @@ def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
 
   '''
   # yet TODO:
+    #flip feet right-side-up yet TODO
   '''
     0.  Get the RIGHT shape to take perim of 
       b0.  Given the K points, take only their (x,y) values (ie. set z=0), poly=CHull(pts), perim=perim_poly(hull_edge_pts), and use perim.
@@ -760,25 +761,35 @@ def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   # TODO: somehow ensure this transformation doesn't turn our mesh "upside down."  Maybe use pltshow() combined with the cKDTree.  
   #   Funny, for the "approx mask" operation we'd really like to have that KDTree() "all-neighbors queries functionality".  https://stackoverflow.com/questions/6931209/difference-between-scipy-spatial-kdtree-and-scipy-spatial-ckdtree
 
-  # Simple transformations:
+  #=====================================================================
+  #         Geometric transformations:
+  #=====================================================================
+
   # Rotate
   vs=vs.dot(yz_swap)
+
   # Shift
   vs=to_1st_octant(vs)
   print("vs.shape:",vs.shape)
+
+  # Flip  (this particular mesh was "feet up")
   x_max = np.max(vs[:,0]); x_min = np.min(vs[:,0]); y_max = np.max(vs[:,1]); y_min = np.min(vs[:,1]); z_max = np.max(vs[:,2]); z_min = np.min(vs[:,2])
   x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
+  flipped=deepcopy(vs)
+  Z=2
+  for i,row in enumerate(flipped): # TODO TODO: vectorize; actually affects runtime
+    flipped[i,Z]=-flipped[i,Z]
+  flipped=shift_verts(flipped,0,0,z_len)
+  vs=flipped
+
   if debug:
     pn(3); pr("AFTER ROTATION,  ======================================================================= : ");pn()
     pr("x_max:",x_max); pr("x_min:",x_min); pr("y_max:",y_max); pr("y_min:",y_min); pr("z_max:",z_max); pr("z_min:",z_min);pn(2)
     pr("x_len:",x_len); pr("y_len:",y_len); pr("z_len:",z_len);pn() ; pn(9)
     #AFTER ROTATION,  ======================================================================= : 
-    #x_max: 1.4160439999999999
-    #x_min: 0.0
-    #y_max: 0.693832
-    #y_min: 0.0
-    #z_max: 1.70118
-    #z_min: 0.0
+    #x_min: 0.0 #x_max: 1.4160439999999999
+    #y_min: 0.0 #y_max: 0.693832
+    #z_min: 0.0 #z_max: 1.70118
 
   #pr("vs.shape:",vs.shape) # (~6000,3)  ie. (BIG,3)
   # no good if in "Jesus pose" and wingspan is longer than height; we just want +z to be "up."
@@ -962,7 +973,7 @@ def obj_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   pe(69); pr("Leaving function ",sys._getframe().f_code.co_name); pe(69)
   pn(49)
   return err, measures, vs
-#=========================== end obj_err() ==================
+#=========================== end mesh_err() ==================
 
 #===================================================================================================================================
 def perim_poly(verts):
@@ -992,7 +1003,7 @@ def rot8_obj(v, rotation):
   '''
   return v.dot(rotation)
 #===================================================================================================================================
-def shift_obj(v, del_x, del_y, del_z): # TODO: RENAME
+def shift_verts(v, del_x, del_y, del_z): # TODO: RENAME
   '''
     v = vertices
   '''
@@ -1008,7 +1019,7 @@ def to_1st_octant(v):
   '''
     v = vertices
   '''
-  return shift_obj(v, -np.min(v[:,0]), -np.min(v[:,1]), -np.min(v[:,2]))
+  return shift_verts(v, -np.min(v[:,0]), -np.min(v[:,1]), -np.min(v[:,2]))
 #===================================================================================================================================
 
 
@@ -1069,8 +1080,8 @@ if __name__=="__main__":
   side_fname  = '/home/n/Dropbox/vr_mall_backup/imgs/n8_side___jesus_pose_legs_closed/n8_side___jesus_pose___legs_closed___nude___grassy_background_Newark_DE___.jpg'
   front_fname = '/home/n/Dropbox/vr_mall_backup/imgs/n8_front___jesus_legs_closed/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE___.jpg'
   obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'; pr("obj_fname: ",obj_fname)
-  err,measures,vs=obj_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)
-  #pr(obj_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)) #if __name__=="__main__": 
+  err,measures,vs=mesh_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)
+  #pr(mesh_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)) #if __name__=="__main__": 
   #test_measure()
   '''
   # all code here assumes the person we're dealing with is Nathan.  
