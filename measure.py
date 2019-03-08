@@ -9,7 +9,7 @@ import numpy as np
 np.seterr(all='raise')
 from scipy.spatial import cKDTree
 from scipy.spatial.distance import euclidean
-from scipy.spatial.qhull import ConvexHull as ConvHull
+from scipy.spatial.qhull import ConvexHull
 import math
 from math import pi
 import matplotlib as mpl
@@ -641,6 +641,59 @@ def orig_pix_h(img_fname):
   h_as_frac_of_frame=h_after_seg / mask.shape[0] # python3 so no need for (+ 0.0)
   return h_as_frac_of_frame * orig_h
 #===================================================================================================================================
+def normalize_mesh(vs, mode='HMR'): 
+  '''
+    Standardizes mesh position and orientation
+
+    -------
+    Params:
+    -------
+      vs means vertices of a mesh, 
+
+    return value "vs" ought to have the mesh's head "point" in the +z direction, every mesh vertex should have (+x,+y,+z) values
+  '''
+  # Note:   refactor.  used to call it standardize_mesh_position_and_orientation(), but was too long prob not descriptive enough?
+
+  # NOTES:  I think currently y is  "height," x is "width," and z is "depth"
+  #               but we want z     "height," x    "width," and y is "depth"     (helpfully, this is ALSO how blender does it)
+  #           This yz_swap solution below: (Wed Mar  6 13:49:35 EST 2019) is specifically tailored to:
+  #             obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'
+  pr("This mesh was generated via ",mode)
+  if mode =='HMR':
+    yz_swap=np.array([[   1,   0,   0],
+                      [   0,   0,   1],
+                      [   0,  -1,   0]]).astype('float64')
+    # TODO: somehow ensure this transformation doesn't turn our mesh "upside down."  Maybe use pltshow() combined with the cKDTree.  
+    #   Funny, for the "approx mask" operation we'd really like to have that KDTree() "all-neighbors queries functionality".  https://stackoverflow.com/questions/6931209/difference-between-scipy-spatial-kdtree-and-scipy-spatial-ckdtree
+
+    #=====================================================================
+    #                   Geometric transformations:
+    #=====================================================================
+
+    # Rotate
+    vs=vs.dot(yz_swap)
+
+    # Shift
+    vs=to_1st_octant(vs)
+
+    # Flip  (this particular mesh was "feet up")
+    x_max = np.max(vs[:,0]); x_min = np.min(vs[:,0]); y_max = np.max(vs[:,1]); y_min = np.min(vs[:,1]); z_max = np.max(vs[:,2]); z_min = np.min(vs[:,2])
+    x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
+    flipped=deepcopy(vs) # could avoid the deepcopy step
+    Z=2
+    for i,row in enumerate(flipped): # TODO TODO: vectorize; actually affects runtime
+      flipped[i,Z]=-flipped[i,Z]
+    flipped=shift_verts(flipped,0,0,z_len)
+    vs=flipped
+    extrema=(x_min,x_max,y_min,y_max,z_min,z_max)
+    return vs, extrema
+  elif mode =='NNN':
+    x_max = np.max(vs[:,0]); x_min = np.min(vs[:,0]); y_max = np.max(vs[:,1]); y_min = np.min(vs[:,1]); z_max = np.max(vs[:,2]); z_min = np.min(vs[:,2])
+    x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
+    pr("x_max:",x_max); pr("x_min:",x_min); pr("y_max:",y_max); pr("y_min:",y_min); pr("z_max:",z_max); pr("z_min:",z_min);pn(2)
+    pr("x_len:",x_len); pr("y_len:",y_len); pr("z_len:",z_len);pn() ; pn(9)
+    extrema=(x_min,x_max,y_min,y_max,z_min,z_max)
+    return vs, extrema # TODO TODO TODO TODO TODO:  finish for NNN (SMPL-betas-manually-tuned)
 
 
 
@@ -707,14 +760,39 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
 
   '''
   # yet TODO:
-    #flip feet right-side-up yet TODO
+    # check mesh measurements on a mesh that actually resembles Nathan (nxb)   (NNN method)
+    # switch statement depending on mesh .obj fname  (separate transforms for NNN meshes than for HMR meshes)
+    # make sure measuring the right thing, NOTE: NO  conv_hull, etc.   yet TODO
   '''
     0.  Get the RIGHT shape to take perim of 
       b0.  Given the K points, take only their (x,y) values (ie. set z=0), poly=CHull(pts), perim=perim_poly(hull_edge_pts), and use perim.
-      b1.  Do we HAVE to do the ellipse?
       c. generalize the assert
+      scale CHEST_HEIGHT_RATIO with avg triangle size in mesh   Inversely or directly proportional?
+      Take the perim
+        How do we sort the points s.t. we have a good ordering for the concave polygon?
+      Ohhhhhhhhh....  The actual measurement will probably be more like the convexHull, not a concaveHull.  (think about how a measuring tape encircles a chest)
 
-      d.  Make sure mesh is in proper "z=up" position  (rotations/pltshow()/KDTree, etc.);  TODO: generalize c.  Find points at heights hip, waist, chest
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       e.  Be able to visualize mesh so I can rotate nathan_mesh.obj to the correct orientation (where z=up) before I can find points at chest_height.  Hook render_smpl() up to arbitrary .obj (verts) mesh?
         Then u gotta figure out how to do directed graph search on 4 pts in R3.
       d.
@@ -749,38 +827,20 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   for idx,v in enumerate(verts):
     v=v.split(' ')
     vs[idx]=v[X],v[Y],v[Z]
+  # Todo: refactor: switch statement like referenced in  #https://stackoverflow.com/questions/60208/replacements-for-switch-statement-in-python#60211
+    #case={}.get(x,DEFAULT_RET_VAL)
+    #generating_method='HMR' or 'NNN' or 'VHMR' or ...
 
-  # NOTES:  I think currently y is  "height," x is "width," and z is "depth"
-  #               but we want z     "height," x    "width," and y is "depth"     (helpfully, this is ALSO how blender does it)
-  #           This yz_swap solution below: (Wed Mar  6 13:49:35 EST 2019) is specifically tailored to:
-  #             obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'
-  yz_swap=np.array([[   1,   0,   0],
-                    [   0,   0,   1],
-                    [   0,  -1,   0]]).astype('float64')
-                    # NOTE: this 
-  # TODO: somehow ensure this transformation doesn't turn our mesh "upside down."  Maybe use pltshow() combined with the cKDTree.  
-  #   Funny, for the "approx mask" operation we'd really like to have that KDTree() "all-neighbors queries functionality".  https://stackoverflow.com/questions/6931209/difference-between-scipy-spatial-kdtree-and-scipy-spatial-ckdtree
-
-  #=====================================================================
-  #         Geometric transformations:
-  #=====================================================================
-
-  # Rotate
-  vs=vs.dot(yz_swap)
-
-  # Shift
-  vs=to_1st_octant(vs)
-  print("vs.shape:",vs.shape)
-
-  # Flip  (this particular mesh was "feet up")
-  x_max = np.max(vs[:,0]); x_min = np.min(vs[:,0]); y_max = np.max(vs[:,1]); y_min = np.min(vs[:,1]); z_max = np.max(vs[:,2]); z_min = np.min(vs[:,2])
-  x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
-  flipped=deepcopy(vs)
-  Z=2
-  for i,row in enumerate(flipped): # TODO TODO: vectorize; actually affects runtime
-    flipped[i,Z]=-flipped[i,Z]
-  flipped=shift_verts(flipped,0,0,z_len)
-  vs=flipped
+  # std geometric transformations to put the mesh in the "upright" position (ie. +z is where the head is, arms stretch out in +/-x direction, chest-to-back is +/-y direction.)
+  if 'HMR' in obj_fname.upper():
+    # do shifts like done below
+    mode='HMR'
+    vs, extrema=normalize_mesh(vs, mode)
+  elif 'NNN' in obj_fname.upper():
+    mode='NNN'
+    vs, extrema=normalize_mesh(vs, mode)
+  x_min, x_max, y_min, y_max, z_min, z_max = extrema
+  #return 'blah','blah','blah' # TODO TODO TODO TODO TODO
 
   if debug:
     pn(3); pr("AFTER ROTATION,  ======================================================================= : ");pn()
@@ -793,7 +853,6 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
 
   #pr("vs.shape:",vs.shape) # (~6000,3)  ie. (BIG,3)
   # no good if in "Jesus pose" and wingspan is longer than height; we just want +z to be "up."
-  assert z_len > y_len and z_len > x_len  # TODO: revise this assert ...
 
   # Use openpose to get other measurements
   measures=measure_body_viz(json_fname, front_fname, side_fname, cust_h)
@@ -809,16 +868,22 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
     print("vs[:10]:\n",vs[:10])
     print("z_max : ",z_max)
     print("z_min : ",z_min)
-    #print("z_len:",z_len) # 75 inches.  TODO remeasure your own chest
+    #print("z_len:",z_len) # 75 inches.  Todo remeasure your own chest
     print("x_len:\n{0}\n y_len:\n{1}\n z_len:\n{2}\n".format(x_len,y_len,z_len))
   vs    = vs * cust_h / z_max
   x_max = np.max(vs[:,0]); y_max = np.max(vs[:,1]); z_max = np.max(vs[:,2])
   x_min = np.min(vs[:,0]); y_min = np.min(vs[:,1]); z_min = np.min(vs[:,2])
-  x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
-  CHEST_HEIGHT_RATIO=1./75. # 3 inch chest; 75 inch height
+  x_len =x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
   # x_len: #62.42919620498712
   # y_len: #30.58900292737982
   # z_len: #75.0
+
+  # chest len should be something like the number of inches from bottom of nipple to top of nipple.
+  # TODO TODO make CHEST_HEIGHT_RATIO adaptive to resolution(SMPL_mesh)
+  CHEST_HEIGHT_RATIO=0.652/cust_h # 1 inch chest; 75 inch height
+  # Ideal CHEST_HEIGHT_RATIO based on '/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj' is 0.65/75==0.008666666666666666.
+  # TODO TODO make CHEST_HEIGHT_RATIO adaptive to resolution(SMPL_mesh)
+  # by "resolution(SMPL_mesh)," I mean "how small are the triangles in the SMPL_mesh on average?"
 
   chest_len=z_len*CHEST_HEIGHT_RATIO
   chest_top=chest_h +  ( chest_len/2.)
@@ -853,120 +918,16 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   plt.title("Vertices in the SMPL mesh near the Chest \n   {0} inches up ".format(chest_h))
   plt.scatter(chest_vs_xy[:,X],chest_vs_xy[:,Y]); plt.show()
 
-
-
-
-
-
-
-
-
-
-
-
-  if debug:
-    pn(3); pr("AFTER RESCALING, ======================================================================= : ");pn()
-    pr("x_max:",x_max); pr("x_min:",x_min); pr("y_max:",y_max); pr("y_min:",y_min); pr("z_max:",z_max); pr("z_min:",z_min);pn(2)
-    pr("x_len:",x_len); pr("y_len:",y_len); pr("z_len:",z_len);pn() 
-    pn(9)
-  '''
-  vt=cKDTree(vs, copy_data=True) # TODo: make sure these names are consistent (ie. either all short like v_t or all descriptive like vert_tree)
-  # Note: Testing whether model is oriented correctly:     It seems it is.
-  cube=np.array([ [      0,      0,      0,],
-                  [      0,      0, z_max ,],
-                  [      0, y_max ,      0,],
-                  [      0, y_max , z_max ,],
-                  [ x_max ,      0,      0,],
-                  [ x_max ,      0, z_max ,],
-                  [ x_max , y_max ,      0,],
-                  [ x_max , y_max , z_max ,],]).astype("float64")
-  p0=vt.data[vt.query(cube[0])[1]]; p1=vt.data[vt.query(cube[1])[1]]; p2=vt.data[vt.query(cube[2])[1]]; p3=vt.data[vt.query(cube[3])[1]]; p4=vt.data[vt.query(cube[4])[1]]; p5=vt.data[vt.query(cube[5])[1]]; p6=vt.data[vt.query(cube[6])[1]]; p7=vt.data[vt.query(cube[7])[1]]
-
-  #                                   RESULTS:
-  pr("p0:",p0)                          # p0: [ 9.85292562 18.25485839  8.2885409 ]
-  pr("p1:",p1)                          # p1: [24.11407082  7.41028286 72.78951963]
-  pr("p2:",p2)                          # p2: [ 0.45696223 29.51314676  0.21197051]
-  pr("p3:",p3)                          # p3: [25.9614062  14.3200455  74.71568264]
-  pr("p4:",p4)                          # p4: [55.20888442 19.38908581 11.33892357]
-  pr("p5:",p5)                          # p5: [30.59125137  6.16716044 72.10696399]
-  pr("p6:",p6)                          # p6: [60.91727507 25.42253024  8.94314535]
-  pr("p7:",p7)                          # p7: [29.14528445 15.35900081 74.65673826]
-  '''
-
-  vt=cKDTree(vs, copy_data=True) # TODo: make sure these names are consistent (ie. either all short like v_t or all descriptive like vert_tree)
-
-  # Todo: refactor decision: 0 vs. (x_min or y_min)?
-  quad=np.array([ [      0,      0,chest_h,],
-                  [      0, y_max ,chest_h,],
-                  [ x_max , y_max ,chest_h,],
-                  [ x_max ,      0,chest_h,],]).astype("float64")
-  # NOTE: I chose to put the points of "quad" in this weird, illogical order b/c it makes calculating approximate perimeter easier later
-  pr("quad:\n{0}   \n\n(we're getting the endpoints of the chest cross-section from this)\n".format(quad))
-  K=1; IDX=1
-  #  quad:                                                                                      NO GOOD.     
-  # [[ 0.          0.         55.90405904]          pt0: [21.74963849 11.08709837 46.94066765]
-  #  [ 0.         62.4291962  55.90405904]    ==>   pt1: [23.13935033 16.36705111 47.54809897]
-  #  [62.4291962  30.58900293 55.90405904]          pt2: [32.86014707 13.87639756 46.46942123]
-  #  [62.4291962   0.         55.90405904]]         pt3: [31.42370296  6.02317215 58.62576271]
-
-
-  # Stretch vertices in z direction:
-  # Note: The bigger STRETCH is, the more likely we are to get only verts at the same z value.
-  STRETCH=  5.; Z=2
-  svs=deepcopy(vs)
-  svs[:,Z]*=STRETCH
-  pn(1); pr("chest_h: ",chest_h); pr("STRETCH: ",STRETCH) 
-  chest_h*=STRETCH
-  pn(1); pr("chest_h: ",chest_h); pr("STRETCH: ",STRETCH) 
-  # orig_chest_h ==   55.9            inches
-  #   chest_h:      5590.405904059041
-
-  svt=cKDTree(svs, copy_data=True) # TODo: make sure these names are consistent (ie. either all short like v_t or all descriptive like vert_tree)
-  #pr(" PREVIOUSLY    :");pr("x_max: ",x_max); pr("y_max: ",y_max); pr("z_max: ",z_max); pn(9)
-  x_max = np.max(svs[:,0]); y_max = np.max(svs[:,1]); z_max = np.max(svs[:,2])
-  x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
-  if debug:
-    pr(" AFTER STRETCH :");pr("x_max: ",x_max); pr("y_max: ",y_max); pr("z_max: ",z_max); pn(9)
-  s_quad=np.array([ [      0,      0,chest_h,],
-                    [      0, y_max ,chest_h,],
-                    [ x_max , y_max ,chest_h,],
-                    [ x_max ,      0,chest_h,],]).astype("float64")
-  K=70 # if K is higher, we get more of the potential polygon points.  But we also get more noise
-  pt0=svt.data[svt.query(s_quad[0])[IDX]]; pt1=svt.data[svt.query(s_quad[1])[IDX]]; pt2=svt.data[svt.query(s_quad[2])[IDX]]; pt3=svt.data[svt.query(s_quad[3])[IDX]]
-  pts_near_chest0=svt.data[svt.query(pt0,k=K)[1]] # Todo: rename
-  pts_near_chest1=svt.data[svt.query(pt1,k=K)[1]]
-  pts_near_chest2=svt.data[svt.query(pt2,k=K)[1]]
-  pts_near_chest3=svt.data[svt.query(pt3,k=K)[1]]
-  pts_near_chest=np.unique(np.concatenate((pts_near_chest0,pts_near_chest1,pts_near_chest2,pts_near_chest3),axis=0),axis=0)
-  pr("pts_near_chest.shape:  ", pts_near_chest.shape)
-  pr(K*4)                     # 80 total pts
-  pr(pts_near_chest.shape[0]) # 24 unique pts
-  pr("pts_near_chest:\n ",pts_near_chest);pn(3)
-  pn(9); pr("pt0:",pt0); pr("pt1:",pt1); pr("pt2:",pt2); pr("pt3:",pt3)
-  calced_chest=perim_poly((pt0,pt1,pt2,pt3))
-  #pts_near_chest=pts_near_chest[] # should be only the xy pts (project the chest polygon onto the z=0 plane)
-  pr("pts:\n{0}\n{1}\n{2}\n{3}".format(pt0,pt1,pt2,pt3))
-  xy_pts=pts_near_chest[:,:pts_near_chest.shape[1]-1] # shape (n,2)
-  hull=ConvHull(xy_pts)
+  hull=ConvexHull(chest_vs_xy)
   vertices = hull.vertices.tolist() + [hull.vertices[0]] # Todo: shorten
-  pe(69);pn(9);pr("xy vertices: \n",xy_pts[vertices]);pn(9);pe(69)
-  perim_edgepts=xy_pts[vertices]
-  pr('perim_edgepts: \n',perim_edgepts)
+  perim_edgepts=chest_vs_xy[vertices]
   pr('perim_edgepts.shape:',perim_edgepts.shape)
   X=0; Y=1
-  plt.title("Nathan\'s Chest cross section:   ConvexHull")
+  plt.title("Chest cross section:   ConvexHull \n with CHEST_HEIGHT_RATIO {0}".format(CHEST_HEIGHT_RATIO))
   plt.scatter(perim_edgepts[:,X],perim_edgepts[:,Y]); plt.show()
   perim     = np.sum([euclidean(x, y) for x, y in zip(perim_edgepts, perim_edgepts[1:])])
   calced_chest=perim
-
-  # NOTES: went down to 38.04621572659287   (b4 STRETCH, was 40.22217968662046).  As of commit 692fc87, the chest calculation is 27.196557168098682.   The real (empirical) measurement for Nathan's chest_circum is 34.575946247110544 inches.   Hm.... I was thinking it ought to be SMALLER than the real measurement.  I think it's because the STRETCH increases the magnitude of chest_circum enough to cancel out the decrease from it being quad instead of ~elliptical
-  #                  pt0: [  24.78644235   10.96347829 5032.98328219]
-  #                  pt1: [  24.0617395    13.36335661 5040.39916411]
-  #                  pt2: [  28.02287236   12.0112951  5030.3883187 ]
-  #                  pt3: [  29.74478009    6.43362254 5036.59004338]
-  # Todo:
-
-  pr("Chest circumference in inches: ", calced_chest)
+  pr("calced_chest:", calced_chest) # real is ~34 inches (ConvexHull)
 
   # TODO: make "err" calculation much much much more comprehensive
   err = (calced_chest-measures['chest_circum_inches'])/measures['chest_circum_inches']
@@ -1003,7 +964,7 @@ def rot8_obj(v, rotation):
   '''
   return v.dot(rotation)
 #===================================================================================================================================
-def shift_verts(v, del_x, del_y, del_z): # TODO: RENAME
+def shift_verts(v, del_x, del_y, del_z):
   '''
     v = vertices
   '''
@@ -1079,7 +1040,9 @@ if __name__=="__main__":
   json_fname  = '/home/n/Dropbox/vr_mall_backup/json_imgs_openpose/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE____keypoints.json'
   side_fname  = '/home/n/Dropbox/vr_mall_backup/imgs/n8_side___jesus_pose_legs_closed/n8_side___jesus_pose___legs_closed___nude___grassy_background_Newark_DE___.jpg'
   front_fname = '/home/n/Dropbox/vr_mall_backup/imgs/n8_front___jesus_legs_closed/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE___.jpg'
-  obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'; pr("obj_fname: ",obj_fname)
+  HMR_obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nxb_HMR_gener8d_mesh___gamma_the_magnet_warrior___pose.obj'
+  NNN_obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nxb_manually_tuned_(NNN)___smpl_mesh____4th_iteration__02-2.250000000.obj' # NNN stands for "Nathan the Neural Net"
+  obj_fname=HMR_obj_fname # NOTE NOTE NOTE
   err,measures,vs=mesh_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)
   #pr(mesh_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)) #if __name__=="__main__": 
   #test_measure()
@@ -1250,3 +1213,73 @@ if __name__=="__main__":
     Note: When taking your measurements, relax your muscles and stand with weight equally distributed on both feet. Make sure that the measuring tape is kept at an even horizontal level around your body.
 
 '''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
