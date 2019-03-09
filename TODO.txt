@@ -11,6 +11,12 @@
 
 
 
+
+
+
+
+
+
     TODO.txt
 
 ________________________________
@@ -18,10 +24,85 @@ ________________________________
   Thu Mar  7 09:12:03 EST 2019
 ________________________________
 
-  SHIP with HMR.
-    When you talk to Dario about this, sound as reasonable as possible.  Even if he raises his voice, keep yours low, have confident body posture and tone of voice, and always stay calm, regardless of how much he raises his voice.  You will persuade the guys by doing this.
-    Or, get everyone excited by painting the big picture.  They will suspend their critical thinking.
-    Bring it up at the end of the meeting when everyone is tired.
+  ________________
+
+  0.  def measurements->smpl_mesh():
+    autom8 if possible
+  ________________
+
+  1.  Evaluate HMR quality (or general mesh (.obj) quality)
+    If you do this well, it will build hella confidence, which will help when cobbling together the beta for VHMR.
+    betas outta HMR
+  ________________
+
+  2.  360 degree VHMR 
+  ________________
+
+
+
+
+
+________________________________
+
+  Basketball UD
+    Meet tall people AND conquer your fears.
+________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Slack programming competitions/hackathons
+  Download zoom:
+    /home/n/Downloads/zoom_amd64.deb
+
+
+
+  Tell Dario whether the FAUST dataset has the waist, chest, hip measurements
+    DONE (It doesn't.  We have to make our own dataset.)
+  Download both FAUST datasets tonight
+    user: jeffkim314@yahoo.com
+    DONE
+    The 2 zip files on the intrasubject and intersubject FAUST datasets on http://faust.is.tue.mpg.de/ (Downloads dropdown menu) are IDENTICAL.
+
+
+
+
+
+
+
+
+
+
 
   Use Blender to cut up the SMPL model and try to find the perim that way.
 
@@ -30,6 +111,11 @@ ________________________________
 
 
 
+
+  SHIP with HMR.
+    When you talk to Dario about this, sound as reasonable as possible.  Even if he raises his voice, keep yours low, have confident body posture and tone of voice, and always stay calm, regardless of how much he raises his voice.  You will persuade the guys by doing this.
+    Or, get everyone excited by painting the big picture.  They will suspend their critical thinking.
+    Bring it up at the end of the meeting when everyone is tired.
 
 
 

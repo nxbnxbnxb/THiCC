@@ -598,7 +598,76 @@ def show_overlaid_polygon_measures(pic_filename___with_openpose_keypoints_, open
   return
 
 #===================================================================================================================================
+def pvi(vs):
+  # TODO: sprinkle this magic sauce pvi(vs) EVERYWHERE.
+  '''
+    pvi stands for "Print Vertices Info."
+
+    -------
+    Params:
+    -------
+      vs are the vertices.  format: a numpy array of shape (n,3).  (in other words, vs=np.nonzero(cartesian))
+  '''
+  assert vs.shape[1]==3
+  x_max = np.max(vs[:,0]); x_min = np.min(vs[:,0]); y_max = np.max(vs[:,1]); y_min = np.min(vs[:,1]); z_max = np.max(vs[:,2]); z_min = np.min(vs[:,2])
+  x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
+  if debug:
+    pe(69); pr("Entering function ",sys._getframe().f_code.co_name); pe(69)
+    pr("x_max:",x_max); pr("x_min:",x_min); pr("y_max:",y_max);pr("y_min:",y_min); pr("z_max:",z_max); pr("z_min:",z_min);pn()
+    pr("x_len:",x_len); pr("y_len:",y_len); pr("z_len:",z_len);pn()
+    pe(69); pr("Leaving function ",sys._getframe().f_code.co_name); pe(69);pn()
+  data=(x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len)
+  return data
+#===================================================================================================================================
+def cross_sec(verts, midpt_h, window=0.652, which_ax="z", faces=None):
+  '''
+    Takes a cross section of an .obj mesh
+
+    -------
+    Params:
+    -------
+    verts is the .obj mesh
+    midpt_h is the height where we center our "cross section" 
+
+    -------
+     TODO:
+    -------
+      change 'z' variable name to be more descriptive (fit the function)
+
+    -------
+    Notes:
+    -------
+    "faces" was put in here in case we want to automatically scale the window size to "resolution(SMPL)", where resolution(SMPL) is the average area of a triangle in the SMPL .obj mesh.
+    verts is a numpy array of shape (n,3).  (in other words, vs=np.nonzero(cartesian))
+  '''
+  NUM_DIMS=1; XYZ=3
+  assert verts.shape[NUM_DIMS]==XYZ
+  X=0; Y=1; Z=2
+  if    which_ax.lower()=='x': ax=X
+  elif  which_ax.lower()=='y': ax=Y
+  elif  which_ax.lower()=='z': ax=Z
+
+  # Sort.  Makes the operation faster
+  sorted_verts=verts[np.argsort(verts[:,ax])]
+
+  # Find bounds 
+  top = midpt_h + ( window/2.); bot = midpt_h - ( window/2.)
+  found_bot=False; found_top=False
+  for i,loc in enumerate(sorted_verts[:,ax]):
+    if (not found_bot) and (loc > bot):
+      found_bot=True; bot_idx=i
+    elif (not found_top) and (loc > top):
+      found_top=True; top_idx=i
+  targ_verts=sorted_verts[bot_idx:top_idx]
+
+  # Crop
+  cross_sec=targ_verts[:,:Z]
+  plt.title("Vertices in SMPL mesh at loc {0} along the \n{1} axis".format(midpt_h ,which_ax))
+  plt.scatter(cross_sec[:,0],cross_sec[:,1]); plt.show()
+  return cross_sec
+#===================================================================================================================================
 def dist(pt1, pt2, norm='L2'):
+  # TODO: see scipy.spatial.distance.euclidean
   # This function "dist()" should be easily vectorizable.
 
   # points as np arrays
@@ -659,16 +728,17 @@ def normalize_mesh(vs, mode='HMR'):
   #           This yz_swap solution below: (Wed Mar  6 13:49:35 EST 2019) is specifically tailored to:
   #             obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'
   pr("This mesh was generated via ",mode)
-  if mode =='HMR':
+
+  #==============================================================================
+  #                         Geometric transformations:
+  #==============================================================================
+  Z=2
+  if mode == 'HMR':
     yz_swap=np.array([[   1,   0,   0],
                       [   0,   0,   1],
                       [   0,  -1,   0]]).astype('float64')
     # TODO: somehow ensure this transformation doesn't turn our mesh "upside down."  Maybe use pltshow() combined with the cKDTree.  
     #   Funny, for the "approx mask" operation we'd really like to have that KDTree() "all-neighbors queries functionality".  https://stackoverflow.com/questions/6931209/difference-between-scipy-spatial-kdtree-and-scipy-spatial-ckdtree
-
-    #=====================================================================
-    #                   Geometric transformations:
-    #=====================================================================
 
     # Rotate
     vs=vs.dot(yz_swap)
@@ -680,20 +750,46 @@ def normalize_mesh(vs, mode='HMR'):
     x_max = np.max(vs[:,0]); x_min = np.min(vs[:,0]); y_max = np.max(vs[:,1]); y_min = np.min(vs[:,1]); z_max = np.max(vs[:,2]); z_min = np.min(vs[:,2])
     x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
     flipped=deepcopy(vs) # could avoid the deepcopy step
-    Z=2
     for i,row in enumerate(flipped): # TODO TODO: vectorize; actually affects runtime
       flipped[i,Z]=-flipped[i,Z]
     flipped=shift_verts(flipped,0,0,z_len)
     vs=flipped
     extrema=(x_min,x_max,y_min,y_max,z_min,z_max)
-    return vs, extrema
-  elif mode =='NNN':
-    x_max = np.max(vs[:,0]); x_min = np.min(vs[:,0]); y_max = np.max(vs[:,1]); y_min = np.min(vs[:,1]); z_max = np.max(vs[:,2]); z_min = np.min(vs[:,2])
-    x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
-    pr("x_max:",x_max); pr("x_min:",x_min); pr("y_max:",y_max); pr("y_min:",y_min); pr("z_max:",z_max); pr("z_min:",z_min);pn(2)
-    pr("x_len:",x_len); pr("y_len:",y_len); pr("z_len:",z_len);pn() ; pn(9)
+  elif mode == 'NNN':
+    # TODO: ensure mesh is head-z-up.
+    x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= pvi(vs)
+    yz_swap=np.array([[   1,   0,   0],
+                      [   0,   0,   1],
+                      [   0,  -1,   0]]).astype('float64')
+
+    # Rotate
+    vs=vs.dot(yz_swap)
+    x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= pvi(vs)
+
+    # Shift to all positive (+x,+y,+z)
+    vs=to_1st_octant(vs)
+
+    x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= pvi(vs)
+    # TODO: figure out w.t.f. is going on in cross_sec(which_ax='y')
+    '''
+    for h in np.linspace(z_max-0.1, z_min+0.1, 21):
+      cross_sec(vs, h, window=0.05, which_ax='z') # maybe chest is ~1.2 1.3 1.4?
+    '''
+
+    '''
+      I think we don't need to flip.
+    # Flip  (this particular mesh was "feet up")
+    x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= pvi(vs)
+    # TODO TODO TODO TODO TODO TODO TODO TODO shift the NNN .obj mesh appropriately TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+    flipped=deepcopy(vs) # could avoid the deepcopy step
+    for i,row in enumerate(flipped): # TODO TODO: vectorize; actually affects runtime
+      flipped[i,Z]=-flipped[i,Z]
+    flipped=shift_verts(flipped,0,0,z_len)
+    vs=flipped
+    '''
     extrema=(x_min,x_max,y_min,y_max,z_min,z_max)
-    return vs, extrema # TODO TODO TODO TODO TODO:  finish for NNN (SMPL-betas-manually-tuned)
+  return vs, extrema # TODO TODO TODO TODO TODO:  finish for NNN (SMPL-betas-manually-tuned)      Where do we scale up the mesh??
+#============  end normalize_mesh(params): ==============
 
 
 
@@ -759,8 +855,10 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
     vs: vertices
 
   '''
-  # yet TODO:
-    # check mesh measurements on a mesh that actually resembles Nathan (nxb)   (NNN method)
+  # Yet yet TODO:
+    # Check mesh measurements on a mesh that actually resembles Nathan (nxb)   (NNN method)
+    #   No, Nathan's just REAAAALLLY thin.  Holy shit, man.  NNN method looked about right to me the 1st time I did it, but the actual measurements were still pretty off (38 inch chest predicted where my actual chest circum is 34 inches)
+    # test cross_sec() with "ax='y'" and "ax='z'"
     # switch statement depending on mesh .obj fname  (separate transforms for NNN meshes than for HMR meshes)
     # make sure measuring the right thing, NOTE: NO  conv_hull, etc.   yet TODO
   '''
@@ -840,101 +938,146 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
     mode='NNN'
     vs, extrema=normalize_mesh(vs, mode)
   x_min, x_max, y_min, y_max, z_min, z_max = extrema
-  #return 'blah','blah','blah' # TODO TODO TODO TODO TODO
 
-  if debug:
-    pn(3); pr("AFTER ROTATION,  ======================================================================= : ");pn()
-    pr("x_max:",x_max); pr("x_min:",x_min); pr("y_max:",y_max); pr("y_min:",y_min); pr("z_max:",z_max); pr("z_min:",z_min);pn(2)
-    pr("x_len:",x_len); pr("y_len:",y_len); pr("z_len:",z_len);pn() ; pn(9)
-    #AFTER ROTATION,  ======================================================================= : 
-    #x_min: 0.0 #x_max: 1.4160439999999999
-    #y_min: 0.0 #y_max: 0.693832
-    #z_min: 0.0 #z_max: 1.70118
+  # Scale to real-life-sizes (inches):
+  #print("z_len:",z_len) # 75 inches.  Todo remeasure your own chest
+  # x_len: #62.42919620498712
+  # y_len: #30.58900292737982
+  vs    = vs * cust_h / z_max
+  print("vs.shape: ",vs.shape)
+  x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= pvi(vs)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  # chest
 
   #pr("vs.shape:",vs.shape) # (~6000,3)  ie. (BIG,3)
   # no good if in "Jesus pose" and wingspan is longer than height; we just want +z to be "up."
 
   # Use openpose to get other measurements
-  measures=measure_body_viz(json_fname, front_fname, side_fname, cust_h)
-  chest_h=measures['chest_height_inches']  # Nathan's chest_h is 57 inches
+  measures= measure_body_viz(json_fname, front_fname, side_fname, cust_h)
+  chest_h = measures['chest_height_inches']  # Nathan's chest_h is 57 inches
+  hip_h   = measures['hip_height_inches']    # Nathan's hip_h   is    inches
+  waist_h = measures['waist_height_inches']  # Nathan's waist_h is    inches
+  from pprint import pprint as p
+  pr("measures:")
+  p(measures)
   #print("chest_h:", chest_h) # measured, 55.9 inches is ~correct
-  # Scale to real-life-sizes (inches):
-  if debug:
-    pr("x_max:",x_max); pr("x_min:",x_min); pr("y_max:",y_max); pr("y_min:",y_min); pr("z_max:",z_max); pr("z_min:",z_min);pn(2)
-    pr("x_len:",x_len); pr("y_len:",y_len); pr("z_len:",z_len);pn() ; pn(9)
-    pr('measures: ')
-    p(measures); pn(3)
-    print("cust_h: ",cust_h)
-    print("vs[:10]:\n",vs[:10])
-    print("z_max : ",z_max)
-    print("z_min : ",z_min)
-    #print("z_len:",z_len) # 75 inches.  Todo remeasure your own chest
-    print("x_len:\n{0}\n y_len:\n{1}\n z_len:\n{2}\n".format(x_len,y_len,z_len))
-  vs    = vs * cust_h / z_max
-  x_max = np.max(vs[:,0]); y_max = np.max(vs[:,1]); z_max = np.max(vs[:,2])
-  x_min = np.min(vs[:,0]); y_min = np.min(vs[:,1]); z_min = np.min(vs[:,2])
-  x_len =x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
-  # x_len: #62.42919620498712
-  # y_len: #30.58900292737982
-  # z_len: #75.0
 
+  # check that this (CHEST_HEIGHT_RATIO, chest_h, etc.) actually works for NNN too
   # chest len should be something like the number of inches from bottom of nipple to top of nipple.
-  # TODO TODO make CHEST_HEIGHT_RATIO adaptive to resolution(SMPL_mesh)
+  # TODO make CHEST_HEIGHT_RATIO adaptive to resolution(SMPL_mesh)
   CHEST_HEIGHT_RATIO=0.652/cust_h # 1 inch chest; 75 inch height
   # Ideal CHEST_HEIGHT_RATIO based on '/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj' is 0.65/75==0.008666666666666666.
-  # TODO TODO make CHEST_HEIGHT_RATIO adaptive to resolution(SMPL_mesh)
+  # TODO make CHEST_HEIGHT_RATIO adaptive to resolution(SMPL_mesh)
   # by "resolution(SMPL_mesh)," I mean "how small are the triangles in the SMPL_mesh on average?"
 
-  chest_len=z_len*CHEST_HEIGHT_RATIO
-  chest_top=chest_h +  ( chest_len/2.)
-  chest_bot=chest_h -  ( chest_len/2.)
-  if debug:
-    print("chest_top:",chest_top)
-    print("chest_bot:",chest_bot)
-    print("vs.shape: ",vs.shape)
-    print("vs[:,2].shape:",vs[:,2].shape)
-    print("vs[:10]",vs[:10])
-  sorted_vs=deepcopy(vs) #sort axis=0
-  X=0; Y=1; Z=2
-  sorted_vs=vs[np.argsort(vs[:,Z])] ##### sort
-  found_bot=False
-  found_top=False
-  for i,z in enumerate(sorted_vs[:,Z]):
-    if (not found_bot) and (z > chest_bot):
-      # Note: only finds once b/c found_bot turns the search "off"
-      found_bot=True
-      bot_idx=i
-    if (not found_top) and (z > chest_top):
-      # Note: only finds once b/c found_top turns the search "off"
-      found_top=True
-      top_idx=i
-  print("top_idx:",top_idx)
-  print("bot_idx:",bot_idx)
-  print("sorted_vs.shape:",sorted_vs.shape)
-  pn(4)
-  chest_vs=sorted_vs[bot_idx:top_idx]
-  print("chest_vs:",chest_vs)
-  chest_vs_xy=chest_vs[:,:Z]
-  plt.title("Vertices in the SMPL mesh near the Chest \n   {0} inches up ".format(chest_h))
-  plt.scatter(chest_vs_xy[:,X],chest_vs_xy[:,Y]); plt.show()
+  # Todo: refactor to "show_chest_cross_section()" or something like that.
+  # calculate
+  waist_len   =hip_len=chest_len=       z_len*CHEST_HEIGHT_RATIO
+  chest_vs_xy = cross_sec(vs, chest_h,  window=chest_len)
+  hip_vs_xy   = cross_sec(vs, hip_h,    window=hip_len  )
+  waist_vs_xy = cross_sec(vs, waist_h,  window=waist_len)
+  calced_chest_circum = conv_hulls_perim(chest_vs_xy)
+  calced_hip_circum   = conv_hulls_perim(hip_vs_xy)
+  calced_waist_circum = conv_hulls_perim(waist_vs_xy)
+  # TODO: 
+  pr("calced_chest_circum:  ", calced_chest_circum) # real is ~34 inches (ConvexHull)
+  pr("calced_hip_circum  :  ", calced_hip_circum) # real is ~34 inches (ConvexHull)
+  pr("calced_waist_circum:  ", calced_waist_circum) # real is ~34 inches (ConvexHull)
 
-  hull=ConvexHull(chest_vs_xy)
+  # HMR:
+  #calced_chest_circum:   41.31167530329451
+  #calced_hip_circum  :   35.01229821993187
+  #calced_waist_circum:   33.447041585654304
+  # NOTE: why the f*** are these hip and waist so much smaller?  
+  #   They're still on the pudgy side, but the error ain't nearly as bad as for chest.  
+
+
+  # Todo: make "err" calculation more comprehensive
+  real_chest  = measures['chest_circum_inches']
+  real_hip    = measures['hip_circum_inches'  ]
+  real_waist  = measures['waist_circum_inches']
+  err_percents=np.array([(calced_chest_circum-real_chest)  / real_chest,
+                         (calced_hip_circum  -real_hip)    / real_hip,
+                         (calced_waist_circum-real_waist)  / real_waist])
+
+  #   From "measures":
+  # 'chest_circum_inches': 34.575946247110544,
+  # 'chest_height_inches': 55.90405904059041,
+  # 'hip_circum_inches'  : 36.59951865808404,
+  # 'hip_height_inches'  : 41.78966789667897,
+  # 'waist_circum_inches': 33.58803601511559,
+  # 'waist_height_inches': 45.664206642066425}
+  #
+  #   But where did these measurements actually come from?  The masks?
+
+
+  pr("err_percents:\n",err_percents)
+  avg_err_percent=100.0*np.mean(err_percents)
+                                
+                                
+  #err_percent = 100.0 * (calced_chest_circum-real_chest) / real_chest
+  #err_percent = 100.0 * (calced_chest_circum-real_chest) / real_chest
+  err_percent = avg_err_percent
+  pe(69); pr("Leaving function ",sys._getframe().f_code.co_name); pe(69)
+  pn(29)
+  return err_percent, measures, vs
+#=========================== end mesh_err() ===========================
+
+
+
+
+#===================================================================================================================================
+def conv_hulls_perim(xy_pts):
+  '''
+    Takes the perimeter of the convex hull of a set of points in the xy plane
+ 
+    xy_pts is np array of shape (n,2)
+  '''
+  XY=2
+  assert xy_pts.shape[1]==2
+  hull=ConvexHull(xy_pts)
   vertices = hull.vertices.tolist() + [hull.vertices[0]] # Todo: shorten
-  perim_edgepts=chest_vs_xy[vertices]
-  pr('perim_edgepts.shape:',perim_edgepts.shape)
+  perim_edgepts=xy_pts[vertices]
   X=0; Y=1
-  plt.title("Chest cross section:   ConvexHull \n with CHEST_HEIGHT_RATIO {0}".format(CHEST_HEIGHT_RATIO))
+  plt.title(" cross section's ConvexHull:    \n with {0} points".format(xy_pts.shape[0]))
   plt.scatter(perim_edgepts[:,X],perim_edgepts[:,Y]); plt.show()
   perim     = np.sum([euclidean(x, y) for x, y in zip(perim_edgepts, perim_edgepts[1:])])
-  calced_chest=perim
-  pr("calced_chest:", calced_chest) # real is ~34 inches (ConvexHull)
+  return perim
+#===================================================================================================================================
 
-  # TODO: make "err" calculation much much much more comprehensive
-  err = (calced_chest-measures['chest_circum_inches'])/measures['chest_circum_inches']
-  pe(69); pr("Leaving function ",sys._getframe().f_code.co_name); pe(69)
-  pn(49)
-  return err, measures, vs
-#=========================== end mesh_err() ==================
+
+
+
+
+
+
+
+
+
+
+
+
 
 #===================================================================================================================================
 def perim_poly(verts):
@@ -976,10 +1119,11 @@ def shift_verts(v, del_x, del_y, del_z):
   return shifted
 #===================================================================================================================================
 def to_1st_octant(v):
-  # more like "move_2_origin(v)"
   '''
     v = vertices
   '''
+  funcname=  sys._getframe().f_code.co_name
+  pe(69);pr("In function ",funcname);pe(69);pn(2)
   return shift_verts(v, -np.min(v[:,0]), -np.min(v[:,1]), -np.min(v[:,2]))
 #===================================================================================================================================
 
@@ -1019,7 +1163,7 @@ def test_measure():
   pn(3)
   pr("chest_circ: ",measures['chest_circum_inches'])
   return measures['chest_circum_inches']
-#===================================================================================================================================
+#================================================= end test_measure() ==============================================================
 
 
 
@@ -1041,11 +1185,41 @@ if __name__=="__main__":
   side_fname  = '/home/n/Dropbox/vr_mall_backup/imgs/n8_side___jesus_pose_legs_closed/n8_side___jesus_pose___legs_closed___nude___grassy_background_Newark_DE___.jpg'
   front_fname = '/home/n/Dropbox/vr_mall_backup/imgs/n8_front___jesus_legs_closed/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE___.jpg'
   HMR_obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nxb_HMR_gener8d_mesh___gamma_the_magnet_warrior___pose.obj'
+  # HMR calced_chest_circum: 41.31167530329451.  Error percent is 19.480968092801966% (overshooting my real chest circumference)
   NNN_obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nxb_manually_tuned_(NNN)___smpl_mesh____4th_iteration__02-2.250000000.obj' # NNN stands for "Nathan the Neural Net"
-  obj_fname=HMR_obj_fname # NOTE NOTE NOTE
-  err,measures,vs=mesh_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)
-  #pr(mesh_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)) #if __name__=="__main__": 
+  # NNN calced_chest_circum: 38.31877278356377.  Error percent is 10.824943183633078% (overshooting my real chest circumference)
+  obj_fname=HMR_obj_fname # NOTE: This line is where I change which .obj file we read in.
+  err, measures, vs=mesh_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)
+  print("error percentage was {0} percent".format(abs(err)))
+  #print("measures:",measures)
+  #print("verts:",vs)
+  #pr(err, measures, vs) #if __name__=="__main__": 
+
   #test_measure()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   '''
   # all code here assumes the person we're dealing with is Nathan.  
   #   ie. Nathan is Male, height=tall, width=small, shoulders-hip ratio is reasonable
@@ -1283,3 +1457,13 @@ if __name__=="__main__":
 
 
 
+'''
+ Nathan (approx):
+  height      =  75.    # inches
+  weight      = 157.4   # pounds
+  chest       =  34.    # inches (nipples)
+  waist       =  30.    # inches (belly button)
+  hips        =  32.    # inches (below hip bone)
+  inseam      =  35.    # inches
+
+'''
