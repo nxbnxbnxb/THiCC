@@ -1,9 +1,9 @@
 
   What did you learn today?
     Just do it.
+      Actions per minute.
+      Mistakes are INEVITABLE.
     Apply Spolsky's "Joel on Software" to our work stuff
-      4.Do you have a bug database?
-        Not a good one 
 
   Only for TheMall.  see misc_TODO.txt for non-proj things
 
@@ -21,14 +21,211 @@
 
 ________________________________
 
-  Thu Mar  7 09:12:03 EST 2019
+  Sat Mar  9 15:00:00 EST 2019
 ________________________________
+
+  SMPL  paper pdf
+  HMR   paper pdf
+  bodyvisualizer.com: paper pdf
+
+  Read through the code, too.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   ________________
 
   0.  def measurements->smpl_mesh():
     autom8 if possible
   ________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Thu Mar  7 09:12:03 EST 2019
+________________________________
+
+  SMPL  paper pdf
+  HMR   paper pdf
+  Bodyvisualizer.com paper pdf
+
+  ________________
+
+  0.  def measurements->smpl_mesh():
+    autom8 if possible
+  ________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   1.  Evaluate HMR quality (or general mesh (.obj) quality)
     If you do this well, it will build hella confidence, which will help when cobbling together the beta for VHMR.
@@ -112,10 +309,6 @@ ________________________________
 
 
 
-  SHIP with HMR.
-    When you talk to Dario about this, sound as reasonable as possible.  Even if he raises his voice, keep yours low, have confident body posture and tone of voice, and always stay calm, regardless of how much he raises his voice.  You will persuade the guys by doing this.
-    Or, get everyone excited by painting the big picture.  They will suspend their critical thinking.
-    Bring it up at the end of the meeting when everyone is tired.
 
 
 
@@ -134,22 +327,6 @@ ________________________________
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  Or pretend you just ran the tests.  And the error rate was...  (go into long dry, boring numbers that illustrate how rigorous you are)
-    No lying.  It is destructive in the long run.
 
 
 
@@ -14386,6 +14563,7 @@ ________________________________
 What mistakes did you make today?
 
 Maybe we should delete our Facebook.  It depends how easy we want to be for strangers to contact us.
+________________________________
 
 
   Dear Mr. Stephens The,
@@ -14476,6 +14654,9 @@ ________________________________
 
 
 
+  Pier's idea about machine-learning the hair
+  DeepFace (Tuebingen)
+    Or some other kinda facial reconstruction
 
 
 
@@ -14490,6 +14671,10 @@ ________________________________
 
 
 
+
+  We're selling TheMall as a boost to self-esteem, status, etc.
+    Esp. if you're tall and awkward looking
+    We have to take care of EVERYTHING for our customers; fashion tips, formality level, resizing, etc.
 
 
 
