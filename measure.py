@@ -622,6 +622,7 @@ def pvi(vs):
 def cross_sec(verts, midpt_h, window=0.652, which_ax="z", faces=None):
   '''
     Takes a cross section of an .obj mesh
+      As of Sat Mar  9 18:50:20 EST 2019, this method doesn't work.  Or at least, I don't know how to understand/debug it.  The "window" is particularly a problem; it seems to need to adapt to whether we're doing the hip, waist, or chest.
 
     -------
     Params:
@@ -632,7 +633,8 @@ def cross_sec(verts, midpt_h, window=0.652, which_ax="z", faces=None):
     -------
      TODO:
     -------
-      change 'z' variable name to be more descriptive (fit the function)
+      Make adaptive to body mesh resolution.
+      Test function "triang_area_R3()."  I at least tested it on a few cases.
 
     -------
     Notes:
@@ -660,9 +662,9 @@ def cross_sec(verts, midpt_h, window=0.652, which_ax="z", faces=None):
       found_top=True; top_idx=i
   targ_verts=sorted_verts[bot_idx:top_idx]
 
-  # Crop
+  # Only take xy values
   cross_sec=targ_verts[:,:Z]
-  plt.title("Vertices in SMPL mesh at loc {0} along the \n{1} axis".format(midpt_h ,which_ax))
+  plt.title("Vertices in SMPL mesh at loc {0} along the \n{1} axis\nwith {2} points".format(midpt_h, which_ax, len(targ_verts)))
   plt.scatter(cross_sec[:,0],cross_sec[:,1]); plt.show()
   return cross_sec
 #===================================================================================================================================
@@ -919,7 +921,9 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
         verts.append(line)
       elif line.startswith('f'):
         faces.append(line)
-  vs=np.zeros((len(verts), 3)).astype("float64") # means verts
+        # Note: faces start indexing at 1
+  vs=np.zeros((len(verts), 3)).astype("float64") # 'vs' means verts
+  fs=np.zeros((len(faces), 3)).astype("int64"  ) # 'fs' means faces
   heights=np.zeros(len(verts)).astype("float64")
   X,Y,Z=1,2,3
   for idx,v in enumerate(verts):
@@ -928,8 +932,23 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   # Todo: refactor: switch statement like referenced in  #https://stackoverflow.com/questions/60208/replacements-for-switch-statement-in-python#60211
     #case={}.get(x,DEFAULT_RET_VAL)
     #generating_method='HMR' or 'NNN' or 'VHMR' or ...
+  for idx,f in enumerate(faces):
+    f=f.split(' ')
+    fs[idx]=np.array([int(f[1]),int(f[2]),int(f[3])]).astype("int64")-1
+    # see .obj file for why these conventions are like they are.  each face is described as a sequences of 3 vertices:  ie. "f 1 99 4"
+    # indexing starts at 1
+  # calculate mesh_resolution:   (the area of each triangle in the mesh, on average):
+  mesh_resolution=0 # should end up at 0.652 by the end
+  for f in fs:
+    v0=vs[f[0]].reshape((1,3))
+    v1=vs[f[1]].reshape((1,3))
+    v2=vs[f[2]].reshape((1,3))
+    tri=np.concatenate((v0,v1,v2),axis=0).astype('float64')
+    mesh_resolution+=tri_area(tri)
+  mesh_resolution/=len(fs) # avg area of triangles in the body mesh.
+  pr("mesh_resolution:  ",mesh_resolution) # for HMR,  mesh_resolution was 0.0001195638271130602 .
 
-  # std geometric transformations to put the mesh in the "upright" position (ie. +z is where the head is, arms stretch out in +/-x direction, chest-to-back is +/-y direction.)
+  # geometric transformations to put the mesh in the "upright" position (ie. +z is where the head is, arms stretch out in +/-x direction, chest-to-back is +/-y direction.)
   if 'HMR' in obj_fname.upper():
     # do shifts like done below
     mode='HMR'
@@ -944,29 +963,8 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   # x_len: #62.42919620498712
   # y_len: #30.58900292737982
   vs    = vs * cust_h / z_max
-  print("vs.shape: ",vs.shape)
+  if debug: print("vs.shape: ",vs.shape)
   x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= pvi(vs)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   # chest
 
@@ -991,26 +989,87 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   # TODO make CHEST_HEIGHT_RATIO adaptive to resolution(SMPL_mesh)
   # by "resolution(SMPL_mesh)," I mean "how small are the triangles in the SMPL_mesh on average?"
 
+  print("chest_h: ",chest_h)
+  print("hip_h  : ",hip_h)
+  print("waist_h: ",waist_h)
   # Todo: refactor to "show_chest_cross_section()" or something like that.
   # calculate
   waist_len   =hip_len=chest_len=       z_len*CHEST_HEIGHT_RATIO
+  print("chest");print("chest_len is ", chest_len)
+  # TODO: throw mesh_resolution in here somewhere
   chest_vs_xy = cross_sec(vs, chest_h,  window=chest_len)
-  hip_vs_xy   = cross_sec(vs, hip_h,    window=hip_len  )
-  waist_vs_xy = cross_sec(vs, waist_h,  window=waist_len)
+  print("hip");  print("hip_len is ",   hip_len)
+  hip_vs_xy   = cross_sec(vs, hip_h,    window=hip_len+0.6)
+  print("waist");print("waist_len is ", waist_len);pn(2)
+  waist_vs_xy = cross_sec(vs, waist_h,  window=waist_len+0.7) 
+  #"window=waist_len+1" helped for waist.  Idk why.
+  print("chest")
   calced_chest_circum = conv_hulls_perim(chest_vs_xy)
+  print("hip")
   calced_hip_circum   = conv_hulls_perim(hip_vs_xy)
+  print("waist");pn(2)
   calced_waist_circum = conv_hulls_perim(waist_vs_xy)
   # TODO: 
-  pr("calced_chest_circum:  ", calced_chest_circum) # real is ~34 inches (ConvexHull)
-  pr("calced_hip_circum  :  ", calced_hip_circum) # real is ~34 inches (ConvexHull)
-  pr("calced_waist_circum:  ", calced_waist_circum) # real is ~34 inches (ConvexHull)
+  pr("calced_chest_circum:  ", calced_chest_circum)  # real is ~34 inches (ConvexHull)
+  pr("calced_hip_circum  :  ", calced_hip_circum)    # real is ~32 inches (ConvexHull)
+  pr("calced_waist_circum:  ", calced_waist_circum)   # real is ~30 inches (ConvexHull)
 
   # HMR:
   #calced_chest_circum:   41.31167530329451
   #calced_hip_circum  :   35.01229821993187
   #calced_waist_circum:   33.447041585654304
+  #                 after adjusting to get enough points, waist circum is: 
+  #                       34.849151748404665
   # NOTE: why the f*** are these hip and waist so much smaller?  
   #   They're still on the pudgy side, but the error ain't nearly as bad as for chest.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   # Todo: make "err" calculation more comprehensive
@@ -1060,7 +1119,7 @@ def conv_hulls_perim(xy_pts):
   vertices = hull.vertices.tolist() + [hull.vertices[0]] # Todo: shorten
   perim_edgepts=xy_pts[vertices]
   X=0; Y=1
-  plt.title(" cross section's ConvexHull:    \n with {0} points".format(xy_pts.shape[0]))
+  plt.title(" cross section's ConvexHull:    \n with {0} points".format(perim_edgepts.shape[0]))
   plt.scatter(perim_edgepts[:,X],perim_edgepts[:,Y]); plt.show()
   perim     = np.sum([euclidean(x, y) for x, y in zip(perim_edgepts, perim_edgepts[1:])])
   return perim
@@ -1126,6 +1185,52 @@ def to_1st_octant(v):
   pe(69);pr("In function ",funcname);pe(69);pn(2)
   return shift_verts(v, -np.min(v[:,0]), -np.min(v[:,1]), -np.min(v[:,2]))
 #===================================================================================================================================
+def tri_area(tri_3x3):
+  '''
+    Calculates the area of a triangle with (x,y,z) for each point.
+    This area calculation comes from half the cross product: 
+
+      |AB X AC|       |AB||AC||sin(theta)|
+      _________   =   ____________________
+                                                 
+          2                    2
+
+    Where theta is the angle between vectors AB and AC.
+
+
+
+    -------
+    Params:
+    -------
+    tri_3x3 is a 3x3 numpy array:
+      [xA, yA, zA]
+      [xB, yB, zB]
+      [xC, yC, zC]
+
+    ------
+    Notes:
+    ------
+    https://math.stackexchange.com/questions/128991/how-to-calculate-area-of-3d-triangle
+
+    ------
+    Tests:
+    ------
+    triang=np.array([ [ 0   , 0   , 0   ],
+                      [ 0   , 0   , 1/9 ],
+                      [ 0   , 9   , 0   ]]).astype("float64")
+    print(triang)
+    print(triang_area_R3(triang))
+  '''
+  A=tri_3x3[0]; B=tri_3x3[1]; C=tri_3x3[2]
+  # consider if A is at the origin; the vector from (0,0,0) to B is just (x_B, y_B, z_B).
+  AB=B-A; AC=C-A
+  x_AB,y_AB,z_AB = AB
+  x_AC,y_AC,z_AC = AC
+  term_1=(y_AB*z_AC - z_AB*y_AC)**2
+  term_2=(z_AB*x_AC - x_AB*z_AC)**2
+  term_3=(x_AB*y_AC - y_AB*x_AC)**2
+  return 1/2 * math.sqrt(term_1+term_2+term_3)
+#===================================================================================================================================
 
 
 
@@ -1189,11 +1294,12 @@ if __name__=="__main__":
   NNN_obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nxb_manually_tuned_(NNN)___smpl_mesh____4th_iteration__02-2.250000000.obj' # NNN stands for "Nathan the Neural Net"
   # NNN calced_chest_circum: 38.31877278356377.  Error percent is 10.824943183633078% (overshooting my real chest circumference)
   obj_fname=HMR_obj_fname # NOTE: This line is where I change which .obj file we read in.
-  err, measures, vs=mesh_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)
+  err, measures, vs=mesh_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)  
   print("error percentage was {0} percent".format(abs(err)))
+
   #print("measures:",measures)
   #print("verts:",vs)
-  #pr(err, measures, vs) #if __name__=="__main__": 
+  #pr(err, measures, vs) #if __name__=="__main__":
 
   #test_measure()
 
@@ -1467,3 +1573,4 @@ if __name__=="__main__":
   inseam      =  35.    # inches
 
 '''
+
