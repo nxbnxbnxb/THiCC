@@ -598,10 +598,10 @@ def show_overlaid_polygon_measures(pic_filename___with_openpose_keypoints_, open
   return
 
 #===================================================================================================================================
-def pvi(vs):
-  # TODO: sprinkle this magic sauce pvi(vs) EVERYWHERE.
+def vert_info(vs):
+  # TODO: sprinkle this magic sauce vert_info(vs) EVERYWHERE.
   '''
-    pvi stands for "Print Vertices Info."
+    vert_info stands for "Print Vertices Info."
 
     -------
     Params:
@@ -759,19 +759,19 @@ def normalize_mesh(vs, mode='HMR'):
     extrema=(x_min,x_max,y_min,y_max,z_min,z_max)
   elif mode == 'NNN':
     # TODO: ensure mesh is head-z-up.
-    x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= pvi(vs)
+    x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(vs)
     yz_swap=np.array([[   1,   0,   0],
                       [   0,   0,   1],
                       [   0,  -1,   0]]).astype('float64')
 
     # Rotate
     vs=vs.dot(yz_swap)
-    x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= pvi(vs)
+    x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(vs)
 
     # Shift to all positive (+x,+y,+z)
     vs=to_1st_octant(vs)
 
-    x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= pvi(vs)
+    x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(vs)
     # TODO: figure out w.t.f. is going on in cross_sec(which_ax='y')
     '''
     for h in np.linspace(z_max-0.1, z_min+0.1, 21):
@@ -781,7 +781,7 @@ def normalize_mesh(vs, mode='HMR'):
     '''
       I think we don't need to flip.
     # Flip  (this particular mesh was "feet up")
-    x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= pvi(vs)
+    x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(vs)
     # TODO TODO TODO TODO TODO TODO TODO TODO shift the NNN .obj mesh appropriately TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
     flipped=deepcopy(vs) # could avoid the deepcopy step
     for i,row in enumerate(flipped): # TODO TODO: vectorize; actually affects runtime
@@ -793,6 +793,509 @@ def normalize_mesh(vs, mode='HMR'):
   return vs, extrema # TODO TODO TODO TODO TODO:  finish for NNN (SMPL-betas-manually-tuned)      Where do we scale up the mesh??
 #============  end normalize_mesh(params): ==============
 
+
+
+
+#=====================================================================
+def triang_walk(verts, faces, start_face, height, adjacents, bots_idx, tops_idx, which_ax='z', ax=2):
+  '''
+    Imagine your waist is at height 50 inches.  Now imagine the vertices (points) of a mesh representing your body.  There will be a set of points right about 50 inches, and a set of points right below 50 inches.  Now imagine the lines connecting each of those points above and below like a zigzagging snake until the snake bites it's own tail.  We're looking for the zigzagging snake right now.  That's what this function does
+    pt_A \/\/\/\/\/\/\/\/\/\/\ pt_A
+
+
+     If we're looking down through your head:
+
+       A    B  
+
+        *  *        
+     *        *     
+    *          *    
+    *          *    
+     *        *     
+        *  *        
+
+    If we're looking from the side through your belly button:
+
+      point A       tops_idx                                                                     point A
+           \/\/\/\/\/\/\/\/\/\/\   ...    (wraps around the waist, back to the belly button) ...  /\
+        point B      bots_idx                                                                      point B
+  '''
+    # Todo: walk_recurs()
+  #=====================================================================================
+  def walk_recurs(verts, height, adjacents, vert_idx_list, bots_idx, tops_idx, top_or_bot='top', which_ax='z', ax=2):
+    pn(2); pe(69); pr("Entering function ",sys._getframe().f_code.co_name); pe(69)
+    pe(99);print('vert_idx_list is: \n',vert_idx_list);pn();pe(99)
+    if vert_idx_list[0]==bots_idx: # TODO: check recursion's base case
+      vert_idx_list.append(tops_idx)
+      return vert_idx_list
+    print("passed base case")
+    print("bots_idx:",bots_idx)
+    print("tops_idx:",tops_idx)
+
+    pe(69); print("top_or_bot==",top_or_bot); pe(69)
+    # Looking for top:
+    if top_or_bot=='top':
+      faces_top=adjacents[tops_idx]
+
+      # find start_face:
+      for face in faces_top:
+        if bots_idx in face and tops_idx in face:
+          print("face: ",face)
+          for v_idx in face:
+            if v_idx != bots_idx and v_idx != tops_idx and v_idx not in vert_idx_list:
+              next_top_idx=v_idx
+              if verts[next_top_idx][ax] < height:
+                raise Exception("God dammit we can't solve this problem with recursion.")
+              print("next_top_idx:",next_top_idx)
+              if next_top_idx not in vert_idx_list:
+                vert_idx_list.append(tops_idx) # append PREV
+                return walk_recurs(verts, height, adjacents, vert_idx_list, bots_idx, tops_idx, 'bot', which_ax='z', ax=2)
+
+    # Looking for bot:   NOTE: if there's a bug in one, there's a bug in the other
+    elif top_or_bot=='bot':
+      faces_bot=adjacents[bots_idx]
+
+      # find start_face:
+      for face in faces_bot:
+        print("face: ",face)
+        print("vert_idx_list:\n",vert_idx_list);pe(69);pn(2)
+        if bots_idx in face and tops_idx in face:
+          for v_idx in face:
+            if v_idx != bots_idx and v_idx != tops_idx and v_idx not in vert_idx_list:
+              next_bot_idx=v_idx
+              print("height:",height)
+              for v_i in vert_idx_list:
+                print("verts[{0}] : {1}".format(v_i,verts[v_i]))
+              print(  "verts[{0}] : {1}".format(next_bot_idx,verts[next_bot_idx]))
+              print(  "verts[{0}] : {1}".format(tops_idx,verts[tops_idx]))
+              print(  "verts[{0}] : {1}".format(bots_idx,verts[bots_idx]))
+              if verts[next_bot_idx][ax] > height:
+                raise Exception("God dammit we can't solve this problem with recursion.")
+              print("next_bot_idx:",next_bot_idx)
+              if next_bot_idx not in vert_idx_list:
+                vert_idx_list.append(bots_idx) # append PREV
+                return walk_recurs(verts, height, adjacents, vert_idx_list, bots_idx, tops_idx, 'top', which_ax='z', ax=2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # Looking for bot:  TODO:
+    '''
+    if top_or_bot=='bot':
+      for face in faces_top:
+        print("face:\n",face)
+        if bots_idx in face:
+          for v_idx in face:
+            if v_idx != bots_idx and v_idx != tops_idx:
+              next_top_idx=v_idx
+              print("next_top_idx:",next_top_idx)
+              if next_top_idx not in vert_idx_list:
+                vert_idx_list.append(tops_idx) # append PREV
+                
+                return walk_recurs(verts, height, adjacents, vert_idx_list, bots_idx, tops_idx, which_ax='z', ax=2)
+          vert_idx_list
+          loc=np.where(face,bots_idx)
+          print("loc:",loc)
+    '''
+
+    # prev's code TODO check whether we followed these steps in our recurs() algorithm
+    '''
+    if next_vert[ax] > height:
+      for face in adjacents[next_vert_idx]:
+        print("face:", face)
+        print("bots_idx       : ",bots_idx)
+        print("next_vert_idx  : ",next_vert_idx);pn()
+        if bots_idx in face and tops_idx not in face:
+          for next_vert_idx_2 in face:
+            if next_vert_idx_2 != bots_idx and next_vert_idx_2 != next_vert_idx:
+              print("tops_idx       : " , tops_idx)
+              print("bots_idx       : " , bots_idx)
+              print("next_vert_idx  : " , next_vert_idx)
+              print("next_vert_idx_2: " , next_vert_idx_2)
+              bots_idx=next_vert_idx_2
+              tops_idx=next_vert_idx
+              return walk_recurs(verts, height, adjacents, vert_idx_list, bots_idx, tops_idx, which_ax='z', ax=2)
+              # I'd really want a GOTO here...
+    '''
+    # Todo
+  #========================== end walk_recurs(params) ==================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  #========================= begin triang_walk(params) =================================
+  pn(2); pe(69); pr("Entering function ", sys._getframe().f_code.co_name); pe(69)
+  print("start_face : ",start_face)
+  print("bots_idx   : ",bots_idx)
+  print("tops_idx   : ",tops_idx)
+  #print("height     : ",height);pn()
+  vert_idx_list=[bots_idx, tops_idx]
+
+  # Look for 3rd and 4th verts_indices so the recursive base case doesn't immediately kill the recursion
+  for vert_idx in start_face:
+    if vert_idx != bots_idx and vert_idx != tops_idx:
+      next_vert_idx=vert_idx
+      next_vert=verts[next_vert_idx]
+      print("tops_idx:",tops_idx)
+      print("bots_idx:",bots_idx)
+      print("next_vert_idx:",next_vert_idx)
+      print("verts[tops_idx]      : ",verts[tops_idx])
+      print("verts[bots_idx]      : ",verts[bots_idx])
+      print("verts[next_vert_idx] : ",verts[next_vert_idx])
+      pn()
+      print("adjs[tops_idx]:        (tops_idx={0})".format(tops_idx))
+      p(adjacents[tops_idx])
+      print("adjs[bots_idx]:        (bots_idx={0})".format(bots_idx))
+      p(adjacents[bots_idx])
+      print("adjs[next_vert_idx]:   (next_vert_idx={0})".format(next_vert_idx))
+      p(adjacents[next_vert_idx])
+      pn()
+
+      # 3rd pt is above height and 4th pt below
+      if next_vert[ax] > height:
+        pn(2); pe(69); pr("GOING INTO RETURN "); pe(69)
+        for face in adjacents[next_vert_idx]:
+          print("face:", face)
+          print("bots_idx       : ",bots_idx)
+          print("next_vert_idx  : ",next_vert_idx);pn(5)
+          if bots_idx in face and tops_idx not in face:
+            for next_vert_idx_2 in face:
+              if next_vert_idx_2 != bots_idx and next_vert_idx_2 != next_vert_idx:
+                print("height     : ",height);pn()
+                print("tops_idx       : " , tops_idx)
+                print("bots_idx       : " , bots_idx)
+                print("next_vert_idx  : " , next_vert_idx)
+                print("next_vert_idx_2: " , next_vert_idx_2)
+                print("verts[tops_idx]        : " , verts[tops_idx])
+                print("verts[bots_idx]        : " , verts[bots_idx])
+                print("verts[next_vert_idx]   : " , verts[next_vert_idx])
+                print("verts[next_vert_idx_2] : " , verts[next_vert_idx_2])
+                bots_idx=next_vert_idx_2
+                tops_idx=next_vert_idx
+                # TODO: ensure we're starting with top and moving to bot next.
+                print("vert_idx_list:\n",vert_idx_list)
+                print("right before entering walk_recurs(), face is {0} ".format(face))
+                #return
+                return walk_recurs(verts, height, adjacents, vert_idx_list, bots_idx, tops_idx, top_or_bot='top', which_ax='z', ax=2)
+                # I'd really want a GOTO here...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      # TODO See your notebook!
+      '''
+      make sure to set up the recursion right in the first place (idx0, idx1, idx2, )
+        See your notebook!
+
+      vert_idx_list=[bots_idx,tops_idx]
+      elif next_vert[ax] <= height: # I can't anticipate a time when they'd be equal
+        print("in README README README README README   elif next_vert[ax] <= height")
+        pass # TODO: copy from "if next_vert[ax] > height:" block once everything is debugged
+      '''
+
+
+
+      #NOTE NOTE NOTE NOTE NOTE:  this ((concave quadrilateral)) had better NEVER happen in SMPL.  If it does, our recursion in walk_recurs() won't work.
+      #NOTE NOTE NOTE NOTE NOTE:  this ((concave quadrilateral)) had better NEVER happen in SMPL.  If it does, our recursion in walk_recurs() won't work.
+      #NOTE NOTE NOTE NOTE NOTE:  this ((concave quadrilateral)) had better NEVER happen in SMPL.  If it does, our recursion in walk_recurs() won't work.
+      '''
+   \     /
+    \   /
+     \ /
+      V
+      # We will iff both of the other adj points are below.   So include it.
+      # 3rd pt is below height and 4th pt above
+      elif next_vert[ax] <= height: # I can't anticipate a time when they'd be equal
+        print("in README README README README README   elif next_vert[ax] <= height")
+        pass # TODO: copy from "if next_vert[ax] > height:" block once everything is debugged
+      '''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  # TODO: throw exception
+  return walk_recurs(verts, height, adjacents, vert_idx_list, bots_idx, tops_idx, which_ax='z', ax=2)
+  #=========================== end triang_walk(params) =================================
+#=====================================================================
+def mesh_cross_sec(verts, faces, height, which_ax="z"):
+  '''
+    Takes a cross section of an .obj mesh
+    The plane that creates the cross section is at "height" along "which_ax"
+
+    verts are the pts of the mesh
+    faces are the triangles
+  '''
+  pn(2); pe(69); pr("Entering function ",sys._getframe().f_code.co_name); pe(69)
+  pr("height:",height)
+  NUM_DIMS=1; XYZ=3
+  assert verts.shape[NUM_DIMS]==XYZ
+  X=0; Y=1; Z=2
+  if    which_ax.lower()=='x': ax=X
+  elif  which_ax.lower()=='y': ax=Y
+  elif  which_ax.lower()=='z': ax=Z
+
+  adjs=adjacents(verts, faces)
+
+  # Sort low to high (small to big).  Makes the operation faster
+  sort_indices  = np.argsort(verts[:,ax])
+  sorted_verts  = verts[sort_indices]
+  #np.greater(sorted_verts[:,ax],height) # NOTE: there must be a way to do this directly without iterating cumbersome-ly
+
+  # Triangle walk straddling the height
+  for i,loc in enumerate(sorted_verts[:,ax]):
+    #print("loc:",loc) # GOOD   # NOTE: in func "mesh_cross_sec"
+    if loc > height: # the 1st one above "height" because it's harder to find the 1st one directly below height
+      tops_idx          = sort_indices[i]
+      these_faces       = adjs[tops_idx]
+      for face in these_faces:
+        for vert_idx in face:
+          if verts[vert_idx][ax] < height: # find an adj "below the belt" :    nxb Sun Mar 10 09:07:58 EDT 2019
+            bots_idx=vert_idx
+            meshs_belt=triang_walk(verts, faces, face, height, adjs, bots_idx, tops_idx, which_ax=which_ax, ax=ax)
+
+
+
+
+            # Once we have 2 verts, we should be able to track the height until we get back to the original 2.  Then the cross section is the intersection of the plane at "height" with the triangles from the smpl mesh.
+      break
+    # [2,2,2], [1,1,1], [0,0,0],
+    # 6888: [ array([6887, 6886, 6888]),
+    #         array([6888, 6886, 6889]),
+    #         array([5238, 6887, 6888]),
+    #         array([6889, 3953, 6888]),
+    #         array([5238, 6888, 5239]),
+    #         array([5239, 6888, 3953])],
+
+  # Find bounds
+  top = midpt_h + ( window/2.); bot = midpt_h - ( window/2.)
+  found_bot=False; found_top=False
+  for i,loc in enumerate(sorted_verts[:,ax]):
+    if (not found_bot) and (loc > bot):   # should happen first
+      found_bot=True; bot_idx=i
+    elif (not found_top) and (loc > top): # before this guy
+      found_top=True; top_idx=i
+  targ_verts=sorted_verts[bot_idx:top_idx]
+
+  # Only take xy values
+  cross_sec=targ_verts[:,:Z]
+  plt.title("Vertices in SMPL mesh at loc {0} along the \n{1} axis\nwith {2} points".format(midpt_h, which_ax, len(targ_verts)))
+  plt.scatter(cross_sec[:,0],cross_sec[:,1]); plt.show()
+  return cross_sec
+#=====================================================================
+def adjacents(verts, faces):
+  # .obj mesh
+  adjs={i:[] for i in range(len(verts))}
+  for face_idx,face in enumerate(faces): # 1,  v1 v2 v3
+    v0=face[0]; v1=face[1]; v2=face[2]
+    adjs[v0].append(face)
+    adjs[v1].append(face)
+    adjs[v2].append(face)
+  return adjs
+#=====================================================================
+
+
+
+#=====================================================================
+def mesh_perim_at_height(verts, faces, height, window=19.952, which_ax='z', ax=2):
+  edges=[]
+  intersecting_edges=[]
+  sort_indices  = np.argsort(verts[:,ax]) # low to high
+  sorted_verts  = verts[sort_indices]
+  adjs=adjacents(verts, faces)
+  hits=0
+  for v_idx,loc in enumerate(sorted_verts[:,ax]):
+    if loc > height - window and loc < height + window:
+      hits+=1
+      adj_faces=adjs[sort_indices[v_idx]]
+      for face in adj_faces:
+        edges.append((face[0],face[1]))
+        edges.append((face[0],face[2]))
+        edges.append((face[1],face[2]))
+  print("hits:",hits) # hits: 5401 at window=19.952
+  # find intersecting edges    find_intersecting_edges(edges, height, verts, )
+  for edge in edges:
+    vert=verts[edge[0]]
+    z0=(verts[edge[0]][ax])
+    z1=(verts[edge[1]][ax])
+    if (z0 > height and z1 < height) or (z1 > height and z0 < height):
+      intersecting_edges.append(edge)
+
+  print(" len(intersecting_edges):", len(intersecting_edges))
+  #  len(intersecting_edges): 792 at window=9.952 AND 19.952.
+  # find faces attached to those edges
+  #=========================================
+  def faces_at_height(faces, height, verts, window, which_ax, ax):
+    out_faces=[]
+    for face in faces:
+      for v_idx in face:
+        if verts[v_idx][ax] < height + window and verts[v_idx][ax] > height - window:
+          out_faces.append(face)
+    return out_faces
+  faces_at_h=faces_at_height(faces, height, verts, window, which_ax, ax)
+  print("len(faces_at_h):",len(faces_at_h)) # len(faces_at_h): 32400
+  def face_hash_table(faces, height):
+    for i,face in enumerate(faces):
+      # TODO:  put the face indices in a dictionary and use it to vastly speed up faces_attached()
+      pass
+  def faces_attached(edges, faces, verts):
+  # TODO: fix this.
+  #  real  1m54.993s
+  #  user  1m57.233s
+  #  sys 0m1.181s
+
+  # TODO: fix this.  OMG it got WORSE when I used faces_at_height()!  faces must be HUGE.  I'll have to do something about this tonight/tomorrow
+  #print("len(faces_at_h):",len(faces_at_h)) # len(faces_at_h): 32400
+  #real 3m54.254s
+  #user  3m57.056s
+  #sys 0m1.073s
+
+    # The Brute-force implementation is DIRT SLOW
+    face_list=[]
+    for edge in edges:
+      v0=edge[0]
+      v1=edge[1]
+      for face in faces:
+        if v0 in face and v1 in face:
+          face_list.append(face)
+    return face_list
+  #====== end faces_attached(params) =======
+  faces=faces_attached(intersecting_edges, faces_at_h, verts)
+  print("len(faces): ",len(faces))
+
+  # find all faces that intersect the height_plane
+  def faces_intersecting(edges, faces, verts):
+    pass
+  intersecting_faces=faces_intersecting(faces,height)
+#=====================================================================
 
 
 
@@ -849,6 +1352,7 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
       5.  Elliptic curves would probably be more accurate than said polygon, but more complex to code.
 
     3.  Or simpler, calculate the polygon perimeter directly and subtract some constant for up-down shift
+      a.  rename
     4. 
  
     ------
@@ -862,9 +1366,8 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
     #   No, Nathan's just REAAAALLLY thin.  Holy shit, man.  NNN method looked about right to me the 1st time I did it, but the actual measurements were still pretty off (38 inch chest predicted where my actual chest circum is 34 inches)
     # test cross_sec() with "ax='y'" and "ax='z'"
     # switch statement depending on mesh .obj fname  (separate transforms for NNN meshes than for HMR meshes)
-    # make sure measuring the right thing, NOTE: NO  conv_hull, etc.   yet TODO
   '''
-    0.  Get the RIGHT shape to take perim of 
+    0.  Get the RIGHT shape to take perim of
       b0.  Given the K points, take only their (x,y) values (ie. set z=0), poly=CHull(pts), perim=perim_poly(hull_edge_pts), and use perim.
       c. generalize the assert
       scale CHEST_HEIGHT_RATIO with avg triangle size in mesh   Inversely or directly proportional?
@@ -872,45 +1375,18 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
         How do we sort the points s.t. we have a good ordering for the concave polygon?
       Ohhhhhhhhh....  The actual measurement will probably be more like the convexHull, not a concaveHull.  (think about how a measuring tape encircles a chest)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       e.  Be able to visualize mesh so I can rotate nathan_mesh.obj to the correct orientation (where z=up) before I can find points at chest_height.  Hook render_smpl() up to arbitrary .obj (verts) mesh?
         Then u gotta figure out how to do directed graph search on 4 pts in R3.
       d.
 
     2.  Calculate circumference
-      2.  Left  path from belly to back
-        a.  A* search
-      3.  Right path from belly to back
-      4.  Connect those 2 paths (right and left) into a polygon
-      5.  Elliptic curves would probably be more accurate than said polygon, but more complex to code.
-      6.  Perhaps we could take the np.mean() of the quadrilateral() and jagged() paths.
-
     3.  Or simpler, calculate the polygon perimeter directly and subtract some constant for up-down shift
     4. 
 
   '''
  # Todo: make sure these names are consistent (ie. either all short like v_t or all descriptive like vert_tree)
 
+  # func name mesh_err()
   #obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'
   # Load .obj file
   verts=[]
@@ -936,7 +1412,8 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
     f=f.split(' ')
     fs[idx]=np.array([int(f[1]),int(f[2]),int(f[3])]).astype("int64")-1
     # see .obj file for why these conventions are like they are.  each face is described as a sequences of 3 vertices:  ie. "f 1 99 4"
-    # indexing starts at 1
+    # in .obj files, face indexing starts at 1  (face 1 might be 1 2 3 rather than 0 1 2, referring to vertices 1, 2, and 3)
+
   # calculate mesh_resolution:   (the area of each triangle in the mesh, on average):
   mesh_resolution=0 # should end up at 0.652 by the end
   for f in fs:
@@ -946,7 +1423,7 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
     tri=np.concatenate((v0,v1,v2),axis=0).astype('float64')
     mesh_resolution+=tri_area(tri)
   mesh_resolution/=len(fs) # avg area of triangles in the body mesh.
-  pr("mesh_resolution:  ",mesh_resolution) # for HMR,  mesh_resolution was 0.0001195638271130602 .
+  #pr("mesh_resolution:  ",mesh_resolution) # for HMR,  mesh_resolution was 0.0001195638271130602 .
 
   # geometric transformations to put the mesh in the "upright" position (ie. +z is where the head is, arms stretch out in +/-x direction, chest-to-back is +/-y direction.)
   if 'HMR' in obj_fname.upper():
@@ -963,8 +1440,7 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   # x_len: #62.42919620498712
   # y_len: #30.58900292737982
   vs    = vs * cust_h / z_max
-  if debug: print("vs.shape: ",vs.shape)
-  x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= pvi(vs)
+  x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(vs)
 
   # chest
 
@@ -976,10 +1452,7 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   chest_h = measures['chest_height_inches']  # Nathan's chest_h is 57 inches
   hip_h   = measures['hip_height_inches']    # Nathan's hip_h   is    inches
   waist_h = measures['waist_height_inches']  # Nathan's waist_h is    inches
-  from pprint import pprint as p
-  pr("measures:")
-  p(measures)
-  #print("chest_h:", chest_h) # measured, 55.9 inches is ~correct
+  #pr("measures:"); #p(measures) #print("chest_h:", chest_h) # measured, 55.9 inches is ~correct
 
   # check that this (CHEST_HEIGHT_RATIO, chest_h, etc.) actually works for NNN too
   # chest len should be something like the number of inches from bottom of nipple to top of nipple.
@@ -989,25 +1462,18 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   # TODO make CHEST_HEIGHT_RATIO adaptive to resolution(SMPL_mesh)
   # by "resolution(SMPL_mesh)," I mean "how small are the triangles in the SMPL_mesh on average?"
 
-  print("chest_h: ",chest_h)
-  print("hip_h  : ",hip_h)
-  print("waist_h: ",waist_h)
   # Todo: refactor to "show_chest_cross_section()" or something like that.
   # calculate
   waist_len   =hip_len=chest_len=       z_len*CHEST_HEIGHT_RATIO
-  print("chest");print("chest_len is ", chest_len)
   # TODO: throw mesh_resolution in here somewhere
-  chest_vs_xy = cross_sec(vs, chest_h,  window=chest_len)
-  print("hip");  print("hip_len is ",   hip_len)
+  perim = mesh_perim_at_height(vs, fs, chest_h, which_ax='z')
+  return
+  #chest_vs_xy = cross_sec(vs, chest_h,  window=chest_len)
   hip_vs_xy   = cross_sec(vs, hip_h,    window=hip_len+0.6)
-  print("waist");print("waist_len is ", waist_len);pn(2)
   waist_vs_xy = cross_sec(vs, waist_h,  window=waist_len+0.7) 
   #"window=waist_len+1" helped for waist.  Idk why.
-  print("chest")
   calced_chest_circum = conv_hulls_perim(chest_vs_xy)
-  print("hip")
   calced_hip_circum   = conv_hulls_perim(hip_vs_xy)
-  print("waist");pn(2)
   calced_waist_circum = conv_hulls_perim(waist_vs_xy)
   # TODO: 
   pr("calced_chest_circum:  ", calced_chest_circum)  # real is ~34 inches (ConvexHull)
