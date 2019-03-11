@@ -1226,11 +1226,22 @@ def adjacents(verts, faces):
 
 #=====================================================================
 def mesh_perim_at_height(verts, faces, height, window=19.952, which_ax='z', ax=2):
+  # https://math.stackexchange.com/questions/404440/what-is-the-equation-for-a-3d-line
+
+  # verts.shape     : (6890,3)
+  # hits            : 5401
+  # len(intersecting_edges): 792     This ought to get down to ~54 points (on the order of curr/10, rather than order of curr)
+  # len(faces)      : 13776
+  # len(faces_at_h) : 32400         we gotta be able to decrease this using the edges (iterate through the edges , use faces_adjacent, etc.)
+
+  # TODO: iterate through the faces once, wherever one edge has 2 pts: 1 above height and the other below, calculate the intersection point and toss the intersection points into ConvHull_perim().
   edges=[]
   intersecting_edges=[]
   sort_indices  = np.argsort(verts[:,ax]) # low to high
   sorted_verts  = verts[sort_indices]
   adjs=adjacents(verts, faces)
+  print("adjacents() finished")
+  print("height:",height)
   hits=0
   for v_idx,loc in enumerate(sorted_verts[:,ax]):
     if loc > height - window and loc < height + window:
@@ -1240,63 +1251,82 @@ def mesh_perim_at_height(verts, faces, height, window=19.952, which_ax='z', ax=2
         edges.append((face[0],face[1]))
         edges.append((face[0],face[2]))
         edges.append((face[1],face[2]))
-  print("hits:",hits) # hits: 5401 at window=19.952
-  # find intersecting edges    find_intersecting_edges(edges, height, verts, )
+  #print("hits:",hits) # hits: 5401 at window=19.952
+
+  # find intersecting edges:    find_intersecting_edges(edges, height, verts, )
   for edge in edges:
-    vert=verts[edge[0]]
+    #vert=verts[edge[0]]
     z0=(verts[edge[0]][ax])
     z1=(verts[edge[1]][ax])
     if (z0 > height and z1 < height) or (z1 > height and z0 < height):
       intersecting_edges.append(edge)
+  #viz.plot_pts_3d(pts_2_graph)  tooo many.  But they look mostly like you'd expect.
+  #=====================================================================
+  def pts_along_perim(verts, edges, height):
+    '''
+      @Precondition: sort edges 
 
-  print(" len(intersecting_edges):", len(intersecting_edges))
-  #  len(intersecting_edges): 792 at window=9.952 AND 19.952.
-  # find faces attached to those edges
-  #=========================================
-  def faces_at_height(faces, height, verts, window, which_ax, ax):
-    out_faces=[]
-    for face in faces:
-      for v_idx in face:
-        if verts[v_idx][ax] < height + window and verts[v_idx][ax] > height - window:
-          out_faces.append(face)
-    return out_faces
-  faces_at_h=faces_at_height(faces, height, verts, window, which_ax, ax)
-  print("len(faces_at_h):",len(faces_at_h)) # len(faces_at_h): 32400
-  def face_hash_table(faces, height):
-    for i,face in enumerate(faces):
-      # TODO:  put the face indices in a dictionary and use it to vastly speed up faces_attached()
-      pass
-  def faces_attached(edges, faces, verts):
-  # TODO: fix this.
-  #  real  1m54.993s
-  #  user  1m57.233s
-  #  sys 0m1.181s
+      ------
+      Notes:
+      ------
+        https://math.stackexchange.com/questions/404440/what-is-the-equation-for-a-3d-line
 
-  # TODO: fix this.  OMG it got WORSE when I used faces_at_height()!  faces must be HUGE.  I'll have to do something about this tonight/tomorrow
-  #print("len(faces_at_h):",len(faces_at_h)) # len(faces_at_h): 32400
-  #real 3m54.254s
-  #user  3m57.056s
-  #sys 0m1.073s
-
-    # The Brute-force implementation is DIRT SLOW
-    face_list=[]
+    '''
+    # Todo; generalize to axes other than z
+    perim_pts=[]
     for edge in edges:
-      v0=edge[0]
-      v1=edge[1]
-      for face in faces:
-        if v0 in face and v1 in face:
-          face_list.append(face)
-    return face_list
-  #====== end faces_attached(params) =======
-  faces=faces_attached(intersecting_edges, faces_at_h, verts)
-  print("len(faces): ",len(faces))
+      v0_i=edge[0] # "i" for idx
+      v1_i=edge[1]
+      x0,y0,z0=verts[v0_i]
+      x1,y1,z1=verts[v1_i]
+      a,b,c=verts[v0_i]-verts[v1_i]
+      x_new=a*  (x0+  ((height-z0)/c))
+      y_new=b*  (y0+  ((height-z0)/c))
+      # see algebra from https://math.stackexchange.com/questions/404440/what-is-the-equation-for-a-3d-line
+      intersect_pt= x_new,y_new,height
+      perim_pts.append(intersect_pt)
+    return np.array(perim_pts)
+    #perim=np.sum([euclidean(x, y) for x, y in zip(perim_pts, perim_pts[1:])]) # perim
+    # NOTE:  we want perim(scipy.spatial.ConvexHull()) instead of raw perim
+    #return perim
+  #=====================================================================
+  perim_pts=pts_along_perim(verts, intersecting_edges, height)
+  print("height:",height)
+  print("perim_pts.shape:",perim_pts.shape)
+  viz.plot_pts_3d(perim_pts)
+  # TODO take convHull
+  perim=conv_hulls_perim(perim_pts[:,:2])
+  print("perim(convHull):",perim)
+ 
+  """
+  pn(9);pe(69)
+  for edge in intersecting_edges:
+    print(edge)
+  pe(69);pn(9)
+  #print("np.unique(intersecting_edges).shape:\n",np.unique(intersecting_edges).shape) #  np.unique(intersecting_edges).shape: (132,)
 
-  # find all faces that intersect the height_plane
-  def faces_intersecting(edges, faces, verts):
-    pass
-  intersecting_faces=faces_intersecting(faces,height)
-#=====================================================================
+  print(" intersecting_edges[0]:", intersecting_edges[0])
+  print(" intersecting_edges[1]:", intersecting_edges[1])
+  print(" intersecting_edges[2]:", intersecting_edges[2])
+  print(" len(intersecting_edges):", len(intersecting_edges))
+  # Do these puppers (intersecting_edges) not snake all the way around the "height plane?"
+  #  len(intersecting_edges): 792 at window=9.952 AND 19.952.
 
+  # Sort edges such that we have the entire snake around the mesh at height "height"
+  edge_dict={}
+  for i,edge in enumerate(intersecting_edges):
+    edge_dict[edge[0]]=[]
+    edge_dict[edge[1]]=[]
+  print(edge_dict)
+  print("len(edge_dict.keys()):",len(edge_dict.keys()))
+  for edge in intersecting_edges:
+    edge_dict[edge[0]].append(edge)
+    edge_dict[edge[1]].append(edge)
+  print('edges sorted')
+  # TODO: sort edges
+  # find all pts along the perimeter of the mesh's intersection with the height-plane
+  """
+#=============== end mesh_perim_at_height(params) ===============
 
 
 
