@@ -1225,23 +1225,74 @@ def adjacents(verts, faces):
 
 
 #=====================================================================
+def lines_intersection_w_plane(vert_0, vert_1, height):
+  '''
+    The line in "line's intersection" we're referring to is    the line segment going through vert_0 and vert_1.
+    The plane referred to in "w_plane" is the plane "z=height"
+  '''
+  x0,y0,z0=vert_0
+  x1,y1,z1=vert_1
+  a,b,c=vert_0-vert_1
+  print(a,b,c)
+  x_new=(a*(height-z0)/c)  +x0
+  y_new=(b*(height-z0)/c)  +y0   # I messed up the **** algebra.  Let this be a lesson to always double-check the most important parts of your code: the actual calculations.  20% of the code does 80% of the work.
+  # see algebra from https://math.stackexchange.com/questions/404440/what-is-the-equation-for-a-3d-line
+  intersect_pt= x_new,y_new,height
+  return intersect_pt
+#============ end lines_intersection_w_plane(params) =================
+#=====================================================================
 def mesh_perim_at_height(verts, faces, height, window=19.952, which_ax='z', ax=2):
-  # https://math.stackexchange.com/questions/404440/what-is-the-equation-for-a-3d-line
-
   # verts.shape     : (6890,3)
   # hits            : 5401
-  # len(intersecting_edges): 792     This ought to get down to ~54 points (on the order of curr/10, rather than order of curr)
+  # len(intersecting_edges): 792     This ought to get down to ~54 points??? (on the order of curr/10, rather than order of curr)
   # len(faces)      : 13776
-  # len(faces_at_h) : 32400         we gotta be able to decrease this using the edges (iterate through the edges , use faces_adjacent, etc.)
 
   # TODO: iterate through the faces once, wherever one edge has 2 pts: 1 above height and the other below, calculate the intersection point and toss the intersection points into ConvHull_perim().
+  '''
+  adjs=adjacents(verts, faces)
+  for face in faces:
+  for vert_idx,vert in enumerate(verts):
+    adjs
+  '''
+  adjs=adjacents(verts, faces)
+  intersection_count=0# intersection_count: 264    Is this one right or is 792 right?  At least we're SURE 792 was wrong, right?   uggggggh
+  perim_pts=[]
+  for face in faces:
+    vert_0=verts[face[0]]
+    vert_1=verts[face[1]]
+    vert_2=verts[face[2]]
+    z0=vert_0[ax]
+    z1=vert_1[ax]
+    z2=vert_2[ax]
+    if (z0 > height and z1 < height) or (z0 < height and z1 > height):
+      intersection_pt=lines_intersection_w_plane(vert_0,vert_1,height)
+      perim_pts.append(intersection_pt)
+      intersection_count+=1
+    if (z0 > height and z2 < height) or (z0 < height and z2 > height):
+      intersection_pt=lines_intersection_w_plane(vert_0,vert_2,height)
+      perim_pts.append(intersection_pt)
+      intersection_count+=1
+    if (z1 > height and z2 < height) or (z1 < height and z2 > height):
+      intersection_pt=lines_intersection_w_plane(vert_1,vert_2,height)
+      perim_pts.append(intersection_pt)
+      intersection_count+=1
+  perim_pts=np.array(perim_pts)
+  print("perim_pts.shape:",perim_pts.shape)
+  #print("intersection_count:",intersection_count);pn(3) # intersection_count: 264    Is this one right or is 792 right?  At least we're SURE 792 was wrong, right?   uggggggh
+  plt.title("Vertices in SMPL mesh at loc {0} along the \n{1} axis\nwith {2} points".format(height, which_ax, len(perim_pts)))
+  plt.scatter(perim_pts[:,0],perim_pts[:,1]); plt.show()
+  perim=conv_hulls_perim(perim_pts[:,:2])
+  print("perim:",perim) # still 116.11386265654646 ....   hm...   Bad.....  Maybe the bug is in the intersection calculation NOTE:
+  """
+  #print("np.max(perim_pts[:,2]):",np.max(perim_pts[:,2]))# 55.90405904059041
+  #print("np.min(perim_pts[:,2]):",np.min(perim_pts[:,2]))# 55.90405904059041   # NOTE: GOOD!
+
   edges=[]
   intersecting_edges=[]
   sort_indices  = np.argsort(verts[:,ax]) # low to high
   sorted_verts  = verts[sort_indices]
   adjs=adjacents(verts, faces)
   print("adjacents() finished")
-  print("height:",height)
   hits=0
   for v_idx,loc in enumerate(sorted_verts[:,ax]):
     if loc > height - window and loc < height + window:
@@ -1251,16 +1302,23 @@ def mesh_perim_at_height(verts, faces, height, window=19.952, which_ax='z', ax=2
         edges.append((face[0],face[1]))
         edges.append((face[0],face[2]))
         edges.append((face[1],face[2]))
-  #print("hits:",hits) # hits: 5401 at window=19.952
+        if np.random.random()<0.01:
+          print(face[1],face[2])
+  #print("hits:",hits)              # hits: 5401 at window=19.952
+  print("len(edges):",len(edges))  # 10371
 
   # find intersecting edges:    find_intersecting_edges(edges, height, verts, )
   for edge in edges:
     #vert=verts[edge[0]]
-    z0=(verts[edge[0]][ax])
-    z1=(verts[edge[1]][ax])
+    z0= verts[edge[0]][ax]
+    z1= verts[edge[1]][ax]
     if (z0 > height and z1 < height) or (z1 > height and z0 < height):
+      if np.random.random()<0.05:
+        print("z0:",z0)
+        print("z1:",z1)
       intersecting_edges.append(edge)
   #viz.plot_pts_3d(pts_2_graph)  tooo many.  But they look mostly like you'd expect.
+  print("len(intersecting_edges):",len(intersecting_edges))  # 792
   #=====================================================================
   def pts_along_perim(verts, edges, height):
     '''
@@ -1284,6 +1342,10 @@ def mesh_perim_at_height(verts, faces, height, window=19.952, which_ax='z', ax=2
       y_new=b*  (y0+  ((height-z0)/c))
       # see algebra from https://math.stackexchange.com/questions/404440/what-is-the-equation-for-a-3d-line
       intersect_pt= x_new,y_new,height
+      if False: #np.random.random()<0.3:
+        print("z0:",z0)
+        print("z1:",z1)
+        print("intersect_pt:",intersect_pt)
       perim_pts.append(intersect_pt)
     return np.array(perim_pts)
     #perim=np.sum([euclidean(x, y) for x, y in zip(perim_pts, perim_pts[1:])]) # perim
@@ -1293,10 +1355,15 @@ def mesh_perim_at_height(verts, faces, height, window=19.952, which_ax='z', ax=2
   perim_pts=pts_along_perim(verts, intersecting_edges, height)
   print("height:",height)
   print("perim_pts.shape:",perim_pts.shape)
-  viz.plot_pts_3d(perim_pts)
+  plt.title(" Cross Section:    \n with {0} points".format(perim_pts.shape[0])) # 792 points
+  X=0; Y=1
+  plt.scatter(perim_pts[:,X],perim_pts[:,Y]); plt.show()
+  #viz.plot_pts_3d(perim_pts)
   # TODO take convHull
   perim=conv_hulls_perim(perim_pts[:,:2])
   print("perim(convHull):",perim)
+  return perim
+  """  # TODO NOTE TODO NOTE UNCOMENT
  
   """
   pn(9);pe(69)
@@ -1494,11 +1561,11 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
 
   # Todo: refactor to "show_chest_cross_section()" or something like that.
   # calculate
-  waist_len   =hip_len=chest_len=       z_len*CHEST_HEIGHT_RATIO
+  waist_len   =hip_len=chest_len=       z_len*CHEST_HEIGHT_RATIO  # 29  ; super big
   # TODO: throw mesh_resolution in here somewhere
   perim = mesh_perim_at_height(vs, fs, chest_h, which_ax='z')
   return
-  #chest_vs_xy = cross_sec(vs, chest_h,  window=chest_len)
+  chest_vs_xy = cross_sec(vs, chest_h,  window=chest_len)
   hip_vs_xy   = cross_sec(vs, hip_h,    window=hip_len+0.6)
   waist_vs_xy = cross_sec(vs, waist_h,  window=waist_len+0.7) 
   #"window=waist_len+1" helped for waist.  Idk why.
@@ -1510,63 +1577,15 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   pr("calced_hip_circum  :  ", calced_hip_circum)    # real is ~32 inches (ConvexHull)
   pr("calced_waist_circum:  ", calced_waist_circum)   # real is ~30 inches (ConvexHull)
 
-  # HMR:
-  #calced_chest_circum:   41.31167530329451
-  #calced_hip_circum  :   35.01229821993187
-  #calced_waist_circum:   33.447041585654304
+  # HMR:                                                  #   when chest_len=29:
+  #calced_chest_circum:   41.31167530329451               calced_chest_circum:   133.65022701740838
+  #calced_hip_circum  :   35.01229821993187               calced_hip_circum  :   48.241225584140174
+  #calced_waist_circum:   33.447041585654304              calced_waist_circum:   74.78819209185819
+
   #                 after adjusting to get enough points, waist circum is: 
   #                       34.849151748404665
   # NOTE: why the f*** are these hip and waist so much smaller?  
   #   They're still on the pudgy side, but the error ain't nearly as bad as for chest.  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   # Todo: make "err" calculation more comprehensive
   real_chest  = measures['chest_circum_inches']
@@ -1586,10 +1605,8 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   #
   #   But where did these measurements actually come from?  The masks?
 
-
   pr("err_percents:\n",err_percents)
   avg_err_percent=100.0*np.mean(err_percents)
-                                
                                 
   #err_percent = 100.0 * (calced_chest_circum-real_chest) / real_chest
   #err_percent = 100.0 * (calced_chest_circum-real_chest) / real_chest
@@ -1781,6 +1798,12 @@ def test_measure():
 
 #===================================================================================================================================
 if __name__=="__main__":
+  A=9
+  test_arr=np.arange(A*3).reshape((A,3))
+  height=3
+  for i,pt in enumerate(test_arr):
+    print("lines_intersection_w_plane({0}, {1}, {2}):".format(pt,test_arr[i-1],height))
+    print(lines_intersection_w_plane(pt, test_arr[i-1], height))
   NATHANS_HEIGHT_INCHES=75
   json_fname  = '/home/n/Dropbox/vr_mall_backup/json_imgs_openpose/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE____keypoints.json'
   side_fname  = '/home/n/Dropbox/vr_mall_backup/imgs/n8_side___jesus_pose_legs_closed/n8_side___jesus_pose___legs_closed___nude___grassy_background_Newark_DE___.jpg'
