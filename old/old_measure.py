@@ -349,3 +349,248 @@ if __name__=="__main__":
 
 
 
+# from measure.py as of Fri Mar  8 10:35:19 EST 2019:
+  '''
+  vt=cKDTree(vs, copy_data=True) # TODo: make sure these names are consistent (ie. either all short like v_t or all descriptive like vert_tree)
+  # Note: Testing whether model is oriented correctly:     It seems it is.
+  cube=np.array([ [      0,      0,      0,],
+                  [      0,      0, z_max ,],
+                  [      0, y_max ,      0,],
+                  [      0, y_max , z_max ,],
+                  [ x_max ,      0,      0,],
+                  [ x_max ,      0, z_max ,],
+                  [ x_max , y_max ,      0,],
+                  [ x_max , y_max , z_max ,],]).astype("float64")
+  p0=vt.data[vt.query(cube[0])[1]]; p1=vt.data[vt.query(cube[1])[1]]; p2=vt.data[vt.query(cube[2])[1]]; p3=vt.data[vt.query(cube[3])[1]]; p4=vt.data[vt.query(cube[4])[1]]; p5=vt.data[vt.query(cube[5])[1]]; p6=vt.data[vt.query(cube[6])[1]]; p7=vt.data[vt.query(cube[7])[1]]
+
+  #                                   RESULTS:
+  pr("p0:",p0)                          # p0: [ 9.85292562 18.25485839  8.2885409 ]
+  pr("p1:",p1)                          # p1: [24.11407082  7.41028286 72.78951963]
+  pr("p2:",p2)                          # p2: [ 0.45696223 29.51314676  0.21197051]
+  pr("p3:",p3)                          # p3: [25.9614062  14.3200455  74.71568264]
+  pr("p4:",p4)                          # p4: [55.20888442 19.38908581 11.33892357]
+  pr("p5:",p5)                          # p5: [30.59125137  6.16716044 72.10696399]
+  pr("p6:",p6)                          # p6: [60.91727507 25.42253024  8.94314535]
+  pr("p7:",p7)                          # p7: [29.14528445 15.35900081 74.65673826]
+  '''
+
+  vt=cKDTree(vs, copy_data=True) # TODo: make sure these names are consistent (ie. either all short like v_t or all descriptive like vert_tree)
+
+  # Todo: refactor decision: 0 vs. (x_min or y_min)?
+  quad=np.array([ [      0,      0,chest_h,],
+                  [      0, y_max ,chest_h,],
+                  [ x_max , y_max ,chest_h,],
+                  [ x_max ,      0,chest_h,],]).astype("float64")
+  # NOTE: I chose to put the points of "quad" in this weird, illogical order b/c it makes calculating approximate perimeter easier later
+  pr("quad:\n{0}   \n\n(we're getting the endpoints of the chest cross-section from this)\n".format(quad))
+  K=1; IDX=1
+  #  quad:                                                                                      NO GOOD.     
+  # [[ 0.          0.         55.90405904]          pt0: [21.74963849 11.08709837 46.94066765]
+  #  [ 0.         62.4291962  55.90405904]    ==>   pt1: [23.13935033 16.36705111 47.54809897]
+  #  [62.4291962  30.58900293 55.90405904]          pt2: [32.86014707 13.87639756 46.46942123]
+  #  [62.4291962   0.         55.90405904]]         pt3: [31.42370296  6.02317215 58.62576271]
+
+
+  # Stretch vertices in z direction:
+  # Note: The bigger STRETCH is, the more likely we are to get only verts at the same z value.
+  STRETCH=  5.; Z=2
+  svs=deepcopy(vs)
+  svs[:,Z]*=STRETCH
+  pn(1); pr("chest_h: ",chest_h); pr("STRETCH: ",STRETCH) 
+  chest_h*=STRETCH
+  pn(1); pr("chest_h: ",chest_h); pr("STRETCH: ",STRETCH) 
+  # orig_chest_h ==   55.9            inches
+  #   chest_h:      5590.405904059041
+
+  svt=cKDTree(svs, copy_data=True) # TODo: make sure these names are consistent (ie. either all short like v_t or all descriptive like vert_tree)
+  #pr(" PREVIOUSLY    :");pr("x_max: ",x_max); pr("y_max: ",y_max); pr("z_max: ",z_max); pn(9)
+  x_max = np.max(svs[:,0]); y_max = np.max(svs[:,1]); z_max = np.max(svs[:,2])
+  x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
+  if debug:
+    pr(" AFTER STRETCH :");pr("x_max: ",x_max); pr("y_max: ",y_max); pr("z_max: ",z_max); pn(9)
+  s_quad=np.array([ [      0,      0,chest_h,],
+                    [      0, y_max ,chest_h,],
+                    [ x_max , y_max ,chest_h,],
+                    [ x_max ,      0,chest_h,],]).astype("float64")
+  K=70 # if K is higher, we get more of the potential polygon points.  But we also get more noise
+  pt0=svt.data[svt.query(s_quad[0])[IDX]]; pt1=svt.data[svt.query(s_quad[1])[IDX]]; pt2=svt.data[svt.query(s_quad[2])[IDX]]; pt3=svt.data[svt.query(s_quad[3])[IDX]]
+  pts_near_chest0=svt.data[svt.query(pt0,k=K)[1]] # Todo: rename
+  pts_near_chest1=svt.data[svt.query(pt1,k=K)[1]]
+  pts_near_chest2=svt.data[svt.query(pt2,k=K)[1]]
+  pts_near_chest3=svt.data[svt.query(pt3,k=K)[1]]
+  pts_near_chest=np.unique(np.concatenate((pts_near_chest0,pts_near_chest1,pts_near_chest2,pts_near_chest3),axis=0),axis=0)
+  pr("pts_near_chest.shape:  ", pts_near_chest.shape)
+  pr(K*4)                     # 80 total pts
+  pr(pts_near_chest.shape[0]) # 24 unique pts
+  pr("pts_near_chest:\n ",pts_near_chest);pn(3)
+  pn(9); pr("pt0:",pt0); pr("pt1:",pt1); pr("pt2:",pt2); pr("pt3:",pt3)
+  calced_chest=perim_poly((pt0,pt1,pt2,pt3))
+  #pts_near_chest=pts_near_chest[] # should be only the xy pts (project the chest polygon onto the z=0 plane)
+  pr("pts:\n{0}\n{1}\n{2}\n{3}".format(pt0,pt1,pt2,pt3))
+  xy_pts=pts_near_chest[:,:pts_near_chest.shape[1]-1] # shape (n,2)
+  hull=ConvexHull(xy_pts) #scipy.spatial.
+  vertices = hull.vertices.tolist() + [hull.vertices[0]] # Todo: shorten
+  pe(69); pn(9); pr("xy vertices: \n",xy_pts[vertices]); pn(9); pe(69)
+  perim_edgepts=xy_pts[vertices]
+  pr('perim_edgepts: \n',perim_edgepts)
+  pr('perim_edgepts.shape:',perim_edgepts.shape)
+  X=0; Y=1
+  plt.title("Nathan\'s Chest cross section:   ConvexHull")
+  plt.scatter(perim_edgepts[:,X],perim_edgepts[:,Y]); plt.show()
+  perim     = np.sum([euclidean(x, y) for x, y in zip(perim_edgepts, perim_edgepts[1:])])
+  calced_chest=perim
+
+  # NOTES: went down to 38.04621572659287   (b4 STRETCH, was 40.22217968662046).  As of commit 692fc87, the chest calculation is 27.196557168098682.   The real (empirical) measurement for Nathan's chest_circum is 34.575946247110544 inches.   Hm.... I was thinking it ought to be SMALLER than the real measurement.  I think it's because the STRETCH increases the magnitude of chest_circum enough to cancel out the decrease from it being quad instead of ~elliptical
+  #                  pt0: [  24.78644235   10.96347829 5032.98328219]
+  #                  pt1: [  24.0617395    13.36335661 5040.39916411]
+  #                  pt2: [  28.02287236   12.0112951  5030.3883187 ]
+  #                  pt3: [  29.74478009    6.43362254 5036.59004338]
+  # Todo:
+
+
+  pr("Chest circumference in inches: ", calced_chest)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  #Mon Mar 11 09:32:05 EDT 2019
+    # finding the perimeter of the .obj mesh at height:
+  intersecting_faces=[]
+  for edge in intersecting_edges:
+    v0_idx=edge[0]
+    v1_idx=edge[1]
+    adj_faces_0=adjs[v0_idx]
+    for face in adj_faces_0:
+      if v1_idx in face:
+        intersecting_faces.append(face)
+  print("len(faces): ",len(faces))
+  print("len(intersecting_faces): ",len(intersecting_faces))
+
+
+  '''
+  #=========================================
+  def faces_at_height(faces, height, verts, window, which_ax, ax):
+    # This func is BROKE.
+    #   len(faces)     :  13776
+    #   len(faces_at_h):  32400
+    # fast
+    out_faces=[]
+    for face in faces:
+      for v_idx in face:
+        if verts[v_idx][ax] < height + window and verts[v_idx][ax] > height - window:
+          out_faces.append(face)
+    return out_faces
+  '''
+  print("len(faces)     : ",len(faces))      # len(faces): 32400
+  def face_hash_table(faces, height):
+    for i,face in enumerate(faces):
+      # TODO:  put the face indices in a dictionary and use it to vastly speed up faces_attached()
+      pass
+  def faces_attached(edges, faces, verts):
+  # TODO: fix this.
+  #  real  1m54.993s
+  #  user  1m57.233s
+  #  sys 0m1.181s
+
+  # TODO: fix this.  OMG it got WORSE when I used faces_at_height()!  faces must be HUGE.  I'll have to do something about this tonight/tomorrow
+  #print("len(faces_at_h):",len(faces_at_h)) # len(faces_at_h): 32400
+  #real 3m54.254s
+  #user  3m57.056s
+  #sys 0m1.073s
+
+    # The Brute-force implementation is DIRT SLOW
+    face_list=[]
+    for edge in edges:
+      v0=edge[0]
+      v1=edge[1]
+      for face in faces:
+        if v0 in face and v1 in face:
+          face_list.append(face)
+    return face_list
+  #====== end faces_attached(params) =======
+  #faces=faces_attached(intersecting_edges, faces_at_h, verts)    # SLOW
+
+
+
+#Mon Mar 11 14:38:17 EDT 2019
+  # calculate mesh_resolution:   (the area of each triangle in the mesh, on average):
+  mesh_resolution=0 # should end up at 0.652 by the end
+  for f in fs:
+    v0=vs[f[0]].reshape((1,3))
+    v1=vs[f[1]].reshape((1,3))
+    v2=vs[f[2]].reshape((1,3))
+    tri=np.concatenate((v0,v1,v2),axis=0).astype('float64')
+    mesh_resolution+=tri_area(tri)
+  mesh_resolution/=len(fs) # avg area of triangles in the body mesh.
+  #pr("mesh_resolution:  ",mesh_resolution) # for HMR,  mesh_resolution was 0.0001195638271130602 .
+
+#===================================================================================================================================
+  # NOTE: what's this "b" at the beginning of the line?   b'f 6310 1331 4688\n'  from 'rb' in with open(fname, 'rb') as f:       guessing it means binary or something like that.
+  # with open(fname, 'rb') as f:
+

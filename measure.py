@@ -235,8 +235,8 @@ def estim8_w8(json_fname, front_fname, side_fname, height):
 
 
 #===================================================================================================================================
-def measure_body_viz(json_fname, front_fname, side_fname, cust_h):
-# used to be called "chest_waist_hips_circum(json_fname, front_fname, side_fname, cust_h)"
+def measure_body_viz(json_fname, front_fname, side_fname, cust_height):
+# used to be called "chest_waist_hips_circum(json_fname, front_fname, side_fname, cust_height)"
   '''
     Circumference (perimeter) of body at the nipple level
     This method of finding the chest circumference assumes the customer's arms are perpendicular to the person's height (I call this "jesus pose,").  They don't NEED to be in this pose, but they definitely cannot be relaxed at the person's sides or "below" parallel to the ground.
@@ -361,7 +361,7 @@ def measure_body_viz(json_fname, front_fname, side_fname, cust_h):
   chest_l=np.count_nonzero( side_mask[nip_h])           # "length," but what this really means is distance from back to nipple.
   waist_l=np.count_nonzero( side_mask[belly_button_h])  # "length," but what this really means is distance from back to nipple.
   hip_l=np.count_nonzero( side_mask[hip_h])  # "length," but what this really means is distance from back to nipple.
-  real_h_scale=cust_h/pix_height
+  real_h_scale=cust_height/pix_height
   if debug:
     side_mask[nip_h-1         :nip_h+1          ] = 0
     side_mask[belly_button_h-1:belly_button_h+1 ] = 0
@@ -1233,9 +1233,8 @@ def lines_intersection_w_plane(vert_0, vert_1, height):
   x0,y0,z0=vert_0
   x1,y1,z1=vert_1
   a,b,c=vert_0-vert_1
-  print(a,b,c)
   x_new=(a*(height-z0)/c)  +x0
-  y_new=(b*(height-z0)/c)  +y0   # I messed up the **** algebra.  Let this be a lesson to always double-check the most important parts of your code: the actual calculations.  20% of the code does 80% of the work.
+  y_new=(b*(height-z0)/c)  +y0
   # see algebra from https://math.stackexchange.com/questions/404440/what-is-the-equation-for-a-3d-line
   intersect_pt= x_new,y_new,height
   return intersect_pt
@@ -1248,244 +1247,32 @@ def mesh_perim_at_height(verts, faces, height, window=19.952, which_ax='z', ax=2
   # len(faces)      : 13776
 
   # TODO: iterate through the faces once, wherever one edge has 2 pts: 1 above height and the other below, calculate the intersection point and toss the intersection points into ConvHull_perim().
-  '''
   adjs=adjacents(verts, faces)
-  for face in faces:
-  for vert_idx,vert in enumerate(verts):
-    adjs
-  '''
-  adjs=adjacents(verts, faces)
-  intersection_count=0# intersection_count: 264    Is this one right or is 792 right?  At least we're SURE 792 was wrong, right?   uggggggh
+  print("verts.shape:",verts.shape)
   perim_pts=[]
   for face in faces:
-    vert_0=verts[face[0]]
-    vert_1=verts[face[1]]
-    vert_2=verts[face[2]]
-    z0=vert_0[ax]
-    z1=vert_1[ax]
-    z2=vert_2[ax]
-    if (z0 > height and z1 < height) or (z0 < height and z1 > height):
-      intersection_pt=lines_intersection_w_plane(vert_0,vert_1,height)
-      perim_pts.append(intersection_pt)
-      intersection_count+=1
-    if (z0 > height and z2 < height) or (z0 < height and z2 > height):
-      intersection_pt=lines_intersection_w_plane(vert_0,vert_2,height)
-      perim_pts.append(intersection_pt)
-      intersection_count+=1
-    if (z1 > height and z2 < height) or (z1 < height and z2 > height):
-      intersection_pt=lines_intersection_w_plane(vert_1,vert_2,height)
-      perim_pts.append(intersection_pt)
-      intersection_count+=1
+    vert_0=verts[face[0]]; vert_1=verts[face[1]]; vert_2=verts[face[2]]
+    def line_seg_crosses_height(pt1,pt2,h,ax='z'):
+      return (pt1[ax]>h and pt2[ax]<h) or (pt1[ax]<h and pt2[ax]>h) # default is z
+    if line_seg_crosses_height(vert_0,vert_1,height,ax):
+      perim_pts.append(lines_intersection_w_plane(vert_0,vert_1,height))
+    if line_seg_crosses_height(vert_0,vert_2,height,ax):
+      perim_pts.append(lines_intersection_w_plane(vert_0,vert_2,height))
+    if line_seg_crosses_height(vert_1,vert_2,height,ax):
+      perim_pts.append(lines_intersection_w_plane(vert_1,vert_2,height))
   perim_pts=np.array(perim_pts)
-  print("perim_pts.shape:",perim_pts.shape)
-  #print("intersection_count:",intersection_count);pn(3) # intersection_count: 264    Is this one right or is 792 right?  At least we're SURE 792 was wrong, right?   uggggggh
-  plt.title("Vertices in SMPL mesh at loc {0} along the \n{1} axis\nwith {2} points".format(height, which_ax, len(perim_pts)))
-  plt.scatter(perim_pts[:,0],perim_pts[:,1]); plt.show()
+  title="Vertices in SMPL mesh at loc {0} along the \n{1} axis\nwith {2} points".format(height, which_ax, len(perim_pts))
+  print(perim_pts.shape)
+  viz.plt_plot_2d(perim_pts, title)
   perim=conv_hulls_perim(perim_pts[:,:2])
-  print("perim:",perim) # still 116.11386265654646 ....   hm...   Bad.....  Maybe the bug is in the intersection calculation NOTE:
-  """
-  #print("np.max(perim_pts[:,2]):",np.max(perim_pts[:,2]))# 55.90405904059041
-  #print("np.min(perim_pts[:,2]):",np.min(perim_pts[:,2]))# 55.90405904059041   # NOTE: GOOD!
-
-  edges=[]
-  intersecting_edges=[]
-  sort_indices  = np.argsort(verts[:,ax]) # low to high
-  sorted_verts  = verts[sort_indices]
-  adjs=adjacents(verts, faces)
-  print("adjacents() finished")
-  hits=0
-  for v_idx,loc in enumerate(sorted_verts[:,ax]):
-    if loc > height - window and loc < height + window:
-      hits+=1
-      adj_faces=adjs[sort_indices[v_idx]]
-      for face in adj_faces:
-        edges.append((face[0],face[1]))
-        edges.append((face[0],face[2]))
-        edges.append((face[1],face[2]))
-        if np.random.random()<0.01:
-          print(face[1],face[2])
-  #print("hits:",hits)              # hits: 5401 at window=19.952
-  print("len(edges):",len(edges))  # 10371
-
-  # find intersecting edges:    find_intersecting_edges(edges, height, verts, )
-  for edge in edges:
-    #vert=verts[edge[0]]
-    z0= verts[edge[0]][ax]
-    z1= verts[edge[1]][ax]
-    if (z0 > height and z1 < height) or (z1 > height and z0 < height):
-      if np.random.random()<0.05:
-        print("z0:",z0)
-        print("z1:",z1)
-      intersecting_edges.append(edge)
-  #viz.plot_pts_3d(pts_2_graph)  tooo many.  But they look mostly like you'd expect.
-  print("len(intersecting_edges):",len(intersecting_edges))  # 792
-  #=====================================================================
-  def pts_along_perim(verts, edges, height):
-    '''
-      @Precondition: sort edges 
-
-      ------
-      Notes:
-      ------
-        https://math.stackexchange.com/questions/404440/what-is-the-equation-for-a-3d-line
-
-    '''
-    # Todo; generalize to axes other than z
-    perim_pts=[]
-    for edge in edges:
-      v0_i=edge[0] # "i" for idx
-      v1_i=edge[1]
-      x0,y0,z0=verts[v0_i]
-      x1,y1,z1=verts[v1_i]
-      a,b,c=verts[v0_i]-verts[v1_i]
-      x_new=a*  (x0+  ((height-z0)/c))
-      y_new=b*  (y0+  ((height-z0)/c))
-      # see algebra from https://math.stackexchange.com/questions/404440/what-is-the-equation-for-a-3d-line
-      intersect_pt= x_new,y_new,height
-      if False: #np.random.random()<0.3:
-        print("z0:",z0)
-        print("z1:",z1)
-        print("intersect_pt:",intersect_pt)
-      perim_pts.append(intersect_pt)
-    return np.array(perim_pts)
-    #perim=np.sum([euclidean(x, y) for x, y in zip(perim_pts, perim_pts[1:])]) # perim
-    # NOTE:  we want perim(scipy.spatial.ConvexHull()) instead of raw perim
-    #return perim
-  #=====================================================================
-  perim_pts=pts_along_perim(verts, intersecting_edges, height)
-  print("height:",height)
-  print("perim_pts.shape:",perim_pts.shape)
-  plt.title(" Cross Section:    \n with {0} points".format(perim_pts.shape[0])) # 792 points
-  X=0; Y=1
-  plt.scatter(perim_pts[:,X],perim_pts[:,Y]); plt.show()
-  #viz.plot_pts_3d(perim_pts)
-  # TODO take convHull
-  perim=conv_hulls_perim(perim_pts[:,:2])
-  print("perim(convHull):",perim)
+  print("perim:",perim)
   return perim
-  """  # TODO NOTE TODO NOTE UNCOMENT
- 
-  """
-  pn(9);pe(69)
-  for edge in intersecting_edges:
-    print(edge)
-  pe(69);pn(9)
-  #print("np.unique(intersecting_edges).shape:\n",np.unique(intersecting_edges).shape) #  np.unique(intersecting_edges).shape: (132,)
-
-  print(" intersecting_edges[0]:", intersecting_edges[0])
-  print(" intersecting_edges[1]:", intersecting_edges[1])
-  print(" intersecting_edges[2]:", intersecting_edges[2])
-  print(" len(intersecting_edges):", len(intersecting_edges))
-  # Do these puppers (intersecting_edges) not snake all the way around the "height plane?"
-  #  len(intersecting_edges): 792 at window=9.952 AND 19.952.
-
-  # Sort edges such that we have the entire snake around the mesh at height "height"
-  edge_dict={}
-  for i,edge in enumerate(intersecting_edges):
-    edge_dict[edge[0]]=[]
-    edge_dict[edge[1]]=[]
-  print(edge_dict)
-  print("len(edge_dict.keys()):",len(edge_dict.keys()))
-  for edge in intersecting_edges:
-    edge_dict[edge[0]].append(edge)
-    edge_dict[edge[1]].append(edge)
-  print('edges sorted')
-  # TODO: sort edges
-  # find all pts along the perimeter of the mesh's intersection with the height-plane
-  """
 #=============== end mesh_perim_at_height(params) ===============
 
 
 
-
-
-
-#===================================================================================================================================
-  # NOTE: what's this "b" at the beginning of the line?   b'f 6310 1331 4688\n'  from 'rb' in with open(fname, 'rb') as f:       guessing it means binary or something like that.
-  # with open(fname, 'rb') as f:
-
-#===================================================================================================================================
-def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
-  # TODO:  debug.  Ideal would be us somehow simultaneously seeing the whole mesh and also the cross-section plane intersecting it.  State of the program as of Thu Mar  7 11:46:02 EST 2019 is the waist_circum calculation doesn't work.  1st we have to be able to accurate locate the chest, then 2nd we have to get all the intersections of the plane with the SMPL model (much harder with .obj files than it looks).  Unfortunately, if we don't precisely get the curve where SMPL intersects that height plane, it's hard to evaluate the chest circumference.
-#=====================================================================
-  # Program's curr state: (Mar 7, 2019):
-  # 1. Find height from openpose keypoints json (debug)
-  # 2. Use height to approximately find the points in SMPL that should correspond to the chest circumference  (this step is currently VERY complicated and needs double-debugging)
-  #   a.  Many substeps
-  # 3. Take the perimeter of that polygon (the approx cross-section of SMPL)
-  # 4. 
-#=====================================================================
-
-  # TODO: finalize docstring once function is closer 2 finalized
-  '''
-    Finds how far the mesh in the .obj file from the real person's measurements.  ("error")
-
-    Gets hip, waist, and chest circumferences from an .obj file describing a human body.
-
-    0.  Get hip height from openpose json keypoints
-      a.  Scale hip height to real height
-    1. Get stuff to calculate circumferences
-     -a.  Make sure mesh is in proper "z=up" position  (rotations/pltshow()/KDTree, etc.)
-      0.  Get back from belly button 
-      a.  First shift the model to the (+,+,+) octant.
-      b.  Then scale the .obj mesh (model) to cust_h
-      c.  Find points at heights hip, waist, chest
-        1.  Is it worth the time complexity investment in a  KDTree?    Not octree; KDTrees sort more like distance-finders whereas octrees are more about partitioning the space (~BSTree but Cartesian)
-          a.  Almost certainly; tflow and openpose are by far the most complex, time-consuming dependencies
-        1st, set point at (0,0,hip_h); query the KDTree().query() to find the 1st pt
-        2nd, set another pt at (x_max, y_max, hip_h), call KDTree.query(pt2) to find the last endpt
-        3rd, set another pt at (    0, y_max, hip_h), call KDTree.query(pt3) to find the 3rd endpt
-        4th, set another pt at (x_max,     0, hip_h), call KDTree.query(pt4) to find the last endpt
-        This (4 pts) takes a few more queries than using a triangle, but it's prob slightly easier to understand and debug than trying to get an equilateral triangle and do it that way.
-        Then u gotta figure out how to do directed graph search on 4 pts in R3.
-      d.
-      e.  Be able to visualize mesh so I can rotate nathan_mesh.obj to the correct orientation (where z=up) before I can find points at chest_height
-
-    2.  Calculate circumference
-      2.  Left  path from belly to back
-        a.  A* search
-      3.  Right path from belly to back
-      4.  Connect those 2 paths (right and left) into a polygon
-      5.  Elliptic curves would probably be more accurate than said polygon, but more complex to code.
-
-    3.  Or simpler, calculate the polygon perimeter directly and subtract some constant for up-down shift
-      a.  rename
-    4. 
- 
-    ------
-    Params
-    ------
-    vs: vertices
-
-  '''
-  # Yet yet TODO:
-    # Check mesh measurements on a mesh that actually resembles Nathan (nxb)   (NNN method)
-    #   No, Nathan's just REAAAALLLY thin.  Holy shit, man.  NNN method looked about right to me the 1st time I did it, but the actual measurements were still pretty off (38 inch chest predicted where my actual chest circum is 34 inches)
-    # test cross_sec() with "ax='y'" and "ax='z'"
-    # switch statement depending on mesh .obj fname  (separate transforms for NNN meshes than for HMR meshes)
-  '''
-    0.  Get the RIGHT shape to take perim of
-      b0.  Given the K points, take only their (x,y) values (ie. set z=0), poly=CHull(pts), perim=perim_poly(hull_edge_pts), and use perim.
-      c. generalize the assert
-      scale CHEST_HEIGHT_RATIO with avg triangle size in mesh   Inversely or directly proportional?
-      Take the perim
-        How do we sort the points s.t. we have a good ordering for the concave polygon?
-      Ohhhhhhhhh....  The actual measurement will probably be more like the convexHull, not a concaveHull.  (think about how a measuring tape encircles a chest)
-
-      e.  Be able to visualize mesh so I can rotate nathan_mesh.obj to the correct orientation (where z=up) before I can find points at chest_height.  Hook render_smpl() up to arbitrary .obj (verts) mesh?
-        Then u gotta figure out how to do directed graph search on 4 pts in R3.
-      d.
-
-    2.  Calculate circumference
-    3.  Or simpler, calculate the polygon perimeter directly and subtract some constant for up-down shift
-    4. 
-
-  '''
- # Todo: make sure these names are consistent (ie. either all short like v_t or all descriptive like vert_tree)
-
-  # func name mesh_err()
-  #obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'
-  # Load .obj file
+#================================================================
+def parse_obj_file(obj_fname):
   verts=[]
   faces=[]
   with open(obj_fname, 'r') as f:
@@ -1495,97 +1282,94 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
       elif line.startswith('f'):
         faces.append(line)
         # Note: faces start indexing at 1
-  vs=np.zeros((len(verts), 3)).astype("float64") # 'vs' means verts
+  verts_arr=np.zeros((len(verts), 3)).astype("float64") # 'vs' means verts
   fs=np.zeros((len(faces), 3)).astype("int64"  ) # 'fs' means faces
-  heights=np.zeros(len(verts)).astype("float64")
   X,Y,Z=1,2,3
-  for idx,v in enumerate(verts):
-    v=v.split(' ')
-    vs[idx]=v[X],v[Y],v[Z]
-  # Todo: refactor: switch statement like referenced in  #https://stackoverflow.com/questions/60208/replacements-for-switch-statement-in-python#60211
+  for idx,vert in enumerate(verts):
+    vert=vert.split(' ')
+    verts_arr[idx]=vert[X],vert[Y],vert[Z]
     #case={}.get(x,DEFAULT_RET_VAL)
     #generating_method='HMR' or 'NNN' or 'VHMR' or ...
+  #pr("measures:"); #p(measures) #print("chest_h:", chest_h) # measured, 55.9 inches is ~correct
+
+  # read in faces
   for idx,f in enumerate(faces):
     f=f.split(' ')
     fs[idx]=np.array([int(f[1]),int(f[2]),int(f[3])]).astype("int64")-1
     # see .obj file for why these conventions are like they are.  each face is described as a sequences of 3 vertices:  ie. "f 1 99 4"
     # in .obj files, face indexing starts at 1  (face 1 might be 1 2 3 rather than 0 1 2, referring to vertices 1, 2, and 3)
+  faces=fs
+  verts=verts_arr
+  return verts, faces
+#=============== end parse_obj_file(params) =============== 
 
-  # calculate mesh_resolution:   (the area of each triangle in the mesh, on average):
-  mesh_resolution=0 # should end up at 0.652 by the end
-  for f in fs:
-    v0=vs[f[0]].reshape((1,3))
-    v1=vs[f[1]].reshape((1,3))
-    v2=vs[f[2]].reshape((1,3))
-    tri=np.concatenate((v0,v1,v2),axis=0).astype('float64')
-    mesh_resolution+=tri_area(tri)
-  mesh_resolution/=len(fs) # avg area of triangles in the body mesh.
-  #pr("mesh_resolution:  ",mesh_resolution) # for HMR,  mesh_resolution was 0.0001195638271130602 .
+
+#====================================================================================
+def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
+  '''
+    Program's curr state: (Mar 11, 2019):
+    1. Find height from openpose keypoints json (debug)
+      a.  This part (openpose) is WAY TOO SLOW.  Maybe with AWS' higher RAM/GPU we will be able to get into a workflow.
+    2. Use height to approximately find the points in SMPL that should correspond to the chest circumference
+    3. Take the perimeter of the ConvexHull() of that polygon (the approx cross-section of SMPL)
+
+    ------
+    Params
+    ------
+    obj_fname:  the .obj mesh filename (in .obj format) to read faces and vertices from
+    json_fname:  openpose keypoints json
+    front_fname:  picture of the customer taken from the front
+    side_fname:   Picture of the customer from the side (ie. prisoners' mugshot 2 (https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fcdn-s3.thewrap.com%2Fimages%2F2014%2F01%2Fjustin-bieber-side-mugshot.jpg&f=1))
+    cust_height: customer's height in INCHES
+
+  '''
+  # func name mesh_err()
+  #obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'
+
+  # Load .obj file
+  verts,faces=parse_obj_file(obj_fname)
 
   # geometric transformations to put the mesh in the "upright" position (ie. +z is where the head is, arms stretch out in +/-x direction, chest-to-back is +/-y direction.)
   if 'HMR' in obj_fname.upper():
     # do shifts like done below
     mode='HMR'
-    vs, extrema=normalize_mesh(vs, mode)
+    verts, extrema=normalize_mesh(verts, mode)
   elif 'NNN' in obj_fname.upper():
     mode='NNN'
-    vs, extrema=normalize_mesh(vs, mode)
+    verts, extrema=normalize_mesh(verts, mode)
+  print("mesh was generated by ":mode)
   x_min, x_max, y_min, y_max, z_min, z_max = extrema
 
-  # Scale to real-life-sizes (inches):
-  #print("z_len:",z_len) # 75 inches.  Todo remeasure your own chest
-  # x_len: #62.42919620498712
-  # y_len: #30.58900292737982
-  vs    = vs * cust_h / z_max
-  x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(vs)
+  # Scale to real-life-sizes (cust_height in inches):
+  verts    = verts * cust_height / z_max
+  x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(verts)
 
-  # chest
+  # Use openpose keypoints json to get measurements
+  measures= measure_body_viz(json_fname, front_fname, side_fname, cust_height)
+  chest_h = measures['chest_height_inches']  # Nathan's real chest_h is 57 inches
+  hip_h   = measures['hip_height_inches']    # Nathan's real hip_h   is    inches
+  waist_h = measures['waist_height_inches']  # Nathan's real waist_h is    inches
 
-  #pr("vs.shape:",vs.shape) # (~6000,3)  ie. (BIG,3)
-  # no good if in "Jesus pose" and wingspan is longer than height; we just want +z to be "up."
+  print("chest_h:",chest_h )
+  print("hip_h:",hip_h )
+  print("waist_h:",waist_h )
+  x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(verts)
+  print("x_min: {0}\nx_max: {1}\ny_min: {2}\ny_max: {3}\nz_min: {4}\nz_max: {5}\nx_len: {6}\ny_len: {7}\nz_len: {8}\n".format(x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len))
 
-  # Use openpose to get other measurements
-  measures= measure_body_viz(json_fname, front_fname, side_fname, cust_h)
-  chest_h = measures['chest_height_inches']  # Nathan's chest_h is 57 inches
-  hip_h   = measures['hip_height_inches']    # Nathan's hip_h   is    inches
-  waist_h = measures['waist_height_inches']  # Nathan's waist_h is    inches
-  #pr("measures:"); #p(measures) #print("chest_h:", chest_h) # measured, 55.9 inches is ~correct
+  calced_chest_circum = mesh_perim_at_height(verts, faces, chest_h, which_ax='z')
+  calced_hip_circum = mesh_perim_at_height(verts, faces, hip_h, which_ax='z')
+  calced_waist_circum = mesh_perim_at_height(verts, faces, waist_h, which_ax='z')
 
-  # check that this (CHEST_HEIGHT_RATIO, chest_h, etc.) actually works for NNN too
-  # chest len should be something like the number of inches from bottom of nipple to top of nipple.
-  # TODO make CHEST_HEIGHT_RATIO adaptive to resolution(SMPL_mesh)
-  CHEST_HEIGHT_RATIO=0.652/cust_h # 1 inch chest; 75 inch height
-  # Ideal CHEST_HEIGHT_RATIO based on '/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj' is 0.65/75==0.008666666666666666.
-  # TODO make CHEST_HEIGHT_RATIO adaptive to resolution(SMPL_mesh)
-  # by "resolution(SMPL_mesh)," I mean "how small are the triangles in the SMPL_mesh on average?"
-
-  # Todo: refactor to "show_chest_cross_section()" or something like that.
-  # calculate
-  waist_len   =hip_len=chest_len=       z_len*CHEST_HEIGHT_RATIO  # 29  ; super big
-  # TODO: throw mesh_resolution in here somewhere
-  perim = mesh_perim_at_height(vs, fs, chest_h, which_ax='z')
-  return
-  chest_vs_xy = cross_sec(vs, chest_h,  window=chest_len)
-  hip_vs_xy   = cross_sec(vs, hip_h,    window=hip_len+0.6)
-  waist_vs_xy = cross_sec(vs, waist_h,  window=waist_len+0.7) 
-  #"window=waist_len+1" helped for waist.  Idk why.
-  calced_chest_circum = conv_hulls_perim(chest_vs_xy)
-  calced_hip_circum   = conv_hulls_perim(hip_vs_xy)
-  calced_waist_circum = conv_hulls_perim(waist_vs_xy)
   # TODO: 
   pr("calced_chest_circum:  ", calced_chest_circum)  # real is ~34 inches (ConvexHull)
   pr("calced_hip_circum  :  ", calced_hip_circum)    # real is ~32 inches (ConvexHull)
   pr("calced_waist_circum:  ", calced_waist_circum)   # real is ~30 inches (ConvexHull)
 
   # HMR:                                                  #   when chest_len=29:
-  #calced_chest_circum:   41.31167530329451               calced_chest_circum:   133.65022701740838
-  #calced_hip_circum  :   35.01229821993187               calced_hip_circum  :   48.241225584140174
-  #calced_waist_circum:   33.447041585654304              calced_waist_circum:   74.78819209185819
-
-  #                 after adjusting to get enough points, waist circum is: 
-  #                       34.849151748404665
-  # NOTE: why the f*** are these hip and waist so much smaller?  
-  #   They're still on the pudgy side, but the error ain't nearly as bad as for chest.  
+  # PRECISE answers (using ConvexHull of the actual plane-intersection-with-.obj-file-mesh):
+  #calced_chest_circum:   41.37312593391364
+  #calced_hip_circum  :   35.30089642536351
+  #calced_waist_circum:   34.32977560896902
 
   # Todo: make "err" calculation more comprehensive
   real_chest  = measures['chest_circum_inches']
@@ -1602,18 +1386,19 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_h):
   # 'hip_height_inches'  : 41.78966789667897,
   # 'waist_circum_inches': 33.58803601511559,
   # 'waist_height_inches': 45.664206642066425}
-  #
-  #   But where did these measurements actually come from?  The masks?
+
+  #   But where did these measurements ACTUALLY come from?  The masks?  I think so (as of Mon Mar 11 15:19:31 EDT 2019)
 
   pr("err_percents:\n",err_percents)
-  avg_err_percent=100.0*np.mean(err_percents)
-                                
+  avg_err_percent=100.0*np.mean(err_percents) # this "avg_err_percent" is really not the best measure of error.
+  #IMHO, we want to see the WORST the method does; not the avg
+ 
   #err_percent = 100.0 * (calced_chest_circum-real_chest) / real_chest
   #err_percent = 100.0 * (calced_chest_circum-real_chest) / real_chest
   err_percent = avg_err_percent
   pe(69); pr("Leaving function ",sys._getframe().f_code.co_name); pe(69)
   pn(29)
-  return err_percent, measures, vs
+  return err_percent, measures, verts
 #=========================== end mesh_err() ===========================
 
 
@@ -1798,12 +1583,6 @@ def test_measure():
 
 #===================================================================================================================================
 if __name__=="__main__":
-  A=9
-  test_arr=np.arange(A*3).reshape((A,3))
-  height=3
-  for i,pt in enumerate(test_arr):
-    print("lines_intersection_w_plane({0}, {1}, {2}):".format(pt,test_arr[i-1],height))
-    print(lines_intersection_w_plane(pt, test_arr[i-1], height))
   NATHANS_HEIGHT_INCHES=75
   json_fname  = '/home/n/Dropbox/vr_mall_backup/json_imgs_openpose/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE____keypoints.json'
   side_fname  = '/home/n/Dropbox/vr_mall_backup/imgs/n8_side___jesus_pose_legs_closed/n8_side___jesus_pose___legs_closed___nude___grassy_background_Newark_DE___.jpg'
@@ -1978,7 +1757,7 @@ if __name__=="__main__":
     159: segments(polygon):
     165: area_polygon(polygon):
     199: estim8_w8(json_fname, front_fname, side_fname, height):
-    225: chest_circum(json_fname, front_fname, side_fname, cust_h):
+    225: chest_circum(json_fname, front_fname, side_fname, cust_height):
     340: fac(n):
     351: half_c_n(n):
     363: sequence(n,h):
