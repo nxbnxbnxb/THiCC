@@ -181,7 +181,7 @@ def seg(img):
   MODEL = DeepLabModel(download_path) # segment_local()
   FAIRLY_CERTAIN=127
   return seg_map(img, MODEL)
-#=====  end segment_local(local_filename) =====
+#=====  end seg(params) =====
 #================================================================
 def segment_local(local_filename):
   img=np.asarray(ii.imread(local_filename))

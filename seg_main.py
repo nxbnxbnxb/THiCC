@@ -3,6 +3,8 @@ import os
 import sys
 from seg import segment_local as seg_local
 from utils import pn
+import numpy as np
+np.seterr(all='raise')
 
 def segs(img_dir):
   # TODO: sort properly according to .... time?  You'll figure it out later.

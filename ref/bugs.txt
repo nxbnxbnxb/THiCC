@@ -142,6 +142,7 @@ somewhere in seg:
      Lossy conversion from int64 to uint8. Range [0, 15]. Convert image to uint8 prior to saving to suppress this warning.
 
 
+  change .astype('float64') to [no astype()]
 
 
 

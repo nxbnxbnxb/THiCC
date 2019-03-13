@@ -1,6 +1,8 @@
 import json
 import numpy as np
 import math
+import matplotlib as mpl
+mpl.use('TkAgg')
 import matplotlib.pyplot as plt
 import imageio as ii
 import os

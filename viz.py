@@ -12,6 +12,29 @@ from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
 def pltshow(x):
   plt.imshow(x); plt.show(); plt.close()
 #=========================================================================
+def plt_plot_2d(pts,title):
+  plt.title(title)
+  plt.scatter(pts[:,0],pts[:,1])
+  plt.show()
+  plt.close()
+#=========================================================================
+def plot_pts_3d(pts):
+  assert pts.shape[1]==3
+  fig = plt.figure()
+  ax = fig.add_subplot(111, projection='3d')
+  xs=pts[:,0]
+  ys=pts[:,1]
+  zs=pts[:,2]
+  ax.scatter(xs, ys, zs)
+
+  ax.set_xlabel('X ')
+  ax.set_ylabel('Y ')
+  ax.set_zlabel('Z ')
+
+  plt.show()
+#=========================================================================
+ 
+
 def cross_sections_biggest(m):
   '''
       @precondition m is a cube (a 3-d np.array)

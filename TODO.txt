@@ -1,12 +1,8 @@
 
   What did you learn today?
-    Just do it.
-      Actions per minute.
-      Mistakes are INEVITABLE.
+    Just do it.  Actions (mistakes) per minute.
     Apply Spolsky's "Joel on Software" to our work stuff
-
-  Only for TheMall.  see misc_TODO.txt for non-proj things
-
+  Big picture TODO near the bottom:
 
 
 
@@ -19,73 +15,272 @@
 
     TODO.txt
 
+
+________________________________
+
+  Tue Mar 12 18:08:25 EDT 2019
+________________________________
+
+  Find loc(betas) in Thetas.npy.
+  blender meshes to compare, try multiple (70:80, 69:79, etc.), etc
+
+
+
+
+  In HMR, everytime you run the new thing, paralellize (split it into thread 1 that shows with visualize_() and thread 2 that saves the .obj mesh, prints out the supposed betas, )
+    Probably too slow.  Is it worth spending the time to make this shiny new perfect tool?
+      No, we just wanna find the betas.
+
+
+
+
+
+
+
+  How 2 check which part of params are the betas?
+    Maybe try an extreme body and ID the most extreme value in the Thetas.  ie. 
+      1.  Jonah Hill
+      2.  Lebron James
+      3.  Some midget, etc.
+      4.  Jared Leto          skinny
+      5.
+
+    1.  Grab what you think are the betas
+    2.  Show a model overlaid over the picture with default HMR
+    3.  Try to see whether that model is the same shape as one produced by /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world .  This would be easier with a super-extreme body like Jonah Hill, Lebron James, some midget, etc.
+    4.
+    5.
+    6.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    But still TODO: which parts of the params are the betas?
+      tried 69:79, etc.
+      tried 68:78, etc.
+      I tried these b/c hmr.pdf says the first 23x3 values are the pose params theta, then it lists the betas as the next 10 values.
+
+
+  Figure out exactly where the betas are.
+
+  Aggregate all the HMR code into a single directory.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Next, we can do BNN on the betas.
+
+  1.  get numpy out of HMR tf
+    DONE.
+
+
+
+
+
+
+  Very simple fix is to feed images into HMR that are of one of the following sizes (the following are all included in HMR):
+    ( 96, 159, 3)   # 1963
+    (157, 114, 3)   # 1954
+    (224, 224, 3)   # (all of the coco.png images) coco1.png
+
+  How to maximize hmr performance:
+    Images should be tightly cropped, where the height of the person is roughly 150px
+
+    So crop, similar to vishal's deeplab.
+      skimage.
+      mask=skimage.transform.resize()
+      Image.resize()
+      One way to get the Image to call img.resize(new_shape) on, is grab an image from a video through cv2:  to do "cv2.imread(filename)" `vidcap  = cv2.VideoCapture(vid_local_path); success, img  =vidcap.read()`
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Mon Mar 11 09:07:39 EDT 2019
+________________________________
+
+  Start coding the BNN
+    Lol do I need Dario's permission tho?
+  Is it really worth evaluating HMR/VHMR first?
+
+
+
+  TheMall: list of feature ideas
+  Refactor the code a bit, clean out old sh!t
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sun Mar 10 15:00:00 EST 2019
+________________________________
+
+  
+  Coding timer!!!! OMG.
+  Coding timer!!!! OMG.
+  Coding timer!!!! OMG.
+  Coding timer!!!! OMG.
+  Coding timer!!!! OMG.
+  Coding timer!!!! OMG.
+  Coding timer!!!! OMG.
+  Coding timer!!!! OMG.
+  Coding timer!!!! OMG.
+  Coding timer!!!! OMG.
+  Coding timer!!!! OMG.
+  Coding timer!!!! OMG.
+  Coding timer!!!! OMG.
+
+  Somehow I put the "return" in the wrong place.  Make sure it goes where it should.
+  Maybe simple recursion doesn't work b/c vert still goes down but doesn't cross to the other side of "height"
+    (symmetric with "vert goes up")
+
+  Check how we're getting the initial next_point() in triang_walk() or walk_recurs().
+
+  Tell the guys Monday is better
+  Coding timer!!!! OMG.
+
+
+
+
+
+
+
+
+
+
+
+
+
 ________________________________
 
   Sat Mar  9 15:00:00 EST 2019
 ________________________________
 
-  SMPL  paper pdf
-  HMR   paper pdf
-  bodyvisualizer.com: paper pdf
 
-  Read through the code, too.
+  A.  To get the perimeter, take a plane that intersects each of the triangles in the SMPL mesh, then take the ConvexHull.
+    More detail:
+      
+    1.  Sort the vertices near the plane (just like we did in cross_sec()),
+      a.  Do "Triangle walk" along the .obj mesh triangles, straddling the proper height
+        1.  Find faces including both the starting vertices
+          a.  
+        2.  Take 3rd vert
+        3.  if high:
+          a.  Take vert_bot and 3rd vert and recurs,
+        4.  elif low:
+          a.  Take vert_top and 3rd vert and recurs,
+        5.  Return vertices as a list; when you hit the head with the tail, return the whole chalupa
+        6.
+    # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+        7.
+      b.
 
+    2.  Make a dictionary where each vertex idx (ie. vert1:[face1,face2,face3], 2:[], is the key to a list of faces,
+    3.  Find the other adjacent vertices' xyz locs  vs[idx]
+    4.  Do the triangle through them,
+    5.  Determine whether the plane intersects the triangle,  (ie. is z==5 greater than one of the vertices and less than another of the vertices?)
+    6.  Get the lines of intersection,      This is the part I'm not 100% sure on yet, but it should be doable.
+    7.  Find the points where the lines of intersection intersect,   (ie. the perimeter of the convex hull of the polygon of the smpl mesh's intersection with the plane)
+    8.  Get the convexHull around those points,
+    9.  Calculate the perimeter of that convex Hull.
+    10.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  BNN:
+    Betas neural net   (wiggles the betas until the SMPL mesh best fits the circumferences we take from the video-body-measurements)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  ________________
-
-  0.  def measurements->smpl_mesh():
-    autom8 if possible
-  ________________
-
-
+  Try mTailor properly to see whether it works
 
 
 
@@ -14675,6 +14870,95 @@ ________________________________
   We're selling TheMall as a boost to self-esteem, status, etc.
     Esp. if you're tall and awkward looking
     We have to take care of EVERYTHING for our customers; fashion tips, formality level, resizing, etc.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Big picture:
+  1.  Take video like mTailor does
+  2.  Get various measurements from it
+    a.  Take a bunch of views, grab the lengths at diff views, make a ConvexHull around those points/lengths, return perim(Hull)
+    b.  Make sure arms, lifted legs, other obstructions, etc. don't get in the way.
+    c.  How do we calculate the mask angle?  Either we need better segmentation, or there's some secret.  Probably you should just approximate it as the seconds passed.  It'll be good enough.
+  3.  BNN (beta neural net)
+    a.  "Wiggle" the betas until the perimeters of the SMPL model at various heights match the perimeters we got from the video
+
+
+  MAYBE there's a perspective / orthographic hidden in there somewhere?
+    Wait, but views only matter if the depths are different, right?
+    ie. ball and a bat in the picture, Nyle is swinging the bat from far away and the ball's going towards him
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

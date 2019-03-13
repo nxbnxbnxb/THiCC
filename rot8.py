@@ -200,7 +200,6 @@ if __name__=='__main__':
   #    array alloc only:
   # voxels=np.round(np.random.random(( 363,363,363))).astype('bool')
   #        1.060s
-  ons
 
   ons = on_locs_random_timing_test(363,363,363)
   #   our basic voxel 3d-np-arrays are 513x513x513

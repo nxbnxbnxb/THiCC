@@ -54,6 +54,7 @@ from opendr.lighting import LambertianPointLight
 from opendr.camera import ProjectPoints
 from smpl_webuser.serialization import load_model
 from smpl import write_smpl
+from Jonah_hill___Thetas import Jonah_Hill
 
 import numpy as np
 import chumpy as ch
@@ -104,17 +105,20 @@ m.betas[:] = np.zeros(m.betas.size).astype('float64')
 #m.pose[42]=1.4   # right arm pitch? yaw? roll?
 
 ## Rotates (like a backflip)
-m.pose[0] =  3.4
+m.pose[0] =  3.4  # NOTE # I'm p sure these rotations (I think it was pose[:3] that are the rotations) are taken care of differently in HMR.
 #m.pose[0] = 2.4
 m.pose[41]= -1.1  # m.pose[41] is shoulder-level rotation.
 m.pose[44]=  1.1  # m.pose[44] is shoulder-level rotation.
 # more poses after, but I don't have to deal with 'em right now.
 
-# TODO: put the following code snippet (sys.argv...) in hello_smpl.py.  It adapts to however many cmd line args you feed this module.
+# Todo: put the following code snippet (sys.argv...) in hello_smpl.py.  It adapts to however many cmd line args you feed this module.
 # Get betas from cmd line args
 for i in range(1,len(sys.argv)):
   m.betas[i-1]=float(sys.argv[i])
 # The above little chunk of command-line-args (sys.argv) parsing code should be reusable wherever we do SMPL stuff.  It adapts to however many cmd line args you put in.
+
+# NOTE temporary:
+m.betas=Jonah_Hill().reshape((10,1))
 
 ## Create OpenDR renderer
 rn = ColoredRenderer()
@@ -122,7 +126,7 @@ rn = ColoredRenderer()
 ## Assign attributes to renderer
 w, h = (640, 480) # width and height
 
-# Nathan Bendich:   NOTE to self: chumpy is a pain in the ass to mutate.
+# Nathan Bendich:   Note to self: chumpy is a pain in the ass to mutate.  I think this is b/c it autodifferentiates
 rn.camera = ProjectPoints(v=m, rt=np.zeros(3), t=np.array([0, 0, 2.]), f=np.array([w,w])/2., c=np.array([w,h])/2., k=np.zeros(5))
 rn.frustum = {'near': 1., 'far': 10., 'width': w, 'height': h}
 rn.set(v=m, f=m.f, bgcolor=np.zeros(3))

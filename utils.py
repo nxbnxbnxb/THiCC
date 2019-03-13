@@ -353,6 +353,7 @@ def neg(tup):
 def pn(n=0):
   print('\n'*n)
 #=========================================================================
+def pe(n=19): print('='*n)
 def pif(s=''):
     if debug: print (s)
 #=========================================================================
@@ -1052,6 +1053,7 @@ def newline(f):
     f.write('\n')
 
 
+# TODO: history | grep,   history | tail
 def hist():
     '''
         print python history
@@ -1241,12 +1243,10 @@ def get_mask_y_shift(mask1, mask2):
   top   = np.min(ons[0])
   bot   = np.max(ons[0])
   midpt1=int(round(np.mean([bot,top])))
-  print("midpt1 is ",midpt1)
   ons   = np.nonzero(mask2)
   top   = np.min(ons[0])
   bot   = np.max(ons[0])
   midpt2=int(round(np.mean([bot,top])))
-  print("midpt2 is ",midpt2)
   return midpt2-midpt1  # TODO: make this consistent (either always n1-n2 or n2-n1)
 #=========================================================================
 

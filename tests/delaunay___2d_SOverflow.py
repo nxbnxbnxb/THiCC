@@ -39,6 +39,8 @@ print()
 
 # plot it: the LineCollection is just a (maybe) faster way to plot lots of
 # lines at once
+import matplotlib as mpl
+mpl.use('TkAgg')
 import matplotlib.pyplot as plt
 from matplotlib.collections import LineCollection
 

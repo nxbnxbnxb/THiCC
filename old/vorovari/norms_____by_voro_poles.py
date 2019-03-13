@@ -22,7 +22,7 @@ from numpy import linalg as LA  # TODO: shorten every np.linalg.[insert funcall 
 
 # below imports are mainly to prevent "np.core.numeric.ComplexWarning":
 import warnings
-warnings.filterwarnings("error")
+warnings.filterwarnings("error") # NOTE: prooooooobably not a good idea.
 
 # NOTE:   np.eigh() or np.eigvalsh() may work faster/more reliably for a symmetric (or Hermitian: conjugate symmetric) matrix
 #

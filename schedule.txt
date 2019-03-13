@@ -1,0 +1,14 @@
+Big picture:
+  1.  Take video like mTailor does
+  2.  Get various measurements from it
+    a.  Take a bunch of views, grab the lengths at diff views, make a ConvexHull around those points/lengths, return perim(Hull)
+    b.  Make sure arms, lifted legs, other obstructions, etc. don't get in the way.
+    c.  How do we calculate the mask angle?  Either we need better segmentation, or there's some secret.  Probably you should just approximate it as the seconds passed.  It'll be good enough.
+  3.  BNN (beta neural net)
+    a.  "Wiggle" the betas until the perimeters of the SMPL model at various heights match the perimeters we got from the video
+
+
+  MAYBE there's a perspective / orthographic hidden in there somewhere?
+    Wait, but views only matter if the depths are different, right?
+    ie. ball and a bat in the picture, Nyle is swinging the bat from far away and the ball's going towards him
+

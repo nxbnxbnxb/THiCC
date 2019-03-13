@@ -93,6 +93,7 @@ def crop_mask(mask):
 
 #===================================================================================================================================
 def center_vert(cropped1, cropped2):
+  # TODO: finish if we're going to use this function in measure.py or HMR.py
   '''
     Overview function
   '''
