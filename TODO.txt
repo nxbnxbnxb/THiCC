@@ -22,7 +22,9 @@ ________________________________
 
   Measure Shaina
   Metric for inseam, height, skinniness, etc.
+    Wingspan?
 
+  Try to do everything without openpose (find_crotch() hardcoding instead).  For speed's sake.
 
 
 

@@ -344,7 +344,28 @@ from viz import pltshow
 
 
 #=========================================================================
+def mask_info(mask):
+  locs=np.nonzero(mask)
+  locs=np.concatenate((locs[0].reshape(locs[0].shape[0],1)    ,locs[1].reshape(locs[1].shape[0],1)),axis=1) # shape (n,2)
+  top , left  = np.min(locs,axis=0)
+  bot , right = np.max(locs,axis=0)
+  w=right - left
+  h=bot   - top
+  return {'right' : right,
+          'left'  : left,
+          'top'   : top,
+          'bottom': bot,
+          'width' : w,
+          'height': h
+          }
+#=========================================================================
 def neg(tup):
+  locs=np.nonzero(mask)
+  locs=np.nonzero(mask)
+  mask_left=np.min(locs[0])
+  mask_top=np.min(locs[0])
+  mask_left=np.min(locs[0])
+  mask_top=np.min(locs[0])
   negged=()
   for e in tup:
     negged+=(-e,)
@@ -846,7 +867,7 @@ def manual_vid_cut(
       pltshow(img)
       if input("Save this image? y/n").lower()=='y':
         fname=img_write_dir+"{0}.{1}".format(prepend_0s(str(count)),output_img_filetype)
-        cv2.imwrite(fname, img)
+        ii.imwrite(fname, img)
     count += 1
     success, img = vidcap.read()
   return root_img_dir #img_write_dir # success
@@ -1210,6 +1231,9 @@ def crop_person(img, mask):
   PAD=int(round(img.shape[1]*0.10)) 
   ons   = np.nonzero(mask)
 
+  print("ons[0].shape = ",ons[0].shape)
+  print("ons[1].shape = ",ons[1].shape)
+  print("ons[2].shape = ",ons[2].shape)
   # Here I use max(), min() b/c adding PADding might land bounds outside of img
   top   = max(  np.min(ons[0])-PAD,     0)
   bot   = min(  np.max(ons[0])+PAD,     mask.shape[0])
@@ -1436,7 +1460,7 @@ def save_masks_from_imgs(
 
 
 if __name__=='__main__':
-    manual_vid_cut()
+    manual_vid_cut(vid_local_path='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_heman___legs_spread___0227191405a.mp4')
     #masks_2_angles_sandbox()
     #vid_2_mesh()
     #vid_2_mesh_sandbox()
