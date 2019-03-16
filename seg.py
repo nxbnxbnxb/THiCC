@@ -23,7 +23,7 @@ import subprocess as sp
 from d import debug
 from save import save
 from viz import pltshow
-from utils import np_img, round_tuple, neg, no_color_shift, pn
+from utils import np_img, round_tuple, neg, no_color_shift, pn, crop_person
 
 if debug:
   import matplotlib
@@ -82,6 +82,8 @@ class DeepLabModel(object):
       In the method, we resize to a shape (ie. (513,288)) where one of the dimensions is 513 is required
     '''
     # tODO: understand better
+    if debug:
+      print("entering function  '{0}' ".format(sys._getframe().f_code.co_name))
     width, height, RGB = img.shape
     resize_ratio = float(self.INPUT_SIZE / max(width, height)) # 513/ bigger of width and height
     target_size = (int(resize_ratio * width), int(resize_ratio * height), 3)
@@ -146,6 +148,8 @@ def run_visualization(url, model):
 #===== end run_visualization(url): =====
 #================================================================
 def seg_map(img, model):
+  if debug:
+    print("entering function  '{0}' ".format(sys._getframe().f_code.co_name))
   print('running deeplab on image')
   seg_map, resized_im = model.segment_nparr(img) # within def seg_map(img, model)
   if debug:
@@ -254,13 +258,10 @@ def segment_URL(IMG_URL):
 
 #====================================================================
 def segment_black_background(local_fname):
-  # NOTE: WORKING.
   '''
     BLACK is 0; so this function can be used to "add" two images together to superimpose them.
   '''
-  # TODO: debug, generalize, etc.  Something ain't working (one of the last parts)
-  # NOTE:  PIL.resize(shape)'s shape has the width and height in the opposite order from numpy's height and width
-  # NOTE: weird sh!t happened when I tried to convert to 'float64' in the `np.array(Image.open(fname))` line.
+  # Note:  PIL.resize(shape)'s shape has the width and height in the opposite order from numpy's height and width
   segmap  = segment_local(local_fname) # segment_black_background()
   segmap  = segmap.reshape(segmap.shape[0],segmap.shape[1],1)
   segmap  = np.rot90(       np.concatenate((segmap,segmap,segmap),axis=2)        )
@@ -294,13 +295,14 @@ if __name__=='__main__':
     pltshow(segment_URL(IMG_URL))
   elif len(sys.argv) == 2:
     img_path=sys.argv[1]
-    #IMG_URL = sys.argv[1]# TODO: uncomment to segment images on the internet.
-    #segmap=segment_local(sys.argv[1])
-    pltshow(np_img(sys.argv[1]))
-    #pltshow(np.rot90(np_img(sys.argv[1]),k=1))
-    no_background, segmap = segment_black_background(sys.argv[1])
-    pltshow(no_background)
-    pltshow(segmap.astype('float64'))
+    print ("currently segmenting image found at location: \n  "+img_path)
+    img=np_img(img_path)
+    no_background, segmap = segment_black_background(img_path)
+    cropped,_=crop_person(img,segmap)
+    crop_fname='cropped.png'
+    ii.imwrite(crop_fname,cropped.astype('uint8'))
+    no_background, segmap = segment_black_background(crop_fname)
+    ii.imwrite("mask.png",segmap.astype('float64'))#.astype("uint8"))
   else:
     fnames=sys.argv[1:] # TODO: change the analogous code in render_smpl.py
     # TODO: if we extend seg.py (processing more cmd line args and more configuration parameters) the line `fnames=[sys.argv[1:]]` will break.

@@ -1,0 +1,42 @@
+
+Features that should be in MVP:
+
+  1.  Sizing (body import)
+  2.  VR 
+  3.  Pantera Bianca and clothes from whatever connections we ALREADY HAVE.
+  4.  Payment
+  5.  Shopping cart
+  6.  UI
+  7.
+  8.
+  9.
+  10.
+  11.
+  12.
+  13.
+  14.
+  15.
+  16.
+  17.
+  18.
+
+  NOT:
+  1.  Mesh animation
+    a.
+  2.  import their hair
+  3.  import their face
+  4.  import their skin color
+  5.
+  6.
+  7.
+  8.
+  9.
+  10.
+  11.
+  12.
+  13.
+  14.
+  15.
+  16.
+  17.
+  18.
