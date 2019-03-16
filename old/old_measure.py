@@ -4,32 +4,34 @@ import glob
 import os
 import sys
 import json
+from pprint import pprint as p
+#from scipy.spatial import cKDTree
 
 import viz
 from viz import pltshow
-from utils import pif
+from utils import pif, np_img, mask_info
 from d import debug
 from save import save 
 
 
-  """
-    Glossary as of Mon Feb 25 09:07:23 EST 2019:
-      def find_toes(mask___face_on):
-      def find_crotch(mask___portrait_view):
-      def get_waist(mask,customers_height):
-      def pixel_height(mask):
-      def measure_leg(crotch,toes):
-      def leg_len(mask,customers_height):
-  """
-  """
-    Point is, we have height and weight (from customer) and inseam
-      TODO:
-        Chest
-        Waist
-        Hips
+"""
+  Glossary as of Mon Feb 25 09:07:23 EST 2019:
+    def find_toes(mask___face_on):
+    def find_crotch(mask___portrait_view):
+    def get_waist(mask,customers_height):
+    def pixel_height(mask):
+    def measure_leg(crotch,toes):
+    def leg_len(mask,customers_height):
+"""
+"""
+  Point is, we have height and weight (from customer) and inseam
+    TODO:
+      Chest
+      Waist
+      Hips
 
-        exercise???  (if we get this at all, it should just be by askign.  Althgouh people will not necessarily know the answer off the top of their heads, they will prooooooooooooobably be able to estimate REASONabblllly well.
-  """
+      exercise???  (if we get this at all, it should just be by askign.  Althgouh people will not necessarily know the answer off the top of their heads, they will prooooooooooooobably be able to estimate REASONabblllly well.
+"""
 
 
 
@@ -44,6 +46,7 @@ from save import save
 
 
 
+pr=print
 #==============================================================
 def find_toes(mask___face_on):
   '''
@@ -189,8 +192,24 @@ def leg_len(mask,customers_height):
   pif("\n"*3)
   return leg_len_pixels/pix_height*customers_height
 #==============================================================
-#==============================================================
 if __name__=="__main__":
+  mask_fname='mask.png'
+  mask=np_img(mask_fname)
+  mask_data=mask_info(mask)
+  pr("mask_data:");p(mask_data)
+  pr("mask.shape:",mask.shape)
+  mask_2d=np.logical_and(mask[:,:,0],mask[:,:,1])
+  mask_2d=np.logical_and(mask_2d,mask[:,:,2])
+  pr("mask_2d.shape:",mask_2d.shape)
+  crotch=find_crotch(mask_2d)
+  pr("crotch:")
+  p(crotch)
+  pltshow(mask_2d)
+#==============================================================
+
+
+
+
   # NOTE:  esp. in the future, be wary of how important it is to use np.greater()  (segmentation doesn't just return simple "true-false")
   # whole directory of masks:
   """
@@ -211,12 +230,14 @@ if __name__=="__main__":
 
 
 
+  '''
   mask_fname  = sys.argv[1]   #"/home/ubuntu/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/masks/2019_01_15____11:04_AM___/000000000.jpg"
   # 32, 38, 39, and 43 find the crotch to be higher  than the "nearby" images
   mask        = np.asarray(ii.imread(mask_fname))
   mask=np.greater(mask,127)
   NATHAN_HEIGHT=75 # inches
   print("inseam estimation (length in inches):   {0}".format(leg_len(mask,NATHAN_HEIGHT)))
+  '''
   # NOTE:  there are no real units here;  it's all just a ratio that is normalized to Nathan's height and pants length
   #"""
 #==============================================================
@@ -374,6 +395,7 @@ if __name__=="__main__":
   pr("p7:",p7)                          # p7: [29.14528445 15.35900081 74.65673826]
   '''
 
+  """
   vt=cKDTree(vs, copy_data=True) # TODo: make sure these names are consistent (ie. either all short like v_t or all descriptive like vert_tree)
 
   # Todo: refactor decision: 0 vs. (x_min or y_min)?
@@ -449,6 +471,7 @@ if __name__=="__main__":
 
 
   pr("Chest circumference in inches: ", calced_chest)
+  """
 
 
 
@@ -519,6 +542,7 @@ if __name__=="__main__":
 
 
 
+  """
   #Mon Mar 11 09:32:05 EDT 2019
     # finding the perimeter of the .obj mesh at height:
   intersecting_faces=[]
@@ -531,6 +555,7 @@ if __name__=="__main__":
         intersecting_faces.append(face)
   print("len(faces): ",len(faces))
   print("len(intersecting_faces): ",len(intersecting_faces))
+  """
 
 
   '''
@@ -547,6 +572,8 @@ if __name__=="__main__":
           out_faces.append(face)
     return out_faces
   '''
+
+  """
   print("len(faces)     : ",len(faces))      # len(faces): 32400
   def face_hash_table(faces, height):
     for i,face in enumerate(faces):
@@ -589,6 +616,7 @@ if __name__=="__main__":
     mesh_resolution+=tri_area(tri)
   mesh_resolution/=len(fs) # avg area of triangles in the body mesh.
   #pr("mesh_resolution:  ",mesh_resolution) # for HMR,  mesh_resolution was 0.0001195638271130602 .
+  """
 
 #===================================================================================================================================
   # NOTE: what's this "b" at the beginning of the line?   b'f 6310 1331 4688\n'  from 'rb' in with open(fname, 'rb') as f:       guessing it means binary or something like that.

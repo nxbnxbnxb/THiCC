@@ -664,9 +664,11 @@ def cross_sec(verts, midpt_h, window=0.652, which_ax="z", faces=None):
 
   # Only take xy values
   cross_sec=targ_verts[:,:Z]
-  plt.title("Vertices in SMPL mesh at loc {0} along the \n{1} axis\nwith {2} points".format(midpt_h, which_ax, len(targ_verts)))
-  plt.scatter(cross_sec[:,0],cross_sec[:,1]); plt.show()
+  if debug:
+    plt.title("Vertices in SMPL mesh at loc {0} along the \n{1} axis\nwith {2} points".format(midpt_h, which_ax, len(targ_verts)))
+    plt.scatter(cross_sec[:,0],cross_sec[:,1]); plt.show()
   return cross_sec
+#=============================================== end cross_sec(params) =============================================================
 #===================================================================================================================================
 def dist(pt1, pt2, norm='L2'):
   # TODO: see scipy.spatial.distance.euclidean
@@ -674,7 +676,7 @@ def dist(pt1, pt2, norm='L2'):
 
   # points as np arrays
   return math.sqrt(np.sum(np.square(pt1-pt2)))
-#===================================================================================================================================
+#=============================================== end dist(params) ==================================================================
 def pixel_height(mask):
   locs=np.nonzero(mask)
   return np.amax(locs[0])-np.amin(locs[0])
@@ -1182,9 +1184,6 @@ def mesh_cross_sec(verts, faces, height, which_ax="z"):
             bots_idx=vert_idx
             meshs_belt=triang_walk(verts, faces, face, height, adjs, bots_idx, tops_idx, which_ax=which_ax, ax=ax)
 
-
-
-
             # Once we have 2 verts, we should be able to track the height until we get back to the original 2.  Then the cross section is the intersection of the plane at "height" with the triangles from the smpl mesh.
       break
     # [2,2,2], [1,1,1], [0,0,0],
@@ -1207,9 +1206,11 @@ def mesh_cross_sec(verts, faces, height, which_ax="z"):
 
   # Only take xy values
   cross_sec=targ_verts[:,:Z]
-  plt.title("Vertices in SMPL mesh at loc {0} along the \n{1} axis\nwith {2} points".format(midpt_h, which_ax, len(targ_verts)))
-  plt.scatter(cross_sec[:,0],cross_sec[:,1]); plt.show()
+  if debug:
+    plt.title("Vertices in SMPL mesh at loc {0} along the \n{1} axis\nwith {2} points".format(midpt_h, which_ax, len(targ_verts)))
+    plt.scatter(cross_sec[:,0],cross_sec[:,1]); plt.show()
   return cross_sec
+#====================== mesh_cross_sec(params) =======================
 #=====================================================================
 def adjacents(verts, faces):
   # .obj mesh
@@ -1250,12 +1251,15 @@ def lines_intersection_w_plane(vert_0, vert_1, height, which_ax='z'):
   return intersect_pt
 #============ end lines_intersection_w_plane(params) =================
 #=====================================================================
-def mesh_perim_at_height(verts, faces, height, window=19.952, which_ax='z', ax=2):
+def mesh_perim_at_height(verts, faces, height, window=19.952, which_ax='z', ax=2, plot=False):
   # verts.shape     : (6890,3)
 
   # TODO: iterate through the faces once, wherever one edge has 2 pts: 1 above height and the other below, calculate the intersection point and toss the intersection points into ConvHull_perim().
+  if    which_ax=='x': ax=0
+  elif  which_ax=='y': ax=1
+  elif  which_ax=='z': ax=2
+  else: raise Exception("when calling the function '{0}',  please only supply the 'which_ax' parameter as which_ax='x', which_ax='y', or which_ax='z', ".format(sys._getframe().f_code.co_name))
   adjs=adjacents(verts, faces)
-  print("verts.shape:",verts.shape)
   perim_pts=[]
   #=====================================================================
   def line_seg_crosses_height(pt1,pt2,h,ax=2):  #ax=2 means that axis='z'):
@@ -1270,8 +1274,9 @@ def mesh_perim_at_height(verts, faces, height, window=19.952, which_ax='z', ax=2
     if line_seg_crosses_height(vert_1,vert_2,height,ax):
       perim_pts.append(lines_intersection_w_plane(vert_1,vert_2,height,which_ax))
   perim_pts=np.array(perim_pts)
-  title="Vertices in SMPL mesh at loc {0} along the \n{1} axis\nwith {2} points".format(height, which_ax, len(perim_pts))
-  viz.plt_plot_2d(perim_pts, title,ax=ax)
+  if debug or plot:
+    title="Vertices in SMPL mesh at loc {0} along the \n{1} axis\nwith {2} points".format(height, which_ax, len(perim_pts))
+    viz.plt_plot_2d(perim_pts, title,ax=ax)
   if    which_ax=='x':
     perim=conv_hulls_perim(perim_pts[:,1:])
   elif  which_ax=='y':
@@ -1365,11 +1370,27 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
   hip_h   = measures['hip_height_inches']    # Nathan's real hip_h   is    inches
   waist_h = measures['waist_height_inches']  # Nathan's real waist_h is    inches
 
-  print("chest_h:",chest_h )
-  print("hip_h:",hip_h )
-  print("waist_h:",waist_h )
+  print("chest_h: ",chest_h )
+  print("hip_h  : ",hip_h   )
+  print("waist_h: ",waist_h )
   x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(verts)
   print("x_min: {0}\nx_max: {1}\ny_min: {2}\ny_max: {3}\nz_min: {4}\nz_max: {5}\nx_len: {6}\ny_len: {7}\nz_len: {8}\n".format(x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len))
+
+  # TODO: clean up the searching-for-x-and-y-slices code below:
+  # Code for scanning for crotch:
+  '''
+  PAD=9.1
+  RESOLUTION=41
+    # for crotch-length-finding
+  for x in np.linspace(x_max- PAD, x_min+ PAD,  RESOLUTION):
+    x_slice             = mesh_perim_at_height( verts, faces, x, which_ax='x',ax=0)
+  for z in np.linspace(z_max- PAD, z_min+ PAD,  RESOLUTION):
+    z_slice             = mesh_perim_at_height( verts, faces, z, which_ax='z')
+  for x in np.linspace(x_max- PAD, x_min+ PAD,  RESOLUTION):
+    x_slice             = mesh_perim_at_height( verts, faces, x, which_ax='x')
+  for y in np.linspace(y_max- PAD, y_min+ PAD,  RESOLUTION):
+    y_slice             = mesh_perim_at_height( verts, faces, y, which_ax='y')
+  '''
 
   '''
   x_mid=(x_max+x_min)/2.
@@ -1379,17 +1400,41 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
   for z in np.linspace(z_max- 0.1, z_min+0.1, 11):
     z_slice             = mesh_perim_at_height( verts, faces, z, which_ax='z',ax=2)
   '''
-  for x in np.linspace(x_max- 0.1, x_min+0.1, 21):
-    x_slice             = mesh_perim_at_height( verts, faces, x, which_ax='x',ax=0)
-  for y in np.linspace(y_max-0.1, y_min+0.1, 21):
-    y_slice             = mesh_perim_at_height( verts, faces, y, which_ax='y',ax=1)
+
   calced_chest_circum = mesh_perim_at_height(verts, faces, chest_h, which_ax='z')
-  calced_hip_circum   = mesh_perim_at_height(verts, faces, hip_h, which_ax='z')
+  calced_hip_circum   = mesh_perim_at_height(verts, faces, hip_h  , which_ax='z')
   calced_waist_circum = mesh_perim_at_height(verts, faces, waist_h, which_ax='z')
 
-  # TODO: 
-  pr("calced_chest_circum:  ", calced_chest_circum)  # real is ~34 inches (ConvexHull)
-  pr("calced_hip_circum  :  ", calced_hip_circum)    # real is ~32 inches (ConvexHull)
+  #crotch ratio: {'height': 255/433 down from the top, 'x_loc': 120/221 from the left to the right}
+  CROTCH_LR_RATIO=120/211.
+  crotch_depth=int(round(x_len*(CROTCH_LR_RATIO)))
+  min_height=np.inf
+  real_crotch_depth=crotch_depth
+  start=crotch_depth-3
+  end=crotch_depth-1
+  print("start = {0}     and end = {1}".format(start, end))
+  for d in np.linspace(start,end,299):
+    calced_crotch_2_head_circum = mesh_perim_at_height(verts, faces, d, which_ax='x')
+    if calced_crotch_2_head_circum < min_height:
+      min_height=calced_crotch_2_head_circum
+      real_crotch_depth=d
+  print("min_height:",min_height)
+  print("real_crotch_depth:",real_crotch_depth)
+  BUMP=2.3428187919463   #1.8715
+  crotch_depth-=BUMP # 28.1285.   Ought to be somewhere like 27.6571812080537
+  #crotch_depth=x_max-crotch_depth
+  pn(9);pe();pe();pe();pe();pr(" "*24+"about to calculate crotch")
+  pr(" "*26+"crotch_depth:",crotch_depth);pe();pe();pe();pe();pn(9)
+  calced_crotch_2_head_circum = mesh_perim_at_height(verts, faces, crotch_depth, which_ax='x')
+  pr("calced_crotch_2_head_circum:",calced_crotch_2_head_circum) # real is ~    calcul8d is ~102.02471693093469 inches
+  calced_crotch_2_head_circum = mesh_perim_at_height(verts, faces, real_crotch_depth, which_ax='x', plot=True)
+  # TODO: use real_crotch_depth to calculate inseam
+  # TODO: generalize the crotch-finding calculation, hook up the openpose shit (hip, chest, waist, etc.  heights)     end-to-end
+
+  # 
+  pr("calced_crotch_2_head_circum:",calced_crotch_2_head_circum) # real is ~    calcul8d is ~102.02471693093469 inches.    Lower is 101.51852706256683
+  pr("calced_chest_circum:  ", calced_chest_circum)   # real is ~34 inches (ConvexHull)
+  pr("calced_hip_circum  :  ", calced_hip_circum)     # real is ~32 inches (ConvexHull)
   pr("calced_waist_circum:  ", calced_waist_circum)   # real is ~30 inches (ConvexHull)
 
   # HMR:                                                  #   when chest_len=29:
@@ -1425,8 +1470,9 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
   err_percent = avg_err_percent
   pe(69); pr("Leaving function ",sys._getframe().f_code.co_name); pe(69)
   pn(29)
+  # TODO: MSE, not MAE (punish big deviations more)
   return err_percent, measures, verts
-#=========================== end mesh_err() ===========================
+#========================== end mesh_err() ===========================
 
 
 
@@ -1444,11 +1490,12 @@ def conv_hulls_perim(xy_pts):
   vertices = hull.vertices.tolist() + [hull.vertices[0]] # Todo: shorten
   perim_edgepts=xy_pts[vertices]
   X=0; Y=1
-  plt.title(" cross section's ConvexHull:    \n with {0} points".format(perim_edgepts.shape[0]))
-  plt.scatter(perim_edgepts[:,X],perim_edgepts[:,Y]); plt.show()
+  if debug:
+    plt.title(" cross section's ConvexHull:    \n with {0} points".format(perim_edgepts.shape[0]))
+    plt.scatter(perim_edgepts[:,X],perim_edgepts[:,Y]); plt.show()
   perim     = np.sum([euclidean(x, y) for x, y in zip(perim_edgepts, perim_edgepts[1:])])
   return perim
-#===================================================================================================================================
+#================================================== end conv_hulls_perim(params) ===================================================
 
 
 
@@ -1507,7 +1554,8 @@ def to_1st_octant(v):
     v = vertices
   '''
   funcname=  sys._getframe().f_code.co_name
-  pe(69);pr("In function ",funcname);pe(69);pn(2)
+  if debug:
+    pe(69);pr("In function ",funcname);pe(69);pn(2)
   return shift_verts(v, -np.min(v[:,0]), -np.min(v[:,1]), -np.min(v[:,2]))
 #===================================================================================================================================
 def tri_area(tri_3x3):
@@ -1614,12 +1662,13 @@ if __name__=="__main__":
   json_fname  = '/home/n/Dropbox/vr_mall_backup/json_imgs_openpose/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE____keypoints.json'
   side_fname  = '/home/n/Dropbox/vr_mall_backup/imgs/n8_side___jesus_pose_legs_closed/n8_side___jesus_pose___legs_closed___nude___grassy_background_Newark_DE___.jpg'
   front_fname = '/home/n/Dropbox/vr_mall_backup/imgs/n8_front___jesus_legs_closed/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE___.jpg'
+  HMR_HEMAN_obj_fname='/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/n8_mesh__HMR_gener8d__heman_pose__legs_spread.obj'
   HMR_obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nxb_HMR_gener8d_mesh___gamma_the_magnet_warrior___pose.obj'
   # HMR calced_chest_circum: 41.31167530329451.  Error percent is 19.480968092801966% (overshooting my real chest circumference)
   NNN_obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nxb_manually_tuned_(NNN)___smpl_mesh____4th_iteration__02-2.250000000.obj' # NNN stands for "Nathan the Neural Net"
   # NNN calced_chest_circum: 38.31877278356377.  Error percent is 10.824943183633078% (overshooting my real chest circumference)
-  obj_fname=HMR_obj_fname # NOTE: This line is where I change which .obj file we read in.
-  err, measures, vs=mesh_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)  
+  obj_fname=HMR_HEMAN_obj_fname#HMR_obj_fname # NOTE: This line is where I change which .obj file we read in.
+  err, measures, vs=mesh_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)
   print("error percentage was {0} percent".format(abs(err)))
 
   #print("measures:",measures)
