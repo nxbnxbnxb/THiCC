@@ -12,9 +12,12 @@ from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
 def pltshow(x):
   plt.imshow(x); plt.show(); plt.close()
 #=========================================================================
-def plt_plot_2d(pts,title):
+def plt_plot_2d(pts,title,ax=2):
+  # w.r.t. the 'ax' parameter,   x==0, y==1, z==2
   plt.title(title)
-  plt.scatter(pts[:,0],pts[:,1])
+  if    ax==0:  plt.scatter(pts[:,1],pts[:,2])
+  elif  ax==1:  plt.scatter(pts[:,0],pts[:,2])
+  elif  ax==2:  plt.scatter(pts[:,0],pts[:,1])
   plt.show()
   plt.close()
 #=========================================================================

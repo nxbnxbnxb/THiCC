@@ -15,11 +15,122 @@
 
     TODO.txt
 
+________________________________
+
+  Sat Mar 16 07:06:18 EDT 2019
+________________________________
+
+  Measure Shaina
+  Metric for inseam, height, skinniness, etc.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Thu Mar 14 18:08:25 EDT 2019
+________________________________
+
+  Use yourSELF to find the betas from HMR.
+  You have (roughly) the betas that match your own body, so if HMR works at all, you ought to be able to get it working
+    Aren't the betas just 70:80?  If we trust that there are 69 pose params.
+    If we really must KNOW, we can try to set the pose params from HMR to A-pose and do a "diff" between the result we get from render_SMPL.py
+    HMR doesn't go all the way down (ie. it assumes I'm shorter than I am)
+
+
+  Schedule trip to LA to integrate everything.
+    Bus?
+    Plane?
+
+
+
+  Measure Shaina
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Write faces to mesh.obj
+    Curr just verts
+
+    save_faces() was in src/util/renderer.py
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ________________________________
 
   Tue Mar 12 18:08:25 EDT 2019
 ________________________________
+
+
+
 
   Find loc(betas) in Thetas.npy.
   blender meshes to compare, try multiple (70:80, 69:79, etc.), etc

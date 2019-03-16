@@ -1225,47 +1225,62 @@ def adjacents(verts, faces):
 
 
 #=====================================================================
-def lines_intersection_w_plane(vert_0, vert_1, height):
+def lines_intersection_w_plane(vert_0, vert_1, height, which_ax='z'):
   '''
     The line in "line's intersection" we're referring to is    the line segment going through vert_0 and vert_1.
-    The plane referred to in "w_plane" is the plane "z=height"
+    The plane referred to in "w_plane" is the plane "which_ax==height"
+
+    Notes:
+      See algebra from https://math.stackexchange.com/questions/404440/what-is-the-equation-for-a-3d-line
   '''
-  x0,y0,z0=vert_0
-  x1,y1,z1=vert_1
-  a,b,c=vert_0-vert_1
-  x_new=(a*(height-z0)/c)  +x0
-  y_new=(b*(height-z0)/c)  +y0
-  # see algebra from https://math.stackexchange.com/questions/404440/what-is-the-equation-for-a-3d-line
-  intersect_pt= x_new,y_new,height
+  x0, y0, z0= vert_0
+  a , b , c = vert_0- vert_1
+  x = y = z = height
+  # Note: there's probably a way to generalize this function better so we only have to edit 1 line of code instead of 3
+  if    which_ax=='x':
+    y = (b*(x-x0)/a)  +y0
+    z = (c*(x-x0)/a)  +z0
+  elif  which_ax=='y':
+    x = (a*(y-y0)/b)  +x0
+    z = (c*(y-y0)/b)  +z0
+  elif  which_ax=='z':
+    x = (a*(z-z0)/c)  +x0
+    y = (b*(z-z0)/c)  +y0
+  intersect_pt=x,y,z
   return intersect_pt
 #============ end lines_intersection_w_plane(params) =================
 #=====================================================================
 def mesh_perim_at_height(verts, faces, height, window=19.952, which_ax='z', ax=2):
   # verts.shape     : (6890,3)
-  # hits            : 5401
-  # len(intersecting_edges): 792     This ought to get down to ~54 points??? (on the order of curr/10, rather than order of curr)
-  # len(faces)      : 13776
 
   # TODO: iterate through the faces once, wherever one edge has 2 pts: 1 above height and the other below, calculate the intersection point and toss the intersection points into ConvHull_perim().
   adjs=adjacents(verts, faces)
   print("verts.shape:",verts.shape)
   perim_pts=[]
+  #=====================================================================
+  def line_seg_crosses_height(pt1,pt2,h,ax=2):  #ax=2 means that axis='z'):
+    return (pt1[ax]>h and pt2[ax]<h) or (pt1[ax]<h and pt2[ax]>h) # default is z
+  #=====================================================================
   for face in faces:
     vert_0=verts[face[0]]; vert_1=verts[face[1]]; vert_2=verts[face[2]]
-    def line_seg_crosses_height(pt1,pt2,h,ax='z'):
-      return (pt1[ax]>h and pt2[ax]<h) or (pt1[ax]<h and pt2[ax]>h) # default is z
     if line_seg_crosses_height(vert_0,vert_1,height,ax):
-      perim_pts.append(lines_intersection_w_plane(vert_0,vert_1,height))
+      perim_pts.append(lines_intersection_w_plane(vert_0,vert_1,height,which_ax))
     if line_seg_crosses_height(vert_0,vert_2,height,ax):
-      perim_pts.append(lines_intersection_w_plane(vert_0,vert_2,height))
+      perim_pts.append(lines_intersection_w_plane(vert_0,vert_2,height,which_ax))
     if line_seg_crosses_height(vert_1,vert_2,height,ax):
-      perim_pts.append(lines_intersection_w_plane(vert_1,vert_2,height))
+      perim_pts.append(lines_intersection_w_plane(vert_1,vert_2,height,which_ax))
   perim_pts=np.array(perim_pts)
   title="Vertices in SMPL mesh at loc {0} along the \n{1} axis\nwith {2} points".format(height, which_ax, len(perim_pts))
-  print(perim_pts.shape)
-  viz.plt_plot_2d(perim_pts, title)
-  perim=conv_hulls_perim(perim_pts[:,:2])
-  print("perim:",perim)
+  viz.plt_plot_2d(perim_pts, title,ax=ax)
+  if    which_ax=='x':
+    perim=conv_hulls_perim(perim_pts[:,1:])
+  elif  which_ax=='y':
+    x=perim_pts[:,0].reshape((perim_pts[:,0].shape[0],1))
+    z=perim_pts[:,2].reshape((perim_pts[:,2].shape[0],1))
+    xz=np.concatenate((x,z),axis=1)
+    perim=conv_hulls_perim(xz)
+  elif  which_ax=='z':
+    perim=conv_hulls_perim(perim_pts[:,:2])
   return perim
 #=============== end mesh_perim_at_height(params) ===============
 
@@ -1356,8 +1371,20 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
   x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(verts)
   print("x_min: {0}\nx_max: {1}\ny_min: {2}\ny_max: {3}\nz_min: {4}\nz_max: {5}\nx_len: {6}\ny_len: {7}\nz_len: {8}\n".format(x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len))
 
+  '''
+  x_mid=(x_max+x_min)/2.
+  y_mid=(y_max+y_min)/2.
+  x_slice             = mesh_perim_at_height( verts, faces, x_mid-10, which_ax='x',ax=0)
+  y_slice             = mesh_perim_at_height( verts, faces, y_mid-10, which_ax='y',ax=1)
+  for z in np.linspace(z_max- 0.1, z_min+0.1, 11):
+    z_slice             = mesh_perim_at_height( verts, faces, z, which_ax='z',ax=2)
+  '''
+  for x in np.linspace(x_max- 0.1, x_min+0.1, 21):
+    x_slice             = mesh_perim_at_height( verts, faces, x, which_ax='x',ax=0)
+  for y in np.linspace(y_max-0.1, y_min+0.1, 21):
+    y_slice             = mesh_perim_at_height( verts, faces, y, which_ax='y',ax=1)
   calced_chest_circum = mesh_perim_at_height(verts, faces, chest_h, which_ax='z')
-  calced_hip_circum = mesh_perim_at_height(verts, faces, hip_h, which_ax='z')
+  calced_hip_circum   = mesh_perim_at_height(verts, faces, hip_h, which_ax='z')
   calced_waist_circum = mesh_perim_at_height(verts, faces, waist_h, which_ax='z')
 
   # TODO: 
