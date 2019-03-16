@@ -1,0 +1,32 @@
+
+TODO: turn into .json
+
+
+
+{'height': 301, 'x_loc': 160}
+
+#   This was calculated with img of height 513 and width 288.
+#     301 means down  (from top to bottom, top is 0)
+#     160 means right (from left to right, leftmost is 0)
+
+
+mask_data:
+{'bottom': 479,
+ 'height': 433,
+ 'left':    40,
+ 'right':  261,
+ 'top':     46,
+ 'width':  221}
+
+so 1st shift,   {'height': 255, 'x_loc': 120}
+and then ratio: {'height': 255/433 down from the top, 'x_loc': 120/221 from the left to the right}
+
+
+
+
+
+crotch is too high, but height shouldn't matter b.c. we're getting distance penis-to-bald-spot (we only need to know where fingertip to fingertip, not how high up the crotch is or how high the head's hair is)
+
+
+
+use mesh
