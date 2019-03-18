@@ -714,6 +714,23 @@ def orig_pix_h(img_fname):
   h_as_frac_of_frame=h_after_seg / mask.shape[0] # python3 so no need for (+ 0.0)
   return h_as_frac_of_frame * orig_h
 #===================================================================================================================================
+def other_toe(verts, toe_1, crotch):
+  '''
+    Given crotch, find the 1st pt in the mesh on the other side of crotch_x from toe_1, (where crotch_x=crotch[0])
+  '''
+  funcname=  sys._getframe().f_code.co_name # other_toe(verts, toe_1, crotch):
+  X=0; crotch_x=crotch[X]
+
+  # bottom to top:  toes to head
+  verts_z_sorted_indices=np.argsort(verts[:,2])
+  # greedy search for toe
+  for i in verts_z_sorted_indices:
+    if (verts[i][X] < crotch_x and toe_1[X] > crotch_x) or\
+       (verts[i][X] > crotch_x and toe_1[X] < crotch_x):
+      return verts[i]
+  raise Exception("Something weird happened in function {0}.\n  Other toe wasn't found".format(funcname)) 
+#==================================== end other_toe(params) ========================================================================
+#===================================================================================================================================
 def normalize_mesh(vs, mode='HMR'): 
   '''
     Standardizes mesh position and orientation
@@ -1252,6 +1269,9 @@ def lines_intersection_w_plane(vert_0, vert_1, height, which_ax='z'):
 #============ end lines_intersection_w_plane(params) =================
 #=====================================================================
 def mesh_perim_at_height(verts, faces, height, window=19.952, which_ax='z', ax=2, plot=False):
+  if debug:
+    funcname=sys._getframe().f_code.co_name
+    pe(69);pr("Entering function ",funcname);pe(69);pn()
   # verts.shape     : (6890,3)
 
   # TODO: iterate through the faces once, wherever one edge has 2 pts: 1 above height and the other below, calculate the intersection point and toss the intersection points into ConvHull_perim().
@@ -1286,8 +1306,17 @@ def mesh_perim_at_height(verts, faces, height, window=19.952, which_ax='z', ax=2
     perim=conv_hulls_perim(xz)
   elif  which_ax=='z':
     perim=conv_hulls_perim(perim_pts[:,:2])
-  return perim
+  #pr("perim_pts.shape:",perim_pts.shape)  #(600,3)
+
+  bots_idx=np.argmin(perim_pts[:,2])
+  crotch=perim_pts[bots_idx]
+  if debug:
+    pe(69);pr("Leaving function ",funcname);pe(69);pn()
+  return perim, crotch # I know this is sketch AF, but easier to return the crotch as an afterthought than to not find the crotch at all.
 #=============== end mesh_perim_at_height(params) ===============
+
+
+
 
 
 
@@ -1347,7 +1376,7 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
   #obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'
 
   # Load .obj file
-  verts,faces=parse_obj_file(obj_fname)
+  verts, faces=parse_obj_file(obj_fname)
 
   # geometric transformations to put the mesh in the "upright" position (ie. +z is where the head is, arms stretch out in +/-x direction, chest-to-back is +/-y direction.)
   if 'HMR' in obj_fname.upper():
@@ -1362,7 +1391,7 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
 
   # Scale to real-life-sizes (cust_height in inches):
   verts    = verts * cust_height / z_max
-  x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(verts)
+  x_min, x_max, y_min, y_max, z_min, z_max, x_len, y_len, z_len= vert_info(verts)
 
   # Use openpose keypoints json to get measurements
   measures= measure_body_viz(json_fname, front_fname, side_fname, cust_height)
@@ -1378,14 +1407,19 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
 
   # TODO: clean up the searching-for-x-and-y-slices code below:
   # Code for scanning for crotch:
-  '''
-  PAD=9.1
+  PAD=3.1
   RESOLUTION=41
-    # for crotch-length-finding
-  for x in np.linspace(x_max- PAD, x_min+ PAD,  RESOLUTION):
-    x_slice             = mesh_perim_at_height( verts, faces, x, which_ax='x',ax=0)
+
+  '''
   for z in np.linspace(z_max- PAD, z_min+ PAD,  RESOLUTION):
-    z_slice             = mesh_perim_at_height( verts, faces, z, which_ax='z')
+    z_slice             = mesh_perim_at_height( verts, faces, z, which_ax='z',plot=True)
+  '''
+  # -x is the raised hand (approx. x==0)
+
+  # for loops do crotch-length-finding:
+  '''
+  for x in np.linspace(x_max- PAD, x_min+ PAD,  RESOLUTION):
+    x_slice             = mesh_perim_at_height( verts, faces, x, which_ax='x',ax=0, plot=True)
   for x in np.linspace(x_max- PAD, x_min+ PAD,  RESOLUTION):
     x_slice             = mesh_perim_at_height( verts, faces, x, which_ax='x')
   for y in np.linspace(y_max- PAD, y_min+ PAD,  RESOLUTION):
@@ -1401,35 +1435,68 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
     z_slice             = mesh_perim_at_height( verts, faces, z, which_ax='z',ax=2)
   '''
 
-  calced_chest_circum = mesh_perim_at_height(verts, faces, chest_h, which_ax='z')
-  calced_hip_circum   = mesh_perim_at_height(verts, faces, hip_h  , which_ax='z')
-  calced_waist_circum = mesh_perim_at_height(verts, faces, waist_h, which_ax='z')
+  calced_chest_circum , _ = mesh_perim_at_height(verts, faces, chest_h, which_ax='z')
+  calced_hip_circum   , _ = mesh_perim_at_height(verts, faces, hip_h  , which_ax='z')
+  calced_waist_circum , _ = mesh_perim_at_height(verts, faces, waist_h, which_ax='z')
 
   #crotch ratio: {'height': 255/433 down from the top, 'x_loc': 120/221 from the left to the right}
   CROTCH_LR_RATIO=120/211.
   crotch_depth=int(round(x_len*(CROTCH_LR_RATIO)))
   min_height=np.inf
+  real_crotch=None
   real_crotch_depth=crotch_depth
-  start=crotch_depth-3
-  end=crotch_depth-1
+  start = crotch_depth-3
+  end   = crotch_depth-1
   print("start = {0}     and end = {1}".format(start, end))
-  for d in np.linspace(start,end,299):
-    calced_crotch_2_head_circum = mesh_perim_at_height(verts, faces, d, which_ax='x')
+ 
+  # TODO NOTE This perfect-crotch-search takes too long.  We have to adapt it somehow to find a saddle point in z.   Or to only find the highest min point instead of calculating the whole ConvexHull and perimeter every time.  But before we make it fast, we prob have to check that we actually WANT the crotch so precisely.
+  # Note: refactor into separate get_crotch()
+  for d in np.linspace(start, end, 99):
+    calced_crotch_2_head_circum, crotch = mesh_perim_at_height(verts, faces, d, which_ax='x')
     if calced_crotch_2_head_circum < min_height:
       min_height=calced_crotch_2_head_circum
       real_crotch_depth=d
+      real_crotch=crotch
   print("min_height:",min_height)
   print("real_crotch_depth:",real_crotch_depth)
-  BUMP=2.3428187919463   #1.8715
-  crotch_depth-=BUMP # 28.1285.   Ought to be somewhere like 27.6571812080537
-  #crotch_depth=x_max-crotch_depth
-  pn(9);pe();pe();pe();pe();pr(" "*24+"about to calculate crotch")
-  pr(" "*26+"crotch_depth:",crotch_depth);pe();pe();pe();pe();pn(9)
-  calced_crotch_2_head_circum = mesh_perim_at_height(verts, faces, crotch_depth, which_ax='x')
-  pr("calced_crotch_2_head_circum:",calced_crotch_2_head_circum) # real is ~    calcul8d is ~102.02471693093469 inches
-  calced_crotch_2_head_circum = mesh_perim_at_height(verts, faces, real_crotch_depth, which_ax='x', plot=True)
-  # TODO: use real_crotch_depth to calculate inseam
-  # TODO: generalize the crotch-finding calculation, hook up the openpose shit (hip, chest, waist, etc.  heights)     end-to-end
+  print("real_crotch:",real_crotch)# NOTE: real_crotch: [27.65771812 12.4297897  31.31119602] 
+  pn(9);pe();pe();pe();pe();pr(" "*24+"about to calculate crotch");pe();pe();pe();pe();pn(9)
+  calced_crotch_2_head_circum, _ = mesh_perim_at_height(verts, faces, crotch_depth, which_ax='x')
+  pr("calced_crotch_2_head_circum:", calced_crotch_2_head_circum) # real is ~    calcul8d is ~102.02471693093469 inches
+  calced_crotch_2_head_circum, _  = mesh_perim_at_height(verts, faces, real_crotch_depth, which_ax='x', plot=True)
+
+  # NOTE: real_crotch: [27.65770833 12.42979636 31.31119489],    NOT  [27.65771812 12.4297897  31.31119602]  
+  pn();pe();pe();pe();pe();pr(" "*24+"about to calculate crotch");pe();pe();pe();pe();pn()
+
+  # toe calculation:   properly gets inseam length (inches)
+  bots_idx=np.argmin(verts[:,2])
+  toe1=verts[bots_idx] # left toe as of Mon Mar 18 13:42:42 EDT 2019
+  # NOTE: not ACTUALly "toes," but definitely parts of each leg.
+  '''
+    toe1: [24.92924817 10.61380322  0.        ]
+    toe2: [34.64956495 10.4945032   0.50675734]
+  '''
+  toe1_to_head_perim, _ = mesh_perim_at_height(verts, faces, toe1[0], which_ax='x', plot=True)
+  toe2=other_toe(verts, toe1, real_crotch) # right toe as of Mon Mar 18 13:42:42 EDT 2019
+  toe2_to_head_perim, _ = mesh_perim_at_height(verts, faces, toe2[0], which_ax='x', plot=True)
+  # ToDO: use real_crotch_depth to calculate inseam.  Is this good enough?  (Better/ worse than finding the toes & calcul8ing the inseam by dist_btwn(crotch, toe)
+  # TOdO: generalize the crotch-finding calculation, hook up the openpose shit (hip, chest, waist, etc.  heights)     end-to-end
+
+
+
+
+  #  toe: [24.92924817 10.61380322  0.        ]
+
+  #x_min: 0.0
+  #x_max: 52.79738902171417
+  #y_min: 0.0
+  #y_max: 26.23053931888615
+  #z_min: 0.0
+  #z_max: 75.0
+  #x_len: 52.79738902171417
+  #y_len: 26.23053931888615
+  #z_len: 75.0
+
 
   # 
   pr("calced_crotch_2_head_circum:",calced_crotch_2_head_circum) # real is ~    calcul8d is ~102.02471693093469 inches.    Lower is 101.51852706256683
@@ -1824,47 +1891,69 @@ if __name__=="__main__":
 
 # Glossary:
 '''
+glossary (for grep-easy-find)
   Function definitions (function headers)
+===============================================================
+  as of Sun Mar 17 09:25:56 EDT 2019
+===============================================================
+    128:def load_json(json_fname):
+    133:def measure(json_fname):
+    136:def parse_ppl_measures(json_dict):
+    172:def segments(polygon):
+    178:def area_polygon(polygon):
+    212:def estim8_w8(json_fname, front_fname, side_fname, height):
+    238:def measure_body_viz(json_fname, front_fname, side_fname, cust_height):
+    432:def perim_e(a, b, precision=6):
+    495:def ellipse_circum_approx(a, b, precision=6):
+    502:def ellipse_circum(a, b):
+    554:def measure_chest(json_fname):
+    575:def show_overlaid_polygon_measures(pic_filename___with_openpose_keypoints_, openpose_keypts_dict, N=4):
+    601:def vert_info(vs):
+    622:def cross_sec(verts, midpt_h, window=0.652, which_ax="z", faces=None):
+    673:def dist(pt1, pt2, norm='L2'):
+    680:def pixel_height(mask):
+    684:def pix_h(mask):
+    703:def orig_pix_h(img_fname):
+    717:def normalize_mesh(vs, mode='HMR'): 
+    802:def triang_walk(verts, faces, start_face, height, adjacents, bots_idx, tops_idx, which_ax='z', ax=2):
+    827:  def walk_recurs(verts, height, adjacents, vert_idx_list, bots_idx, tops_idx, top_or_bot='top', which_ax='z', ax=2):
+    1151:def mesh_cross_sec(verts, faces, height, which_ax="z"):
+    1215:def adjacents(verts, faces):
+    1229:def lines_intersection_w_plane(vert_0, vert_1, height, which_ax='z'):
+    1254:def mesh_perim_at_height(verts, faces, height, window=19.952, which_ax='z', ax=2, plot=False):
+    1265:  def line_seg_crosses_height(pt1,pt2,h,ax=2):  #ax=2 means that axis='z'):
+    1295:def parse_obj_file(obj_fname):
+    1328:def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
+    1481:def conv_hulls_perim(xy_pts):
+    1514:def perim_poly(verts):
+    1527:def scale(v, s):
+    1534:def rot8_obj(v, rotation):
+    1541:def shift_verts(v, del_x, del_y, del_z):
+    1552:def to_1st_octant(v):
+    1561:def tri_area(tri_3x3):
+    1620:def test_measure():
 
-  As of Fri Mar  1 06:53:14 EST 2019,
-    115: load_json(json_fname):
-    120: measure(json_fname):
-    123: parse_ppl_measures(json_dict):
-    159: segments(polygon):
-    165: area_polygon(polygon):
-    199: estim8_w8(json_fname, front_fname, side_fname, height):
-    225: chest_circum(json_fname, front_fname, side_fname, cust_height):
-    340: fac(n):
-    351: half_c_n(n):
-    363: sequence(n,h):
-    369: series(n,h):
-    375: perim_e(a, b, precision=6):
-    438: ellipse_circum_approx(a, b, precision=6):
-    445: ellipse_circum(a, b):
-    497: measure_chest(json_fname):
-    518: show_overlaid_polygon_measures(pic_filename___with_openpose_keypoints_, openpose_keypts_dict, N=4):
-    544: dist(pt1, pt2):
-    548: pixel_height(mask):
-    552: pix_h(mask):
-    571: orig_pix_h(img_fname):
-    598: test_chest_circ():
 
-
-  Chest
+  Chest:
     Measure the circumference of your chest at your nipple level. Hold the end of the measuring tape in the middle of your chest at your nipple level. Evenly wrap the measuring tape around your chest. Note the measurement at the point where the tape measure meets at the 0 mark.
     Note: When taking your measurements, relax your muscles and stand with weight equally distributed on both feet. Make sure that the measuring tape is kept at an even horizontal level around your body.
 
-  Waist
+
+  Waist:
     Measure the circumference of your waist at your preferred waistline. Your preferred waistline is where you typically wear the waist of your pants. After exhaling, hold the beginning of the measuring tape in front of your body in the middle of your waistline. Evenly wrap the measuring tape around your waist. Note the measurement at the point where the tape measure meets at the 0 mark.
     Note: When taking your measurements, relax your muscles and stand with weight equally distributed on both feet. Make sure that the measuring tape is kept at an even horizontal level around your body.
 
-  Hips
+
+  Hips:
     Measure the circumference of your hips at the level where your hips are widest. Hold the beginning of the measuring tape in front of your body in the middle of your hip line. Evenly wrap the measuring tape around your hips. Note the measurement at the point where the tape measure meets at the 0 mark.
     Note: When taking your measurements, relax your muscles and stand with weight equally distributed on both feet. Make sure that the measuring tape is kept at an even horizontal level around your body.
 
-  Inseam
+
+  Inseam:
     Measure your inseam from your crotch to the floor. Your crotch is the inner, uppermost point of leg. Hold the beginning of the tape measure at your crotch. Make sure you are holding it at the 0 mark. Pull the tape measure down to the floor where your foot is situated. Note the measurement at the point where the tape measure meets at the 0 mark.
     Note: When taking your measurements, relax your muscles and stand with weight equally distributed on both feet. Make sure that the measuring tape is kept at an even horizontal level around your body.
+
+
 
 '''
 
@@ -1946,5 +2035,8 @@ if __name__=="__main__":
   hips        =  32.    # inches (below hip bone)
   inseam      =  35.    # inches
 
+  My Lee's Jeans are 29x36 inches (29 waist, 36 inseam).  The inseam measures almost EXACTLY 36 inches when I lay them out on the table and measure the literal seam from crotch to hem   Some jeans that mostly 
+  If a pair of jeans should fit around the belly-button area (no need for a belt, then!  (we can sell customers on this)), we should be selling jeans specifically tailored for that length.  I'm not 100% sure whether jeans are supposed to fit this way, though.  Maybe we could try to strong-arm the jeans companies into selling at that size?
 '''
-
+# TODO: we have to define our measurements     OURSELVES, not just copy what www.bodyvisualizer.com says
+#   let's start by taking some measurements and seeing what actually fits with the jeans/shirts we HAVE

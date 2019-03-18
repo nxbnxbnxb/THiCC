@@ -15,6 +15,31 @@ from save import save
 
 
 """
+  Glossary (glossary):
+
+  As of Fri Mar  1 06:53:14 EST 2019,
+    115: load_json(json_fname):
+    120: measure(json_fname):
+    123: parse_ppl_measures(json_dict):
+    159: segments(polygon):
+    165: area_polygon(polygon):
+    199: estim8_w8(json_fname, front_fname, side_fname, height):
+    225: chest_circum(json_fname, front_fname, side_fname, cust_height):
+    340: fac(n):
+    351: half_c_n(n):
+    363: sequence(n,h):
+    369: series(n,h):
+    375: perim_e(a, b, precision=6):
+    438: ellipse_circum_approx(a, b, precision=6):
+    445: ellipse_circum(a, b):
+    497: measure_chest(json_fname):
+    518: show_overlaid_polygon_measures(pic_filename___with_openpose_keypoints_, openpose_keypts_dict, N=4):
+    544: dist(pt1, pt2):
+    548: pixel_height(mask):
+    552: pix_h(mask):
+    571: orig_pix_h(img_fname):
+    598: test_chest_circ():
+
   Glossary as of Mon Feb 25 09:07:23 EST 2019:
     def find_toes(mask___face_on):
     def find_crotch(mask___portrait_view):

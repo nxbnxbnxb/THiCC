@@ -82,3 +82,96 @@ def adjacents(verts, faces):
 #=====================================================================
 
 
+#=====================================================================
+def mesh_err():
+  calced_chest_circum , _ = mesh_perim_at_height(verts, faces, chest_h, which_ax='z')
+  calced_hip_circum   , _ = mesh_perim_at_height(verts, faces, hip_h  , which_ax='z')
+  calced_waist_circum , _ = mesh_perim_at_height(verts, faces, waist_h, which_ax='z')
+
+  #crotch ratio: {'height': 255/433 down from the top, 'x_loc': 120/221 from the left to the right}
+  CROTCH_LR_RATIO=120/211.
+  crotch_depth=31.31119602
+  calced_crotch_2_head_circum, crotch = mesh_perim_at_height(verts, faces, crotch_depth, which_ax='x', plot=True)
+  print("calced_crotch_2_head_circum: ",calced_crotch_2_head_circum)
+  min_height=np.inf
+  real_crotch=None
+  real_crotch_depth=crotch_depth
+  start = crotch_depth-0.1
+  end   = crotch_depth+0.1
+  print("start = {0}     and end = {1}".format(start, end))
+ 
+  # TODO NOTE This perfect-crotch-search takes too long.  We have to adapt it somehow to find a saddle point in z.   Or to only find the highest min point instead of calculating the whole ConvexHull and perimeter every time.  But before we make it fast, we prob have to check that we actually WANT the crotch so precisely.
+  # Note: refactor into separate get_crotch()
+  for d in np.linspace(start,end,99):
+    calced_crotch_2_head_circum, crotch = mesh_perim_at_height(verts, faces, d, which_ax='x')
+    if calced_crotch_2_head_circum < min_height:
+      min_height=calced_crotch_2_head_circum
+      real_crotch_depth=d
+      real_crotch=crotch
+  print("min_height:",min_height)
+  print("real_crotch_depth:",real_crotch_depth)
+  print("real_crotch:",real_crotch) # NOTE: real_crotch: [27.65771812 12.4297897  31.31119602]
+                                    #                    [27.66326531 12.42601213 31.31183592]
+  bots_idx=np.argmin(verts[:,2])
+  toe=verts[bots_idx]
+  print('toe:',toe)
+  print('toe.shape:',toe.shape)
+  toe_to_head_perim, _ = mesh_perim_at_height(verts, faces, toe[0], which_ax='x', plot=True)
+  print('toe_to_head_perim:',toe_to_head_perim)
+  #toes=np.min(verts)
+  BUMP=2.3428187919463   #1.8715
+  crotch_depth-=BUMP # 28.1285.   Ought to be somewhere like 27.6571812080537
+  #crotch_depth=x_max-crotch_depth
+  pn(9);pe();pe();pe();pe();pr(" "*24+"about to calculate crotch")
+  pr(" "*26+"crotch_depth:",crotch_depth);pe();pe();pe();pe();pn(9)
+  calced_crotch_2_head_circum, _ = mesh_perim_at_height(verts, faces, crotch_depth, which_ax='x')
+  pr("calced_crotch_2_head_circum:", calced_crotch_2_head_circum) # real is ~    calcul8d is ~102.02471693093469 inches
+  calced_crotch_2_head_circum, _  = mesh_perim_at_height(verts, faces, real_crotch_depth, which_ax='x', plot=True)
+  # ToDO: use real_crotch_depth to calculate inseam.  Is this good enough?  (Better/ worse than finding the toes & calcul8ing the inseam by dist_btwn(crotch, toe)
+  # TOdO: generalize the crotch-finding calculation, hook up the openpose shit (hip, chest, waist, etc.  heights)     end-to-end
+ 
+
+  #
+  pr("calced_crotch_2_head_circum:" , calced_crotch_2_head_circum) # real is ~    calcul8d is ~102.02471693093469 inches.    Lower is 101.51852706256683
+  pr("calced_chest_circum:  " , calced_chest_circum)   # real is ~34 inches (ConvexHull)
+  pr("calced_hip_circum  :  " , calced_hip_circum)     # real is ~32 inches (ConvexHull)
+  pr("calced_waist_circum:  " , calced_waist_circum)   # real is ~30 inches (ConvexHull)
+#=====================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
