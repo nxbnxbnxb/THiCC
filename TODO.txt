@@ -1,8 +1,8 @@
 
   What did you learn today?
-    Just do it.  Actions (mistakes) per minute.
-    Apply Spolsky's "Joel on Software" to our work stuff
-  Big picture TODO near the bottom:
+    Just do it.  Actions (mistakes) / minute.
+    Apply Spolsky's "Joel on Software" to our work stuff.
+    Big picture TODO near the bottom:
 
 
 
@@ -14,6 +14,89 @@
 
 
     TODO.txt
+
+________________________________
+
+  Sun Mar 17 09:18:54 EDT 2019
+________________________________
+
+  Would be ideal for debugging if we could tune the model to, like, 3 parameters:
+    Shirt size
+    Jean  size
+    Regularization (don't overfit)
+
+  Jeans ought to lay somewhere right above the hips (actually far below the belly button)
+    But they also ought to not fall off.  So we have to get it right.  I'm not even 100% sure openpose will do it right.
+
+  TRY HMR WITH OPENPOSE JSON.
+
+
+  Somehow get openpose keypoints, but add:
+    1.  Crotch
+      a.
+    2.  Inseam loc (heel?)
+      a.  Openpose gives us heels.  At least approximate heel locations.
+    3.  
+    4.
+    5.
+    6.
+    7.
+    8.
+    9.
+    10.
+    11.
+    12.
+    13.
+    14.
+    15.
+    16.
+    17.
+    18.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Shirt (XS,S,M,L,XL)
+    Jean  (inseam,waist)
+    Regularization (don't overfit)
+
+  Backup Pierlorenzo's bitbucket
+    Gotta bring this up casually somehow?
+
+  Hangout with TheMall guys, even if it's just via Messenger.
+
+
+
+
+
+
+
+
+
 
 ________________________________
 
