@@ -1,4 +1,5 @@
 import numpy as np
+from copy import deepcopy
 import imageio as ii
 import glob
 import os
@@ -152,20 +153,32 @@ def get_waist(mask,customers_height):
 
     customers_height is in inches
   '''
+  # As of   (Tue Mar 19 08:43:29 EDT 2019),
+  #
+  #   This hardcoded (non-NeuralNetwork) get_waist from deeplab isn't good enough to accurately find the waist.
+  #   The deeplab segmentation "misses" by too much around the crotch & fine details to accurately tell us where the waist is.
+  #   I HOPE openpose is good enough.  But it's slow on my personal machine (laptop), so it's hard to test.
+  #
+  #
+
   pix_height=pixel_height(mask)
   crotch=find_crotch(mask)
   crotch_height=crotch['height']
   crotch_x=crotch['x_loc']
   crotch=np.array([crotch['height'], crotch['x_loc']]).astype('int64')
+ #=============================================
   pix_btwn_waist_and_crotch=24 # TODO: fiddle with.
+ #=============================================
   waist_height=crotch_height-pix_btwn_waist_and_crotch
   waist_in_pixels=int(np.count_nonzero(mask[waist_height])) # NOTE: can modify this to get only the middle section (strip)'s length if both arms go down and are just as high as the waist
   print("waist_in_pixels is {0}".format(waist_in_pixels))
   print("crotch is {0}".format(crotch)) # fine
   print("pix_height is {0}".format(pix_height))
   print("customers_height is {0}".format(customers_height))
-  pltshow(mask)
-  pltshow(mask[waist_height-10:waist_height+10,:])
+  mask_w_waist=deepcopy(mask)
+  W=3
+  mask_w_waist[waist_height-W:waist_height+W,:]=0
+  pltshow(mask_w_waist)
   if debug:
     pltshow(mask[crotch_height-10:crotch_height+10, crotch_x-10:crotch_x+10])
     pltshow(mask[waist_height-5:waist_height+5,:])
@@ -217,7 +230,7 @@ def leg_len(mask,customers_height):
   pif("\n"*3)
   return leg_len_pixels/pix_height*customers_height
 #==============================================================
-if __name__=="__main__":
+def test_crotch():
   mask_fname='mask.png'
   mask=np_img(mask_fname)
   mask_data=mask_info(mask)
@@ -230,6 +243,19 @@ if __name__=="__main__":
   pr("crotch:")
   p(crotch)
   pltshow(mask_2d)
+  return mask_2d, crotch
+#==============================================================
+def test_waist():
+  mask_fname='mask.png'
+  mask=np_img(mask_fname)
+  mask_2d=np.logical_and(mask[:,:,0],mask[:,:,1])
+  mask_2d=np.logical_and(mask_2d,mask[:,:,2])
+  NATHANS_HEIGHT=75 # inches
+  return  get_waist(mask_2d, NATHANS_HEIGHT)
+#==============================================================
+if __name__=="__main__":
+  waist=test_waist()
+  pr("waist = ",waist)
 #==============================================================
 
 

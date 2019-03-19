@@ -231,7 +231,11 @@ def estim8_w8(json_fname, front_fname, side_fname, height):
   Inseam
   Exercise
 """
- 
+#===================================================================================================================================
+def convert_openpose_json_to_inches(measures):
+  # TODO: adapt func measure_body_viz(json_fname, front_fname, side_fname, cust_height)   to this more general version of the function
+  pass
+#===================================================================================================================================
 
 
 #===================================================================================================================================
@@ -255,6 +259,12 @@ def measure_body_viz(json_fname, front_fname, side_fname, cust_height):
     Hardcoded 1./3. won't work.  It's better to trace the edge of the mask with a method like seen in old_measure.py's "find_toes(), find_crotch(), etc."
     Better still would be to train a separate neural network to identify nipples, but this would take too much time for the MVP/prototype.
 
+    ------------------
+    Notes on openpose:
+    ------------------
+    In openpose, "right" means from the viewer's perspective, not the customer's
+                  The origin (0,0) is the TOP RIGHT corner.  In other words, +x is to the left and +y is DOWN.  It's not like numpy, not like Cartesian, just ****ing happened to be built that way.
+
     -------------
     Improvements:
     -------------
@@ -268,7 +278,7 @@ def measure_body_viz(json_fname, front_fname, side_fname, cust_height):
       a. how?
     3.  Standardize the rotation pose for all get_measurements() code. (ie. all Jesus pose)
     5.  Test this function
-    6.  F
+    6.  Make it shorter.  Much much much shorter.
     7.
     8.
   '''
@@ -292,6 +302,8 @@ def measure_body_viz(json_fname, front_fname, side_fname, cust_height):
     # even though the hip is below the shoulder in real life.
   shoulder_h    = measurements['Neck']['y']
   hip_h         = measurements['MidHip']['y']
+  heel_h        = np.mean(( measurements['LHeel']['y'],
+                            measurements['RHeel']['y'])) # for inseam calculation
   torso_len     = hip_h - shoulder_h
   # nipple height is where we measure the chest, according to www.bodyvisualizer.com ("chest")
 
@@ -300,7 +312,7 @@ def measure_body_viz(json_fname, front_fname, side_fname, cust_height):
   # empirically derived, albeit from an off-orthogonal photo of myself (Shaina was holding the camera at like a 85 degree angle)
 
   # previous values: 1./3., 2./5.
-  nip_h         = shoulder_h + (torso_len*NIP_IN_TORSO) 
+  nip_h         = shoulder_h + (torso_len*NIP_IN_TORSO)
   belly_button_h= shoulder_h + (torso_len*BELLY_IN_TORSO) # belbut
   # I'm going to assume everyone wears pants way up near the belly button.  Then they won't need to wear a belt.
   # It's probably easiest if we standardize this such that everyone wears their pants at the same height.
@@ -312,23 +324,18 @@ def measure_body_viz(json_fname, front_fname, side_fname, cust_height):
   #origs_height  = orig_pix_h(front_fname) # not necessary
   orig_h        = np.asarray(ii.imread(front_fname)).shape[0]
   masks_h       = front_mask.shape[0]
-  if debug:
-    pr("masks_h: ",masks_h)
-    pr("orig_h:  ",orig_h)
 
   # Change heights (ie. nip_h, hip_h) to be within the mask's "height scale" :
   # mask_scaling is here because deeplab spits out segmaps of shape (513,288)
-  mask_scaling  = float(masks_h)/float(orig_h)
-  nip_h        *= mask_scaling
-  nip_h         = int(round(nip_h))
-  belly_button_h*= mask_scaling # TODO: separate scale variable for this (  "float(masks_h)/float(orig_h)" )
-  belly_button_h = int(round(belly_button_h))
-  hip_h        *= mask_scaling
-  hip_h         = int(round(hip_h))
-  if debug:
-    pr("belly_button_h is \n",belly_button_h)
-    pr("nip_h is \n",nip_h)
-    pr("hip_h is \n",hip_h)
+  mask_scaling    = float(masks_h)/float(orig_h)
+  nip_h          *= mask_scaling
+  nip_h           = int(round(nip_h))
+  belly_button_h *= mask_scaling # TODO: separate scale variable for this (  "float(masks_h)/float(orig_h)" )
+  belly_button_h  = int(round(belly_button_h))
+  hip_h          *= mask_scaling
+  hip_h           = int(round(hip_h))
+  heel_h         *= mask_scaling
+  heel_h          = int(round(heel_h))
 
   # Data:
   #   For these particular images, the side view is 7 units shifted "up" from the   front view
@@ -336,31 +343,20 @@ def measure_body_viz(json_fname, front_fname, side_fname, cust_height):
 
   # NOTE:  picture/video should be taken  such that no part of the customers' arms are at the same height ("y value") as the customer's nipples.  "Jesus pose" or "Schwarzenegger pose"
   chest_w = np.count_nonzero(front_mask[nip_h])
+  # NOTE NOTE NOTE: The "waist" is actually the belly button.    (Tue Mar 19 09:02:58 EDT 2019)
   waist_w = np.count_nonzero(front_mask[belly_button_h])
   hip_w   = np.count_nonzero(front_mask[hip_h])
 
-  if debug:
-    pltshow(front_mask)
-    front_mask[nip_h-1:nip_h+1]=0
-    front_mask[belly_button_h-1:belly_button_h+1]=0
-    front_mask[hip_h-1:hip_h+1]=0
-    pltshow(front_mask)
-    pr(front_mask.shape)
-    pr(front_mask[np.nonzero(front_mask)]) # 15s
-    pr(front_mask.dtype) # int64
-    pr(side_mask.shape)
-    pr(side_mask.dtype)  # int64
-    pltshow(side_mask)
   # People shift up-down when rotating themselves for the camera.   
   # We have to identify the heights of body parts in both views so we can estimate the waist circumference, hip circumference, etc.
-  y_shift=get_mask_y_shift(front_mask, side_mask)
+  y_shift         =get_mask_y_shift(front_mask, side_mask)
   nip_h           +=  y_shift
   belly_button_h  +=  y_shift
   hip_h           +=  y_shift
-  if debug: pr("after adjustment, \n  nip_h is \n    ",nip_h)
-  chest_l=np.count_nonzero( side_mask[nip_h])           # "length," but what this really means is distance from back to nipple.
+  heel_h          +=  y_shift
+  chest_l=np.count_nonzero( side_mask[nip_h]) # "length," but what this really means is distance from back to nipple.
   waist_l=np.count_nonzero( side_mask[belly_button_h])  # "length," but what this really means is distance from back to nipple.
-  hip_l=np.count_nonzero( side_mask[hip_h])  # "length," but what this really means is distance from back to nipple.
+  hip_l=np.count_nonzero( side_mask[hip_h])   # "length," but what this really means is distance from back to nipple.
   real_h_scale=cust_height/pix_height
   if debug:
     side_mask[nip_h-1         :nip_h+1          ] = 0
@@ -386,16 +382,13 @@ def measure_body_viz(json_fname, front_fname, side_fname, cust_height):
   chest_h         = side_mask.shape[0]- nip_h           - mask_pix_foot_loc
   hip_h           = side_mask.shape[0]- hip_h           - mask_pix_foot_loc
   waist_h         = side_mask.shape[0]- belly_button_h  - mask_pix_foot_loc
+  heel_h          = side_mask.shape[0]- heel_h          - mask_pix_foot_loc
 
-  if debug: 
-    pr("side_locs is \n", side_locs)
-    pr('foot_loc_np: \n',foot_loc_np)
-    pr("mask_pix_foot_loc:\n",mask_pix_foot_loc)
-    pltshow(side_mask)
   # Scale from pixels to inches:
   measurements['chest_height_inches'] = chest_h * real_h_scale
   measurements['waist_height_inches'] = waist_h * real_h_scale
   measurements['hip_height_inches']   = hip_h   * real_h_scale
+  measurements['heel_height_inches']  = heel_h  * real_h_scale
   return measurements
   '''
   This algorithm:
@@ -1355,6 +1348,7 @@ def parse_obj_file(obj_fname):
 
 #====================================================================================
 def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
+  # This func mesh_err() Will become the loss function for a "Beta Neural Net" (BNN), operating on SMPL's shape parameters ("betas").
   '''
     Program's curr state: (Mar 11, 2019):
     1. Find height from openpose keypoints json (debug)
@@ -1370,7 +1364,6 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
     front_fname:  picture of the customer taken from the front
     side_fname:   Picture of the customer from the side (ie. prisoners' mugshot 2 (https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fcdn-s3.thewrap.com%2Fimages%2F2014%2F01%2Fjustin-bieber-side-mugshot.jpg&f=1))
     cust_height: customer's height in INCHES
-
   '''
   # func name mesh_err()
   #obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'
@@ -1395,9 +1388,21 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
 
   # Use openpose keypoints json to get measurements
   measures= measure_body_viz(json_fname, front_fname, side_fname, cust_height)
+  pr("measures:");p(measures)
   chest_h = measures['chest_height_inches']  # Nathan's real chest_h is 57 inches
   hip_h   = measures['hip_height_inches']    # Nathan's real hip_h   is    inches
   waist_h = measures['waist_height_inches']  # Nathan's real waist_h is    inches
+  heel_h  = measures['heel_height_inches']
+  pr("heel_h:",heel_h)
+  # TODO:  r_heel_x, l_heel_x, etc.
+
+  # TODO: perspective (orthographic vs. perspective) transformation to fix the heel
+  #=====================================================================
+  #=====================================================================
+  #=====================================================================
+  #=====================================================================
+  #=====================================================================
+  #=====================================================================
 
   print("chest_h: ",chest_h )
   print("hip_h  : ",hip_h   )
@@ -1407,37 +1412,33 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
 
   # TODO: clean up the searching-for-x-and-y-slices code below:
   # Code for scanning for crotch:
-  PAD=3.1
-  RESOLUTION=41
+  PAD=0.01
+  RESOLUTION=99
 
-  '''
-  for z in np.linspace(z_max- PAD, z_min+ PAD,  RESOLUTION):
-    z_slice             = mesh_perim_at_height( verts, faces, z, which_ax='z',plot=True)
-  '''
-  # -x is the raised hand (approx. x==0)
+  # Looking for real waist; earlier "waist_h" was just belly button
+  min_circ=np.inf
+  for z in np.linspace(waist_h+ PAD, hip_h-PAD, RESOLUTION):
+    calced_pants_waist_circum, _ = mesh_perim_at_height(verts, faces, z, which_ax='z')
+    if calced_pants_waist_circum < min_circ:
+      pants_waist_z=z
+  pr("pants_waist_z: ", pants_waist_z)
+  calced_pants_waist_circum, _  = mesh_perim_at_height(verts, faces, pants_waist_z, which_ax='z', plot=True)
+  pr("calced_pants_waist_circum: ",calced_pants_waist_circum)
 
   # for loops do crotch-length-finding:
+  # -x is the raised hand (approx. x==0)
   '''
   for x in np.linspace(x_max- PAD, x_min+ PAD,  RESOLUTION):
-    x_slice             = mesh_perim_at_height( verts, faces, x, which_ax='x',ax=0, plot=True)
-  for x in np.linspace(x_max- PAD, x_min+ PAD,  RESOLUTION):
-    x_slice             = mesh_perim_at_height( verts, faces, x, which_ax='x')
+    x_slice,_             = mesh_perim_at_height( verts, faces, x, which_ax='x',plot=True)
   for y in np.linspace(y_max- PAD, y_min+ PAD,  RESOLUTION):
-    y_slice             = mesh_perim_at_height( verts, faces, y, which_ax='y')
-  '''
-
-  '''
-  x_mid=(x_max+x_min)/2.
-  y_mid=(y_max+y_min)/2.
-  x_slice             = mesh_perim_at_height( verts, faces, x_mid-10, which_ax='x',ax=0)
-  y_slice             = mesh_perim_at_height( verts, faces, y_mid-10, which_ax='y',ax=1)
+    y_slice,_             = mesh_perim_at_height( verts, faces, y, which_ax='y',plot=True)
   for z in np.linspace(z_max- 0.1, z_min+0.1, 11):
-    z_slice             = mesh_perim_at_height( verts, faces, z, which_ax='z',ax=2)
+    z_slice,_             = mesh_perim_at_height( verts, faces, z, which_ax='z',plot=True)
   '''
 
-  calced_chest_circum , _ = mesh_perim_at_height(verts, faces, chest_h, which_ax='z')
-  calced_hip_circum   , _ = mesh_perim_at_height(verts, faces, hip_h  , which_ax='z')
-  calced_waist_circum , _ = mesh_perim_at_height(verts, faces, waist_h, which_ax='z')
+  calced_chest_circum , _ = mesh_perim_at_height(verts, faces, chest_h, which_ax='z', plot=True)
+  calced_hip_circum   , _ = mesh_perim_at_height(verts, faces, hip_h  , which_ax='z', plot=True)
+  calced_waist_circum , _ = mesh_perim_at_height(verts, faces, waist_h, which_ax='z', plot=True)
 
   #crotch ratio: {'height': 255/433 down from the top, 'x_loc': 120/221 from the left to the right}
   CROTCH_LR_RATIO=120/211.
@@ -1450,7 +1451,7 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
   print("start = {0}     and end = {1}".format(start, end))
  
   # TODO NOTE This perfect-crotch-search takes too long.  We have to adapt it somehow to find a saddle point in z.   Or to only find the highest min point instead of calculating the whole ConvexHull and perimeter every time.  But before we make it fast, we prob have to check that we actually WANT the crotch so precisely.
-  # Note: refactor into separate get_crotch()
+  # Note: refactor into separate get_crotch().    Also, this general function seems to be pretty useful (search for a min)
   for d in np.linspace(start, end, 99):
     calced_crotch_2_head_circum, crotch = mesh_perim_at_height(verts, faces, d, which_ax='x')
     if calced_crotch_2_head_circum < min_height:

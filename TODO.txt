@@ -17,18 +17,100 @@
 
 ________________________________
 
+  Tue Mar 19 07:59:08 EDT 2019
+________________________________
+
+  Looking for good inseam measurement on the SMPL mesh (3-D vertices, rather than on a 2-D image)
+    At 1st, just use l2_dist(Heel, crotch)
+
+  convert openpose keypoints json measurements to inches.
+
+  def convert_openpose_json_to_inches(measures):
+    # TODO: adapt func measure_body_viz(json_fname, front_fname, side_fname, cust_height)   to this more general version of the function 
+
+
+
+
+
+
+  Where is the waist (where should we wear our pants?) relative to openpose keypoint "landmarks" and mask "landmarks"
+    Then inseam = waist-crotch 
+  But first, let's use openpose and SMPL (either HMR or BNN) to get a bunch of diff metrics and fit the shape params to each (ie. elbow to belly button, etc.)
+    This will (ideally) allow us to get the shape params (betas) as correct as possible.
+
+
+
+
+
+  Get TV set up as monitor at night.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
   Sun Mar 17 09:18:54 EDT 2019
 ________________________________
+
+  Internet-off crontab:
+    Double-check this works ABSOLUTELY, 100%, etc.
+    Don't need to repeat infinitely if that command (*/) doesn't work.
+
+
+
 
   Would be ideal for debugging if we could tune the model to, like, 3 parameters:
     Shirt size
     Jean  size
     Regularization (don't overfit)
 
+    But first, let's use openpose and SMPL (either HMR or BNN) to get a bunch of diff metrics and fit the shape params to each (ie. elbow to belly button, etc.)
+      This will (ideally) allow us to get the shape params (betas) as correct as possible.
+
+
   Jeans ought to lay somewhere right above the hips (actually far below the belly button)
     But they also ought to not fall off.  So we have to get it right.  I'm not even 100% sure openpose will do it right.
 
   TRY HMR WITH OPENPOSE JSON.
+
+
+
 
 
   Somehow get openpose keypoints, but add:

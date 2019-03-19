@@ -1115,6 +1115,7 @@ def print_list_recurs(l, indent_lvl):
         else:
             print (('  ')*indent_lvl+'  element in list: '+str(e))
  
+#=========================================================================
 def print_visible(s):
     '''
             Prints like the following:
@@ -1143,6 +1144,7 @@ def print_visible(s):
             (num_eq*"=")     +\
             (pad*"\n"))
 
+#=========================================================================
 def count(arr):
   #np.countnonzero()?
   counts={}
@@ -1162,11 +1164,83 @@ def count(arr):
         else:
           counts[val]=1
   return counts
+#=========================================================================
 
 
+#=========================================================================
 # NOTE:   the most basic example of exception inheritance
 class MeanHasNoPtsException(RuntimeError):
     pass
+#=========================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""
+#=========================================================================
+def get_blender_verts():
+  '''
+    output param "coords" will work with numpy (np.min() and np.max())
+  '''
+  # NOTE: to make this function work, just copy & paste   the code into blender's python "REPL"
+	import bpy
+	from bpy import context
+	obj = context.active_object
+	v = obj.data.vertices[0]
+	co_final = obj.matrix_world * v.co
+	# now we can view the location by applying it to an object
+	obj_empty = bpy.data.objects.new("Test", None)
+	context.scene.objects.link(obj_empty)
+	obj_empty.location = co_final
+	coords = [(obj.matrix_world * v.co) for v in obj.data.vertices]
+    #output param "coords" will work with numpy (np.min() and np.max())
+  return coords
+#=========================================================================
+"""
+#=========================================================================
+def vert_info(verts):
+  # only for use in python REPL in blender
+  x_min,y_min,z_min=np.min(verts,axis=0)
+  x_max,y_max,z_max=np.max(verts,axis=0)
+  x_len,y_len,z_len=np.max(verts,axis=0)-np.min(verts,axis=0)
+  return x_min,y_min,z_min, x_max,y_max,z_max, x_len,y_len,z_len
+#=========================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1182,8 +1256,7 @@ def round_tuple(tup):
     rounded+=(int(round(coord)),)
   return rounded
 #=========================================================================
-def shift_img():
-  pass
+def shift_img(): pass
   #https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.shift.html
   # https://docs.scipy.org/doc/scipy-0.16.1/reference/generated/scipy.ndimage.interpolation.shift.html
 #=========================================================================

@@ -9,6 +9,8 @@
 
 
 
+  Do everything you can in Blender.  Simpler & faster than writing & debugging code.
+
 
 
 

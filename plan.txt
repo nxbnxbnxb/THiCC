@@ -1,5 +1,111 @@
 ________________________________
 
+  Thu Mar 14 08:37:01 EDT 2019
+________________________________
+
+  Nathan's technical spec:
+
+  1.  Take "MTailor-style" 360 degree video in "Jesus-crucifixion pose" (T-pose)
+  2.  Turn video into frames (pictures)
+  3.  Get masks (cookie cutters) from images
+  4.  Detect angle of cookie cutter.
+  5.  Get heights of various key body parts (waist, chest, hips, ) and find polygons of their perimeters
+  6.  Get the perimeters of those polygons
+  7.  smpl_body_mesh      = fit(perimeters)
+    #Based on some loss function, fit SMPL model to data from customer video.
+    b.  Perimeter of a convex hull surrounding the points at that height vs. perimeter of 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Mar 13 21:41:45 EDT 2019
+________________________________
+
+  Basically, the idea is to:
+  1.  Take "MTailor-style" 360 degree video in "Jesus pose"
+  2.  frames          = cut(vid)
+  3.  mask            = seg(frame)
+  4.  angle           = auto_detect(mask, vid) 
+  5.  circumferences  = polygons(masks, angles)
+  6.  smpl_model      = fit(circumferences)
+    #Based on some loss function, fit SMPL model to data from customer video.
+    b.  Perimeter of a convex hull surrounding the points at that height vs. perimeter of 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  1.  Take "MTailor-style" 360 degree video in "Jesus pose"
+  2.  frames          = cut(vid)
+  3.  mask            = seg(frame)
+  4.  angle           = auto_detect(mask, vid) 
+  5.  circumferences  = polygons(masks, angles)
+  6.  smpl_model      = fit(circumferences)
+    #Based on some loss function, fit SMPL model to data from customer video.
+    b.  Perimeter of a convex hull surrounding the points at that height vs. perimeter of 
+    c.  Area of slice @ that height vs area of a slice of the SMPL model @ that height
+
+________________________________
+
   Tue Mar  5 08:26:44 EST 2019
 ________________________________
 
