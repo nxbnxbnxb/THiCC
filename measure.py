@@ -254,46 +254,75 @@ def measures_2_inches(measures, front_fname, side_fname, cust_real_h):
   mask_scaling  = float(masks_h)/float(pre_seg_pix_h)
   # Note: openpose keypoints json has to be gotten from the front view in order for this line ("y_shift         =get_mask_y_shift(front_mask, side_mask)") to work.  
   y_shift       = get_mask_y_shift(front_mask, side_mask)
+  front_locs    = np.nonzero(front_mask)
   side_locs     = np.nonzero(side_mask)
-  mask_pix_foot_loc_orig_coords=np.max(side_locs[0])
+
+  # Are these adjustments scaled correctly?  (ie. are they either 1) all in the original image's dimensions or 2) all in the after-segmentation-mask's dimensions?)
+  mask_pix_foot_loc_orig_coords = np.max(side_locs[0]) # bottom
+  mask_x_edge_loc               = np.min(front_locs[1]) # left
+
   #pe();pr("mask_pix_foot_loc_orig_coords:", mask_pix_foot_loc_orig_coords);pe()
   mask_pix_foot_loc = side_mask.shape[0]- mask_pix_foot_loc_orig_coords
   pe();pr("mask_pix_foot_loc:", mask_pix_foot_loc);pe()
-  pltshow(front_mask)
-  pltshow(side_mask)
+
+  front_show=deepcopy(front_mask)
+  front_show[:,mask_pix_foot_loc-2:mask_pix_foot_loc+2]=True
+  pltshow(front_show)
+
   # Should we x_shift at all?  The feet are NECESSARILY going to face a different direction b.c. the customer's body has turned.  This adds another layer of complexity to getting the right shift.   To properly run the shift, we should use openpose rather than deeplab.  Deeplab's precision is low enough that we'll fail.
   """
   x_shift       = get_mask_x_shift(front_mask, side_mask, mask_pix_foot_loc)
+
   """
 
+  measures_inches={}
   #def shift(all_these params from conversion_consts()):
   for body_part, data in measures.items():
     if type(data)==type({}):
+      measures_inches[body_part+'_inches']={}
+      data_inches=measures_inches[body_part+'_inches']
+      data_inches['c']=data['c']
+      data_inches['x']=data['x']
+      data_inches['y']=data['y']
 
       # y shifts:
       if 'y' in data.keys():
         # Segmentation always returns shape == (513, 288), so we rescale with mask_scaling
-        data['y'] *= mask_scaling
-        # Front mask is shifted up-down from side-mask, so we include y_shift
-        data['y'] += y_shift
+        data_inches['y'] *= mask_scaling
+        # Front mask is shifted up-down from side-mask when the customer rotates their body, so we include y_shift
+        data_inches['y'] += y_shift
         # Adjust for feet (feet are the real bottom of the body, not wherever the bottom of the customer picture happens to be)
-        data['y']  = side_mask.shape[0] - data['y']           - mask_pix_foot_loc
+        data_inches['y']  = side_mask.shape[0] - data_inches['y']           - mask_pix_foot_loc
         # Turn pixels into inches:
-        data['y'] *= real_h_scale
+        data_inches['y'] *= real_h_scale
       # x shifts:
       # TODO: be CERTAIN we got the x-orientation correct; either +x should always be the left or +x should always be the right, and everything else that follows from there, etc.
       # TODO: x shift too.
-      """
       if 'x' in data.keys():
         # see comments from "y shifts" above
-        data['x'] *= mask_scaling
-        data['x']  = - data['x']           - mask_pix_foot_loc
-        data['x'] *= real_h_scale
-      """
-  pr("measures:")
-  p(measures)
-  pr("Leaving function ", funcname);pe()
-  return measures
+        data_inches['x'] *= mask_scaling
+        data_inches['x']  = data_inches['x']           - mask_x_edge_loc    # NOTE NOTE NOTE NOTE NOTE: do we need to change the shift to get the x_edge_T_pose?
+        data_inches['x'] *= real_h_scale
+  all_measures={**measures, **measures_inches}
+
+  xs=[]; ys=[]
+  for body_part,data in all_measures.items():
+    if 'inches' in body_part:
+      if type(data)==type({}):
+        xs.append(data['x'])
+        ys.append(data['y'])
+  #pix_wingspan=np.max(front_locs[1])- np.min(front_locs[1])
+  pr("xs:",xs)
+  pr("ys:",ys)
+  #pr("pix_wingspan:"pix_wingspan)
+  #inches_size=(75,) # n8's arm width
+  #front_resized =skimage.transform.resize( np_img(front_fname), inches_size, anti_aliasing=True )
+  #plt.imshow(front_resized)
+  plt.scatter(xs,ys)
+  plt.show();plt.close()
+  if debug:
+    pr("Leaving function ", funcname);pe()
+  return all_measures
 #================================================= end measures_2_inches(params) ==================================================
 
 
@@ -491,7 +520,7 @@ def measure_body_viz(json_fname, front_fname, side_fname, cust_height):
 
   '''
   # tODO: try to catch all bugs before they get too serious
-#================================================= chest_waist_hips_circum() ======================================================================
+#================================================= end measure_body_viz(params) ======================================================================
 
 #======================================= all for ellipse circum calculation.  Doesn't work yet.  def ellipse_circum_approx(a,b, precision=2): =======================================
 #=======================================================================================================================================
