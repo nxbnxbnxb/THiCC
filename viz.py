@@ -36,7 +36,25 @@ def plot_pts_3d(pts):
 
   plt.show()
 #=========================================================================
- 
+def show_keypts(img_fname):
+  from n8___hmr_input_img_keypoints___dict import measures
+  from utils import np_img
+  # "measures" is a dictionary with openpose keypoints.
+  img=np_img(img_fname)
+  h=img.shape[0]
+  w=img.shape[1]
+  plt.imshow(img)
+  xs=[]; ys=[]
+  for bodypart,data in measures.items():
+    xs.append(data['x'])
+    ys.append(data['y'])
+    #xs.append(w-data['x'])
+    #ys.append(h-data['y'])
+  plt.scatter(xs,ys)
+  plt.show()
+  plt.close()
+  return
+#=========================================================================
 
 def cross_sections_biggest(m):
   '''
@@ -164,12 +182,14 @@ def show_convhull(locs):
 
   plt.show()
   plt.close();return
+#=========================================================================
 
 
 if __name__=='__main__':
   #m=np.load('skin_nathan_.npy').astype('bool')
   #show_all_cross_sections(m, freq=20)
-  show_convhull(np.load("skin_locs_nathan_.npy"))
+  #show_convhull(np.load("skin_locs_nathan_.npy"))
+  show_keypts('/home/n/Dropbox/vr_mall_backup/imgs/n8_front___jesus_legs_closed___150_pix_h/n8___hmr_input_img_rendered.png')
 
 
 

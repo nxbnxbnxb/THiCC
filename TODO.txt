@@ -22,6 +22,7 @@ ________________________________
 
   1.  Convert measurements to inches
     Feet adjustment (x dist)
+    How do we translate the openpose keypoints from 2D (xy) photos to the 3D (xyz) locations on the SMPL mesh?????
   2.  SEPARATELY, get the circumference (perimeter) at the hip, chest, etc.
   3.  Camera must be stationary during filming
     a.  (see MTailor's method; put the phone on the ground, angled up, and do your rotation, trying to keep your axis of rotation as still as humanly possible)
@@ -40,6 +41,37 @@ ________________________________
   16.
   17.
   18.
+
+
+
+  I tried plugging in some openpose keypoints JSON to HMR, and it didn't seem to affect the end result.  So if I have to fix it up, I have to go into HMR's guts (code) and fix it manually.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

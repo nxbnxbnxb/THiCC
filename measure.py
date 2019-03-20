@@ -263,17 +263,6 @@ def measures_2_inches(measures, front_fname, side_fname, cust_real_h):
 
   #pe();pr("mask_pix_foot_loc_orig_coords:", mask_pix_foot_loc_orig_coords);pe()
   mask_pix_foot_loc = side_mask.shape[0]- mask_pix_foot_loc_orig_coords
-  pe();pr("mask_pix_foot_loc:", mask_pix_foot_loc);pe()
-
-  front_show=deepcopy(front_mask)
-  front_show[:,mask_pix_foot_loc-2:mask_pix_foot_loc+2]=True
-  pltshow(front_show)
-
-  # Should we x_shift at all?  The feet are NECESSARILY going to face a different direction b.c. the customer's body has turned.  This adds another layer of complexity to getting the right shift.   To properly run the shift, we should use openpose rather than deeplab.  Deeplab's precision is low enough that we'll fail.
-  """
-  x_shift       = get_mask_x_shift(front_mask, side_mask, mask_pix_foot_loc)
-
-  """
 
   measures_inches={}
   #def shift(all_these params from conversion_consts()):
@@ -305,6 +294,12 @@ def measures_2_inches(measures, front_fname, side_fname, cust_real_h):
         data_inches['x'] *= real_h_scale
   all_measures={**measures, **measures_inches}
 
+  if debug:
+    pr("Leaving function ", funcname);pe()
+  return all_measures
+#================================================= end measures_2_inches(params) ==================================================
+  # Debugging check: shows openpose keypoints (in inches) in plt:
+  '''
   xs=[]; ys=[]
   for body_part,data in all_measures.items():
     if 'inches' in body_part:
@@ -320,9 +315,7 @@ def measures_2_inches(measures, front_fname, side_fname, cust_real_h):
   #plt.imshow(front_resized)
   plt.scatter(xs,ys)
   plt.show();plt.close()
-  if debug:
-    pr("Leaving function ", funcname);pe()
-  return all_measures
+  '''
 #================================================= end measures_2_inches(params) ==================================================
 
 
