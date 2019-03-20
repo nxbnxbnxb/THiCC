@@ -110,6 +110,27 @@ class DeepLabModel(object):
 
 
 #================================================================
+def reduce_resolution(verts,faces):
+  # NOTE: currently DOESN'T WORK.  Just idea-stage
+  # NOTE: currently DOESN'T WORK
+  # NOTE: currently DOESN'T WORK
+  '''
+    For each triangle with 3 adjacent triangles, take the centroids of the 3 adjacents and turn those into a triangle that replaces the original 4.
+    Then, recurse until the whole mesh is lower resolution. 
+
+    Maybe we have to find the implicit function "underneath the mesh" and then change the resolution of the triangle mesh overlying it, then.  This idea is half-taken from "Voronoi based variational reconstruction of unoriented point sets" by Alliez, et al.
+
+    Issues I foresee:
+      Edges, corners, weird edge cases.
+      How do we 
+  '''
+  # NOTE: there's like, 0% chance this will work.
+  # This function is for Pier and Simone.  Something about 3DS Max wanting lower resolution or something.
+  for face in faces:
+    print(face)
+  return verts_reduced, faces_reduced
+  
+#================================================================
 def create_pascal_label_colormap():
   colormap = np.zeros((256, 3), dtype=int)
   ind = np.arange(256, dtype=int)
@@ -1346,6 +1367,17 @@ def get_mask_y_shift(mask1, mask2):
   midpt2=int(round(np.mean([bot,top])))
   return midpt2-midpt1  # TODO: make this consistent (either always n1-n2 or n2-n1)
 #=========================================================================
+
+
+
+
+
+
+
+
+
+
+
 
 
 #=========================================================================

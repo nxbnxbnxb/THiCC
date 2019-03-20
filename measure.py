@@ -232,10 +232,78 @@ def estim8_w8(json_fname, front_fname, side_fname, height):
   Exercise
 """
 #===================================================================================================================================
-def convert_openpose_json_to_inches(measures):
-  # TODO: adapt func measure_body_viz(json_fname, front_fname, side_fname, cust_height)   to this more general version of the function
-  pass
-#===================================================================================================================================
+def measures_2_inches(measures, front_fname, side_fname, cust_real_h):
+  '''
+    Converts openpose keypoints to measurements in inches on the real body
+    The openpose keypoints are from the photo taken from the front
+  '''
+  # prev param list:    measures, cust_real_h_inches, cust_lens, front_mask, side_mask
+  # TODO: adapt func measure_body_viz(json_fname, front_fname, side_fname, cust_real_h)   to this more general version of the function
+  funcname=  sys._getframe().f_code.co_name
+  pe();pr("Entering function ", funcname);pe()
+  measures=deepcopy(measures) # kill pointer to the original dictionary in case the side effect ***ks something up.
+  front_mask    = np.rot90(seg_local(front_fname)) # shape == (513, 288)
+  side_mask     = np.rot90(seg_local( side_fname)) # shape == (513, 288)
+  #pltshow(front_mask)
+
+  # Refactor: "conversion_consts() "
+  pix_height    = pix_h(front_mask)
+  real_h_scale  = cust_real_h/pix_height
+  pre_seg_pix_h = np.asarray(ii.imread(front_fname)).shape[0]
+  masks_h       = front_mask.shape[0]
+  mask_scaling  = float(masks_h)/float(pre_seg_pix_h)
+  # Note: openpose keypoints json has to be gotten from the front view in order for this line ("y_shift         =get_mask_y_shift(front_mask, side_mask)") to work.  
+  y_shift       = get_mask_y_shift(front_mask, side_mask)
+  side_locs     = np.nonzero(side_mask)
+  mask_pix_foot_loc_orig_coords=np.max(side_locs[0])
+  #pe();pr("mask_pix_foot_loc_orig_coords:", mask_pix_foot_loc_orig_coords);pe()
+  mask_pix_foot_loc = side_mask.shape[0]- mask_pix_foot_loc_orig_coords
+  pe();pr("mask_pix_foot_loc:", mask_pix_foot_loc);pe()
+  pltshow(front_mask)
+  pltshow(side_mask)
+  # Should we x_shift at all?  The feet are NECESSARILY going to face a different direction b.c. the customer's body has turned.  This adds another layer of complexity to getting the right shift.   To properly run the shift, we should use openpose rather than deeplab.  Deeplab's precision is low enough that we'll fail.
+  """
+  x_shift       = get_mask_x_shift(front_mask, side_mask, mask_pix_foot_loc)
+  """
+
+  #def shift(all_these params from conversion_consts()):
+  for body_part, data in measures.items():
+    if type(data)==type({}):
+
+      # y shifts:
+      if 'y' in data.keys():
+        # Segmentation always returns shape == (513, 288), so we rescale with mask_scaling
+        data['y'] *= mask_scaling
+        # Front mask is shifted up-down from side-mask, so we include y_shift
+        data['y'] += y_shift
+        # Adjust for feet (feet are the real bottom of the body, not wherever the bottom of the customer picture happens to be)
+        data['y']  = side_mask.shape[0] - data['y']           - mask_pix_foot_loc
+        # Turn pixels into inches:
+        data['y'] *= real_h_scale
+      # x shifts:
+      # TODO: be CERTAIN we got the x-orientation correct; either +x should always be the left or +x should always be the right, and everything else that follows from there, etc.
+      # TODO: x shift too.
+      """
+      if 'x' in data.keys():
+        # see comments from "y shifts" above
+        data['x'] *= mask_scaling
+        data['x']  = - data['x']           - mask_pix_foot_loc
+        data['x'] *= real_h_scale
+      """
+  pr("measures:")
+  p(measures)
+  pr("Leaving function ", funcname);pe()
+  return measures
+#================================================= end measures_2_inches(params) ==================================================
+
+
+
+
+
+
+
+
+
 
 
 #===================================================================================================================================
@@ -262,7 +330,7 @@ def measure_body_viz(json_fname, front_fname, side_fname, cust_height):
     ------------------
     Notes on openpose:
     ------------------
-    In openpose, "right" means from the viewer's perspective, not the customer's
+    In openpose, "right" means from the customer's perspective, ASSUMING they're facing us.
                   The origin (0,0) is the TOP RIGHT corner.  In other words, +x is to the left and +y is DOWN.  It's not like numpy, not like Cartesian, just ****ing happened to be built that way.
 
     -------------
@@ -312,7 +380,7 @@ def measure_body_viz(json_fname, front_fname, side_fname, cust_height):
   # empirically derived, albeit from an off-orthogonal photo of myself (Shaina was holding the camera at like a 85 degree angle)
 
   # previous values: 1./3., 2./5.
-  nip_h         = shoulder_h + (torso_len*NIP_IN_TORSO)
+  nip_h         = shoulder_h + (torso_len*NIP_IN_TORSO) 
   belly_button_h= shoulder_h + (torso_len*BELLY_IN_TORSO) # belbut
   # I'm going to assume everyone wears pants way up near the belly button.  Then they won't need to wear a belt.
   # It's probably easiest if we standardize this such that everyone wears their pants at the same height.
@@ -321,16 +389,18 @@ def measure_body_viz(json_fname, front_fname, side_fname, cust_height):
   side_mask     = np.rot90(seg_local( side_fname)) # shape == (513, 288)
   pn(3) # b/c seg_local prints some shit to stdout
   pix_height    = pix_h(front_mask)
-  #origs_height  = orig_pix_h(front_fname) # not necessary
-  orig_h        = np.asarray(ii.imread(front_fname)).shape[0]
+  # for scaling at the end:
+  real_h_scale=cust_height/pix_height
+
+  pre_seg_pix_h = np.asarray(ii.imread(front_fname)).shape[0]
   masks_h       = front_mask.shape[0]
 
   # Change heights (ie. nip_h, hip_h) to be within the mask's "height scale" :
   # mask_scaling is here because deeplab spits out segmaps of shape (513,288)
-  mask_scaling    = float(masks_h)/float(orig_h)
+  mask_scaling    = float(masks_h)/float(pre_seg_pix_h)
   nip_h          *= mask_scaling
   nip_h           = int(round(nip_h))
-  belly_button_h *= mask_scaling # TODO: separate scale variable for this (  "float(masks_h)/float(orig_h)" )
+  belly_button_h *= mask_scaling # TODO: separate scale variable for this (  "float(masks_h)/float(pre_seg_pix_h)" )
   belly_button_h  = int(round(belly_button_h))
   hip_h          *= mask_scaling
   hip_h           = int(round(hip_h))
@@ -339,25 +409,27 @@ def measure_body_viz(json_fname, front_fname, side_fname, cust_height):
 
   # Data:
   #   For these particular images, the side view is 7 units shifted "up" from the   front view
-  #   NOTE: we ought to identify a rotation point where from the side view the arms are directly at the customer's sides.  We also need to tell the customer exactly how to put their arms to enable easy measurement (ideally straight out; no angles)
+  #   Note: we ought to identify a rotation point where from the side view the arms are directly at the customer's sides.  We also need to tell the customer exactly how to put their arms to enable easy measurement (ideally straight out; no angles)
 
-  # NOTE:  picture/video should be taken  such that no part of the customers' arms are at the same height ("y value") as the customer's nipples.  "Jesus pose" or "Schwarzenegger pose"
+  # Note:  picture/video should be taken  such that no part of the customers' arms are at the same height ("y value") as the customer's nipples.  "Jesus pose" or "Schwarzenegger pose"
   chest_w = np.count_nonzero(front_mask[nip_h])
-  # NOTE NOTE NOTE: The "waist" is actually the belly button.    (Tue Mar 19 09:02:58 EDT 2019)
+  # Note: The "waist" is actually the belly button.    (Tue Mar 19 09:02:58 EDT 2019)
   waist_w = np.count_nonzero(front_mask[belly_button_h])
   hip_w   = np.count_nonzero(front_mask[hip_h])
 
   # People shift up-down when rotating themselves for the camera.   
   # We have to identify the heights of body parts in both views so we can estimate the waist circumference, hip circumference, etc.
+  #  note: openpose keypoints json has to be gotten from the front view in order for this line ("y_shift         =get_mask_y_shift(front_mask, side_mask)") to work.  
   y_shift         =get_mask_y_shift(front_mask, side_mask)
   nip_h           +=  y_shift
   belly_button_h  +=  y_shift
   hip_h           +=  y_shift
   heel_h          +=  y_shift
+
+  # NOTE: For circumference/perim calculation:
   chest_l=np.count_nonzero( side_mask[nip_h]) # "length," but what this really means is distance from back to nipple.
   waist_l=np.count_nonzero( side_mask[belly_button_h])  # "length," but what this really means is distance from back to nipple.
   hip_l=np.count_nonzero( side_mask[hip_h])   # "length," but what this really means is distance from back to nipple.
-  real_h_scale=cust_height/pix_height
   if debug:
     side_mask[nip_h-1         :nip_h+1          ] = 0
     side_mask[belly_button_h-1:belly_button_h+1 ] = 0
@@ -373,7 +445,7 @@ def measure_body_viz(json_fname, front_fname, side_fname, cust_height):
     # ellipse circumference is approximately chest circumference (it MAY overestimate a teensy bit.  TODO: double-check whether ellipse circ overestim8s or underestim8s)
   measurements['chest_circum_inches'] = ellipse_circum(chest_w/2., chest_l/2.)  * real_h_scale
   measurements['waist_circum_inches'] = ellipse_circum(waist_w/2., waist_l/2.)  * real_h_scale
-  measurements['hip_circum_inches']   = ellipse_circum(hip_w/2.  , hip_l/2.)    * real_h_scale
+  measurements['hip_circum_inches']   = ellipse_circum(hip_w  /2., hip_l  /2.)  * real_h_scale
 
   # Find actual heights of various body parts:
   #   In numpy, 0,0 is at the top left.  so we have to switch indexes to more intuitive human "height"
@@ -389,6 +461,7 @@ def measure_body_viz(json_fname, front_fname, side_fname, cust_height):
   measurements['waist_height_inches'] = waist_h * real_h_scale
   measurements['hip_height_inches']   = hip_h   * real_h_scale
   measurements['heel_height_inches']  = heel_h  * real_h_scale
+  measurements=measures_2_inches(measurements, front_fname, side_fname, cust_height)
   return measurements
   '''
   This algorithm:
@@ -692,20 +765,6 @@ def pix_h(mask):
 
 
 
-#===================================================================================================================================
-def orig_pix_h(img_fname):
-  '''
-    Pixel height is different in the original vs. after deeplab is done with it
-    The result spit out after deeplab segmentation is resized
-    See: pix_h(img_fname)
-  '''
-  # h = height
-  orig_img=np.asarray(ii.imread(img_fname))
-  orig_h=orig_img.shape[0]
-  mask=np.rot90(seg_local(img_fname))
-  h_after_seg=pix_h(mask)
-  h_as_frac_of_frame=h_after_seg / mask.shape[0] # python3 so no need for (+ 0.0)
-  return h_as_frac_of_frame * orig_h
 #===================================================================================================================================
 def other_toe(verts, toe_1, crotch):
   '''
@@ -1741,7 +1800,7 @@ if __name__=="__main__":
 
   #print("measures:",measures)
   #print("verts:",vs)
-  #pr(err, measures, vs) #if __name__=="__main__":
+  #pr(err, measures, vs) #"__main__":
 
   #test_measure()
 
@@ -1914,7 +1973,6 @@ glossary (for grep-easy-find)
     673:def dist(pt1, pt2, norm='L2'):
     680:def pixel_height(mask):
     684:def pix_h(mask):
-    703:def orig_pix_h(img_fname):
     717:def normalize_mesh(vs, mode='HMR'): 
     802:def triang_walk(verts, faces, start_face, height, adjacents, bots_idx, tops_idx, which_ax='z', ax=2):
     827:  def walk_recurs(verts, height, adjacents, vert_idx_list, bots_idx, tops_idx, top_or_bot='top', which_ax='z', ax=2):

@@ -1,3 +1,123 @@
+=====================================================================
+
+  Ask for lectures.pdf from other students in the class
+
+=====================================================================
+
+
+  Graphics demos:
+    threejs.org/examples
+
+=====================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Couldn't we theoretically model every atom/photon in the scene & the lights could just be the result of simulation interactions?
+    That would be a HELL of a lot of work, though.
+
+
+
+
+
+
+
+
+
+
+
+
+=====================================================================
+Tue Mar 19 14:51:10 EDT 2019
+=====================================================================
+
+  Shadows are hard  (imagine looking at the view from the light source)
+  Self-occlusion (shadow from other part of same object)
+  Ambient light
+    Ambient occlusion
+    What does "ambient" mean?  Sunlight?  Shouldn't it be from a point source?
+  Internal reflection
+  Shadow map (assumes photons are particles, rather than waves that can diffract around stuff)
+    Low resolution of "shadow buffer" / "shadow map" ===> MineCraft-esque shadows
+      Penumbra==refraction in shadows ("fuzziness")
+    Depth map of shadow buffer == scene from pt of view of the light source
+  We can use a texture map as cache (Hash Table) of expensive calculations
+    Only possible with static lighting
+
+
+
+
+  nathanbendich@gmail.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Tutorial:
   http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/
@@ -18,3 +138,43 @@ Prof's graphics page:
   "Hidden surface elimination"
     Occlusion of object behind other object
   You can write parallelized code for GPU in OpenGL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
