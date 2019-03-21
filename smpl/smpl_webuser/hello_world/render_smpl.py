@@ -60,7 +60,7 @@ import numpy as np
 import chumpy as ch
 import sys
 import math
-from math import sin, cos
+from math import sin, cos, pi
 
 #=========================================================================
 #pr=print # python2 doesn't allow.
@@ -111,10 +111,10 @@ m.betas[:] = np.zeros(m.betas.size).astype('float64')
 #m.pose[42]=1.4   # right arm pitch? yaw? roll?
 
 ## Rotates (like a backflip)
-m.pose[0] =  3.4  # NOTE # I'm p sure these rotations (I think it was pose[:3] that are the rotations) are taken care of differently in HMR.
+m.pose[0] =  pi  # NOTE # I'm p sure these rotations (I think it was pose[:3] that are the rotations) are taken care of differently in HMR.
 #m.pose[0] = 2.4
-m.pose[41]= -1.1  # m.pose[41] is shoulder-level rotation.
-m.pose[44]=  1.1  # m.pose[44] is shoulder-level rotation.
+#m.pose[41]= -1.1  # m.pose[41] is shoulder-level rotation.
+#m.pose[44]=  1.1  # m.pose[44] is shoulder-level rotation.
 # more poses after, but I don't have to deal with 'em right now.
 
 # Todo: put the following code snippet (sys.argv...) in hello_smpl.py.  It adapts to however many cmd line args you feed this module.
@@ -147,6 +147,17 @@ rn.vc = LambertianPointLight(
     light_color=np.array([1., 1., 1.]))
 
 
+
+## Show it using OpenCV
+import cv2
+#from cv2 import CV_WINDOW_NORMAL
+#cv2.namedWindow("main", CV_WINDOW_NORMAL)  # meant to resize the windows.  But I need Qt backend support to do this.  Would have to reinstall opencv for python, prob in a diff virtualenv or conda env
+cv2.imshow('SMPL_{0}'.format(m.betas), rn.r)
+print ('..Print any key while on the display window')
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
 # write mesh:
 outmesh_path = \
   './{10}_{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}.obj'.format(int(
@@ -162,16 +173,6 @@ with open( outmesh_path, 'w') as fp:
 pe(); print("m.betas:\n ",m.betas); pe()
 print("new mesh saved at "+outmesh_path);pe()
 
-
-
-## Show it using OpenCV
-import cv2
-#from cv2 import CV_WINDOW_NORMAL
-#cv2.namedWindow("main", CV_WINDOW_NORMAL)  # meant to resize the windows.  But I need Qt backend support to do this.  Would have to reinstall opencv for python, prob in a diff virtualenv or conda env
-cv2.imshow('SMPL_{0}'.format(m.betas), rn.r)
-print ('..Print any key while on the display window')
-cv2.waitKey(0)
-cv2.destroyAllWindows()
 
 
 ## Could also use matplotlib to display

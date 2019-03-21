@@ -704,7 +704,7 @@ def vert_info(vs):
     pr("x_max:",x_max); pr("x_min:",x_min); pr("y_max:",y_max);pr("y_min:",y_min); pr("z_max:",z_max); pr("z_min:",z_min);pn()
     pr("x_len:",x_len); pr("y_len:",y_len); pr("z_len:",z_len);pn()
     pe(69); pr("Leaving function ",sys._getframe().f_code.co_name); pe(69);pn()
-  data=(x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len)
+  data= (x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len)
   return data
 #===================================================================================================================================
 def cross_sec(verts, midpt_h, window=0.652, which_ax="z", faces=None):
@@ -1341,6 +1341,59 @@ def lines_intersection_w_plane(vert_0, vert_1, height, which_ax='z'):
   intersect_pt=x,y,z
   return intersect_pt
 #============ end lines_intersection_w_plane(params) =================
+class YouFuckedUp(Exception):
+  pass
+#=====================================================================
+def find_butt(verts):
+  '''
+    Finds the butt of a SMPL mesh with no information from deeplab masks or openpose keypoints JSON.
+
+    ------
+    Notes:
+    ------
+      @precondition: verts may need reflection/rotation before using this func.
+
+
+
+    ------------
+    Assumptions:
+    ------------
+      ASSUMES:
+        0)  Butt is +- BUTT_TOLERANCE*(height of the body) away from the height midpoint
+        1)  Shoulders are farther from the height midpoint than the butt is from the height midpoint.
+        3)  mesh is 100% in 1st octant (+x, +y, +z)
+        4)  Customer's pose is T-pose
+        5)  Positive z is head,
+        6)  Positive y is "front of body" (nose),
+        6.5)Negative y is butt
+        7)  Positive x is right hand (from the customer's point of view)
+
+
+
+    -------
+    Params:
+    -------
+      type(verts) == 'np.ndarray'
+      verts.shape==(6890,3)
+
+
+
+
+  '''
+  funcname=  sys._getframe().f_code.co_name
+  (x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len)=vert_info(verts)
+  height_midpt=z_len/2
+  # BUTT_TOLERANCE was empirically estimated from "blender-ing" smpl meshes
+  BUTT_TOLERANCE=z_len/8.
+  Y=1;Z=2
+  indices=np.argsort(verts[:,Y])
+  sorted_verts=verts[indices]
+  # iterate bot to top
+  for vert in sorted_verts:
+    if math.isclose(vert[Z], height_midpt, abs_tol=BUTT_TOLERANCE):
+      return vert # the butt
+  raise YouFuckedUp("I'm sorry, I'm afraid you've made a FATAL error in function named '{0}'.\n  I kindly request you check the position and orientation of the mesh that generated vertices variable 'verts,' you fucking retard.  If you can't figure out what's wrong with the code after such a helpful error message, I kindly request you commit suicide.".format(funcname))
+#======================= end find_butt(params) =======================
 #=====================================================================
 def mesh_perim_at_height(verts, faces, height, window=19.952, which_ax='z', ax=2, plot=False):
   if debug:
@@ -1451,6 +1504,7 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
 
   # Load .obj file
   verts, faces=parse_obj_file(obj_fname)
+  # ndarray:   verts.shape==(6980,3)
 
   # geometric transformations to put the mesh in the "upright" position (ie. +z is where the head is, arms stretch out in +/-x direction, chest-to-back is +/-y direction.)
   if 'HMR' in obj_fname.upper():
@@ -1503,7 +1557,7 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
     if calced_pants_waist_circum < min_circ:
       pants_waist_z=z
   pr("pants_waist_z: ", pants_waist_z)
-  calced_pants_waist_circum, _  = mesh_perim_at_height(verts, faces, pants_waist_z, which_ax='z', plot=True)
+  calced_pants_waist_circum, _  = mesh_perim_at_height(verts, faces, pants_waist_z, which_ax='z', plot=False)
   pr("calced_pants_waist_circum: ",calced_pants_waist_circum)
 
   # for loops do crotch-length-finding:
@@ -1517,9 +1571,9 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
     z_slice,_             = mesh_perim_at_height( verts, faces, z, which_ax='z',plot=True)
   '''
 
-  calced_chest_circum , _ = mesh_perim_at_height(verts, faces, chest_h, which_ax='z', plot=True)
-  calced_hip_circum   , _ = mesh_perim_at_height(verts, faces, hip_h  , which_ax='z', plot=True)
-  calced_waist_circum , _ = mesh_perim_at_height(verts, faces, waist_h, which_ax='z', plot=True)
+  calced_chest_circum , _ = mesh_perim_at_height(verts, faces, chest_h, which_ax='z',plot=False)
+  calced_hip_circum   , _ = mesh_perim_at_height(verts, faces, hip_h  , which_ax='z',plot=False)
+  calced_waist_circum , _ = mesh_perim_at_height(verts, faces, waist_h, which_ax='z',plot=False)
 
   #crotch ratio: {'height': 255/433 down from the top, 'x_loc': 120/221 from the left to the right}
   CROTCH_LR_RATIO=120/211.
@@ -1545,7 +1599,7 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
   pn(9);pe();pe();pe();pe();pr(" "*24+"about to calculate crotch");pe();pe();pe();pe();pn(9)
   calced_crotch_2_head_circum, _ = mesh_perim_at_height(verts, faces, crotch_depth, which_ax='x')
   pr("calced_crotch_2_head_circum:", calced_crotch_2_head_circum) # real is ~    calcul8d is ~102.02471693093469 inches
-  calced_crotch_2_head_circum, _  = mesh_perim_at_height(verts, faces, real_crotch_depth, which_ax='x', plot=True)
+  calced_crotch_2_head_circum, _  = mesh_perim_at_height(verts, faces, real_crotch_depth, which_ax='x', plot=False)
 
   # NOTE: real_crotch: [27.65770833 12.42979636 31.31119489],    NOT  [27.65771812 12.4297897  31.31119602]  
   pn();pe();pe();pe();pe();pr(" "*24+"about to calculate crotch");pe();pe();pe();pe();pn()
@@ -1553,6 +1607,14 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
   # toe calculation:   properly gets inseam length (inches)
   bots_idx=np.argmin(verts[:,2])
   toe1=verts[bots_idx] # left toe as of Mon Mar 18 13:42:42 EDT 2019
+  butt=find_butt(verts)
+  pe();print("hip_h = {0}".format(hip_h));pe()  # 41.789        For me, at least, "hip" is near dick.  Not "crotch" as seen from outside, but literal penis on the SMPL mesh.
+  pe();print("butt = {0}".format(butt));pe()    # 44.77    Butt is higher!!!  Wut.  Why?  
+  calced_hip_circum , _ = mesh_perim_at_height(verts, faces, hip_h  , which_ax='z', plot=True)
+  pe();print("butt = {0}".format(butt));pe()
+  calced_butt_circum, _ = mesh_perim_at_height(verts, faces, butt[2], which_ax='z', plot=True)
+  calced_butt_circum, _ = mesh_perim_at_height(verts, faces, butt[0], which_ax='x', plot=True)
+  calced_butt_circum, _ = mesh_perim_at_height(verts, faces, butt[1], which_ax='y', plot=True)
   # NOTE: not ACTUALly "toes," but definitely parts of each leg.
   '''
     toe1: [24.92924817 10.61380322  0.        ]
@@ -1815,8 +1877,13 @@ if __name__=="__main__":
   HMR_obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nxb_HMR_gener8d_mesh___gamma_the_magnet_warrior___pose.obj'
   # HMR calced_chest_circum: 41.31167530329451.  Error percent is 19.480968092801966% (overshooting my real chest circumference)
   NNN_obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nxb_manually_tuned_(NNN)___smpl_mesh____4th_iteration__02-2.250000000.obj' # NNN stands for "Nathan the Neural Net"
+  RENDER_0000000000_obj_fname = '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world/NNN_male_0000000000.obj'
+  NNN_shortlegs_obj_fname     = '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world/NNN_male_3-300000000.obj'
   # NNN calced_chest_circum: 38.31877278356377.  Error percent is 10.824943183633078% (overshooting my real chest circumference)
-  obj_fname=HMR_HEMAN_obj_fname#HMR_obj_fname # NOTE: This line is where I change which .obj file we read in.
+
+  # NOTE: The following line is where I change which .obj file we read in:
+  obj_fname=NNN_obj_fname #HMR_HEMAN_obj_fname #HMR_obj_fname 
+
   err, measures, vs=mesh_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)
   print("error percentage was {0} percent".format(abs(err)))
 
@@ -1825,8 +1892,7 @@ if __name__=="__main__":
   #pr(err, measures, vs) #"__main__":
 
   #test_measure()
-
-
+#===================================================================================================================================
 
 
 
@@ -1973,10 +2039,9 @@ if __name__=="__main__":
 
 # Glossary:
 '''
-glossary (for grep-easy-find)
-  Function definitions (function headers)
+glossary (for grep-easy-find):    Function definitions (function headers):
 ===============================================================
-  as of Sun Mar 17 09:25:56 EDT 2019
+    as of Thu Mar 21 10:03:27 EDT 2019:
 ===============================================================
     128:def load_json(json_fname):
     133:def measure(json_fname):
