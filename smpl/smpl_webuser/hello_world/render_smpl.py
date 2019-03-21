@@ -62,6 +62,12 @@ import sys
 import math
 from math import sin, cos
 
+#=========================================================================
+#pr=print # python2 doesn't allow.
+def pn(n=0): print('\n'*n)
+def pe(n=89): print('='*n)
+#=========================================================================
+
 gender = 'male'
 ## Load SMPL model
 if gender.lower()=='male':
@@ -141,6 +147,23 @@ rn.vc = LambertianPointLight(
     light_color=np.array([1., 1., 1.]))
 
 
+# write mesh:
+outmesh_path = \
+  './{10}_{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}.obj'.format(int(
+    m.betas[0][0]),int(m.betas[1][0]),int(m.betas[2][0]),int(m.betas[3][0]),int(m.betas[4][0]),int(m.betas[5][0]),int(m.betas[6][0]),int(m.betas[7][0]),int(m.betas[8][0]),int(m.betas[9][0]),
+    gender.lower())
+    # ie. male_02-20-300000.obj
+with open( outmesh_path, 'w') as fp:
+    for v in rn.v:
+        fp.write( 'v %f %f %f\n' % ( v[0], v[1], v[2]) )
+
+    for f in m.f+1: # Faces are 1-based, not 0-based in obj files
+        fp.write( 'f %d %d %d\n' %  (f[0], f[1], f[2]) )
+pe(); print("m.betas:\n ",m.betas); pe()
+print("new mesh saved at "+outmesh_path);pe()
+
+
+
 ## Show it using OpenCV
 import cv2
 #from cv2 import CV_WINDOW_NORMAL
@@ -149,7 +172,6 @@ cv2.imshow('SMPL_{0}'.format(m.betas), rn.r)
 print ('..Print any key while on the display window')
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-write_smpl(m.betas, gender=gender)
 
 
 ## Could also use matplotlib to display

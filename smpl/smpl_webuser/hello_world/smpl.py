@@ -47,11 +47,15 @@ from smpl_webuser.serialization import load_model
 import numpy as np
 import sys
 from numbers import Number
+from pprint import pprint as p
 
 from opendr.renderer import ColoredRenderer
 from opendr.lighting import LambertianPointLight
 from opendr.camera import ProjectPoints
 
+#===================================================================================================================================
+def pn(n=0): print('\n'*n)
+def pe(n=89): print('='*n)
 #===================================================================================================================================
 def body_talk_male():
 #===================================================================================================================================
@@ -395,7 +399,10 @@ def write_smpl(
     m = load_model( '../../models/basicModel_f_lbs_10_207_0_v1.0.0.pkl' )
   ## Assign pose and shape parameters
   m.pose     = np.zeros((m.pose.size)).astype('float64')
+  print("in func write_smpl().    \nbetas are:")
+  p(betas)
   m.betas    = betas
+  p(m.betas)
 
   ## Write to an .obj file
   # TODO: def smpl_string()
@@ -414,7 +421,6 @@ def write_smpl(
   ## Print message
   print('..Output mesh saved to: ', outmesh_path)
   return m
-
 #==============================================================================================================
 if __name__=="__main__":
   '''
