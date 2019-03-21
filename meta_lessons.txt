@@ -10,6 +10,38 @@
 
 
   Do everything you can in Blender.  Simpler & faster than writing & debugging code.
+  Always return a dictionary for multiple values.  Most English-like, easiest to debug.  Space complexity ain't a problem.
+  kill d.py
+  prob kill save.py too
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

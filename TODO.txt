@@ -1,8 +1,9 @@
 
   What did you learn today?
     Just do it.  Actions (mistakes) / minute.
-    Apply Spolsky's "Joel on Software" to our work stuff.
+    Spolsky
     Big picture TODO near the bottom:
+    HMR sucks.  No side-view info
 
 
 
@@ -17,6 +18,191 @@
 
 ________________________________
 
+  Thu Mar 21 09:03:44 EDT 2019
+________________________________
+
+  Remote "turn off internet" by self-control or AWS-remote-sudo or something else.
+  E-mail new grpahics friend: "is there a Coding/CS club on campus?"
+  Ask a bunch of people (Aaron Bendich?) whether I can spend the night
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Find the ass height on an arbitrary SMPL mesh (in T-pose)
+    Find the furthest-back-in-y points and 
+    Find the one closest to the z-midpt
+
+  How do we deal with the fact that "closest" is not well-defined?
+
+Pseudocode:                                           (this func should be placed somewhere within mesh_err()
+  1.  Sort all verts by y value
+  2.  Iterate thru them
+                                                    TODO: mess with param 1/8!
+  3.    1st pt that is within 1/8 of body height away from height midpt is in the butt.  "butt peak"
+  4.  From here, find the hip height as specified by openpose keypoints.
+
+
+
+
+
+Pseudocode:                                           (this func should be placed somewhere within mesh_err()
+  1.  Sort all verts by y value
+  2.  Iterate thru them
+                                                    TODO: mess with param 1/5!
+  3.  Somehow sort out the verts that are super-far from the butt.
+  3.    if any are further away from each other (in z)   than 1/5 of the height, put them in different "groups"  (Butt group, shoulder-fingertip group, head group, heel group)
+    assumptions:
+      1) Butt MUST BE Within 1/8 of the body height of the midpt
+      2) Shoulders are farther from the midpt than the butt is.
+
+  4.  Find the "butt group"
+  5.  Find the y-min of the "butt-group" to get the "butt peak"
+  6.  (somewhere around) this corresponds to the "hip-y" in the openpose keypoints json.
+  7.
+  8.
+  9.
+  10.
+  11.
+  12.
+  13.
+  14.
+  15.
+  16.
+  17.
+  18.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Ask Dario exactly when, where, etc.
+    Where will I sleep, etc.
+
+
+
+
+
+  1st, just try to tune SMPL to have the "right proportions"
+    1.  crotch is in right place, 
+    2.  pantsline (waist) is in the right place, 
+    3.  ankle is in the right place, 
+    4.  shoulders are in the right place
+    5.
+  Right now we're going to assume we're generating the mesh with render_smpl.py, NOT HMR.
+________________________________
+
+    Heights:
+      Crotch
+      Waist
+      Ankle
+        (inseam)
+      Shoulder
+
+    What we ALREADY HAVE in openpose:
+      Hip
+      Ankle
+      Shoulder
+________________________________
+
+    Widths:
+      Chest
+      Waist
+________________________________
+
+    How (pseudocode):
+     We assume RENDER_SMPL, not HMR.  (ie. T-pose)
+      Shoulder is a local max in z.
+      We really really want the waist, more than anything else.
+      Maybe waist is a local min in circumference?
+
+
+
+
+  But how do we find these points on the SMPL mesh?
+
+  5.  Crotch as halfway point between mask's crotch and openpose's "hip" height
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
   Wed Mar 20 07:45:19 EDT 2019
 ________________________________
 
@@ -26,8 +212,9 @@ ________________________________
   2.  SEPARATELY, get the circumference (perimeter) at the hip, chest, etc.
   3.  Camera must be stationary during filming
     a.  (see MTailor's method; put the phone on the ground, angled up, and do your rotation, trying to keep your axis of rotation as still as humanly possible)
-  4.
-  5.
+
+  4.  Use A) the points from keypoints JSON and   B) cross-reference with the SMPL mesh   to find the loss function for the BetaNeuralNetwork
+  5.  Crotch as halfway point between mask's crotch and openpose's "hip" height
   6.
   7.
   8.
@@ -46,6 +233,11 @@ ________________________________
 
   I tried plugging in some openpose keypoints JSON to HMR, and it didn't seem to affect the end result.  So if I have to fix it up, I have to go into HMR's guts (code) and fix it manually.
 
+
+  Dario (competition in NYC):
+    March 27, 2019
+  Santa Monica semester ends:
+    June 10, 2019
 
 
 
