@@ -26,6 +26,7 @@ from seg import segment_local as seg_local, segment_black_background as seg_blac
 from utils import pn, crop_person, get_mask_y_shift, np_img, pif, pe
 from d import debug
 from pprint import pprint as p
+from pprint import pprint
 from copy import deepcopy
 
 # TODO: make the earlier JSON-generation via openpose automated end-to-end like this.  Everything must be MODULAR, though
@@ -130,6 +131,27 @@ def load_json(json_fname):
     data = json.load(json_data)
     return data
 #===================================================================================================================================
+def pprint_json(json_fname, out_fname):
+  '''
+    openpose keypoints json, to be precise
+  '''
+
+  # working, but insufficient:
+  """
+  openpose_dict=measure(json_fname)
+  with open(out_fname, 'a') as out:
+    pprint(openpose_dict,stream=out)
+  return openpose_dict,out_fname
+  """
+
+  openpose_dict=load_json(json_fname)
+  labeled_measures=parse_ppl_measures(openpose_dict)
+  openpose_dict[u'people'][0][u'pose_keypoints_2d']=labeled_measures
+  with open(out_fname, 'a') as out:
+    pprint(openpose_dict,stream=out)
+  return openpose_dict,out_fname
+  # TODO: extend s.t. prints the rest of the openpose keypoints.json TOO, not just the pose_keypoints.
+#===================================================================================================================================
 def measure(json_fname):
   return parse_ppl_measures(load_json(json_fname))
 #===================================================================================================================================
@@ -140,7 +162,7 @@ def parse_ppl_measures(json_dict):
   # reference: /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/IMPORTANT_REF/openpose__json_order___format.txt
 
   # for sample file, see /home/ubuntu/Documents/code/openpose/output/front__nude__grassy_background_keypoints.json
-  measures                  = json_dict[u'people'][0][u'pose_keypoints_2d']
+  measures                  = json_dict[u'people'][0][u'pose_keypoints_2d'] # NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE
   measures_dict             = {}
   measures_dict["Nose"]     = {'x':measures[0*3],   'y':measures[0*3+1],       'c':measures[0*3+2]}
   measures_dict["Neck"]     = {'x':measures[1*3],   'y':measures[1*3+1],       'c':measures[1*3+2]}
@@ -1523,7 +1545,7 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
 
   # Use openpose keypoints json to get measurements
   measures= measure_body_viz(json_fname, front_fname, side_fname, cust_height)
-  pr("measures:");p(measures)
+  pr("measures:");p(measures) # too many lines
   chest_h = measures['chest_height_inches']  # Nathan's real chest_h is 57 inches
   hip_h   = measures['hip_height_inches']    # Nathan's real hip_h   is    inches
   waist_h = measures['waist_height_inches']  # Nathan's real waist_h is    inches
@@ -1871,6 +1893,7 @@ def test_measure():
 if __name__=="__main__":
   NATHANS_HEIGHT_INCHES=75
   json_fname  = '/home/n/Dropbox/vr_mall_backup/json_imgs_openpose/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE____keypoints.json'
+  # better format: /home/n/Dropbox/vr_mall_backup/IMPORTANT/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE____keypoints.py
   side_fname  = '/home/n/Dropbox/vr_mall_backup/imgs/n8_side___jesus_pose_legs_closed/n8_side___jesus_pose___legs_closed___nude___grassy_background_Newark_DE___.jpg'
   front_fname = '/home/n/Dropbox/vr_mall_backup/imgs/n8_front___jesus_legs_closed/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE___.jpg'
   HMR_HEMAN_obj_fname='/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/n8_mesh__HMR_gener8d__heman_pose__legs_spread.obj'
