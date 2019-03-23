@@ -11,6 +11,16 @@
 =====================================================================
 
 
+  Jargon:
+
+    Texture magnification/minification
+    Cohen-Sutherland clipping
+    "Window coordinates"
+    hidden surface elimination
+    Z-Buffering
+    Backface culling
+      Face that faces away from us MUST BE out of view (obscured by a different face)
+    Painter's algorithm
 
 
 

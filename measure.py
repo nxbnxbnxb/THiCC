@@ -144,10 +144,14 @@ def pprint_json(json_fname, out_fname):
   return openpose_dict,out_fname
   """
 
+  # NOTE: x and y are reversed in this function (what's called 'x' is really 'y' in "English" (up-down location)).  FIXME.
+  #   Is this a problem as far back as parse_ppl_measures()?
   openpose_dict=load_json(json_fname)
   labeled_measures=parse_ppl_measures(openpose_dict)
   openpose_dict[u'people'][0][u'pose_keypoints_2d']=labeled_measures
-  with open(out_fname, 'a') as out:
+  # Firstly, 'y' is definitely y in '~/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE_____keypoints.py'.  2nd, x goes from left (0) to right.
+  with open(out_fname, 'a') as out:  
+    out.write('openpose_dict=\\\n')
     pprint(openpose_dict,stream=out)
   return openpose_dict,out_fname
   # TODO: extend s.t. prints the rest of the openpose keypoints.json TOO, not just the pose_keypoints.
@@ -162,7 +166,7 @@ def parse_ppl_measures(json_dict):
   # reference: /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/IMPORTANT_REF/openpose__json_order___format.txt
 
   # for sample file, see /home/ubuntu/Documents/code/openpose/output/front__nude__grassy_background_keypoints.json
-  measures                  = json_dict[u'people'][0][u'pose_keypoints_2d'] # NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE
+  measures                  = json_dict[u'people'][0][u'pose_keypoints_2d']
   measures_dict             = {}
   measures_dict["Nose"]     = {'x':measures[0*3],   'y':measures[0*3+1],       'c':measures[0*3+2]}
   measures_dict["Neck"]     = {'x':measures[1*3],   'y':measures[1*3+1],       'c':measures[1*3+2]}
@@ -815,10 +819,10 @@ def other_toe(verts, toe_1, crotch):
     Given crotch, find the 1st pt in the mesh on the other side of crotch_x from toe_1, (where crotch_x=crotch[0])
   '''
   funcname=  sys._getframe().f_code.co_name # other_toe(verts, toe_1, crotch):
-  X=0; crotch_x=crotch[X]
+  X=0; crotch_x=crotch[X]; Z=2
 
   # bottom to top:  toes to head
-  verts_z_sorted_indices=np.argsort(verts[:,2])
+  verts_z_sorted_indices=np.argsort(verts[:,Z])
   # greedy search for toe
   for i in verts_z_sorted_indices:
     if (verts[i][X] < crotch_x and toe_1[X] > crotch_x) or\
@@ -1363,10 +1367,21 @@ def lines_intersection_w_plane(vert_0, vert_1, height, which_ax='z'):
   intersect_pt=x,y,z
   return intersect_pt
 #============ end lines_intersection_w_plane(params) =================
+#=====================================================================
+def mesh_shoulders(verts, faces):
+  '''
+    Find the shoulders on the SMPL mesh that matches the location openpose has standardized as the shoulders' location
+
+    For openpose, we're lucky that T-pose happens to yield shulder height equal to the location where the arms are completely outstretched (x_max and x_min)
+  '''
+  X=0; Z=2
+  fingertip_vert_idx=np.argmax(verts[:,X])
+  return {'mesh_shoulder_h_inches': verts[fingertip_vert_idx][Z]}
+#============ end mesh_shoulders(params) =================
 class YouFuckedUp(Exception):
   pass
 #=====================================================================
-def find_butt(verts):
+def mesh_butt(verts):
   '''
     Finds the butt of a SMPL mesh with no information from deeplab masks or openpose keypoints JSON.
 
@@ -1415,9 +1430,131 @@ def find_butt(verts):
     if math.isclose(vert[Z], height_midpt, abs_tol=BUTT_TOLERANCE):
       return vert # the butt
   raise YouFuckedUp("I'm sorry, I'm afraid you've made a FATAL error in function named '{0}'.\n  I kindly request you check the position and orientation of the mesh that generated vertices variable 'verts,' you fucking retard.  If you can't figure out what's wrong with the code after such a helpful error message, I kindly request you commit suicide.".format(funcname))
-#======================= end find_butt(params) =======================
+#======================= end mesh_butt(params) =======================
 #=====================================================================
-def mesh_perim_at_height(verts, faces, height, window=19.952, which_ax='z', ax=2, plot=False):
+def mesh_hip(verts, faces, butt):
+  '''
+    Find the hip on the SMPL mesh that matches the location openpose has standardized as the hip's location
+
+
+
+
+    See docstring for mesh_butt() for preconditions on the variable called "verts":
+
+    -----------
+    Parameters:
+    -----------
+      butt is found without relying on openpose or deeplab segmentation (/ any kind of human outline segmentation algorithm). 
+
+
+
+    Todo: edit docstring
+
+    Finds the hip of a SMPL mesh with no information from deeplab masks or openpose keypoints JSON.
+
+    ------
+    Notes:
+    ------
+      If we ever need to extend this with a more complicated calculation, I've left "faces" in the parameter list.
+      @precondition: verts may need reflection/rotation before using this function.
+      Maybe the fastest way to do the functions like this is to make a KDTree() from the verts ONCE and then pass it around to every function we call from there.
+
+    ------------
+    Assumptions:
+    ------------
+      ASSUMES:
+        0)  Butt is +- BUTT_TOLERANCE*(height of the body) away from the height midpoint
+        1)  Shoulders are farther from the height midpoint than the butt is from the height midpoint.
+        3)  mesh is 100% in 1st octant (+x, +y, +z)
+        4)  Customer's pose is T-pose
+        5)  Positive z is head,
+        6)  Positive y is "front of body" (nose),
+        6.5)Negative y is butt
+        7)  Positive x is right hand (from the customer's point of view)
+
+    -------
+    Params:
+    -------
+      type(verts) == 'np.ndarray'
+      verts.shape==(6890,3)
+  '''
+  # in function mesh_hip(verts, faces, butt)
+
+  # Pseudocode:  return  butt_height  +  (frac_of_height_btwn_hip_and_butt * height)
+  x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len=vert_info(verts)
+  Z=2; mesh_h=z_len; butt_h=butt[Z]
+  HIP_2_BUTT=0.2/7.5
+  # empirically derived from 3 openpose keypoints-rendered imgs of Nathan (WARNING: n==1) on screen.
+  # roughly 2 inches on Nathan's body (between "butt apex" and openpose hip height)
+  return butt_h + (mesh_h*HIP_2_BUTT)
+  """
+  idxes=np.argsort(verts[:,Z]) # get the indexing right for faces, etc.
+  verts_by_h=verts[idxes]
+  for vert in verts_by_h:
+    if vert[Z] > butt_h:
+  np.m()
+  #
+  small_of_back_h=small_of_back(verts, faces, butt)
+  """
+  """
+    Pseudocode:
+      Go "up" (+z) thru verts from butt  (sort verts by z?)
+        unTIL you find the point with the highest y value that is still "on the back"
+      Find
+      Track the "most forward" point as the running max
+
+
+      I know how to find the circumferences.  Try to use the same logic, but only find points near the back.
+  """
+#===================== end mesh_hip(params) =====================
+#=====================================================================
+def mesh_ankle(verts, faces, precision=19):
+  '''
+    Find the ankle on the SMPL mesh that matches the location openpose has standardized as the ankle location
+
+    -----------
+    Pseudocode:
+    -----------
+      Ankle is local min for circumference w.r.t. z slices.
+
+    -----------
+    Notes:
+    -----------
+      As of Fri Mar 22 21:17:46 EDT 2019, we made this function nondependent on openpose.  Generally ought to be a benefit for body-measuring functions to not rely on a super-slow neural-network-dependent codebase like openpose.
+      oughta be easily extensible to return multiple points from the ankle.
+
+      The Ankles' Openpose had BETTER be taken on human images where the feet are flat on level ground.  As soon as feet are pointing "toes down" on a hill, the ankle measurement becomes must less reliable.  Perhaps we should even make the customers START in side-view so we have more reliable ankle height measurements from openpose.
+  '''
+  # CALF_RATIO was derived empirically from 2 measurements of SMPL meshes (one thin, the other fatter) on my laptop screen through Blender.
+  CALF_RATIO=np.mean((2.8/13.2, 2.5/13.5))
+  x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len = vert_info(verts)
+  calf=z_len*CALF_RATIO
+  #   stops before the calf.  Most likely unnecessary, though
+  end = calf*0.75
+  # the ankle is never anywhere near the calf.  and the more we search, the slower the customer gets the results.
+
+  min_circ=np.inf
+  mesh_ankle_h=(calf-z_min)/2
+  toe=x_min+(calf/20.) 
+  # "toe=x_min+(calf/20.)" because we can't start at literally 0; scipy.spatial.convexHull() would then break.
+  for z in np.linspace(toe, end, precision):
+    calced_ankle_circum, _ = mesh_perim_at_height(verts, faces, z, which_ax='z', plot=False)
+    if calced_ankle_circum < min_circ:
+      min_circ=calced_ankle_circum
+      mesh_ankle_h=z
+  '''
+                    diff approach (faster, but more complex):
+  Z=2
+  idxes=np.argsort(verts[:,Z])
+  verts_Zsort=verts[idxes]
+  for vert in verts_Zsort:
+    f
+  '''
+  return {'mesh_ankle_h_inches': mesh_ankle_h}
+  # NOTE: THE. MOST. extensible practice: return a dictionary and lookup the key outside the function
+#====================== end mesh_ankle(params):=======================
+#=====================================================================
+def mesh_perim_at_height(verts, faces, height, which_ax='z', ax=2, plot=False):
   if debug:
     funcname=sys._getframe().f_code.co_name
     pe(69);pr("Entering function ",funcname);pe(69);pn()
@@ -1504,8 +1641,25 @@ def parse_obj_file(obj_fname):
 
 #====================================================================================
 def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO: refactor out functions "mesh_toe(), mesh_crotch(), mesh_waist()"
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
   # This func mesh_err() Will become the loss function for a "Beta Neural Net" (BNN), operating on SMPL's shape parameters ("betas").
   '''
+    This is the loss function for BNN.  It will 1st tweak the mesh to have the right vertical hip-ankle-shoulder proportions, then take the "horizontal" parameters (ie. chest circumference, hip circumference, waist circumference, perhaps arm length, etc.)   
+
+    In its final form, it should NOT be doing any of the segmentation, openpose-keypoints-getting, etc.  Just given a mesh, measurements, segmentation_masks, and whatever else is needed, it returns a loss value.
+
     Program's curr state: (Mar 11, 2019):
     1. Find height from openpose keypoints json (debug)
       a.  This part (openpose) is WAY TOO SLOW.  Maybe with AWS' higher RAM/GPU we will be able to get into a workflow.
@@ -1521,6 +1675,22 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
     side_fname:   Picture of the customer from the side (ie. prisoners' mugshot 2 (https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fcdn-s3.thewrap.com%2Fimages%2F2014%2F01%2Fjustin-bieber-side-mugshot.jpg&f=1))
     cust_height: customer's height in INCHES
   '''
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO: refactor out functions "mesh_toe(), mesh_crotch(), mesh_waist()"
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+
   # func name mesh_err()
   #obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'
 
@@ -1536,7 +1706,6 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
   elif 'NNN' in obj_fname.upper():
     mode='NNN'
     verts, extrema=normalize_mesh(verts, mode)
-  print("mesh was generated by ",mode)
   x_min, x_max, y_min, y_max, z_min, z_max = extrema
 
   # Scale to real-life-sizes (cust_height in inches):
@@ -1546,24 +1715,14 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
   # Use openpose keypoints json to get measurements
   measures= measure_body_viz(json_fname, front_fname, side_fname, cust_height)
   pr("measures:");p(measures) # too many lines
+  # Todo: why are we doing this?  OH, this is the circumference code.
   chest_h = measures['chest_height_inches']  # Nathan's real chest_h is 57 inches
   hip_h   = measures['hip_height_inches']    # Nathan's real hip_h   is    inches
   waist_h = measures['waist_height_inches']  # Nathan's real waist_h is    inches
   heel_h  = measures['heel_height_inches']
-  pr("heel_h:",heel_h)
+  print("heel_h:",heel_h)
   # TODO:  r_heel_x, l_heel_x, etc.
 
-  # TODO: perspective (orthographic vs. perspective) transformation to fix the heel
-  #=====================================================================
-  #=====================================================================
-  #=====================================================================
-  #=====================================================================
-  #=====================================================================
-  #=====================================================================
-
-  print("chest_h: ",chest_h )
-  print("hip_h  : ",hip_h   )
-  print("waist_h: ",waist_h )
   x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(verts)
   print("x_min: {0}\nx_max: {1}\ny_min: {2}\ny_max: {3}\nz_min: {4}\nz_max: {5}\nx_len: {6}\ny_len: {7}\nz_len: {8}\n".format(x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len))
 
@@ -1572,7 +1731,7 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
   PAD=0.01
   RESOLUTION=99
 
-  # Looking for real waist; earlier "waist_h" was just belly button
+  # Looking for real pants-wearing waist; earlier "waist_h" was just belly button
   min_circ=np.inf
   for z in np.linspace(waist_h+ PAD, hip_h-PAD, RESOLUTION):
     calced_pants_waist_circum, _ = mesh_perim_at_height(verts, faces, z, which_ax='z')
@@ -1608,6 +1767,7 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
   print("start = {0}     and end = {1}".format(start, end))
  
   # TODO NOTE This perfect-crotch-search takes too long.  We have to adapt it somehow to find a saddle point in z.   Or to only find the highest min point instead of calculating the whole ConvexHull and perimeter every time.  But before we make it fast, we prob have to check that we actually WANT the crotch so precisely.
+
   # Note: refactor into separate get_crotch().    Also, this general function seems to be pretty useful (search for a min)
   for d in np.linspace(start, end, 99):
     calced_crotch_2_head_circum, crotch = mesh_perim_at_height(verts, faces, d, which_ax='x')
@@ -1617,21 +1777,36 @@ def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
       real_crotch=crotch
   print("min_height:",min_height)
   print("real_crotch_depth:",real_crotch_depth)
-  print("real_crotch:",real_crotch)# NOTE: real_crotch: [27.65771812 12.4297897  31.31119602] 
+  print("real_crotch:",real_crotch)
   pn(9);pe();pe();pe();pe();pr(" "*24+"about to calculate crotch");pe();pe();pe();pe();pn(9)
   calced_crotch_2_head_circum, _ = mesh_perim_at_height(verts, faces, crotch_depth, which_ax='x')
   pr("calced_crotch_2_head_circum:", calced_crotch_2_head_circum) # real is ~    calcul8d is ~102.02471693093469 inches
   calced_crotch_2_head_circum, _  = mesh_perim_at_height(verts, faces, real_crotch_depth, which_ax='x', plot=False)
 
-  # NOTE: real_crotch: [27.65770833 12.42979636 31.31119489],    NOT  [27.65771812 12.4297897  31.31119602]  
+  # Note: real_crotch: [27.65770833 12.42979636 31.31119489],    NOT  [27.65771812 12.4297897  31.31119602]  
   pn();pe();pe();pe();pe();pr(" "*24+"about to calculate crotch");pe();pe();pe();pe();pn()
 
   # toe calculation:   properly gets inseam length (inches)
   bots_idx=np.argmin(verts[:,2])
   toe1=verts[bots_idx] # left toe as of Mon Mar 18 13:42:42 EDT 2019
-  butt=find_butt(verts)
+  butt=mesh_butt(verts)
+  #=====================================================================
+  #================================ Note ===============================
+  # this (mesh_hip_h) is actually for BNN
+  mesh_hip_h=mesh_hip(verts, faces, butt)
+  #=====================================================================
+  mesh_ankle_h=mesh_ankle(verts, faces)['mesh_ankle_h_inches']
+  mesh_shoulder_h=mesh_shoulders(verts, faces)['mesh_shoulder_h_inches']
+  pe();pr('mesh_ankle_h:',mesh_ankle_h);pe()
+  # For "mesh_ankle_h,"   I get 5.46 inches.  But according to openpose front, it's closer to  6.25876 inches.  That said, openpose front forward-facing on a hill makes the ankle appear higher than it actually is because the bottom toe creeps downward.
+  pe();pr('mesh_hip_h:',mesh_hip_h);pe()
+  pe();pr('mesh_shoulder_h:',mesh_shoulder_h);pe() 
+
+  calced_shoulder_circum , _ = mesh_perim_at_height(verts, faces, mesh_shoulder_h  , which_ax='z', plot=True)
+
   pe();print("hip_h = {0}".format(hip_h));pe()  # 41.789        For me, at least, "hip" is near dick.  Not "crotch" as seen from outside, but literal penis on the SMPL mesh.
   pe();print("butt = {0}".format(butt));pe()    # 44.77    Butt is higher!!!  Wut.  Why?  
+  calced_hip_circum , _ = mesh_perim_at_height(verts, faces, mesh_hip_h  , which_ax='z', plot=True)
   calced_hip_circum , _ = mesh_perim_at_height(verts, faces, hip_h  , which_ax='z', plot=True)
   pe();print("butt = {0}".format(butt));pe()
   calced_butt_circum, _ = mesh_perim_at_height(verts, faces, butt[2], which_ax='z', plot=True)
@@ -2066,9 +2241,6 @@ glossary (for grep-easy-find):    Function definitions (function headers):
 ===============================================================
     as of Thu Mar 21 10:03:27 EDT 2019:
 ===============================================================
-    128:def load_json(json_fname):
-    133:def measure(json_fname):
-    136:def parse_ppl_measures(json_dict):
     172:def segments(polygon):
     178:def area_polygon(polygon):
     212:def estim8_w8(json_fname, front_fname, side_fname, height):
@@ -2077,15 +2249,12 @@ glossary (for grep-easy-find):    Function definitions (function headers):
     495:def ellipse_circum_approx(a, b, precision=6):
     502:def ellipse_circum(a, b):
     554:def measure_chest(json_fname):
-    575:def show_overlaid_polygon_measures(pic_filename___with_openpose_keypoints_, openpose_keypts_dict, N=4):
     601:def vert_info(vs):
     622:def cross_sec(verts, midpt_h, window=0.652, which_ax="z", faces=None):
     673:def dist(pt1, pt2, norm='L2'):
     680:def pixel_height(mask):
     684:def pix_h(mask):
     717:def normalize_mesh(vs, mode='HMR'): 
-    802:def triang_walk(verts, faces, start_face, height, adjacents, bots_idx, tops_idx, which_ax='z', ax=2):
-    827:  def walk_recurs(verts, height, adjacents, vert_idx_list, bots_idx, tops_idx, top_or_bot='top', which_ax='z', ax=2):
     1151:def mesh_cross_sec(verts, faces, height, which_ax="z"):
     1215:def adjacents(verts, faces):
     1229:def lines_intersection_w_plane(vert_0, vert_1, height, which_ax='z'):
@@ -2102,6 +2271,9 @@ glossary (for grep-easy-find):    Function definitions (function headers):
     1561:def tri_area(tri_3x3):
     1620:def test_measure():
 
+  To old_code:
+    802:def triang_walk(verts, faces, start_face, height, adjacents, bots_idx, tops_idx, which_ax='z', ax=2):
+    827:  def walk_recurs(verts, height, adjacents, vert_idx_list, bots_idx, tops_idx, top_or_bot='top', which_ax='z', ax=2):
 
   Chest:
     Measure the circumference of your chest at your nipple level. Hold the end of the measuring tape in the middle of your chest at your nipple level. Evenly wrap the measuring tape around your chest. Note the measurement at the point where the tape measure meets at the 0 mark.
@@ -2167,6 +2339,24 @@ glossary (for grep-easy-find):    Function definitions (function headers):
 
 
 
+
+  #=====================================================================
+  # When I write "openpose" in the measurement comments below, I mean a combination of openpose and the calculations in this function "mesh_err()"
+  #=====================================================================
+  #   ANKLE (height):
+  #     mesh's derivation:  5.9595959595959 inches
+  #     openpose:           6.257280615774892 inches      
+  #=====================================================================
+  #=====================================================================
+  #   HIP (height):
+  #     mesh's derivation:  48.50912784699094 inches
+  #     openpose:           42.27952894372694 inches      
+  #=====================================================================
+  #=====================================================================
+  #   SHOULDERS (height):
+  #     mesh's derivation:  60.84137677238524 inches
+  #     openpose:           62.824522313191885 inches      
+  #=====================================================================
 
 
 

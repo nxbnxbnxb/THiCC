@@ -21,9 +21,67 @@ ________________________________
   Thu Mar 21 09:03:44 EDT 2019
 ________________________________
 
-  Remote "turn off internet" by self-control or AWS-remote-sudo or something else.
-  E-mail new grpahics friend: "is there a Coding/CS club on campus?"
-  Ask a bunch of people (Aaron Bendich?) whether I can spend the night
+  Find hip openpose keypt from smpl-find-butt()
+    /home/n/Dropbox/vr_mall_backup/IMPORTANT/nxb_manually_tuned_(NNN)___smpl_mesh____4th_iteration__02-2.250000000.obj
+    This is the best Nathan-mesh I have to date.  I'm assuming it's good enough to match my points to openpose keypoint.json.
+    Also:
+      /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world/male_0000000000.obj
+      /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world/male_3-300000000.obj
+      All images are in /home/n/Dropbox/vr_mall_backup/IMPORTANT. (recents)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -52,55 +110,32 @@ Pseudocode:                                           (this func should be place
   4.  From here, find the hip height as specified by openpose keypoints.
 
 
-
-
-
-Pseudocode:                                           (this func should be placed somewhere within mesh_err()
-  1.  Sort all verts by y value
-  2.  Iterate thru them
-                                                    TODO: mess with param 1/5!
-  3.  Somehow sort out the verts that are super-far from the butt.
-  3.    if any are further away from each other (in z)   than 1/5 of the height, put them in different "groups"  (Butt group, shoulder-fingertip group, head group, heel group)
-    assumptions:
-      1) Butt MUST BE Within 1/8 of the body height of the midpt
-      2) Shoulders are farther from the midpt than the butt is.
-
-  4.  Find the "butt group"
-  5.  Find the y-min of the "butt-group" to get the "butt peak"
-  6.  (somewhere around) this corresponds to the "hip-y" in the openpose keypoints json.
-  7.
-  8.
-  9.
-  10.
-  11.
-  12.
-  13.
-  14.
-  15.
-  16.
-  17.
-  18.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  Remote "turn off internet" by self-control or AWS-remote-sudo or something else.
+  E-mail new grpahics friend: "is there a Coding/CS club on campus?"
+  Ask a bunch of people (Aaron Bendich?) whether I can spend the night
 
 
   Ask Dario exactly when, where, etc.
     Where will I sleep, etc.
+      1.  Kendall
+      2.  Nicole
+      3.  Alan Du
+
+      4.  Luke Schuerr
+      5.  Aaron Bendich
+      6.
+      7.
+      8.
+      9.
+      10.
+      11.
+      12.
+      13.
+      14.
+      15.
+      16.
+      17.
+      18.
 
 
 
@@ -15534,6 +15569,30 @@ Big picture:
 
 
 
+Technical TODOs:
+  gad, gci, & gpus.       But with good records toooooo.
+
+  2.  Rotate openpose keypoints.
+  1.  Deal with perspective vs. orthographic.  (only a big deal for CHANGES in depth)
+  3.  Auto-denoise masks (after img_frames=cut(vid)).
+  4.  Scatter plot   openpose keypoints   over gray SMPL render.
+  5.  normalize mesh in a smarter, more rule-based way (using the geometry of a human body, rather than any assumptions about the input orientation).
+  6.  Search for tool to alert people when git pushes.
+  7.
+  8.  Go back through old racket code and see whether any of the old triangle functions would be useful in the current approach.
+  9.
+  10.
+  11.
+  12.
+  13.
+  14.
+  15.
+  16.
+  17.
+  18.  Have running end-to-end script (vid to final mesh)
+      a.  Technical issues:
+        1.  conda (openDR, chumpy, etc. in python3 with all the cat stuff)
+        2.  openpose is SLOWWWWWWWWW.  Cannot test on my machine; have to purchase AWS/GCloud/Azure time / get GPU access
 
 
 
