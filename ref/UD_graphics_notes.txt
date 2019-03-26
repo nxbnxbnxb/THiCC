@@ -4,7 +4,6 @@
 
 =====================================================================
 
-
   Graphics demos:
     threejs.org/examples
 
@@ -21,11 +20,78 @@
     Backface culling
       Face that faces away from us MUST BE out of view (obscured by a different face)
     Painter's algorithm
+    Gouraud shading
 
 
 
 
 
+
+=====================================================================
+
+  Tue Mar 26 14:31:15 EDT 2019
+
+=====================================================================
+
+  Why use homogenous coordinates?
+    What does that extra dimension get us?
+  OpenGL's "sampler" type (~= vector, matrix)
+
+  Radiometry vs photometry
+    "Irradiance"
+      scalar "amount of light" on point
+    vs. Radiance (radiance != irradiance), which is:
+      power from solid angle (steradian)
+    "Radiosity"
+
+  Foreshortening
+    Light from angle is less intense than light shining from right above target location.
+    "m_shine" term in the equation that controls how fast the "falloff" is (how much like a mirror it is vs.
+
+  BRDF
+    "Linear combination of diffuseness and specularity"
+    BRDF ~= Probability Distribution
+      Given an amount of light incoming at angle theta_in, how much of it is reflected OUT at angle theta_out
+  Isotropic light:
+    Doesn't matter which direction we look at the object from
+  Reflectance ("rendering") equation
+
+
+  OpenGL coord system is weird somehow (ie. xyz directions)
+  Roll, pitch, yaw (which is x, y, & z?)
+
+  OpenGL
+  GLM (programming the view "glm::lookat()")
+  GLSL (shading)
+  GLFW (interaction)
+    "event-driven"
+      "Callback function"
+  Fragment vs. pixel (shaders)
+
+  "Black window??"
+
+
+
+  Oblique vs. orthographic projections
+    Parallel projection?
+  Isometric view   vs. ...view    vs. .... view ()
+  Perspective with pinhole camera
+    (No lens)
+  Frustrum      vs. frustum?
+
+  MVP matrix (model, view, projection)
+    Model
+      translate()
+      scale()
+      rotate()
+    View
+      lookat()
+        camera location, angle (theta, phi, ...)
+    Projection
+      perspective()
+      ortho()
+        orthographic vs. perspective (cartesian vs. real)
+  P*V*M*x
 
 
 
@@ -54,7 +120,7 @@
 
 
 =====================================================================
-Tue Mar 19 14:51:10 EDT 2019
+    Tue Mar 19 14:51:10 EDT 2019
 =====================================================================
 
   Shadows are hard  (imagine looking at the view from the light source)
