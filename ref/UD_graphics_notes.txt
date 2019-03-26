@@ -21,6 +21,7 @@
       Face that faces away from us MUST BE out of view (obscured by a different face)
     Painter's algorithm
     Gouraud shading
+    Radiometry
 
 
 
@@ -33,6 +34,7 @@
 
 =====================================================================
 
+  Maybe bicubic interpolation isn't always better than bilinear.
   Why use homogenous coordinates?
     What does that extra dimension get us?
   OpenGL's "sampler" type (~= vector, matrix)

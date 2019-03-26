@@ -46,16 +46,34 @@ import smpl_webuser.serialization
 from smpl_webuser.serialization import load_model
 import numpy as np
 import sys
+import subprocess as sp
 from numbers import Number
 from pprint import pprint as p
 
-from opendr.renderer import ColoredRenderer
-from opendr.lighting import LambertianPointLight
-from opendr.camera import ProjectPoints
+#from opendr.renderer import ColoredRenderer
+#from opendr.lighting import LambertianPointLight
+#from opendr.camera import ProjectPoints
 
 #===================================================================================================================================
 def pn(n=0): print('\n'*n)
 def pe(n=89): print('='*n)
+#===================================================================================================================================
+def blender_render_mesh(mesh_fname):
+  '''
+    I had to hack around the fact that subprocess.call() doesn't support cmd line args  ( or was it blender --python itself that doesn't?)
+    So I rewrite a tiny python file with the argument supplied here and call blender with that.
+  '''
+  import_script="/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world/blender_import_obj.py"
+  # overwrite
+  with open(import_script, 'w') as fp:
+    fp.write('import bpy\n')
+    fp.write('obj_path=\''+mesh_fname+'\'\n')
+    fp.write('bpy.ops.import_scene.obj(filepath = obj_path, split_mode = "OFF")\n')
+  try:
+    sp.call(['blender','--python', import_script])
+  except:
+    funcname=  sys._getframe().f_code.co_name
+    raise(Exception('{0} call failed.  Sorry.  No mesh for you.'.format(funcname)))
 #===================================================================================================================================
 def body_talk_male():
 #===================================================================================================================================
@@ -387,6 +405,7 @@ def male_SMPL(height=70., weight=180.):
 def write_smpl(
   betas=np.zeros((10,1)).astype('float64'),
   gender='male'):
+  # THIS FUNCTION DOESN'T WORK.   (Tue Mar 26 13:05:50 EDT 2019)
   '''
     parameter "betas" is shape parameters of the human (see pdf of the SMPL paper from Mahmoud, Black, et al.)
   '''
@@ -420,9 +439,16 @@ def write_smpl(
 
   ## Print message
   print('..Output mesh saved to: ', outmesh_path)
-  return m
+  return m, outmesh_path
 #==============================================================================================================
 if __name__=="__main__":
+  betas=np.zeros((10,1)).astype('float64')
+  for i in range(1,len(sys.argv)):
+    betas[i-1]=float(sys.argv[i])
+  mesh, mesh_path= write_smpl(betas=betas)
+  mesh_path=mesh_path[2:] # './something.obj' => "something.obj"
+  print("mesh_path: ",mesh_path)
+  blender_render_mesh(mesh_path)
   '''
   #body_talk_male()
   from gender import gender  # NOTE: "sex," technically; gender is the socially-constructed one
@@ -433,7 +459,6 @@ if __name__=="__main__":
   custom_body(female) # TODO: refactor to say "gender" instead of clumsy boolean
   '''
   #male_SMPL() # takes cmd line args internally; height and weight
-  write_smpl()
 #============================================ __main__ ==========================================
 
 '''

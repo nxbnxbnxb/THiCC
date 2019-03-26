@@ -18,12 +18,503 @@
 
 ________________________________
 
+  Sun Mar 24 16:44:36 EDT 2019
+________________________________
+
+  but we can make sure we properly write the function render_blender(mesh_name)
+
+  We might have to write_smpl() with HMR's SMPL() class instead.
+    chumpy itself was just loaded from a pickle, and I'm not 100% sure whether it auto-differentiates all the way to the vertices.
+      basicModel_m_lbs_10_207_0_v1.0.0.pkl
+      basicModel_f_lbs_10_207_0_v1.0.0.pkl
+
+  debug smpl.py's function write_smpl().
+    Does chumpy work by itself, or do I need to deal with the opendr sh!t to get the obj mesh to update with the betas?
+  AFAIK, write_smpl() must rewrite the obj fname in blender_import_obj.py in order to change which mesh we import in blender.  It can't take sys.argv from within a subprocess.call([]).
+
+  Blender should be callable within smpl.py
+
+  We're using cat11; I installed cython version 0.26 on it.   chumpy on it
+    If there are any package-versioning problems, they will rear their ugly heads later.
+
+
+  To continue coding, we first have to get EVERYTHING working end-to-end in a single python3 (conda) environment.
+    Search through EVERY comment in all Loper's files til we find out whether he compiled:
+      #include <GL/OpenGL.h>             
+        and
+      #include <GL/CGLTypes.h>
+    himself, or whether they're from the official libraries.
+
+    TODO: test cython 0.26 in cat11
+
+      a.
+    2.  "debug ctx_mesa.c into existence" from ctx_mac_internal.c (/home/n/Documents/code/opendr_github/opendr/opendr/contexts/ctx_mac_internal.c) (change whatever we need to from Matt Loper's Mac OS X Darwin to our Ubuntu 16.04 Xenial Xereus)
+
+      c.  Use blender as your graphical debugger INSTEAD OF openDR.
+      d.  Ask the prof Rasmussen / his TA for help {ie. which library it is on Ubuntu.} (perhaps they won't know either, but maybe it's worth a shot)
+      e.  brute force through each possible library, one at a time (automate it?)
+      f.  find which .so files the sudo apt-get install [libGL shit in here] refers to, so we can tell what we need to do.
+      
+      g.  grep through smpl code to see WHERE OPENDR IS ACTUALLY REFERENCED.
+        b/c if it's referenced in anything critical, we MUST get it working.  I think it's extremely unlikely it's part of chumpy/SMPL itself
+
+    3.  test opendr in cat12, cat11, etc.
+    4.  cv2 versions,
+    5.
+    6.
+
+
+
+  The files I was working on:
+    isolating various c++ imports to see what the problem is at any given moment:
+      /home/n/Documents/code/c++/includes.c           <== isolating various c++ imports to see what the problem is at any given moment.
+    The big one.
+      /home/n/Documents/code/opendr_github/opendr/opendr/contexts/    8  a   "ctx_mesa.c"                   line 0   # TODO: FIXME!!!!
+      /home/n/Documents/code/opendr_github/opendr/opendr/contexts/    1  a   "Makefile"                     line 1
+      /home/n/Documents/code/opendr_github/opendr/opendr/contexts/    2 #a   "../../setup.py"               line 119
+      /home/n/Documents/code/opendr_github/opendr/opendr/contexts/    3  a   "../../Makefile"               line 0
+      /home/n/Documents/code/opendr_github/opendr/opendr/contexts/    4  a   "../test_dr/Makefile"          line 0
+      /home/n/Documents/code/opendr_github/opendr/opendr/contexts/    5  a   "../contexts/autogen.py"       line 10
+      /home/n/Documents/code/opendr_github/opendr/opendr/contexts/    6  a   "ctx_mac_internal.c"           line 9
+      /home/n/Documents/code/opendr_github/opendr/opendr/contexts/    7      "ctx_mesa.pyx"                 line 1
+      /home/n/Documents/code/opendr_github/opendr/opendr/contexts/    9  a + "ctx_mesa.h"                   line 0
+      /home/n/Documents/code/opendr_github/opendr/opendr/contexts/    10 %a   "~/Desktop/TODO"               line 26
+
+
+      /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018 1  a   "setup.sh"                     line 51
+      /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018 2 #a   "smpl/smpl_webuser/hello_world/render_smpl.py" line 50       THE BIG GOAL.
+      /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018 3 %a   "~/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/README.txt" line 7
+      /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018
+      /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018
+      /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018
+
+
+
+
+    Various requirements.txt / setup.sh  files
+    envs: cat4, hmr2, cat11, cat12, cat10? (working)
+
+    Build PROPER ctx_mesa.so to put in /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/conda_+/lib/python3.6/site-packages/opendr/contexts/ so we can get opendr working.
+
+    Get all the opendr to python3 somehow, fixed chumpy, etc.
+    Absolute import via PYTHONPATH enwironment wariable.
+
+
+
+
+
+
+
+    cat11.
+
+
+
+
+
+      TODOS:
+        ctx_mesa.so to python3.
+
+        1.  chumpy to python3. (2to3)  add to PYTHONPATH, etc.
+          a.  Once we have chumpy working 100% and cv2 versions reconciled, we can try to get opendr working.
+          Seems to be working.  Haven't tested, but imports properly at least.
+
+        opendr actually isn't anything but opencv (cv2) under the hood.  So it's prob just chumpy we have to migrate to python3, if any.
+        2.  chumpy to python3?  (2to3)
+        2.5.  configure properly.  (PYTHONPATH?)
+        3.  reconcile opencv versions.  (prob move to the new one)
+
+        1.  opendr to python3   (2to3)
+        1.5.  configure properly.  (PYTHONPATH?)
+        4.
+        5.  Whatever else we come across.  "last was doing" notes are helpful, as is "next to do," but trying to plan everything out all at once inevitably leads to you missing things & making wrong assumptions.
+        6.
+        7.  MORE: hunt down every last ***king dependency and MAKE. IT. WORK.
+        8.
+        9.
+        10.
+        11.
+        12.
+        13.
+        14.
+        15.
+        16.
+        17.
+        18.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Kailash suggested official tool 4 porting python2 to python3 (fixes openDR)
+          The tool's called 2to3.
+            usage: 2to3 -w py2.py => py3_version_of_py2.py.py
+      Then see whether tensorflow 1.12 can run render_smpl.py.  There's just GOTTA BE a way to get that to work.
+
+      Prob start installs on cat4?
+        Maybe we can remove chumpy and go from there.
+          Seems somewhat hazardous.  Trying instead to cycle through conda environments and run "p3 measure.py" in each one.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Problems:
+    tf 1.12 (what Vishal used to get deeplab working) has no python2 version (I THINK.)
+    opendr (necessary for any kind of visualization in HMR) has no python3 version.
+
+    So:
+      We either need to downgrade Vishal's deeplab tensorflow calls.  (More support for this)
+        OR
+      fix "up" opendr (less community around openDR, and I think Loper works for Amazon these days)
+        OR
+      use sketchy shell scripts to hack around the problem whenever we need to call render_smpl.py from BNN.py (probably not a scalable solution)
+
+      I'm 1st going to try to downgrade Vishal's deeplab tensorflow calls
+        THEN: I'm going to try reimplementing deeplab in python2?  (adapt away Vishal's ****ing code sh!t)
+        Then MAYBE I'm going to try building a diff segmentation implementation (matterport:  https://github.com/matterport/Mask_RCNN)
+
+
+  Try getting (all the "cat" packages you need) working on python2 in a virtualenv similar to HMR.  We could also try to do it in conda...
+    One of the biggest things I hate about this idea (python2) is simply that python2 WILL become deprecated.  But at least it'll work for a bit, and [this](https://docs.python.org/3/howto/pyporting.html) will tell you how to migrate to python3.
+
+  Find the piece of ***t shell script where you put the 1st HMR venv setup.
+    Then you'll be able to get an MVP working.
+
+
+  The problem is SOMEWHERE in OSMesa and/or opendr and/or chumpy.
+    See 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2019-03-24 13:10:03.133259: E tensorflow/core/common_runtime/executor.cc:644] Executor failed to create kernel. Invalid argument: NodeDef mentions attr 'dilations' not in Op<name=Conv2D; signature=input:T, filter:T -> output:T; attr=T:type,allowed=[DT_HALF, DT_FLOAT]; attr=strides:list(int); attr=use_cudnn_on_gpu:bool,default=true; attr=padding:string,allowed=["SAME", "VALID"]; attr=data_format:string,default="NHWC",allowed=["NHWC", "NCHW"]>; NodeDef: MobilenetV2/Conv/Conv2D = Conv2D[T=DT_FLOAT, data_format="NHWC", dilations=[1, 1, 1, 1], padding="SAME", strides=[1, 2, 2, 1], use_cudnn_on_gpu=true, _device="/job:localhost/replica:0/task:0/cpu:0"](sub_7, MobilenetV2/Conv/weights/read). (Check whether your GraphDef-interpreting binary is up to date with your GraphDef-generating binary.).
+	 [[Node: MobilenetV2/Conv/Conv2D = Conv2D[T=DT_FLOAT, data_format="NHWC", dilations=[1, 1, 1, 1], padding="SAME", strides=[1, 2, 2, 1], use_cudnn_on_gpu=true, _device="/job:localhost/replica:0/task:0/cpu:0"](sub_7, MobilenetV2/Conv/weights/read)]]
+Traceback (most recent call last):
+  File "measure.py", line 2086, in <module>
+    err, measures, vs=mesh_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)
+  File "measure.py", line 1717, in mesh_err
+    measures= measure_body_viz(json_fname, front_fname, side_fname, cust_height)
+  File "measure.py", line 437, in measure_body_viz
+    front_mask    = np.rot90(seg_local(front_fname)) # shape == (513, 288)
+  File "/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/seg.py", line 221, in segment_local
+    return seg_map(img, MODEL)
+  File "/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/seg.py", line 157, in seg_map
+    seg_map, resized_im = model.segment_nparr(img) # within def seg_map(img, model)
+  File "/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/seg.py", line 98, in segment_nparr
+    feed_dict={self.INPUT_TENSOR_NAME: [resized_image]})[0], 
+  File "/home/n/Documents/code/old/hmr/hmr_March_24_2019/local/lib/python2.7/site-packages/tensorflow/python/client/session.py", line 895, in run
+    run_metadata_ptr)
+  File "/home/n/Documents/code/old/hmr/hmr_March_24_2019/local/lib/python2.7/site-packages/tensorflow/python/client/session.py", line 1124, in _run
+    feed_dict_tensor, options, run_metadata)
+  File "/home/n/Documents/code/old/hmr/hmr_March_24_2019/local/lib/python2.7/site-packages/tensorflow/python/client/session.py", line 1321, in _do_run
+    options, run_metadata)
+  File "/home/n/Documents/code/old/hmr/hmr_March_24_2019/local/lib/python2.7/site-packages/tensorflow/python/client/session.py", line 1340, in _do_call
+    raise type(e)(node_def, op, message)
+tensorflow.python.framework.errors_impl.InvalidArgumentError: NodeDef mentions attr 'dilations' not in Op<name=Conv2D; signature=input:T, filter:T -> output:T; attr=T:type,allowed=[DT_HALF, DT_FLOAT]; attr=strides:list(int); attr=use_cudnn_on_gpu:bool,default=true; attr=padding:string,allowed=["SAME", "VALID"]; attr=data_format:string,default="NHWC",allowed=["NHWC", "NCHW"]>; NodeDef: MobilenetV2/Conv/Conv2D = Conv2D[T=DT_FLOAT, data_format="NHWC", dilations=[1, 1, 1, 1], padding="SAME", strides=[1, 2, 2, 1], use_cudnn_on_gpu=true, _device="/job:localhost/replica:0/task:0/cpu:0"](sub_7, MobilenetV2/Conv/weights/read). (Check whether your GraphDef-interpreting binary is up to date with your GraphDef-generating binary.).
+	 [[Node: MobilenetV2/Conv/Conv2D = Conv2D[T=DT_FLOAT, data_format="NHWC", dilations=[1, 1, 1, 1], padding="SAME", strides=[1, 2, 2, 1], use_cudnn_on_gpu=true, _device="/job:localhost/replica:0/task:0/cpu:0"](sub_7, MobilenetV2/Conv/weights/read)]]
+
+Caused by op u'MobilenetV2/Conv/Conv2D', defined at:
+  File "measure.py", line 2086, in <module>
+    err, measures, vs=mesh_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)
+  File "measure.py", line 1717, in mesh_err
+    measures= measure_body_viz(json_fname, front_fname, side_fname, cust_height)
+  File "measure.py", line 437, in measure_body_viz
+    front_mask    = np.rot90(seg_local(front_fname)) # shape == (513, 288)
+  File "/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/seg.py", line 219, in segment_local
+    MODEL = DeepLabModel(download_path) # segment_local()
+  File "/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/seg.py", line 67, in __init__
+    tf.import_graph_def(graph_def, name='')
+  File "/home/n/Documents/code/old/hmr/hmr_March_24_2019/local/lib/python2.7/site-packages/tensorflow/python/framework/importer.py", line 313, in import_graph_def
+    op_def=op_def)
+  File "/home/n/Documents/code/old/hmr/hmr_March_24_2019/local/lib/python2.7/site-packages/tensorflow/python/framework/ops.py", line 2630, in create_op
+    original_op=self._default_original_op, op_def=op_def)
+  File "/home/n/Documents/code/old/hmr/hmr_March_24_2019/local/lib/python2.7/site-packages/tensorflow/python/framework/ops.py", line 1204, in __init__
+    self._traceback = self._graph._extract_stack()  # pylint: disable=protected-access
+
+InvalidArgumentError (see above for traceback): NodeDef mentions attr 'dilations' not in Op<name=Conv2D; signature=input:T, filter:T -> output:T; attr=T:type,allowed=[DT_HALF, DT_FLOAT]; attr=strides:list(int); attr=use_cudnn_on_gpu:bool,default=true; attr=padding:string,allowed=["SAME", "VALID"]; attr=data_format:string,default="NHWC",allowed=["NHWC", "NCHW"]>; NodeDef: MobilenetV2/Conv/Conv2D = Conv2D[T=DT_FLOAT, data_format="NHWC", dilations=[1, 1, 1, 1], padding="SAME", strides=[1, 2, 2, 1], use_cudnn_on_gpu=true, _device="/job:localhost/replica:0/task:0/cpu:0"](sub_7, MobilenetV2/Conv/weights/read). (Check whether your GraphDef-interpreting binary is up to date with your GraphDef-generating binary.).
+	 [[Node: MobilenetV2/Conv/Conv2D = Conv2D[T=DT_FLOAT, data_format="NHWC", dilations=[1, 1, 1, 1], padding="SAME", strides=[1, 2, 2, 1], use_cudnn_on_gpu=true, _device="/job:localhost/replica:0/task:0/cpu:0"](sub_7, MobilenetV2/Conv/weights/read)]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Get glfw installed.  First, I have to get sudo privileges back.  It may be worth installing self-control (or some similar software) at that rate.
+  Then we gotta do glfw and opendr installation (https://github.com/polmorenoc/opendr), b4 checking for chumpy errors.
+
+  Whatever you do, DO NOT LEAVE 
+    "   #from chumpy.ch import *  " in ~/anaconda3/envs/cat4/lib/python3.6/site-packages/chumpy/__init__.py .
+  It may look fine right now, but something WILL BREAK in chumpy at some pt in the future.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Fri Mar 22 22:29:59 EDT 2019
+________________________________
+
+      1st, I'm going to try to downgrade Vishal's deeplab tensorflow calls
+
+  Fix the conda environment (python3 cat12 but with hmr dirs too.)
+  Wait, is this 100% necessary?
+    Yeah, probably, to get chumpy & openDR for render_SMPL.py.
+
+
+
+
+
+  BNN big picture:
+    Loop 'til loss/cost/ function is low enough:
+      1.  Fit SMPL to proper vertical proportions (ie.   A. (z_shoulders - z_hip),    & B. (z_hip - z_min)   &  C. (height-shoulders))
+        a.  Knees
+        b.  Crotch
+        c.  Belly 
+          1.  (max circumference besides the arms)
+        d.  Arm length
+        e.
+        f.
+        g.
+        h.
+        i.
+        j.
+        k.
+        l.
+        m.
+        n.
+        o.
+        p.
+        q.
+        r.
+        s.
+        t.
+        u.
+        v.
+        w.
+        x.
+        y.
+        z.
+        We can add knees and/or nose, etc. later
+      2.  Fit SMPL to proper circumference proportions (ie. waist, chest, hips)
+    Repeat steps 1 & 2 alternatingly, getting more fine-tuned as we go.
+
+    Details:
+      Debug
+
+
+
+  #=====================================================================
+  # When I write "openpose" in the measurement comments below, I mean a combination of openpose and the calculations in this function "mesh_err()"
+  #=====================================================================
+  #   ANKLE (height):
+  #     mesh's derivation:  5.9595959595959 inches
+  #     openpose:           6.257280615774892 inches      
+  #=====================================================================
+  #=====================================================================
+  #   HIP (height):
+  #     mesh's derivation:  48.50912784699094 inches
+  #     openpose:           42.27952894372694 inches      
+  #=====================================================================
+  #=====================================================================
+  #   SHOULDERS (height):
+  #     mesh's derivation:  60.84137677238524 inches
+  #     openpose:           62.824522313191885 inches      
+  #=====================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
   Thu Mar 21 09:03:44 EDT 2019
 ________________________________
 
+  To do BNN properly, we'd really need to do conda to hook it up end-to-end.  Intermediate "shows" (ie. pltshow()) will fix a LOT (if not all) of the debugging problems.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	properly align the ***king hip and butt.
+	~/Dropbox/vr_mall_backup/IMPORTANT/
+  /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/measure.py
+  /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/reformat_json.py
+  /home/n/Dropbox/vr_mall_backup/IMPORTANT/nxb_manually_tuned_(NNN)___smpl_mesh____4th_iteration__02-2.250000000.obj
+
+
+-rw-rw-r-- 1 n n    4.6M Mar 22 12:44  n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE_____rendered.png
+-rw-rw-r-- 1 n n    4.6M Mar 22 12:56 n8_back___jesus_pose___legs_closed___nude___grassy_background_Newark_DE_____rendered.png
+-rw-rw-r-- 1 n n    4.6M Mar 22 13:04 n8_side___jesus_pose___legs_closed___nude___grassy_background_Newark_DE_____rendered.png
+-rw-rw-r-- 1 n n    4.7M Mar 22 13:12 n8_other_side___jesus_pose___legs_closed___nude___grassy_background_Newark_DE_____rendered.png
+-rw-rw-r-- 1 n n     849 Mar 22 13:21 n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE_____keypoints.json
+-rw-rw-r-- 1 n n     780 Mar 22 13:41 n8_back___jesus_pose___legs_closed___nude___grassy_background_Newark_DE_____keypoints.json
+-rw-rw-r-- 1 n n     787 Mar 22 13:50 n8_side___jesus_pose___legs_closed___nude___grassy_background_Newark_DE_____keypoints.json
+-rw-rw-r-- 1 n n     807 Mar 22 13:57 n8_other_side___jesus_pose___legs_closed___nude___grassy_background_Newark_DE_____keypoints.json
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   Find hip openpose keypt from smpl-find-butt()
     /home/n/Dropbox/vr_mall_backup/IMPORTANT/nxb_manually_tuned_(NNN)___smpl_mesh____4th_iteration__02-2.250000000.obj
-    This is the best Nathan-mesh I have to date.  I'm assuming it's good enough to match my points to openpose keypoint.json.
+    This is the best Nathan-mesh I have to date.  I'm assuming it's good enough to match my points to openpose keypoint.json.  But honestly, it doesn't seem to be.
     Also:
       /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world/male_0000000000.obj
       /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world/male_3-300000000.obj
@@ -36,9 +527,55 @@ ________________________________
 
 
 
+TODO:  "Hook HMR up" correctly to the openpose json keypoints.
+
+
+feh /home/n/Dropbox/vr_mall_backup/imgs/n8_front___jesus_legs_closed___150_pix_h/n8___hmr_input_img_rendered.png
+
+v /home/n/Dropbox/vr_mall_backup/json_imgs_openpose/n8___hmr_input_img_keypoints___dict.py
+v /home/n/Dropbox/vr_mall_backup/json_imgs_openpose/n8___hmr_input_img_keypoints.json
+v /home/n/Dropbox/vr_mall_backup/json_imgs_openpose/n8___hmr_input_img_keypoints___old_format.json
 
 
 
+________________________________
+
+  Sat Mar 23 15:11:36 EDT 2019
+________________________________
+
+  Try to open up discussion of our flaws in the meeting.
+    "It's not pretty to look at the holes in the bottom of a boat, but a boat can't sail with holes in it."
+  Admit to being GS.
+    Dad was a physicist, etc.
+    Ask about the others' backgrounds.  Ask for any potential problems with the supply
+    Ask Simone to make a 3-D model of what we have BEFORE summer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Thu Mar 21 09:03:44 EDT 2019
+________________________________
+
+  Find hip openpose keypt from smpl-find-butt()
+    /home/n/Dropbox/vr_mall_backup/IMPORTANT/nxb_manually_tuned_(NNN)___smpl_mesh____4th_iteration__02-2.250000000.obj
+    This is the best Nathan-mesh I have to date.  I'm assuming it's good enough to match my points to openpose keypoint.json.
+    Also:
+      /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world/male_0000000000.obj
+      /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world/male_3-300000000.obj
+      All images are in /home/n/Dropbox/vr_mall_backup/IMPORTANT. (recents)
 
 
 
@@ -15540,6 +16077,10 @@ Big picture:
     ie. ball and a bat in the picture, Nyle is swinging the bat from far away and the ball's going towards him
 
 
+  Java
+    No pointers
+    Fixes errors
+
 
 
 
@@ -15657,3 +16198,119 @@ Technical TODOs:
     Idk what this is.
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+________________________________
+________________________________
+________________________________
+
+  Dad's thoughts:
+________________________________
+________________________________
+________________________________
+________________________________
+
+  Microsoft does good decisions.  Better than Oracle.
+  Open argument!
+    No top-down decision-making shit
+  BEST IDEAS WIN.
+________________________________
+
+  Free database:
+    PostGres                      (THE BEST)
+      Read about these things
+        Dad suggested this.
+    DNS name
+      Home service provider
+    Just do AWS
+      Security
+
+    Relational Databases are very well established
+      Paul Graham is wrong these days.
+      Oracle was 1st.  That's why everyone pays them.  They SUCK. SUCK. SUCK. SUCK. SUCK.
+        Microsoft is better than Oracle
+        Microsoft has good C++ dev tools.
+          VS Code.
+          Linux is not as good as Microsoft.
+
+________________________________
+
+________________________________
+
+  BSD
+    Apple runs BSD.  Linux is the other UNIX-like one
+________________________________
+
+  Git: use it
+    SVN was before git
+      Didn't scale, so Torvalds made git
+________________________________
+
+
+
+
+  IDEA!  Manually stretch legs/chest/whatever with a SCALING instead of BNN. Remember, BodyTalk didn't really work.  So it's possible neural net approach ("BNN") won't really either.  If you start with the verts and instead just apply mostly-smooth transformation to stretch, shear, rotate, etc. various body dimensions like chest:waist, etc.
+
+    from opendr.utils import wget
+      internet wget() but in python!
+
+  seg.py (deeplab) MUST. work. indoors.
+    Can't rely on grassy background.
+    May need to be trained on various kinds of indoor data?
+      Or we may just need 2 rule out all non-human labels.

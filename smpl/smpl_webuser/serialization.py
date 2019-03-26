@@ -23,7 +23,11 @@ Modules included:
 __all__ = ['load_model', 'save_model']
 
 import numpy as np
-import cPickle as pickle
+import sys
+if    sys.version_info.major==3: # this will probably change and break
+  import pickle
+elif  sys.version_info.major==2:
+  import cPickle as pickle
 import chumpy as ch
 from chumpy.ch import MatVecMult
 from posemapper import posemap
@@ -77,7 +81,11 @@ def backwards_compatibility_replacements(dd):
 def ready_arguments(fname_or_dict):
 
     if not isinstance(fname_or_dict, dict):
-        dd = pickle.load(open(fname_or_dict))
+        if sys.version_info.major==3:
+          with open(fname_or_dict, 'rb') as f:
+            dd = pickle.load(f, encoding="latin1") 
+        elif sys.version_info.major==2:
+          dd = pickle.load(open(fname_or_dict))
     else:
         dd = fname_or_dict
         
@@ -125,7 +133,7 @@ def load_model(fname_or_dict):
         'want_Jtr': True,
         'bs_style': dd['bs_style']
     }
-    
+ 
     result, Jtr = verts_core(**args)
     result = result + dd['trans'].reshape((1,3))
     result.J_transformed = Jtr + dd['trans'].reshape((1,3))

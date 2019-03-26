@@ -123,9 +123,6 @@ for i in range(1,len(sys.argv)):
   m.betas[i-1]=float(sys.argv[i])
 # The above little chunk of command-line-args (sys.argv) parsing code should be reusable wherever we do SMPL stuff.  It adapts to however many cmd line args you put in.
 
-# NOTE temporary:
-#m.betas=Jonah_Hill().reshape((10,1))
-
 ## Create OpenDR renderer
 rn = ColoredRenderer()
 
