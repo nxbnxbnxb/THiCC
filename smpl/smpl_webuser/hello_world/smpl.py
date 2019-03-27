@@ -1,3 +1,4 @@
+gender = 'male'
 '''
 Copyright 2015 Matthew Loper, Naureen Mahmood and the Max Planck Gesellschaft.  All rights reserved.
 This software is provided for research purposes only.
@@ -44,18 +45,34 @@ from smpl_webuser.serialization import load_model
 import numpy as np
 import sys
 import subprocess as sp
+from math import pi
 
-## Load SMPL model (here we load the female model)
 ## Make sure path is correct
-m = load_model( '../../models/basicModel_f_lbs_10_207_0_v1.0.0.pkl' )
+## Load SMPL model
+if gender.lower()=='male':
+  m = load_model('../../models/basicModel_m_lbs_10_207_0_v1.0.0.pkl')
+else:
+  m = load_model('../../models/basicModel_f_lbs_10_207_0_v1.0.0.pkl')
 
-## Assign random pose and shape parameters
-m.pose[:] = np.random.rand(m.pose.size) * .2
-#m.betas[:] = np.random.rand(m.betas.size) * .03
-m.betas[:] = np.full((m.betas.size),5)
+# shape
+print("m.betas.size: ",m.betas.size)
+betas = np.zeros((m.betas.size)).astype('float64')
+# it's best to store the betas in a temporary variable so when we assign everything, SMPL calculates EVERYTHING in one step
+for i in range(1,len(sys.argv)):
+  betas[i-1]=float(sys.argv[i])
+m.betas[:] = betas
+
+# pose
+m.pose[:] = np.zeros((m.pose.size)).astype('float64')
+## Rotates (like a backflip)
+m.pose[0] =  pi  # Note: I'm p sure these rotations (I think it was pose[:3] that are the rotations) are taken care of differently in HMR.
+
 
 ## Write to an .obj file
-outmesh_path = './hello_smpl.obj'
+outmesh_path = \
+  './{10}_{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}.obj'.format(int(
+    m.betas[0][0]),int(m.betas[1][0]),int(m.betas[2][0]),int(m.betas[3][0]),int(m.betas[4][0]),int(m.betas[5][0]),int(m.betas[6][0]),int(m.betas[7][0]),int(m.betas[8][0]),int(m.betas[9][0]),
+    gender.lower())
 with open( outmesh_path, 'w') as fp:
     for v in m.r:
         fp.write( 'v %f %f %f\n' % ( v[0], v[1], v[2]) )
