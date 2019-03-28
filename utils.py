@@ -1,5 +1,8 @@
-# python 2/3 compatibility
 from __future__ import print_function
+from __future__ import division 
+from __future__ import absolute_import
+# python 2/3 compatibility
+
 import cv2
 
 from d import debug
@@ -399,6 +402,11 @@ def pe(n=89): print('='*n)
 def pif(s=''):
     if debug: print (s)
 #=========================================================================
+def merge_2_dicts(x, y):
+    z = x.copy()   # start with x's keys and values
+    z.update(y)    # modifies z with y's keys and values & returns None
+    return z
+#=========================================================================
 def sq(x):
     return x*x
 #=========================================================================
@@ -647,7 +655,8 @@ def vid_2_mesh_sandbox(
 
   if success:
     mask=seg(img) #  mask.shape == (513,288)
-    masks=np.zeros((*mask.shape,num_masks)) # what is the default type?
+    tensor_shape= mask.shape+ (num_masks,)
+    masks=np.zeros(tensor_shape) # what is the default type?
     mask_ws=np.zeros(num_masks)
     # might not matter to be this precise "(masks=np.zeros((*mask.shape,num_masks)))," but if I do the work of already making it ready for optimization, it'll be easier to optimize (speed up) later
       # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
@@ -697,7 +706,8 @@ def masks_2_angles_sandbox(
   mask_fnames=sorted(mask_fnames,key=os.path.getctime)
   num_masks=len(mask_fnames)
   mask=np_img(mask_fnames[0])
-  masks=np.zeros((*mask.shape, num_masks)) # What is the default type?
+  tensor_shape= mask.shape+ (num_masks,)
+  masks=np.zeros(tensor_shape) # What is the default type?
   mask_ws=np.zeros(num_masks)
 
   for mask_idx in range(num_masks):

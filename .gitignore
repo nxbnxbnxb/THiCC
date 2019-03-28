@@ -10,9 +10,11 @@
 *.mp4
 *.tar.gz
 *.tar.gz.1
+*obj
 *blend
 *blend1
 *timing*
 *debug*
 *time*
 *test*
+tmp_json_dict.py

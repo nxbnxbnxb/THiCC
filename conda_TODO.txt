@@ -1,4 +1,9 @@
-
+cat12
+cat12
+cat12
+setup.sh
+setup.sh
+setup.sh
   
 
   Get a conda environment working with all the necessary dependencies.  1st step done.
@@ -8,6 +13,11 @@
     All details ought to be in setup.sh.
     If cat12 works, turn "cat" into the working conda env.
 
+    chumpy:    
+      (pip install chumpy)     version 2
+      call `2to3 -v *.py`   on HMR's chumpy 
+      & add chumpy dir to env var PYTHONPATH 
+      then use cat12
 
 
 

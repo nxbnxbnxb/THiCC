@@ -23,7 +23,8 @@ import sys
 import viz
 from viz import pltshow
 from seg import segment_local as seg_local, segment_black_background as seg_black_back
-from utils import pn, crop_person, get_mask_y_shift, np_img, pif, pe
+from utils import pn, crop_person, get_mask_y_shift, np_img, pif, pe, merge_2_dicts
+from hello_world.smpl import normalize_mesh, vert_info, to_1st_octant, shift_verts
 from d import debug
 from pprint import pprint as p
 from pprint import pprint
@@ -218,7 +219,7 @@ def area_polygon(polygon):
 		Here is the standard method, AFAIK. Basically sum the cross products around each vertex. Much simpler than triangulation.
 
 Python code, given a polygon represented as a list of (x,y) vertex coordinates, implicitly wrapping around from the last vertex to the first
-    David Lehavi comments: It is worth mentioning why this algorithm works: It is an application of Green's theorem for the functions −y and x; exactly in the way a planimeter works. More specifically:
+    David Lehavi comments: It is worth mentioning why this algorithm works: It is an application of Green's theorem for the functions -y and x; exactly in the way a planimeter works. More specifically:
 
     Formula above =
     integral_over_perimeter(-y dx + x dy) =
@@ -318,7 +319,8 @@ def measures_2_inches(measures, front_fname, side_fname, cust_real_h):
         data_inches['x'] *= mask_scaling
         data_inches['x']  = data_inches['x']           - mask_x_edge_loc    # NOTE NOTE NOTE NOTE NOTE: do we need to change the shift to get the x_edge_T_pose?
         data_inches['x'] *= real_h_scale
-  all_measures={**measures, **measures_inches}
+  all_measures=merge_2_dicts(measures, measures_inches)
+  #all_measures= {**measures, **measures_inches} # This elegant syntax is not available til python3.
 
   if debug:
     pr("Leaving function ", funcname);pe()
@@ -712,27 +714,6 @@ def show_overlaid_polygon_measures(pic_filename___with_openpose_keypoints_, open
   return
 
 #===================================================================================================================================
-def vert_info(vs):
-  # TODO: sprinkle this magic sauce vert_info(vs) EVERYWHERE.
-  '''
-    vert_info stands for "Print Vertices Info."
-
-    -------
-    Params:
-    -------
-      vs are the vertices.  format: a numpy array of shape (n,3).  (in other words, vs=np.nonzero(cartesian))
-  '''
-  assert vs.shape[1]==3
-  x_max = np.max(vs[:,0]); x_min = np.min(vs[:,0]); y_max = np.max(vs[:,1]); y_min = np.min(vs[:,1]); z_max = np.max(vs[:,2]); z_min = np.min(vs[:,2])
-  x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
-  if debug:
-    pe(69); pr("Entering function ",sys._getframe().f_code.co_name); pe(69)
-    pr("x_max:",x_max); pr("x_min:",x_min); pr("y_max:",y_max);pr("y_min:",y_min); pr("z_max:",z_max); pr("z_min:",z_min);pn()
-    pr("x_len:",x_len); pr("y_len:",y_len); pr("z_len:",z_len);pn()
-    pe(69); pr("Leaving function ",sys._getframe().f_code.co_name); pe(69);pn()
-  data= (x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len)
-  return data
-#===================================================================================================================================
 def cross_sec(verts, midpt_h, window=0.652, which_ax="z", faces=None):
   '''
     Takes a cross section of an .obj mesh
@@ -830,87 +811,6 @@ def other_toe(verts, toe_1, crotch):
       return verts[i]
   raise Exception("Something weird happened in function {0}.\n  Other toe wasn't found".format(funcname)) 
 #==================================== end other_toe(params) ========================================================================
-#===================================================================================================================================
-def normalize_mesh(vs, mode='HMR'): 
-  '''
-    Standardizes mesh position and orientation
-
-    -------
-    Params:
-    -------
-      vs means vertices of a mesh, 
-
-    return value "vs" ought to have the mesh's head "point" in the +z direction, every mesh vertex should have (+x,+y,+z) values
-  '''
-  # Note:   refactor.  used to call it standardize_mesh_position_and_orientation(), but was too long prob not descriptive enough?
-
-  # NOTES:  I think currently y is  "height," x is "width," and z is "depth"
-  #               but we want z     "height," x    "width," and y is "depth"     (helpfully, this is ALSO how blender does it)
-  #           This yz_swap solution below: (Wed Mar  6 13:49:35 EST 2019) is specifically tailored to:
-  #             obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'
-  pr("This mesh was generated via ",mode)
-
-  #==============================================================================
-  #                         Geometric transformations:
-  #==============================================================================
-  Z=2
-  if mode == 'HMR':
-    yz_swap=np.array([[   1,   0,   0],
-                      [   0,   0,   1],
-                      [   0,  -1,   0]]).astype('float64')
-    # TODO: somehow ensure this transformation doesn't turn our mesh "upside down."  Maybe use pltshow() combined with the cKDTree.  
-    #   Funny, for the "approx mask" operation we'd really like to have that KDTree() "all-neighbors queries functionality".  https://stackoverflow.com/questions/6931209/difference-between-scipy-spatial-kdtree-and-scipy-spatial-ckdtree
-
-    # Rotate
-    vs=vs.dot(yz_swap)
-
-    # Shift
-    vs=to_1st_octant(vs)
-
-    # Flip  (this particular mesh was "feet up")
-    x_max = np.max(vs[:,0]); x_min = np.min(vs[:,0]); y_max = np.max(vs[:,1]); y_min = np.min(vs[:,1]); z_max = np.max(vs[:,2]); z_min = np.min(vs[:,2])
-    x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
-    flipped=deepcopy(vs) # could avoid the deepcopy step
-    for i,row in enumerate(flipped): # TODO TODO: vectorize; actually affects runtime
-      flipped[i,Z]=-flipped[i,Z]
-    flipped=shift_verts(flipped,0,0,z_len)
-    vs=flipped
-    extrema=(x_min,x_max,y_min,y_max,z_min,z_max)
-  elif mode == 'NNN':
-    # TODO: ensure mesh is head-z-up.
-    x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(vs)
-    yz_swap=np.array([[   1,   0,   0],
-                      [   0,   0,   1],
-                      [   0,  -1,   0]]).astype('float64')
-
-    # Rotate
-    vs=vs.dot(yz_swap)
-    x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(vs)
-
-    # Shift to all positive (+x,+y,+z)
-    vs=to_1st_octant(vs)
-
-    x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(vs)
-    # TODO: figure out w.t.f. is going on in cross_sec(which_ax='y')
-    '''
-    for h in np.linspace(z_max-0.1, z_min+0.1, 21):
-      cross_sec(vs, h, window=0.05, which_ax='z') # maybe chest is ~1.2 1.3 1.4?
-    '''
-
-    '''
-      I think we don't need to flip.
-    # Flip  (this particular mesh was "feet up")
-    x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(vs)
-    # TODO TODO TODO TODO TODO TODO TODO TODO shift the NNN .obj mesh appropriately TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-    flipped=deepcopy(vs) # could avoid the deepcopy step
-    for i,row in enumerate(flipped): # TODO TODO: vectorize; actually affects runtime
-      flipped[i,Z]=-flipped[i,Z]
-    flipped=shift_verts(flipped,0,0,z_len)
-    vs=flipped
-    '''
-    extrema=(x_min,x_max,y_min,y_max,z_min,z_max)
-  return vs, extrema # TODO TODO TODO TODO TODO:  finish for NNN (SMPL-betas-manually-tuned)      Where do we scale up the mesh??
-#============  end normalize_mesh(params): ==============
 
 
 
@@ -1946,26 +1846,6 @@ def rot8_obj(v, rotation):
   '''
   return v.dot(rotation)
 #===================================================================================================================================
-def shift_verts(v, del_x, del_y, del_z):
-  '''
-    v = vertices
-  '''
-  shifted=v+\
-    np.concatenate((
-      np.full((v.shape[0], 1),del_x), # v.shape[0] is num_verts
-      np.full((v.shape[0], 1),del_y),
-      np.full((v.shape[0], 1),del_z)),axis=1)
-  return shifted
-#===================================================================================================================================
-def to_1st_octant(v):
-  '''
-    v = vertices
-  '''
-  funcname=  sys._getframe().f_code.co_name
-  if debug:
-    pe(69);pr("In function ",funcname);pe(69);pn(2)
-  return shift_verts(v, -np.min(v[:,0]), -np.min(v[:,1]), -np.min(v[:,2]))
-#===================================================================================================================================
 def tri_area(tri_3x3):
   '''
     Calculates the area of a triangle with (x,y,z) for each point.
@@ -2238,6 +2118,56 @@ if __name__=="__main__":
 # Glossary:
 '''
 glossary (for grep-easy-find):    Function definitions (function headers):
+===============================================================
+    as of Wed Mar 27 18:48:24 EDT 2019,
+===============================================================
+
+  129:def load_json(json_fname):
+  134:def pprint_json(json_fname, out_fname):
+  159:def measure(json_fname):
+  162:def parse_ppl_measures(json_dict):
+  198:def segments(polygon):
+  200:    Just a subroutine of area_polygon().  For some reason I was having trouble nesting segments()'s function definition within def area_polygon(polygon):
+  204:def area_polygon(polygon):
+  238:def estim8_w8(json_fname, front_fname, side_fname, height):
+  261:def measures_2_inches(measures, front_fname, side_fname, cust_real_h):
+  294:  #def shift(all_these params from conversion_consts()):
+  359:def measure_body_viz(json_fname, front_fname, side_fname, cust_height):
+  545:#======================================= all for ellipse circum calculation.  Doesn't work yet.  def ellipse_circum_approx(a,b, precision=2): =======================================
+  547:def perim_e(a, b, precision=6):
+  610:def ellipse_circum_approx(a, b, precision=6):
+  617:def ellipse_circum(a, b):
+  669:def measure_chest(json_fname):
+  690:def show_overlaid_polygon_measures(pic_filename___with_openpose_keypoints_, openpose_keypts_dict, N=4):
+  716:def vert_info(vs):
+  737:def cross_sec(verts, midpt_h, window=0.652, which_ax="z", faces=None):
+  788:def dist(pt1, pt2, norm='L2'):
+  795:def pixel_height(mask):
+  799:def pix_h(mask):
+  818:def other_toe(verts, toe_1, crotch):
+  835:def normalize_mesh(vs, mode='HMR'): 
+  920:def triang_walk(verts, faces, start_face, height, adjacents, bots_idx, tops_idx, which_ax='z', ax=2):
+  945:  def walk_recurs(verts, height, adjacents, vert_idx_list, bots_idx, tops_idx, top_or_bot='top', which_ax='z', ax=2):
+  1269:def mesh_cross_sec(verts, faces, height, which_ax="z"):
+  1333:def adjacents(verts, faces):
+  1347:def lines_intersection_w_plane(vert_0, vert_1, height, which_ax='z'):
+  1372:def mesh_shoulders(verts, faces):
+  1385:def mesh_butt(verts):
+  1436:def mesh_hip(verts, faces, butt):
+  1512:def mesh_ankle(verts, faces, precision=19):
+  1558:def mesh_perim_at_height(verts, faces, height, which_ax='z', ax=2, plot=False):
+  1572:  def line_seg_crosses_height(pt1,pt2,h,ax=2):  #ax=2 means that axis='z'):
+  1611:def parse_obj_file(obj_fname):
+  1644:def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
+  1890:def conv_hulls_perim(xy_pts):
+  1923:def perim_poly(verts):
+  1936:def scale(v, s):
+  1943:def rot8_obj(v, rotation):
+  1950:def shift_verts(v, del_x, del_y, del_z):
+  1961:def to_1st_octant(v):
+  1970:def tri_area(tri_3x3):
+  2029:def test_measure():
+
 ===============================================================
     as of Thu Mar 21 10:03:27 EDT 2019:
 ===============================================================

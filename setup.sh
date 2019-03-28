@@ -1,7 +1,12 @@
 #!/bin/bash
 
+# on Nathan's Ubuntu laptop, current working environment is cat12.  I could rename it to "cat," but conda installs just take too long each time., 
+#   "chumpy" is adapted to python3 from python2's chumpy 0.67.5 by going into the chumpy directory and calling " `2to3 -v *.py.` ".  There may be a few other steps involving pickle versioning, but I leave those as an exercise to the reader.
+
 
 # The following "conda create ..." and "conda activate ..." breaks within this shitty bash script, but it still shows you how this is done
+# conda create --name cat python=3.6.8 && conda activate cat
+
 
 echo "==============================================================================================================================================================================================================="
 echo "==============================================================================================================================================================================================================="
@@ -18,7 +23,6 @@ sleep 60 # stalls the user to make them read.
 
 
 
-#env=cat12
 ## TODO: pip version number == 19.0.1
 ## TODO: conda version number == 4.6.1
 #conda create -y --name $env python=3.6.8

@@ -1,3 +1,48 @@
+
+
+=====================================================================
+=====================================================================
+=====================================================================
+  NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW NEW     Below.
+=====================================================================
+=====================================================================
+=====================================================================
+________________________________
+
+  Wed Mar 27 10:38:03 EDT 2019
+________________________________
+
+    # 2 steps:
+      # height-ratio
+      # circumference measurement width
+
+      # Maybe we should have 2 internal while loops (1 for height-ratios, 1 other for circumferences) ,
+      #   And then a bigger while loop
+      # It would be even simpler if we were able to get it 100% right the 1st time, ie:
+
+      #   mesh=fit_vert(frames)           # means "fit_vertical()"
+      #   mesh=fit_around(frames)
+      # we can leave the while loop, have it default end after 1 iteration, then extend (if possible)
+
+      # try to avoid duplicating costly operations?  (ie videocut)
+
+    # It's probably worth it to 1) do a few BNN runs each time we try to fit,   2) pick the best "general gist" of the betas, then   3) return the one that "looks most like" the customer.
+    #   Basically, it's best to avoid local optima for the sake of finding the GLOBAL optimum.
+
+    # For the final tweaking, it's probably best to "do openpose" on the SMPL mesh and locally stretch/shrink various vertex-regions.
+    #   The best way to do this will probably be to make regularization() EXTREMELY punishing of outliers (ie. np.abs(MCE [cubic error]) and)
+    #   Whatever tweaking we do will have to be smooth (ie. if we find the elbow and the wrist and want to stretch it,  we should 1) convolve the elbow->wrist length with a 2-D Gaussian (ie. y=Gaussian(x)), not   2) just multiply all the radial distances away from the centroid-line of the arm by 3.   )
+    #     For smoothly varying the thickness of the forearm, it's worth looking into bicubic interpolation and other similar methods.  Of course, 1st you should try the bilinear-interpolation-esque methods; easier to code, easier to reason about in a group, etc.
+    #     It's probably NOT AS IMPORTANT with the "length of the forearm"   as it is with the "radii of the forearm cross-sections"
+
+
+
+
+
+=====================================================================
+  OLD OLD  Below.
+=====================================================================
+
 ________________________________
 
   Thu Mar 14 08:37:01 EDT 2019
@@ -14,14 +59,6 @@ ________________________________
   7.  smpl_body_mesh      = fit(perimeters)
     #Based on some loss function, fit SMPL model to data from customer video.
     b.  Perimeter of a convex hull surrounding the points at that height vs. perimeter of 
-
-
-
-
-
-
-
-
 
 
 

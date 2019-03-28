@@ -1,3 +1,6 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 
 # TODO: rename everything "seg" rather than "segment"
 WHITE=255
@@ -141,7 +144,6 @@ def run_visualization(url, model):
   resized_im, seg_map = model.run(original_im)
   if save:
     ii.imwrite("_segmented____binary_mask_.jpg", seg_map)  
-    # I think something in the saving process ***ks up the mask with noise.  Dec. 14, 2018
   #PROBABLE = 127  # NOTE:  experimental from 1 data point;  PLEASE DOUBLE CHECK if u get a noisy segmentation
   #ii.imwrite("_segmented____binary_mask_.jpg", np.greater(seg_map, PROBABLE).astype('bool'))
   return np.rot90(seg_map,k=3) # k=3 b/c it gives us the result we want   (I tested it experimentally.  Dec. 26, 2018)   # this is true for the URL version, not the other
@@ -286,32 +288,21 @@ def segment_black_background(local_fname):
 
 #========================================================================
 if __name__=='__main__':
-  print('\n'*2)
   if len(sys.argv) == 1:
-    IMG_URL = 'http://columbia.edu/~nxb2101/180.0.png'
-    #'http://vishalanand.net/green.jpg'
-    print ("\nusage: python2 seg.py [url_of_img_containing_human(s)] \n  example: python2 seg.py http://vishalanand.net/green.jpg   \n\n")
-    print ("currently segmenting image found at url: \n  "+IMG_URL)
-    pltshow(segment_URL(IMG_URL))
-  elif len(sys.argv) == 2:
+    img_path='/home/n/N.jpg'
+  if len(sys.argv) == 2:
     img_path=sys.argv[1]
-    print ("currently segmenting image found at location: \n  "+img_path)
-    img=np_img(img_path)
-    no_background, segmap = segment_black_background(img_path)
-    cropped,_=crop_person(img,segmap)
-    crop_fname='cropped.png'
-    ii.imwrite(crop_fname,cropped.astype('uint8'))
-    no_background, segmap = segment_black_background(crop_fname)
-    ii.imwrite("mask.png",segmap.astype('float64'))#.astype("uint8"))
-  else:
-    fnames=sys.argv[1:] # TODO: change the analogous code in render_smpl.py
-    # TODO: if we extend seg.py (processing more cmd line args and more configuration parameters) the line `fnames=[sys.argv[1:]]` will break.
-    #   A better way to do it is with `import absl; absl.configs`
-    #     (see akanazawa's HMR for example of these configs.)
-
-    # TODO: error checking:
-    #   if len(sys.argv) < 3:   # should it be less than 3?  more?
-    overlay_imgs(fnames[0], fnames[1])  # tODO: hardcode the fnames?
+  print('\n'*2)
+  print ("currently segmenting image found at location: \n  "+img_path)
+  img=np_img(img_path)
+  no_background, segmap = segment_black_background(img_path)
+  cropped,_=crop_person(img,segmap)
+  crop_fname='cropped.png'
+  ii.imwrite(crop_fname,cropped.astype('uint8'))
+  no_background, segmap = segment_black_background(crop_fname)
+  ii.imwrite("mask.png",segmap.astype('float64'))#.astype("uint8"))
+  ii.imwrite("cutout_blackground.png",no_background)#.astype("uint8"))
+  # Note: not tested.
 #========================== end __main__ =====================================
 
 
@@ -393,23 +384,26 @@ if __name__=='__main__':
 
 
 
-# Glossary:
+# Glossary:         glossary:
 '''
   Function definitions (function headers)
 
-  As of Sat Mar  2 07:39:17 EST 2019,
-
-    47:  def __init__(self, tarball_path):
-    63:  def run(self, image):
-    75:  def segment_nparr(self, img):
-    98:def create_pascal_label_colormap():
-    109:def label_to_color_image(label):
-    119:def binarize(mask_3_colors):
-    125:def run_visualization(url, model):
-    144:def seg_map(img, model):
-    157:def segment_local(local_filename):
-    188:def segment_URL(IMG_URL):
-    224:def segment_black_background(local_fname):
+  As of Sun Mar 24 14:02:23 EDT 2019,
+    54:  def __init__(self, tarball_path):
+    56:    graph_def = None
+    61:        graph_def = tf.GraphDef.FromString(file_handle.read())
+    70:  def run(self, image):
+    82:  def segment_nparr(self, img):
+    107:def create_pascal_label_colormap():
+    118:def label_to_color_image(label):
+    128:def binarize(mask_3_colors):
+    134:def run_visualization(url, model):
+    153:def seg_map(img, model):
+    157:  seg_map, resized_im = model.segment_nparr(img) # within def seg_map(img, model)
+    168:def seg(img):
+    193:def segment_local(local_filename):
+    227:def segment_URL(IMG_URL):
+    263:def segment_black_background(local_fname):
 
   tags glossary gloss defs funcs britney bitch
 '''

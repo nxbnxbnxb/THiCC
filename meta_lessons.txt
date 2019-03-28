@@ -18,6 +18,7 @@
 
 
 
+  read documentation BEFORE looking at code (understanding => efficient looking)
 
 
 

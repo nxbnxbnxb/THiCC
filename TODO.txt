@@ -21,7 +21,119 @@ ________________________________
   Sun Mar 24 16:44:36 EDT 2019
 ________________________________
 
-  but we can make sure we properly write the function render_blender(mesh_name)
+  get normalize_mesh() working in a smart way.
+  /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world/stub.py
+
+
+
+  git push.  files 2do:
+
+   oldfiles:
+    TODO.txt
+    measure.py
+    meta_lessons.txt
+    ref/bugs.txt
+    seg.py
+    setup.sh
+    utils.py
+  newfiles:
+    BNN.py
+    startup_name_ideas.txt
+________________________________
+
+
+
+
+  Perhaps for the pitch, fixing HMR-json is worth it.  No; planning is almost always useless.  the 1st implementation, on the other hand, will actually make you learn.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+      There's a little more of this TODO.  Perhaps we have enough detail with the notes & all?   It's GOING TO BE WRONG.  That's just how the unknown is
+        :(
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+  Perhaps for the pitch, fixing HMR-json is worth it.
+    Let's finish BNN-big-picture-planning before we move to detail-work with the HMR-integr8-w-openpose-keypoints-json.
+
+  Integrating end-to-end new_betas=>new_mesh function:
+    Figure out all the packages I need & what versions, both to visualize the new SMPL mesh & to debug it.
+    conda cv2
+    conda opendr?   (But only if we need it to go betas=>mesh)
+
+
+
 
   We might have to write_smpl() with HMR's SMPL() class instead.
     chumpy itself was just loaded from a pickle, and I'm not 100% sure whether it auto-differentiates all the way to the vertices.
@@ -16306,6 +16418,11 @@ ________________________________
 
 
   IDEA!  Manually stretch legs/chest/whatever with a SCALING instead of BNN. Remember, BodyTalk didn't really work.  So it's possible neural net approach ("BNN") won't really either.  If you start with the verts and instead just apply mostly-smooth transformation to stretch, shear, rotate, etc. various body dimensions like chest:waist, etc.
+    See more details in BNN.py
+    rename fit.py?
+
+  segmentation has to work indoors
+  HMR keypoints.json =>  better SMPL.  (fix.  probably the code is mostly already there)
 
     from opendr.utils import wget
       internet wget() but in python!
@@ -16314,3 +16431,34 @@ ________________________________
     Can't rely on grassy background.
     May need to be trained on various kinds of indoor data?
       Or we may just need 2 rule out all non-human labels.
+
+  
+  30 mins
+  54 mins walking & 
+  Dumpster free 
+    Or at girlfriend's place (between 2 girlfriends)
+    2 girlfriends
+
+
+
+  "disgust sensitivity" :  jordan peterson
+
+
+
+
+  Friday & Saturday (Julian)
+    Thurs is his GF's birthday.
+    Don't tell him what you're doing next time.  Less talking; more listening.
+
+
+
+
+  It's ALL about the zone ("flow state")
+
+
+
+
+
+
+
+
