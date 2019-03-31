@@ -437,3 +437,18 @@ def armpit_by_tracing(mask):
   # TODO: paste this code into the function "chest_circum(json_fname, front_fname, side_fname)"
 #===================================================================================================================================
 
+
+  As of Sat Mar  2 07:39:17 EST 2019,
+
+    47:  def __init__(self, tarball_path):
+    63:  def run(self, image):
+    75:  def segment_nparr(self, img):
+    98:def create_pascal_label_colormap():
+    109:def label_to_color_image(label):
+    119:def binarize(mask_3_colors):
+    125:def run_visualization(url, model):
+    144:def seg_map(img, model):
+    157:def segment_local(local_filename):
+    188:def segment_URL(IMG_URL):
+    224:def segment_black_background(local_fname):
+

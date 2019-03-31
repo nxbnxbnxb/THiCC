@@ -15,14 +15,238 @@
 
 
     TODO.txt
+________________________________
+
+  Sun Mar 31 10:59:24 EDT 2019
+________________________________
+
+  1.  Debug top_head(), 
+    a.
+  2.  Then annotate image with keypoints (plt.scatter(), but also convert plt.scatter() to its own image)
+  3.
+  4.
+  5.
+  6.
+  7.
+  8.
+  9.
+  10.
+  11.
+  12.
+  13.
+  14.
+  15.
+  16.
+  17.
+  18.
+
+
+
+
+
+
+
+
+
+
+
+
+
+  0. /home/n/Documents/code/MuVS
+    ac MuVS
+    1.  Download HEVA png frames
+      Human EVAl-1 is being stupid for some reason.  (ie. it's not letting me in as jeffkim314@yahoo.com)
+    2.  Figure out what that "head" point is && integrate into modern openpose
+      intersection btwn A) line from neck/throat to nose &&   B) segmentation mask of human (top of head, not low pts like toe or neck)
+    3. deepercut
+      a. /home/n/Documents/code/deepcut-cnn/HIT_BUG_____________CAFFE_UBUNTU_16_REQUIRES_GPU.txt
+
+  4.    
+  5.
+  6.
+  7.
+  8.
+  9.
+  10.
+  11.
+  12.
+  13.
+  14.
+  15.
+  16. figure out a tensorflow graph (ie. 4 HMR)
+    a.  cd /home/n/Documents/code/old/hmr && tensorboard --logdir=summaries
+
+  17.
+  18.
+
+diff openpose keypoints json formats:
+1.0.0:
+  /home/n/Documents/code/old/hmr/data/random_keypoints.json
+  ~/Documents/code/openpose/doc/output.md___openpose_version_1.0____like_in_HMR___output.md
+
+1.2.0?
+  ~/Dropbox/vr_mall_backup/IMPORTANT/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE_____keypoints______edited_4_HMR.json
+  ~/Documents/code/openpose/doc/output.md
+
 
 ________________________________
 
   Sun Mar 24 16:44:36 EDT 2019
 ________________________________
 
+  Dario:
+    We can always deliver HMR now so investors can see something to invest in, then I can fill in the details later once we have a little more money.
+
+  Similar to HMR with thorough masks & uses "mask diff SMPL deeplab" as a loss function.
+    Also must do this at the 90 degree angle view from the front view (ie. side view).
+
+
+
+  HMR openpose keypoints vs. SMPL skeleton projections (reprojection loss in HMR paper)
+    This is how we can reshape the SMPL mesh (thru betas) to be the right size.
+    We can feed the pose in as a fixed quantity (ie. T-pose)
+  This is _basically_ BNN
+ 
+  Crop & openpose_keypts.json.
+    It preprocesses & reshape the images to (1,224,224,3)  (224x224 pixels)
+      But also, the real image (the fraction the person inside) doesn't take up the whole 224x224.
+
+    1st, just reformat our openpose 1.2 format into openpose 1.0 & add forehead/top-of-head/whatever it's called.
+
+   Pseudocode:
+    if config.has_key('json_path'):  joints=config['json_path'],  (instead of tf predict())
+    parse_keypts file,   add forehead (guesstimate it as above eyes, nose, in middle of face, etc.):
+      eyes_x=np.mean(r_eye{X], l_eye[X])
+      eyes_y=np.mean(r_eye{Y], l_eye[Y])    # technically these aren't the "eyes;" they're the bridge of the nose.
+      calced_forehead= (     eyes_x,  eyes_y - abs(eyes_y-nose[Y]) )
+      ****************** finesse these points into the right shape, scale, etc.  ******************
+
+   pltshow(skel_img)   on the image "random.jpg" ?
+
+
+
+
+
+
+
+  Can we "improve" just the pose estimation by "swapping" openpose in there instead?
+    Then I don't even know whether this is something we SHOULD be doing.  Don't we get to fix the pose (ie. tell the customer how to stand and where to put their arms, etc.)?  In which case really all we should be doing is learning the betas (shape, not pose).
+    Supposing it's as simple as "replacing the 2-D pose keypoints," we automatically get the flexibility to either  A) use openpose or  B) manually set the pose parameters theta and only fiddle with the betas.
+
+
+
+
+
+  But we NEED SMPL.  It is maintained; I bet it has many features that other bodies of work don't, such as the smoothly-bending joints.
+    Record the HMR paper so you can listen to it  on the walk to work,  on the walk back, etc.
+
+  Somewhat similar to VHMR (shape from 360 degree video):
+    Balan et al.  CVPR '07
+    Jain  et al.  SIGGRAPH '10
+    Rhodin et al. ECCV '16
+
+  But they're no good  A) without publicly available code and  B) if they don't produce SMPL (SMPL is maintained, addresses the shortcomings of previous work, etc.)
+    Also, HMR ===> VHMR is MUCH MUCH easier than the backwards operation (technique that requires video => technique that only requires a single image)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Today, just figure out where the ***king betas are.  Read through her code, and find them.
+  IF you get through that, then you can worry about the rest of it (reviewing the mesh_err() code, etc.)
+  check https://github.com/akanazawa/hmr/issues/79
+
+  Look up Procrustes problem.
+
+  Dario thinks we want to just evaluate HMR's accuracy on as many people as possible.   Would probably actually be a good idea; should I just go up to strangers and ask to measure them?  Maybe I could sell it well enough, hehehehehuehuehue.
+
+
+
+  1.  TODO:
+    mesh_chest()
+    mesh_waist()
+    mesh_inseam()
+    mesh_hips()       # the hips that are good for the clothing measurements
+
+    A lot of these are easier to achieve through HMR (SMPL skeleton).
+
+
+
+  2.
   get normalize_mesh() working in a smart way.
   /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world/stub.py
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16174,6 +16398,45 @@ ________________________________
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Big picture:
   1.  Take video like mTailor does
   2.  Get various measurements from it
@@ -16446,6 +16709,85 @@ ________________________________
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   Friday & Saturday (Julian)
     Thurs is his GF's birthday.
     Don't tell him what you're doing next time.  Less talking; more listening.
@@ -16461,4 +16803,4 @@ ________________________________
 
 
 
-
+  Ask dad about object-oriented next time
