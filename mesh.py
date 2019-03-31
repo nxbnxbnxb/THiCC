@@ -1,458 +1,401 @@
+'''
+Copyright 2015 Matthew Loper, Naureen Mahmood and the Max Planck Gesellschaft.  All rights reserved.
+This software is provided for research purposes only.
+By using this software you agree to the terms of the SMPL Model license here http://smpl.is.tue.mpg.de/license
 
-# implementation of:
+More information about SMPL is available here http://smpl.is.tue.mpg.
+For comments or questions, please email us at: smpl@tuebingen.mpg.de
 
-# "Voronoi-based Variational Reconstruction of Unoriented Point Sets"
-#     by Alliez, Cohen-Steiner, Tong, and Desbrun
 
-# link: http://www.lama.univ-savoie.fr/pagesmembres/lachaud/Memoires/2012/Alliez-2007.pdf
+Please Note:
+============
+This is a demo version of the script for driving the SMPL model with python.
+We would be happy to receive comments, help and suggestions on improving this code 
+and in making it available on more platforms. 
+
+
+System Requirements:
+====================
+Operating system: OSX, Linux
+
+Python Dependencies:
+- Numpy & Scipy  [http://www.scipy.org/scipylib/download.html]
+- Chumpy [https://github.com/mattloper/chumpy]
+
+
+About the Script:
+=================
+This script demonstrates a few basic functions to help users get started with using 
+the SMPL model. The code shows how to:
+  - Load the SMPL model
+  - Edit pose & shape parameters of the model to create a new body in a new pose
+  - Save the resulting body as a mesh in .OBJ format
+
+
+Running the Hello World code:
+=============================
+Inside Terminal, navigate to the smpl/webuser/hello_world directory. You can run 
+the hello world script now by typing the following:
+>	python hello_smpl.py
 
 '''
-  As of Dec. 30, 2018, PART of just the normal-finding took: 
-    real  14m40.537s
-    user  14m39.357s
-    sys   0m  1.088s
-  Unacceptably slow.  Try to get the c++ CGAL libraries working
 
-'''
+from smpl_webuser.serialization import load_model
 
 import numpy as np
-np.seterr(all='raise')
-from copy import deepcopy
-# TODO:  check the results of the Voronoi() function
-import scipy.spatial
 import sys
-from d import debug
-from utils import pif
-from datetime import datetime
-from save import *
-from numpy import linalg as LA  # TODO: shorten every np.linalg.[insert funcall name]() to LA.[funcall name]() 
+import subprocess as sp
+from math import pi
+from copy import deepcopy
+from pprint import pprint as p
+#=========================================================================
+pr=print
+def pn(n=0): print('\n'*n)
+def pe(n=89): print('='*n)
+#=========================================================================
 
-# below imports are mainly to prevent "np.core.numeric.ComplexWarning":
-import warnings
-warnings.filterwarnings("error")
-
-# TODO:   np.eigh() or np.eigvalsh() may work faster/more reliably for a symmetric (or Hermitian: conjugate symmetric) matrix
-#
-#
-#
-#
-#
-#
-#
-#
-#
-# TODO:  check whether we should take the max of abs(np.linalg.eigvals()) or the maximum POSITIVE eigval()    (when picking the maximum eigenvalue that gives us the anisotropy, etc.)  I THINK max abs makes more sense, but I'm not 100% sure
-#
-#
-
-
-#=========================================================
-def volume_tetra(tetra):
+#===================================================================================================================================
+def shift_verts(v, del_x, del_y, del_z):
   '''
-    returns the volume of a tetrahedron
-
-    tetra.shape is (4,3)
-
-      -----
-      Notes
-        formula from https://stackoverflow.com/questions/9866452/calculate-volume-of-any-tetrahedron-given-4-points
-        Tested on a few tetrahedrons.  Can verify any given tetrahedron volume at https://keisan.casio.com/exec/system/1329962711
+    v = vertices
   '''
-  header      = 'Models()\'s {0} function'.format(sys._getframe().f_code.co_name); pif('Entering '+header)
-
-  tetra_float=tetra.astype('float64')
-  a=tetra_float[0]; b=tetra_float[1]; c=tetra_float[2]; d=tetra_float[3]
-  return abs(np.dot(a-d, 
-                  np.cross(b-d,c-d)))/6.0
-# end func def of volume_tetra(tetra)
-#=========================================================
-def CoM_and_vol(vertices):
+  shifted=v+\
+    np.concatenate((
+      np.full((v.shape[0], 1),del_x), # v.shape[0] is num_verts
+      np.full((v.shape[0], 1),del_y),
+      np.full((v.shape[0], 1),del_z)),axis=1)
+  return shifted
+#===================================================================================================================================
+def to_1st_octant(v):
   '''
-    get center of mass and volume of arbitrary CONVEX polyhedron
+    v = vertices
+  '''
+  funcname=  sys._getframe().f_code.co_name
+  return shift_verts(v, -np.min(v[:,0]), -np.min(v[:,1]), -np.min(v[:,2]))
+#===================================================================================================================================
+def vert_info(vs):
+  # TODO: sprinkle this magic sauce vert_info(vs) EVERYWHERE.
+  '''
+    vert_info stands for "Print Vertices Info."
 
+    -------
     Params:
     -------
-    vertices is a 2-D np.array.
-    vertices.shape == (n,3)
-    
-    
-    Notes:
-    ------
-
-    An approximate way of doing this would be to fill a 3-D np array and use scipy.ndimage.measurements.center_of_mass()  :
-      (https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.ndimage.measurements.center_of_mass.html)
-
-    Tested this function a few times with regular polyhedra like cube, octohedron, icosahedron, and dodecahedron.
-    At the moment, this actually WORKS.  Come back to this commit if things start breaking.
+      vs are the vertices.  format: a numpy array of shape (n,3).  (in other words, vs=np.nonzero(cartesian))
   '''
-  header      = 'Models()\'s {0} function'.format(sys._getframe().f_code.co_name); pif('Entering '+header)
-
-  hull=scipy.spatial.ConvexHull(vertices)
-  volume=hull.volume
-  triangle_mesh_hull=vertices[hull.simplices] # (n,3,3)
-  # triang mesh calculation taken from    https://stackoverflow.com/questions/26434726/return-surface-triangle-of-3d-scipy-spatial-delaunay/26516915
-  inner_pt = np.mean(vertices[:2],axis=0).reshape((1,3))
-  CoM=np.zeros((3,))
-  pif("inner_pt is {0}".format(inner_pt))
-  for triangle in triangle_mesh_hull:
-    pif("triangle is: \n{0}".format(triangle))
-    tetra=np.concatenate((inner_pt,triangle),axis=0)
-    CoM_tetra=np.mean(tetra,axis=0)
-    vol_tetra=volume_tetra(tetra)
-    CoM+=(CoM_tetra*vol_tetra)
-  return CoM/volume, volume
-# end func def of CoM_and_vol(vertices):
-#=========================================================
-def add_dummies(pt_cloud):
+  assert vs.shape[1]==3
+  x_max = np.max(vs[:,0]); x_min = np.min(vs[:,0]); y_max = np.max(vs[:,1]); y_min = np.min(vs[:,1]); z_max = np.max(vs[:,2]); z_min = np.min(vs[:,2])
+  x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
+  data= (x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len)
+  return data
+#===================================================================================================================================
+def orient_mesh(params):
   '''
-    Dummy pts as described in the Alliez paper
+    Standardizes mesh position and orientation.  Return value "vs" ought to have the mesh's head "point" in the +z direction, every mesh vertex should have (+x,+y,+z) values
+    Assumes input mesh is in T-pose.
 
-    Notes:
-    ------
-      Assumes pt_cloud is regular (ie. cube)
+  Pseudocode:
+    1.  Find the "smallest" x_len, y_len, or z_len
+      a.
+    2.  Orient s.t. that smallest is in the y direction.
+    3.  Then main body is near the center of its axis   (x_mid)
+    4.  Whereas arms are near the end of their axis (z_arms ~= z_max OR    z_arms ~= z_min){math.isclose()}
+    5.
+    6.
+    7.
+    8.
+    9.
+    10.
+
+    -------
+    Params:
+    -------
+      verts are np arrays.  means vertices of a mesh.
+
+    return value "vs" ought to have the mesh's head "point" in the +z direction, every mesh vertex should have (+x,+y,+z) values
   '''
-  # TODO: better way to solve the dummy problem is to put the model in a larger numpy array and "insert" it into the center.  Jan. 9, 2019
-  header      = 'Models()\'s {0} function'.format(sys._getframe().f_code.co_name); pif('Entering '+header)
+  #func orient_mesh(params)
+  X,Y,Z=0,1,2
+  verts=params['mesh']['verts'] # verts.shape==(n,3)
+  verts=to_1st_octant(verts)
+  x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(verts)
+  #blender_render_mesh(params)
 
-  end=max(pt_cloud.shape)-2; mid = int(round((end+2)/2)); start=1
-  with_dummies = deepcopy(pt_cloud)
-  # 8 corners of the cube
-  with_dummies[ start, start, start]=True
-  with_dummies[ start, start,   end]=True
-  with_dummies[ start,   end, start]=True
-  with_dummies[ start,   end,   end]=True
-  with_dummies[   end, start, start]=True
-  with_dummies[   end, start,   end]=True
-  with_dummies[   end,   end, start]=True
-  with_dummies[   end,   end,   end]=True
-  # 6 faces
-  with_dummies[ start,   mid,   mid]=True
-  with_dummies[   end,   mid,   mid]=True
-  with_dummies[   mid, start,   mid]=True
-  with_dummies[   mid,   end,   mid]=True
-  with_dummies[   mid,   mid, start]=True
-  with_dummies[   mid,   mid,   end]=True
-  return with_dummies
-# end def of func add_dummies(pt_cloud)
-#=========================================================
-def ZERO_NORM():
-  return np.eye(3).astype("float64")
-#=========================================================
-def max_eig_vect(covar):
+  # back-to-stomach dimension of human:
+  which=np.argmin((x_len,y_len,z_len))
+  print("which:",which)
+  def switch_axes(params):
+    verts___n_x_3, ax1, ax2=params['verts'],params['ax1'],params['ax2'],
+    swapped=deepcopy(verts___n_x_3)
+    tmp=swapped[ax1]; swapped[ax1]=swapped[ax2]; swapped[ax2]=tmp
+    return swapped
+  if which != Y:
+    switch_params={'verts':verts, 'ax1':which, 'ax2':Y}
+    verts=switch_axes(switch_params)
+  verts=to_1st_octant(verts)
+  x_max_vert=verts[  np.argmax(verts[:,X])]
+  x_min_vert=verts[  np.argmin(verts[:,X])]
+  z_max_vert=verts[  np.argmax(verts[:,Z])]
+  z_min_vert=verts[  np.argmin(verts[:,Z])]
+
+  x_max_vert=""
+  # TODO: continue?  Dario thinks maybe VHMR is better.
+
+
+ 
+  verts=to_1st_octant(verts)
+  params=deepcopy(params)
+  params['verts']=verts
+  return params
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#===================================================================================================================================
+def normalize_mesh(vs, mode='HMR'): 
   '''
-    returns the eigenvector associated with the largest eigenvalue of the 3x3 input matrix.
+    Standardizes mesh position and orientation
 
-    -----
-    Notes:
-      should be generalizable to any 3x3 matrix, but we don't particularly care right now
+    -------
+    Params:
+    -------
+      vs means vertices of a mesh, 
+
+    return value "vs" ought to have the mesh's head "point" in the +z direction, every mesh vertex should have (+x,+y,+z) values
   '''
-  # NOTE:  on Jan. 8, 2018, this call gave the Warning   "mesh.py:328: ComplexWarning: Casting complex values to real discards the imaginary part."  TODO: figure out why, workaround it.
-  vals, vects = LA.eig(covar)
-  return vects[:,vals.argmax()]
-#=========================================================
-def anisotropy(matrix):
+  # Note:   refactor.  used to call it standardize_mesh_position_and_orientation(), but was too long prob not descriptive enough?
+
+  # NOTES:  I think currently y is  "height," x is "width," and z is "depth"
+  #               but we want z     "height," x    "width," and y is "depth"     (helpfully, this is ALSO how blender does it)
+  #           This yz_swap solution below: (Wed Mar  6 13:49:35 EST 2019) is specifically tailored to:
+  #             obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'
+  pr("This mesh was generated via ",mode)
+
+  #==============================================================================
+  #                         Geometric transformations:
+  #==============================================================================
+  Z=2
+  if mode == 'HMR':
+    yz_swap=np.array([[   1,   0,   0],
+                      [   0,   0,   1],
+                      [   0,  -1,   0]]).astype('float64')
+    # TODO: somehow ensure this transformation doesn't turn our mesh "upside down."  Maybe use pltshow() combined with the cKDTree.  
+    #   Funny, for the "approx mask" operation we'd really like to have that KDTree() "all-neighbors queries functionality".  https://stackoverflow.com/questions/6931209/difference-between-scipy-spatial-kdtree-and-scipy-spatial-ckdtree
+
+    # Rotate
+    vs=vs.dot(yz_swap)
+
+    # Shift
+    vs=to_1st_octant(vs)
+
+    # Flip  (this particular mesh was "feet up")
+    x_max = np.max(vs[:,0]); x_min = np.min(vs[:,0]); y_max = np.max(vs[:,1]); y_min = np.min(vs[:,1]); z_max = np.max(vs[:,2]); z_min = np.min(vs[:,2])
+    x_len=x_max-x_min; y_len=y_max-y_min; z_len=z_max-z_min
+    flipped=deepcopy(vs) # could avoid the deepcopy step
+    for i,row in enumerate(flipped): # TODO TODO: vectorize; actually affects runtime
+      flipped[i,Z]=-flipped[i,Z]
+    flipped=shift_verts(flipped,0,0,z_len)
+    vs=flipped
+    extrema=(x_min,x_max,y_min,y_max,z_min,z_max)
+  elif mode == 'NNN':
+    # TODO: ensure mesh is head-z-up.
+    x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(vs)
+    yz_swap=np.array([[   1,   0,   0],
+                      [   0,   0,   1],
+                      [   0,  -1,   0]]).astype('float64')
+
+    # Rotate
+    vs=vs.dot(yz_swap)
+    x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(vs)
+
+    # Shift to all positive (+x,+y,+z)
+    vs=to_1st_octant(vs)
+
+    x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(vs)
+    # TODO: figure out w.t.f. is going on in cross_sec(which_ax='y')
+    '''
+    for h in np.linspace(z_max-0.1, z_min+0.1, 21):
+      cross_sec(vs, h, window=0.05, which_ax='z') # maybe chest is ~1.2 1.3 1.4?
+    '''
+
+    '''
+      I think we don't need to flip.
+    # Flip  (this particular mesh was "feet up")
+    x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(vs)
+    # TODO TODO TODO TODO TODO TODO TODO TODO shift the NNN .obj mesh appropriately TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+    flipped=deepcopy(vs) # could avoid the deepcopy step
+    for i,row in enumerate(flipped): # TODO TODO: vectorize; actually affects runtime
+      flipped[i,Z]=-flipped[i,Z]
+    flipped=shift_verts(flipped,0,0,z_len)
+    vs=flipped
+    '''
+    extrema=(x_min,x_max,y_min,y_max,z_min,z_max)
+  return vs, extrema # TODO TODO TODO TODO TODO:  finish for NNN (SMPL-betas-manually-tuned)      Where do we scale up the mesh??
+#============  end normalize_mesh(params): ==============
+#===================================================================================================================================
+def blender_render_mesh(params):
   '''
-    Basically the "pointiness" of the normal
-    Described in Alliez 2007
+    I had to hack around the fact that subprocess.call() doesn't support cmd line args  ( or was it blender --python itself that doesn't?)
+    So I rewrite a tiny python file with the argument supplied here and call blender with that.
   '''
-  # TODO:   there are plenty of weird exceptions that might be thrown surrounding zeros, weird inputs, etc.
-  if type(matrix) == type(np.zeros((2,2))):
-    pif("matrix.shape is {0}".format(matrix.shape))
-  else:
-    pif(matrix)
-  assert len(matrix.shape)==2 and matrix.shape[0]==matrix.shape[1]
-  eigs=np.abs(np.linalg.eigvals(matrix))
-  if np.any(eigs):
-    return 1-abs(np.min(eigs)/np.max(eigs))  # IRL should never be 1; that would mean an infinitesimally thin slice of volume
-  else:  # zero matrix
-    return 0
-#=========================================================
-def norms(vor):
+  # func blender_render_mesh(params):
+  params=deepcopy(params)
+  mesh_fname=params['mesh_fname'] # func blender_render_mesh()
+  import_script="/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world/blender_import_obj.py"
+  # overwrite
+  with open(import_script, 'w') as fp:
+    fp.write('import bpy\n')
+    fp.write('obj_path=\''+mesh_fname+'\'\n')
+    fp.write('bpy.ops.import_scene.obj(filepath = obj_path, split_mode = "OFF")\n')
+  try:
+    sp.call(['blender','--python', import_script])
+  except:
+    funcname=  sys._getframe().f_code.co_name
+    raise(Exception('{0} call failed.  Sorry.  No mesh for you.'.format(funcname)))
+  return params
+#===================================================================================================================================
+
+
+
+
+
+
+#======================================= end func blender_render_mesh(params) ======================================================
+def write_smpl(params):
   '''
-    Calculates the norms at each real (not dummy) point  from the input data pt_cloud.
-
-    Parameters
-    ----------
-    vor is an object returned by the scipy.spatial.Voronoi() function;  you'll have to call Voronoi(pts) on your own pt_cloud to be able to use this function.  The initial pts have to be a (n,3) numpy array of the SKIN of a person, not every voxel in their body whole 
-    returns np array of shape (n,3,3), where n is the number of input points.  I know a 3x3 matrix isn't a normal vector in the traditional physics sense, but I bet Alliez et al. have a reason to use these 3x3s instead of 3x1s normal vectors
-
-    Notes
-    -----
-    When in doubt, consult the source:   http://www.lama.univ-savoie.fr/pagesmembres/lachaud/Memoires/2012/Alliez-2007.pdf
-    I use plenty of shorthand from the Alliez 2007 paper; it keeps the variable names from getting unwield-ily long and cumbersome
-
-    As of Jan. 2, 2019, I call a 3d Voronoi region a "Vorohedron" b/c it's shorter than "Voronoi polyhedron"
-    Vorohedra are always convex (https://en.wikipedia.org/wiki/Voronoi_diagram):
-      "[if] the space is a finite-dimensional Euclidean space (our case), each site is a point, there are finitely many points and all of them are different, then the Voronoi cells are CONVEX polytopes." (-Wikipedia)
-      proof: (https://math.stackexchange.com/questions/269575/does-voronoi-tessellation-in-3d-always-produce-convex-polyhedrons)
+    Writes a smpl mesh.  Tries to write the mesh s.t.  the person is facing "forward" in +y, head is "up" in +z, and left-right doesn't matter.
   '''
-  # TODO:   more explicit type casting:  ie.  .astype('float64'), .astype('int64')
-  # TODO: refactor into separate, descriptive functions
-  header      = 'Models()\'s {0} function'.format(sys._getframe().f_code.co_name); pif('Entering '+header)
-
-  # CONSTANTS
-  # TODO: consistently put names like BELOW into EVERYTHING
-  Q=np.array([[2,1,1],
-              [1,2,1],
-              [1,1,2]]).astype('float64')/120.0  # referenced in Alliez 2007 paper
-  K=5#50
-  INF_BOUND=-1
-  FIRST_2_PTS=2
-  BESIDE=0
-  BELOW=1
-  UNDER=0
-  DOWN=0
-  IDXES=1       # quirk of scipy.spatial.cKDTree class;   0th result is the distances,   1th is indices
-
-  # Data structures we're storing the calculated centroids (CoMs), volumes, and covariances (covars) in.  "Norms," "normals," "covars," and "covariances" all refer to the same thing.
-  norms       = np.zeros((vor.npoints,3)   ).astype('float64')
-  final_covars= np.zeros((vor.npoints,3,3) ).astype('float64')#    <-- "final_covars" will be the final return value;   stands for "normal vectors'
-  confidences = np.zeros( vor.npoints      ).astype('float64') # anisotropies
-  voro_covars = np.zeros((vor.npoints,3,3) ).astype('float64')
-  voro_vols   = np.zeros( vor.npoints      ).astype('float64')
-  voro_CoMs   = np.zeros((vor.npoints,3  ) ).astype('float64')
-  # voro_vols, voro_CoMs, and voro_covars all record individual Vorohedrons' measurements, not those of unions of multiple vorohedra
-  KDTree      = scipy.spatial.cKDTree(          vor.points,copy_data=True) # copy_data=True b/c unintended side effects suck.   There may be memory shortages b/c of copy_data=True, though.  
-  # TODO:  consider use of KDTree again  (high space complexity)
-  # NOTE:   Jan. 3, 2018; memory usage is pretty reasonable with 85215 skin data points from a shape==(513, 513, 513) model from .png files with max dimension (in numpy) 513
-
-  first = True
-  # TODO: make sure in EVERY exit case, we do everything we need to get the norm, the covariances, and the confidence, etc.   Check every "continue" statement, every "break," etc.
-  pif("len(vor.points) is \n{0}".format(len(vor.points)))
-  pif("len(vor.regions) is \n{0}".format(len(vor.regions)))  # these 2 are fine
-  dummy_pt_count=0
-  for pt_idx in range(len(vor.points)):
-    region_idx      = vor.point_region[pt_idx]
-    # NOTE: This reindexing (region_idx != pt_idx) is important.  Voronoi() doesn't index vor.regions with the same indices as the vor.points.  This was an early error I made (January 2, 2018).  
-    #       Indexing bugs have been pretty common in my code development so far, as have reshaping (broadcasting) bugs.  Many levels of nesting almost always kill my understanding of the details
-    #       Why is len(vor.regions) > len(vor.points)?  As far as I can tell, vor.regions often has to have an empty region.  Unsure why
-    region          = vor.regions[region_idx]
-    pt              = vor.points [pt_idx]
-    if INF_BOUND in region:
-      dummy_pt_count+=1
-      pif("{0}th dummy pt".format(dummy_pt_count)) # fine
-      continue  # when we've added dummy pts correctly, this will only happen for dummy (edge) points
-    neighbors_idxes = KDTree.query(pt,k=K)[IDXES]
-    neighbor_idx    = 0
-    aniso_max       = float('-inf')
-    aniso_curr      = float('-inf')
-
-    # TODO:  consider whether it's easier to use a for loop  (ie. (for i in range(BIG))):    so the "continue"s automatically advance the index, but then we gotta throw a "break" in there if anitotropy > 0.9
-    # NOTE:  the following while loop calculates the covariance of the union of this point with neighboring points
-    while neighbor_idx < K and aniso_max < 0.9:
-      macro_neighbor_idx=neighbors_idxes[neighbor_idx]
-      union_so_far= neighbors_idxes[:neighbor_idx+1]  # NOTE:  the +1 is there for a reason.  Consider if neighbor_idx was 0; this wouldn't return anything without the +1.  And if neighbor_idx were K-1 you'd still be missing a neighbors without the +1
-      # TODO:   if we terminate by neighbor_idx==K, take the covar w/ max anisotropy.  I THINK this is done.
-      # I had as a todo:  "switch order of if and else:  (dad says "elses" should be shorter)."   
-      # BUT this way makes the if statement "if np.any()," which is much easier to understand than "if not np.any()"
-      if np.any(voro_covars[macro_neighbor_idx]):
-        # TODO:  neighbors_idxes[:neighbor_idx+1] ==> cumulative_neighbors_idxes  (something shorter, but to this effect)
-        unions_vol  = np.sum(voro_vols[union_so_far])
-        unions_CoM  = np.sum(voro_vols[union_so_far].reshape((neighbor_idx+1,1))  * voro_CoMs[union_so_far],  axis=DOWN) / unions_vol
-        assert unions_CoM.shape == (3,)
-        p_i         = (voro_CoMs[macro_neighbor_idx] - unions_CoM).reshape((3,1))  # we want p_i.dot(p_i.T) to have shape (3,3)[3x3 matrix].   (3,1)x(1,3) ==> (3,3)
-        # p_i*p_i.T is symmetric with respect to unions_CoM - voros_CoM.   So it doesn't matter which order we do here
-        m_i         = voro_vols[macro_neighbor_idx]
-        shifts      = np.tile((m_i*p_i.dot(p_i.T)),(neighbor_idx+1,1,1)).astype('float64')
-        unions_covar= np.sum( voro_covars[union_so_far] - shifts,  axis=0) # calculation from Alliez paper (covars of unions of vorohedra)
-        # shifts.shape                      is (n, 3, 3)
-        # voro_covars[union_so_far].shape   is (n, 3, 3)
-        # unions_covar.shape                is    (3, 3)
-
-        assert len(shifts.shape)==3 and   shifts.shape[1] == shifts.shape[2] == 3
-        assert shifts.shape == voro_covars[union_so_far].shape
-        assert unions_covar.shape == (3,3)
-        # TODO:   is it faster to use a running covariance rather than calculating it this way?  I bet the running covariance IS faster, though it'll resemble the paper less than this way does
-        aniso_curr        = anisotropy(unions_covar)
-        if aniso_curr > aniso_max:
-          aniso_max = aniso_curr
-          final_covars[pt_idx]=unions_covar
-        neighbor_idx     += 1
-        continue  # next iteration of the inner "while" which calculate the covariance of the union of points nearby the pt we've iterated to in the outer "for" loop
-      # end "if np.any(voro_covars[macro_neighbor_idx]):"   (covars were calculated in a previous loop):
-      else:  # if covars haven't been calculated yet, calculate vorohedron's covariance.    To do that, first we need to calc its volume and centroid
-        if first:
-          print ("calculating first covariance")
-          first=False
-        vertices = vor.vertices[region]  # TODO: double-check indexing
-        if len(vertices) == 0: # Don't use this pt as data in consideration of the norms  
-        # Sometimes qhull returns empty lists of vertices.  I believe this is because of coplanar points, as qhull uses Delaunay triangulation to calculate the Vorohedrons
-        #   More details on why I believe this can be found [here](https://docs.scipy.org/doc/scipy/reference/tutorial/spatial.html), under the heading "Coplanar points" (As of Jan. 3, 2018)
-          final_covars[pt_idx]=np.eye(3) # TODO: make sure this is the right thing to do here.  I'm STILL not 100% sure why qhull sometimes returns [] under vor.regions.  Once we figure it out, we can treat the code appropriately
-          neighbor_idx   += 1
-          continue # next iteration of the inner "while" which calculate the covariance of the union of points nearby the pt we've iterated to in the outer "for" loop
-        hull=scipy.spatial.ConvexHull(vertices)
-        voro_vols[macro_neighbor_idx]=hull.volume
-        vol_voro=voro_vols[macro_neighbor_idx]  # NOTE:  this pointer 'vol_voro' allows us to mutate the bigger array without repeatedly typing the cumbersome indices
-                                                #       I did the above operation in 2 lines because otherwise I don't get a pointer to the nparr that has a short name.
-        triangle_mesh_hull=vertices[hull.simplices] # triangle_mesh_hull.shape == (n,3,3)   NOTE: can this be right?  how would this variable "vertices" include ALL the triangles necessary to make a mesh surrounding this vorohedron???
-        # TODO: double-check the shape of the above triang_mesh_hull.  I think my earlier "understanding" that "triangle_mesh_hull.shape == (n,3,3)" was wrong.
-        # TODO: rename "triangle_mesh_hull" ==> "triangs" or something shorter.  problem is "mesh" and "hull" help describe this object
-        assert len(triangle_mesh_hull.shape)==3 and   triangle_mesh_hull.shape[1] == triangle_mesh_hull.shape[2] == 3
-        inner_pt  = np.mean(vertices[:FIRST_2_PTS],axis=UNDER).reshape((1,3)) # new tetrahedron vertex.   In the beginning this is good enough because we're guaranteed Vorohedrons are convex
-        CoM_voro  = voro_CoMs[macro_neighbor_idx] # NOTE:  this pointer allows us to mutate the bigger array without repeatedly typing the cumbersome indices.  Initially CoM_voro is full of zeros
-        # next we 1. find the volume of each tetrahedron,  so we can 2. find the CoM of each tetrahedron  so we can 3. find the CoM of the whole Vorohedron
-        for triangle in triangle_mesh_hull:
-          ''' print(triangle) => [[x1, y1, z1],
-                                  [x2, y2, z2],
-                                  [x3, y3, z3]]             '''
-          tetra     = np.concatenate((inner_pt,triangle),axis=UNDER)
-          CoM_tetra = np.mean(tetra,axis=DOWN)
-          vol_tetra = volume_tetra(tetra)
-          CoM_voro += CoM_tetra*vol_tetra
-        CoM_voro   /= vol_voro
-        cov_voro    = voro_covars[macro_neighbor_idx]  # THIS vorohedron's covariance.   NOTE:  this pointer allows us to mutate the bigger array without repeatedly typing the cumbersome indices
-
-        # The vorohedron's overall covariance is the sum of its internal tetrahedrons' covariances.  See http://www.lama.univ-savoie.fr/pagesmembres/lachaud/Memoires/2012/Alliez-2007.pdf, Appendix A
-        for triangle in triangle_mesh_hull:
-          tetra=np.concatenate((CoM_voro.reshape((1,3)),triangle),axis=UNDER)
-          N=(triangle.T  - np.vstack((CoM_voro,CoM_voro,CoM_voro)).astype('float64')).T
-          cov_voro += np.linalg.det(N)*np.dot(N,Q,N.T)  # TODO: ensure these 3 pointers (including cov_voro, but also the 2 others like it)    actually mutate the stored values
-        unions_vol  = np.sum(voro_vols[union_so_far])
-        unions_CoM  = np.sum(voro_vols[union_so_far].reshape((neighbor_idx+1,1))  *voro_CoMs[union_so_far],axis=DOWN) / unions_vol
-        assert unions_CoM.shape == (3,)
-        #p_i         = voro_CoMs[neighbors_idxes[:neighbor_idx+1]]  - np.tile(unions_CoM.reshape((1,3)),(neighbor_idx+1,BELOW)).T # p_i*p_i.T is symmetric w.r.t. unions_CoM - voros.   So it doesn't matter which order we do here
-        #m_i         = voro_vols[neighbors_idxes[:neighbor_idx+1]]   # TODO: double-check the dimensions here.  I'm guessing my more recent edit is right and the older one is wrong, but I'm not 100% sure
-        p_i         = (voro_CoMs[macro_neighbor_idx] - unions_CoM).reshape((3,1))  # we want p_i.dot(p_i.T) to have shape (3,3)[3x3 matrix].   (3,1)x(1,3) ==> (3,3)
-        m_i         = voro_vols[macro_neighbor_idx]
-        pif("np.tile((m_i*np.dot(p_i, p_i.T)),(neighbor_idx+1,1,1)).shape is {0}".format(np.tile((m_i*np.dot(p_i, p_i.T)),(neighbor_idx+1,1,1)).shape))
-        shifts      = np.tile((m_i*p_i.dot(p_i.T)),(neighbor_idx+1,1,1)).astype('float64')
-        unions_covar= np.sum(  voro_covars[union_so_far] - shifts,axis=0) # calculation from Alliez paper (covars of unions of vorohedra)
-        # TODO:                                       is axis=0 right or axis=2?  In the earlier line I wrote 2 and I was probably more awake when I wrote that
-        assert unions_covar.shape == (3,3)
-        # TODO:   is it faster to use a running covariance rather than calculating it this way?  I bet the running covariance IS faster, though it'll resemble the paper less than this way does
-        aniso_curr        = anisotropy(unions_covar) # TODO:  all this stuff in the "else:" branch
-        if aniso_curr > aniso_max:
-          aniso_max = aniso_curr
-          final_covars[pt_idx]=unions_covar
-      # end else: (this block calculated the covariance, CoM, and volume to store in the np arrays declared before the loop (voro_covars, voro_vols, voro_CoMs))
-      neighbor_idx+=1
-      # tail condition: while loop is about to terminate
-    # TODO:  ensure that   "if neighbor_idx == K: return covar with max anisotropy".  I'm pretty sure we did this
-    # end inner loop "while anisotropy() < 0.9 and   neighbor_idx < K:"
-    assert aniso_max != float('-inf')  # if it still is, do, uh....  idk, more debugging
-    # NOTE:  these confidences and norms are calcul8d after the termination of the while loop.  So for each continue within the while loop, we don't have to get a confidence or a norm
-    confidences[pt_idx] = aniso_max
-    # TODO: if this eig calc is slowing everything down, move norms[pt_idx]=max_eig_vect() outside the for loop and vectorize eig() calculation as mentioned [here](https://stackoverflow.com/questions/19468889/vectorize-eigenvalue-calculation-in-numpy)
-    import warnings
-    warnings.filterwarnings("error")
-    try:
-      norms[pt_idx]       = max_eig_vect(final_covars[pt_idx])
-    except np.core.numeric.ComplexWarning:
-      print("ComplexWarning")
-      print("final_covars[pt_idx] = \n{0}".format(final_covars[pt_idx]))
-      print("pt                  is \n{0}".format(pt    ))
-      print("pt_idx              is \n{0}".format(pt_idx))
-      print("neighbor_idx        is \n{0}".format(neighbor_idx))
-      print("aniso_max           is \n{0}".format(aniso_max))
-      print("final_covars[pt_idx] = \n{0}".format(final_covars[pt_idx]))
-      # NOTE: this happens a lot for pretty much any input
-  # end "for pt_idx in range(len(vor.points)):" }
-
-  pif(  'Exiting '+header)
-  print('Exiting '+header)
-  return norms
-  # TODO: normalize each covariance.
-  # NOTE: As of Dec. 31, 2018, the whole thing is really waaaaay too slow.  TODO: speed it up.  There's gotta be a faster way
-# end func def of   norms(vor):
-#=========================================================
-def main(model, savefilename):
-  model = add_dummies(model)
-  locs=np.nonzero(model); locs=np.array(locs).T.astype('int64')
-  print("locs with dummies: \n{0}".format(locs))
-  print("locs.shape: \n{0}".format(locs.shape))
-  # vor step of Alliez et al.   (for estimating normals from point cloud)
-  vor=scipy.spatial.Voronoi(locs)
-  # TODO:  check the results of the Voronoi() function
-  normals=norms(vor)
-  if save:
-    np.save(savefilename, normals)
-# end func def of   main():
-#=========================================================
-def five_pt_plane():
-  plane=np.zeros((19,19,19)).astype('bool')
-  plane[ 7,10,12]=True # x==4 because we think there may be a calculation problem if we only do coplanar points
-  plane[12,10, 8]=True
-  plane[10,10,10]=True
-  plane[10, 8,12]=True
-  plane[10,12, 8]=True
-  return plane
-#=========================================================
-if __name__=='__main__':
-  #model = np.load('skin_nathan_.npy').astype('bool')
-  #main(model, 'norms_nathan_.npy')
-  main(five_pt_plane(), 'norms_plane_5_pts.npy')
-#=========================================================
-
-
-
-
-
-
-
-# calling Voronoi() on 831259 on locs,  shape==(513, 513, 513)
-  #
-  # time: 
-  #
-  #   real  1m3.208s
-  #   user  1m2.044s
-  #   sys   0m1.344s
-  #
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  funcname=  sys._getframe().f_code.co_name; pe();print('entering ',funcname);pe()
+  m=params['model']
+  gender=params['gender']
+
+  ## Write to an .obj file
+  outmesh_path = \
+    './{10}_{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}.obj'.format(int(
+      m.betas[0][0]),int(m.betas[1][0]),int(m.betas[2][0]),int(m.betas[3][0]),int(m.betas[4][0]),int(m.betas[5][0]),int(m.betas[6][0]),int(m.betas[7][0]),int(m.betas[8][0]),int(m.betas[9][0]),
+      gender.lower())
+
+  # TODO: write orient() more generally.
+  with open( outmesh_path, 'w') as fp:
+      for v in m.r:
+          fp.write( 'v %f %f %f\n' % ( v[0], v[1], v[2]) )
+
+      for f in m.f+1: # Faces are 1-based, not 0-based in obj files
+          fp.write( 'f %d %d %d\n' %  (f[0], f[1], f[2]) )
+
+  ## Print message
+  print('..Output mesh saved to: ', outmesh_path) 
+  params=deepcopy(params)
+  params['mesh_fname']= outmesh_path
+  return params
+#====================================================== end func write_smpl(params) =============================================================================
+def smpl(info):
+  '''
+    returns facing "forward" in y, head is "up" in z, and left-right doesn't matter.
+  '''
+  ## Load SMPL model
+  info  = model(info)
+  info  = write_smpl(info)
+  #info  = blender_render_mesh(info) # comment out when not debugging
+
+  mesh_fname=info['mesh_fname']
+  m=info['model']
+  out= {
+    'mesh':{
+      'verts':m.r, # why couldn't they have just ***king named it "m.v" like normal people...  Clearly it's "vertices," right ???
+      'faces':m.f, },
+    'mesh_fname': mesh_fname,
+  }
+  return out
+#======================================= end func smpl(params) =====================================================================
+
+
+
+
+
+# TODO:   refactor whol module into single function   "def mesh(info):  betas=info['betas'];   mesh_fname=info['fname'];   betas=info['betas'];   betas=info['betas'];   betas=info[' betas'];      mesh=(verts,faces) return {'mesh':mesh, 'mesh_fname':mesh_fname, 'betas':betas}
+# TODO:   refactor into "def mesh(info):  betas=info['betas'];   mesh_fname=info['fname'];   betas=info['betas'];   betas=info['betas'];   betas=info[' betas'];      mesh=(verts,faces) return {'mesh':mesh, 'mesh_fname':mesh_fname, 'betas':betas}
+# TODO:   refactor into "def mesh(info):  betas=info['betas'];   mesh_fname=info['fname'];   betas=info['betas'];   betas=info['betas'];   betas=info[' betas'];      mesh=(verts,faces) return {'mesh':mesh, 'mesh_fname':mesh_fname, 'betas':betas}
+# TODO:   refactor into "def mesh(info):  betas=info['betas'];   mesh_fname=info['fname'];   betas=info['betas'];   betas=info['betas'];   betas=info[' betas'];      mesh=(verts,faces) return {'mesh':mesh, 'mesh_fname':mesh_fname, 'betas':betas}
+
+#===================================================================================================================================
+def model(info):
+  # load right model
+  gender=info['gender']
+  if gender.lower()=='male':
+    ## NOTE: on a new system, double-triple-check to make sure path is correct (I renamed them)
+    fname='/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/models/basicModel_m_lbs_10_207_0_v1.0.0.pkl'
+    m = load_model(fname)
+  elif gender.lower()=='female':
+    fname='/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/models/basicModel_f_lbs_10_207_0_v1.0.0.pkl'
+    m = load_model(fname)
+
+  # shape
+  # Note:     This is just a guess, but I bet whatever the hell MPI Tuebingen did to the data before they pickled it allowed us to set the betas once & only once.  -nxb, (comment written    Wed Mar 27 10:26:40 EDT 2019)
+  m.betas[:] = info['betas']
+
+  # pose
+  m.pose[:] = np.zeros((m.pose.size)).astype('float64')
+  ## Rotates (like a backflip)
+  m.pose[0] =  pi  # Note: I'm p sure these rotations (I think it was pose[:3] that are the rotations) are taken care of differently in HMR.
+  info=deepcopy(info)
+  info['model']=m
+  return info
+#========================================= end func model(params) ==================================================================
+#===================================================================================================================================
+def get_betas():
+  '''
+    cmd line args.   If you wanna get 'em a diff way later (ie. reading from file), mutate in here.
+  '''
+  betas = np.zeros((10)).astype('float64')
+  # I think it's best to store the betas in a temporary variable so when we assign everything, SMPL calculates EVERYTHING in one step
+  for i in range(1,len(sys.argv)):
+    betas[i-1]=float(sys.argv[i])
+  return betas
+#===================================================================================================================================
+def main():
+  gender = 'male'
+  betas=get_betas() # cmd line -nxb (as of Wed Mar 27 17:15:52 EDT 2019)
+  params={
+    'gender':gender,
+    'betas':betas,
+    }
+  params=smpl(params)
+  params=blender_render_mesh(params)
+#===================================================================================================================================
+if __name__=="__main__":
+  main()
+#===================================================================================================================================

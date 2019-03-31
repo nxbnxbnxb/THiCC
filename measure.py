@@ -1539,6 +1539,44 @@ def parse_obj_file(obj_fname):
 #=============== end parse_obj_file(params) =============== 
 
 
+#========================================================== 
+def measure_hip(obj_fname, cust_height):
+  # This func mesh_err() Will become the loss function for a "Beta Neural Net" (BNN), operating on SMPL's shape parameters ("betas").
+  '''
+    hip from mesh only 
+
+  '''
+  # Load .obj file
+  verts, faces=parse_obj_file(obj_fname)
+
+  # geometric transformations to put the mesh in the "upright" position (ie. +z is where the head is, arms stretch out in +/-x direction, chest-to-back is +/-y direction.)
+  if 'HMR' in obj_fname.upper():
+    # do shifts like done below
+    mode='HMR'
+    verts, extrema=normalize_mesh(verts, mode)
+  elif 'NNN' in obj_fname.upper():
+    mode='NNN'
+    verts, extrema=normalize_mesh(verts, mode)
+  x_min, x_max, y_min, y_max, z_min, z_max = extrema
+  # Scale to real-life-sizes (cust_height in inches):
+  verts    = verts * cust_height / z_max
+  x_min, x_max, y_min, y_max, z_min, z_max, x_len, y_len, z_len= vert_info(verts)
+
+  # TODO: clean up the searching-for-x-and-y-slices code below:
+  # Code for scanning for crotch:
+
+  butt=mesh_butt(verts)
+  mesh_hip_h=mesh_hip(verts, faces, butt)
+  calced_hip_circum , _ = mesh_perim_at_height(verts, faces, mesh_hip_h  , which_ax='z', plot=True)
+  print("calced_hip_circum:",calced_hip_circum)
+  return calced_hip_circum
+  #  Dario:
+  # Hip: 
+  #   39.2              inches      (HMR)
+
+  # Hip: 
+  #   39.17823450610168 inches      (HMR)
+
 #====================================================================================
 def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
   # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
@@ -1962,8 +2000,13 @@ if __name__=="__main__":
   # NOTE: The following line is where I change which .obj file we read in:
   obj_fname=NNN_obj_fname #HMR_HEMAN_obj_fname #HMR_obj_fname 
 
-  err, measures, vs=mesh_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)
-  print("error percentage was {0} percent".format(abs(err)))
+  # TODO: uncomment
+  #err, measures, vs=mesh_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)
+  #print("error percentage was {0} percent".format(abs(err)))
+  DARIO_H=70
+  hip_circ=measure_hip('/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/Dario_T_pose_HMR.obj', DARIO_H)
+  print('hip_circ:',hip_circ)
+
 
   #print("measures:",measures)
   #print("verts:",vs)

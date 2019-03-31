@@ -260,6 +260,7 @@ def segment_URL(IMG_URL):
 
 #====================================================================
 def segment_black_background(local_fname):
+# TODO: rename seg_blkground  
   '''
     BLACK is 0; so this function can be used to "add" two images together to superimpose them.
   '''
@@ -296,12 +297,15 @@ if __name__=='__main__':
   print ("currently segmenting image found at location: \n  "+img_path)
   img=np_img(img_path)
   no_background, segmap = segment_black_background(img_path)
+  pltshow(no_background)
+  pltshow(segmap)
   cropped,_=crop_person(img,segmap)
   crop_fname='cropped.png'
   ii.imwrite(crop_fname,cropped.astype('uint8'))
   no_background, segmap = segment_black_background(crop_fname)
   ii.imwrite("mask.png",segmap.astype('float64'))#.astype("uint8"))
   ii.imwrite("cutout_blackground.png",no_background)#.astype("uint8"))
+  pltshow(no_background)
   # Note: not tested.
 #========================== end __main__ =====================================
 
