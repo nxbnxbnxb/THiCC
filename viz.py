@@ -107,6 +107,7 @@ def show_all_cross_sections(model_3d, freq=2):
   show_cross_sections(model_3d, axis='z', freq=freq); return
 #=========================================================================
 
+#=========================================================================
 # TODO: make a show_3d() function that uses matplotlib
 def show_3d(voxels):
   '''
@@ -124,6 +125,19 @@ def show_3d(voxels):
 
   plt.show()
   plt.close(); return
+
+#=========================================================================
+def palette(mode='pink'):
+  if mode=='pink':
+    for G in np.linspace(0.2,0.8,11):
+      for R in np.linspace(0,1,11):
+        for B in np.linspace(0,1,11):
+          color=np.array([[R,G,B]])
+          plt.scatter(R, B, c=color)
+      # end for R in ...
+      plt.show();plt.close()
+    # end for G in ...
+
 
 #=========================================================================
 def plot_skin():
@@ -190,6 +204,7 @@ if __name__=='__main__':
   #show_all_cross_sections(m, freq=20)
   #show_convhull(np.load("skin_locs_nathan_.npy"))
   show_keypts('/home/n/Dropbox/vr_mall_backup/imgs/n8_front___jesus_legs_closed___150_pix_h/n8___hmr_input_img_rendered.png')
+  palette(mode='pink')
 
 
 
