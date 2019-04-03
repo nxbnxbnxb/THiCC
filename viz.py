@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 np.seterr(all='raise')
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
+from copy import deepcopy
 
 #######################################################################################################
 ################################# visualization functions #############################################
@@ -54,6 +55,30 @@ def show_keypts(img_fname):
   plt.show()
   plt.close()
   return
+#=================================================================================
+def draw_circ(img, x, y, r, color):
+  '''
+    https://stackoverflow.com/questions/10031580/how-to-write-simple-geometric-shapes-into-numpy-arrays
+
+    Draws a circle on top of img, which is a representation of an image in NUMPY.NDARRAY format.
+    Written because plt savefig() was being annoying.
+
+    -------
+    Params:
+    -------
+    conventions: (like numpy / matplotlib.pyplot):
+    x increases from left to right
+    y increases from top to bottom
+    color is 8-bit (0-255).  Some versions of plt.imshow(img_np_arr);plt.show() have it going from [0, 1] instead, 
+  '''
+  # def draw_circ(img, x, y, r, color):
+  marked=deepcopy(img)
+  yy, xx = np.mgrid[:img.shape[0], :img.shape[1]] # I don't really understand this yy, xx combination works like this, but it DOES work.
+  circle = (xx - x) ** 2 + (yy - y) ** 2
+  filled=circle <= r**2
+  marked[filled]=color
+  return marked
+#=================================================================================
 #=========================================================================
 
 def cross_sections_biggest(m):

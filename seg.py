@@ -260,7 +260,8 @@ def segment_URL(IMG_URL):
 
 #====================================================================
 def segment_black_background(local_fname):
-# TODO: rename seg_blkground  
+  # TODO: rename seg_blkground  
+  # TODO: resize the MASK, not the image, before overlaying.
   '''
     BLACK is 0; so this function can be used to "add" two images together to superimpose them.
   '''
