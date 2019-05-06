@@ -126,7 +126,69 @@ ________________________________________________________________________________
                                                                                                             |                                   |                                        |                              |            |                                        
 ______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
                                                                                                                                                                                                         
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
                                                                                                                                                                                                         
+1.  Complete steps to reproduce the bug:
+
+A.  Follow "conda create env" instructions to get a working conda environment called "cat12"
+B.  `conda activate cat12 && python3 seg.py` ,   calling img_diff on 2 images, one with a person in T-pose in the foreground and another with just the background (simply, take the 1st pic with you in it, posed like Jesus during the crucifixion.  Take the 2nd pic with 100% the same phone angle, but with you NOT in the picture.):
+  a.  Probably we'll just end up telling the customers to take a video "MTailor style" (where you put the smartphone on the ground, angled up so your entire body is in view, do a T-pose, then walk away)
+
+
+
+2.  Expected behavior:
+  a.  Returns the "silhouette" where the person was (like a deep-learned segmentation mask of the person, but the tech I use is simpler, eassier to debug, and more reliable (EXCEPT FOR the BUG CASES I enumerate below))
+
+
+3.  Observed (buggy) behavior:
+
+  def img_diff(img1, img2):
+      As of Sun May  5 19:18:40 EDT 2019, bugs with np.greater(   np.linalg.norm(  img1-img2)):
+        It breaks:
+
+        1.  If the person's SHADOW is visible in the "T-pose picture" and the floor/ground color in the "background" photo is light 
+          a.  (if the floor is black or dark, we don't have problems because we don't recognize the shadow as part of the silhouette)
+        2.  If there are REFLECTIONS in the "T-pose picture"
+          a.  (ie. shiny floors, mirrors, etc.)
+          b.  img_diff() will pick these up as part of the silhouette, when actually they are artifacts of the environment rather than of the person
+        3.  If skin/clothing color is too similar to the color of the background,
+        4.
+        5.
+
+4.  Who this bug is assigned to:  Nathan X Bendich
+
+5.  Whether it's been fixed:
+  Not yet (as of Sun May  5 19:18:40 EDT 2019)
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+                                                                                                            |                                   |                                        |                              |            |                                        
+______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
                                                                                                                                                                                                         
                                                                                                                                                                                                         
                                                                                                                                                                                                         

@@ -9,9 +9,11 @@ from d import debug
 from save import save
 from viz import pltshow
 if debug:
-  import matplotlib as mpl
-  mpl.use('Agg')      # TkAgg
-  from matplotlib import pyplot as plt  # NOTE:  problem on Nathan's machine (Dec. 21, 2018) is JUST with pyplot.  None of the rest of matplotlib is a problem AT ALL.
+  modulename='matplotlib'
+  if modulename not in sys.modules:
+    import matplotlib as mpl
+    mpl.use('Agg')      # TkAgg
+    from matplotlib import pyplot as plt  # NOTE:  problem on Nathan's machine (Dec. 21, 2018) is JUST with pyplot.  None of the rest of matplotlib is a problem AT ALL.
 ACROSS=1
 
 
@@ -1112,13 +1114,29 @@ def hist():
         TODO:  hg() == UNIX hg
     '''
     import readline
-    print ('\n'*2)
+    pe(39)
     for i in range(readline.get_current_history_length()):
         print (readline.get_history_item(i + 1))
-    print ('\n'*2)
+    pe(39)
 
 h=hist
 H=h
+def ht(n=10):
+  import readline
+  pe(39)
+  for i in range(readline.get_current_history_length()):
+    if i > readline.get_current_history_length()-n:
+      print (readline.get_history_item(i + 1))
+  pe(39)
+
+def hgr(s='print'):
+  import readline
+  pn(); pe(39)
+  for i in range(readline.get_current_history_length()):
+    line=readline.get_history_item(i + 1)
+    if s in line:
+      print(line)
+  pe(39); pn()
 
 def print_dict(d):
     # do pprint.pprint() instead

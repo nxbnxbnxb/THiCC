@@ -1,5 +1,8 @@
-import matplotlib as mpl
-mpl.use('TkAgg')
+import sys
+modulename='matplotlib'
+if modulename not in sys.modules:
+  import matplotlib as mpl
+  mpl.use('TkAgg')
 import matplotlib.pyplot as plt
 import numpy as np
 np.seterr(all='raise')
