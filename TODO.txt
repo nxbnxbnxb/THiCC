@@ -1,9 +1,11 @@
 
   What did you learn today?
     Just do it.  Actions (mistakes) / minute.
-    Spolsky
-    Big picture TODO near the bottom:
-    HMR sucks.  No side-view info
+    https://ps.is.tuebingen.mpg.de/jobs/phd
+
+  Follow your gut.
+    You KNOW this app to MJB could work, even if it's nonstandard (doesn't 100% conform to usual rubric/algorithm/formula)
+
 
 
 
@@ -15,10 +17,1712 @@
 
 
     TODO.txt
+
+________________________________
+
+  Thu May 16 13:05:10 EDT 2019
+________________________________
+
+  Research summary (have enough for Mauel when you see him in *****9 DAYS*****)
+    Start from the beginning, go forward?
+      Chronologically makes the most sense to the human brain, but it's also less important at the beginning.
+    Or maybe we should start from the 
+
+
+
+
+
+  Change gmail passwd so it doesn't have a quotation mark (apostrophe): [this symbol:]**** ' **** in it.
+
+  Research summary (have enough for Mauel when you see him in *****9 DAYS*****)
+    Start from the beginning, go forward?
+      Chronologically makes the most sense to the human brain, but it's also less important at the beginning.
+    Or maybe we should start from the 
+
+  Pictures:
+    1.  Picture of the death star
+    2.  Failures of marching Cubes
+    3.  Failures EVEN of HMR, but I think this can be remedied.
+
+
+
+  Cold e-mail lots of CS professors asking for their input.
+    I guess just apply/ask Yiyang for more help.
+      https://www.cis.udel.edu/people/faculty/
+      Columbia
+      NYU?
+      Rice University
+      ...
+      .
+      .
+      Ask more public professors (Matt Might, Bovine etc.)
+      Ask people who actually know Michael J. Black
+
+    Is there a risk of creating competition by doing this????
+      Probably not.
+    It's prob worth it to get mutt set up.
+      python/bash/sed/awk/ ... are worth investing in (sorting through e-mail is a HUGE pain.  Also, if all I have to store is text from email messages, I can probably back up old emails onto git.  Video and images are an order of magnitude more space-intensive to store than plain ".txt" files.)
+    Send both versions of the potential e-mail-2-MJB out (the 2nd being the one WITHOUT the overly personal request for a coffee date)
+
+
+  When writing your actual PhD app, look at:
+    http://pgbovine.net/PhD-application-tips.htm
+    He doesn't recommend breaking the mold.  I should probably ask MJB directly instead of just going for it blind.
+
+  E-mail MJBlack directly or call him?
+    Maybe apologize for pretending I worked at Macy's
+    At least say it was stupid and pointless (it WAS)
+    Maybe he'll talk to me since I'm U.S.A.
+
+
+    Also ask whether he recommends I do a Master's first.
+
+
+
+
+
+  Visiting mom:
+    https://www.wanderu.com/en-us/depart/Washington%2C%20DC%2C%20USA/Fairfax%2C%20VA%2C%20USA/2019-05-24/?cur=USD&dpid=ChIJzZFLOZZOtokRQIZEhecmIwc&opid=ChIJW-T2Wt7Gt4kRKl2I1CJFUsI
+
+
+
+
+  MPII Perceiving students:
+   No Master's degree:
+    https://www.is.mpg.de/person/vchoutas
+      No Master's
+
+   Have a Master's:
+    https://www.is.mpg.de/person/gagrawal
+      Joint Master's/BS in India (like Columbia Master's Express)
+    https://www.is.mpg.de/person/jachterhold  
+      Master's
+    https://www.is.mpg.de/person/jjanai
+    https://www.is.mpg.de/person/classner
+      Previous Ph.D
+    https://www.is.mpg.de/person/tnestmeyer
+      Some German education program that doesn't do things the American way like "Master's  "
+
+  Send an email to Itsik Pe'er, begging for a strong rec letter.
+    Only THEN do the chart with deadlines, Ph.D schools, and other grad school app info.  (1 thing at a time; close your loops.)
+  Ask Prof. Wang for an intro e-mail to MJB
+
+
+ GCal:
+  Tesla interview -  Monday
+  Yasmin Chaudhry
+  Mom visit
+  Visit profs (Cole, Mauel, Pe'er, Verma)
+    PLANNING.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Yiyang (Olin)
+    Likes his advisor
+      Lots of (lots of positive) feedback
+      External awards
+    Admitted (find your advisor) is a pain
+
+  Mental Health in Grad School paper ("we survey 2300")
+    Philip Guo articles
+    Strongly consider the commitment to the Ph.D (3-4 years in GERMANY)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Send e-mail to BCole
+    Also MMauel
+    Also Verma
+
+
+
+
+
+
+  Check what I actually DID for BCole & Mauel on GMail, GoogleDocs, etc.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Mon May 13 02:44:10 EDT 2019
+________________________________
+
+  Tell Verma & ask for intro to MJB / intro to Belheumer
+    I mentioned I might be stopping by (didn't get into any details;  slightly less of the "boy who cried wolf" thing)
+    Ask Itsik for pity/mercy
+
+  Info about Master's classes (while at Columbia)
+  
+  Ask Kanazawa her thoughts on a shape-centric HMR (only recovers shape, not pose)
+
+
+
+
+  Slack messages to Tensorflow / Keras developers
+    Coursera  (tflow, keras, w/e)
+
+  2 weeks from now, go see Mom
+
+
+
+  Ask Amber if she wants more time (7:00-8:30)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Tell tutoring center you'll be gone on Wed.
+    Done
+
+
+
+
+
+
+________________________________
+
+  Mon May  6 14:24:48 EDT 2019
+________________________________
+
+  Daily index card.  If there's ONE thing you gotta do every morning, it's the daily index card.
+  Where can I find an index card near me?
+    Maybe a startup could track nearby stores & show you where you could buy something nearby
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Post ad on Reddit, Facebook, 
+  Mostly just practice.  Pramp is good ENOUGH for the social part of it.
+    More Pramp
+
+________________________________
+
+  Sun May  5 18:09:30 EDT 2019
+________________________________
+
+  Integrate the old code from git (code I wrote in SF) back into /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/
+  Flesh out the new version of "seg.py"  !!!
+    Ideally, we SHOULD be robust to shadows & reflections.
+    I wonder how we'd actually do that, though...
+
+  Read papers for Cat rather than 100% reinventing the wheel all the time
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sat May  4 12:34:11 EDT 2019
+________________________________
+
+  Zenni:
+  https://www.zennioptical.com/b/all-men-glasses/_/N-1341992444
+    Virtual try on is available too!
+  What's my prescription, though?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Thu May  2 13:20:48 EDT 2019
+________________________________
+
+  I left my glasses @ home
+  Make sure Kelsey's referral goes through
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Thu May  2 13:20:48 EDT 2019
+________________________________
+
+  Make a good first impression (Google phone screen interview)
+  Time complexity (ask which input is the biggest [ie. where's the Time/Space complexity bottleneck?])
+
+  cancel the Pramp interview.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Mon Apr 29 13:25:30 EDT 2019
+________________________________
+
+  Write disclaimer (try to make it legally binding) saying I can't be sued if Waleed doesn't get into the college they/he want him to get into.
+
+
+
+
+
+  Text Joe Evans about accountant.
+
+  Job app:
+    https://ps.is.tuebingen.mpg.de/jobs/phd
+  Ask MJB/Melanie Feldhofer which of the requirements is most considered at MPI?
+    It'll PROBABLY be similar to what Prof. Harchol is talking about.
+
+  Figure out logistics of applying for Ph.D with MJB.
+    Probably trying through a different grad school is a better option.
+
+  We can also intern for MJB after becoming a grad student.  No.  First, let's go at it (try) directly.       It's probably best to just go for what I really want, directly.
+
+    In "https://www.cs.cmu.edu/~harchol/gradschooltalk.pdf"
+      The Ph.D. application has several parts:
+        i. Transcript – Grades and classes                                              BAD
+        ii. GRE scores & TOEFL scores                                                   DECENT
+        iii. Personal Statement                                                         COULD MAKE GOOD EASILY ENOUGH
+        iv. Previous research experience (possibly in industry).                        SOME
+        v. Recommendation letters                                                       BAD
+        vi. Awards and extracurricular activities                                       BAD
+
+    Tubingen will have different standards than a shittier Ph.D program (ie. UD, UPenn, UT, maybe even UW?)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  This once again opens up the question "should I even continue with this particular idea?"
+    Yes.
+    No matter where I go, I COULD end up finding a real need that gives me money.  So therefore, it's best to still go with Black & this idea.
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Fri Apr 26 11:06:17 EDT 2019
+________________________________
+
+  Interview prep:
+    Practice pseudocoding rather than immediately doing everything in Python.
+  Do you think using Kelsey's referral is worth anything?
+    Just tell Mary/whoever the Kelsey thing IFF we pass the 1st round phone-screen.
+    / use Kelsey's referral to apply again after the whole thing has blown over
+    It's literally amazing how little Calvin's referral was actually worth. (ie. anyone I know who works @ Goog prob/possibly could have gotten me in just like Calvin's bro)
+
+
+
+
+
+
+
+
+
+
+
+  "It's so exciting to hear Google is planning to build Waymo cars in Detroit.  It seems like the need to stay on top of innovation is really important here.  Can you tell me more about how this value plays out in other sectors of Google?"
+  "I'm looking to try out a bigger company work environment and learn from some more senior people."
+  "The scale of impact someone can make at a company like Google is like none other.  You can touch lives all across the world with even a small innovation"
+
+  Concise, focused answers
+
+
+
+
+  2.  What's a day in your life at Google? 
+    Have you been an SRE?  Tech Lead?
+    Where did you work before and what's the difference?
+  1.  Ask about keeping in touch about future roles
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Fri Apr 26 11:06:17 EDT 2019
+________________________________
+
+
+  Interview prep:
+    Practice pseudocoding rather than immediatley doing everything in Python.
+
+
+
+  Remove auto-spacing in GDrive b4 the interview.
+
+
+  Afterwards, ask for feedback from the Google interviewer (could I have asked more questions, could I have ...?).
+  Try 2 get an interview for SWE/SRE !  Better to do this to avoid having to interview & reinterview.
+
+  1.  Trie (prefix tree) problems
+  2.  Hash tables
+  3.  DFS (mark curr.visited=True!!!!!!)
+  4.
+  5.  CtCi (more graph/tree practice problems)
+  6.
+  7.
+  8.
+  9.
+  10.
+  11.
+  12.
+  13.
+  14.
+  15.
+  16.
+  17.
+  18.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Apr 24 19:53:30 EDT 2019
+________________________________
+
+  SREs needs to know distributed systems
+    Kelsey
+    What's the objective of the architecture
+  BORG and Chubby
+  GFS (Google file system)     (replaced by Colossus and BigTable)
+  BigTable whitepaper
+
+
+  Deliberate practice in the shared Google Doc (~40 minutes timer)
+
+  Look @ the way I asked Eliana for input, and ask Kelsey the same way.
+    But can she legally help you game the interview?
+
+
+  Distributed hash tables
+  Onboarding process (the main guy leads SRE-EDU)
+
+
+  Google
+    Anyone can transfer away at any time for any reason
+    Makes people think about the long term rather than short-term gain
+  Google sounds like a good place to work
+
+  Schedule a talk about engineers.
+    Fewer SREs than devs
+      Scarce resource
+      SREs do PROD stuff
+      Performance, reliability. scalability (SREs)
+    Try to be methodical
+
+  SRE != devOps
+    "Automating ourselves out of a job"
+    (Not on call all night like Dana Schwartz was at Intel)
+    "Automating ourselves out of a job"
+    Don't be a hero; be smart, be sustainable, etc.
+    More control of the process ()
+      Workers have agency, control
+
+
+  I get to write new code! 
+    Brag to interviewer about this.
+    Ask the interviewer(s) "are you an SRE?"
+    We get to own a whole project ourselves, direct it, etc.  Ask a Googler whether this is standard in the first few months, or does it take a year or so to get this much agency?
+
+
+  Because Google has enough money to invest in the long term, there's time to step back & change the system s.t. it's better off in the long term.  This was not true at ISPs (ie. AT&T ?) in Des' experience as a Google advertising SRE.
+
+  Glassdoor (is this a good fit for your company's culture?)
+
+  Interpreted vs. compiled language?
+    What's the difference?
+
+  Python-specific questions?
+
+  One of the interviews is SRE specific
+    2 of these Google SRE book ()
+    For this interview, look up "Production engineer" questions.
+
+ -1.  Job description keywords
+  0.  What's the day-to-day like at Google?
+    a.  Distributed system
+    b.  More communication in SRE   than in SWE
+      1)  More team-based
+      SWE more deep than SRE
+  1.  If there was something you could change about your job, what would it be?
+    a.  
+
+  2.  What differentiates people who are excellent at this role from people who are only average?
+    a.  Reading breadth of documents and piecing together architecture
+      Colossus
+      Distributed file systen
+      Integrated among teams among the lower part of the stack
+    Communication more important
+    Broad
+
+    You DO get to work on a project
+    Max 30% "toil" work
+      Learn from tickets
+      be on call (pager)
+
+  3.  What was one thing you wish you'd known when you started this role?
+    a.  Kelsey's team is really old   &   it's hard to learn this all on the fly
+
+  4.  Why do you use this tech stack?
+  5.  What is the career path for people like you?
+    a.  6-15 ppl/SRE team
+      1 Tech lead
+        easier to go SRE->TL
+      1 Manager
+        Probably a liberal arts major
+
+    b.  Hierarchy: How many teams are you leading & interacting with?
+    c.  Start @ level 3
+    d.  Promoted to lvl 4 if you're good
+    e.  L5  (your team + one other team)
+    f.  L6  (organization level in office)
+    g.  L7  (all of GCloud)
+    h.
+    i.  Peers for feedback
+    j.
+    k.
+
+  6.  What did you wish you had done differently to prepare for your Google interview?
+    a.  1 Google interview
+    b.  FB Production interview
+      1)  Explain BiOS
+      2)  Kelse blew this one lol
+
+
+
+
+  7.  Mirror what they're asking
+  8.  Gauge what Google is looking for as you chat with the interviewers
+  9.  Learn about the company (try to act cool, more like you don't care than too overeager)
+  10. Smile over the phone
+  11. Be funny
+  12. Sound interested (recent Google current events in the news)
+  13. Mike same 20 questions throughout the interviews (not true for devs & Google)
+    Fizzbuzz questions
+  14. Ask about keeping in touch about future roles
+    a.  Politeness
+  15. Later roles
+  16.
+  17. Story about leadership
+    a.
+  18. 20-30 lines code
+  19.
+  20.
+  21. Ask 3-5 questions after the interview (don't seem dumb)
+
+  Give off the impression "works well with others"
+
+  Keep printed notes in front of you (no Googling)
+
+
+
+
+________________________________
+
+  Thu Apr 18 13:15:14 EDT 2019
+________________________________
+
+  Make study plan.
+    Also, be realistic & STICK. TO. IT.
+  Find out what site like coderpad.io Google uses for interviews.
+    leetcode.com
+    implement heapsort from scratch
+
+  pramp.com!!!!!!!!
+
+  https://thehustle.co/the-secret-google-interview-that-landed-me-a-job
+
+
+
+
+________________________________
+
+  Laszlo Bock
+________________________________
+
+  4 things Google hires for:
+    1.  General cognitive ability (learning)
+    2.  Emergent leadership (someone who knows when they know X and steps forward and    then step out when they DON'T know X)
+    3.  Culture:      Comfortable with ambiguity, conscientious, humility
+      a.  Conscientiousness => creativity (10% of the time)
+    4.  Expertise (very very good engineer)
+    5.
+    6.
+    7.
+    8.
+    9.
+
+________________________________
+
+  How to indicate exactly what you do on a resume:
+    1.  I accomplished X as measured by Y   by doing Z.
+
+
+________________________________
+
+  Interviewing:
+    Genuinely ask about Google:
+      1.  What percentage of your net profit is from search?
+      2.  How are y'all dealing with privacy?  How do you think perception of Google has changed over the years?  Do you think people still buy into "Don't be evil"
+      3.  
+      4.
+      5.
+      6.
+      7.
+      8.
+      9.
+      10.
+      11.
+      12.
+      13.
+      14.
+      15.
+      16.
+      17.
+      18.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  For Cat:
+    write the "diff" (better than segmentation; similar to mTailor's)
+    build our own NN architecture
+    Ask Alan Du properly
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Apr 17 11:10:05 EDT 2019
+________________________________
+
+  Buy cell phone
+    DONE
+
+  Clear out online Google info for "Nathan Bendich."
+
+  Send Mary my Google interview availability (Monday, April 29;   Tuesday, April 30th;  Wed, May 1st;   Monday May 6th;   Tues May 7th;         )
+    Google References:
+      1.  Ashu Nanda
+      2.  
+      3.  Wendy Pan
+      4.  Dan Schlosser
+      5.  Kelsey D'Souza
+      8.  JiaYan Hu
+      9.  Peter Nason
+      10. Erik Dyer
+
+        ^ all asked ^
+
+
+
+      6.  Rachel Yang (Jordi's GF)
+      7.  Alison Berkowitz
+        Already burned this bridge
+      11. Zach Sims
+      12. Max Timkovich
+        prob burned this one too?
+      13. Jordan Oroshiba
+      14. Hidy Han
+      15. Ari Hausman-Cohen
+      16. Thomas Nattestad
+      17. Nathan Lintz
+      18. Gaurav Gite
+      19. Craig Rhodes
+      20. Greg Edelston
+      21. Alison Chang (Serina's sister)
+      22. Michael Wang (Columbia)
+      23. Kara Schechtman
+      24. Samantha Becht
+      25. Luke Metz (Google Brain)
+      26. Layla Tavangar
+      27. Edward Li
+      28.
+      29.
+      30.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Tue Apr 16 19:56:20 EDT 2019
+________________________________
+
+  Publish lots of blog posts; get hired
+    Kill (turn off) instance hmr5
+  On startup, open TODO list in VIM.
+    edit startup.sh   (.config?)
+
+
+    Google self again to check whether the "flunked outta Olin" stuff's gone down
+  https://medium.com/@jayden.chua/quick-install-cuda-on-google-cloud-compute-6c85447f86a1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Mon Apr 15 12:54:41 EDT 2019
+________________________________
+
+  shift+ctrl+t in Chrome
+  Google job
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sat Apr 13 11:12:52 EDT 2019
+________________________________
+
+  Should I use a different mesh-recovery method?
+    check https://github.com/akanazawa/hmr/issues/40
+
+  Get data organized correctly on the hmr5 instance
+    images
+    H3.6M tfrecords (where do they go?  Is the old version I swiped from Kanazawa the right format?  Right images?  etc.)
+    Bother the right people to get H3.6M?
+      Call them directly, pretending to be a company (it's best to not do this unless we have no other option.)
+      Probably better to let it sit for a bit, not piss anyone off, etc.  You have 100% NO IDEA what they're doing over there in Lund, and if you do something super stupid you might ruin your chances of accessing H3.6M at all.
+      In a week or so, try Vlad Olaru, Dragos Papava, Catalin Ionescu, etc.  (the other authors of the paper)
+
+
+  Fix Dario's tf bug.
+ 
+
+  Idea: we could go out to Berkeley, ditch the guys, and try to ask Kanazawa to be a cofounder.
+    Could also do this with Alex Weiss, Matt Loper, Gerard Pons Moll, pretty much anyone who worked @ BodyLabs.
+      Problem with this is what are you actually offering them?  To do the human side of things?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Increase RAM to 4 vCPUs
+      DONE.
+  Increase hmr5 disk size again.
+    Yup.  Now 150 Gigabytes (Sat Apr 13 21:29:29 UTC 2019)
+
+
+
+________________________________
+
+  Wed Apr 10 09:48:09 EDT 2019
+________________________________
+
+  Send the Mafia Bros the money.  long-term thinking, Nathan.
+    GCloud instance (1 GPU): That's about $0.500 hourly
+  Prev sess on Chrome.
+    ctrl+shift+T
+
+________________________________
+________________________________
+________________________________
+
+  Prepare the gcloud GPU instance.
+
+    0.  You'll figure it out.  :)  :)  :)  :)
+    1.
+    2.  cd /home/n/Downloads && gcloud compute scp mosh_data.tar.gz hmr5:/home/n/Downloads
+      a.  HMR's previously downloaded datasets () is in hmr5's directory /home/n/Downloads
+      b.
+      c.
+      d.
+      e.
+      f.
+      g.
+      h.
+      i.
+    3.  ALL STEPS on www.github.com/akanazawa/hmr/train.md
+    4.  gener8 tfrecords.
+    5.  start training?  Or maybe we have to get Sminchisescu's H3.6M first.
+    6.
+________________________________
+________________________________
+________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  gcloud
+    I still need to figure out a CUDA 8   install.
+    Kill hmr5 instance if it's not needed.
+
+    Expand sda1 again (resize2fs, growpart)
+    The 25 MPII video batches may also need to be downloaded (http://human-pose.mpi-inf.mpg.de/#download)
+      BUT, on my personal laptop, when I generated the tfrecords, I'm like 90% sure we didn't have to have the batches to continue.
+        This may be wishful thinking, but I'm just super duper hoping I don't have to do too much more work to get the thing going.  Although I somehow still need to not f*ck up the Sminchisescu H3.6M dataset acquisition.  Hm... we COULD say we're a startup that is as-of-yet unfunded?
+          I could also ask Ramberg again.
+
+
+   Double-check: 
+
+    1.  Did CUDA-8 install properly?
+      a.
+    2.  Did CUDNN-6 install properly?
+    3.  import tensorflow
+    4.
+    5.
+    6.
+    7.
+    8.
+    9.
+    10.
+    11.
+    12.
+    13.
+    14.
+    15.
+    16.
+    17.
+    18.
+
+
+
+
+
+
+
+  Get Human3.6M access.  Also, pick which to work on next:
+    Contact his secretary (1st you have to FIND her e-mail address, though)
+    1.  NHMR ideas
+      a.
+    2.  Tensorflow reading
+    3.  **** Reading through the original HMR code ****
+      a.  Prob this one combined with edits to the code.
+    4.  Reading HMR.pdf
+    5.  Reading SMPLify.pdf
+    6.
+    7.
+    8.
+    9.
+   10.
+
+  Reply to Cristian Sminchisescu in an e-mail.
+    E-mail his secretary instead?
+      What do I write?  (I would like access to this dataset and Professor Sminchisescu hasn't replied in x days?)
+      Give it tiiiiiiiiiiiiime
+
+
+  Should I talk to H3.6 as if we're a company?  (Ask the guys)
+      It's probably best to be as upfront as possible.  Lying outright is definitely bad, and even concealing the truth is probably not advisable.  If they've been contacted by startups before, they'll be used to us not having money outright.
+    When should I e-mail them?
+    https://vision.imar.ro/human3.6m/checkregister.php.
+    The last time I tried to lie it failed.  So probably worth considering telling the truth.  But by now, I've already pretended I'm associated with Shree Nayar.  So I guess it's too late...  Here's hoping they just give me access without questioning it.
+      I wonder how much time they ACTUALLY put into monitoring who uses H3.6 ...  It might be much less than you'd think.  We'll just see, right?  Maybe we can get the data out of someone else (ie. his "administrative assistant," one of the other authors, etc.)
+
+
+    imar.ro: "Your account has been confirmed. Please be patient while we evaluate your application and activate your account."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Get more memory on GCloud instance.
+      resize2fs
+      umount  (unmount)
+      fdisk
+      lsblk
+      growpart      https://www.cloudkb.net/increase-root-volume-size-in-google-cloud-instances/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  I realized Catalin Ionescu is not be a professor.
+    Cristian Sminchisescu is the professor with the authority to give me the Human3.6M dataset.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sat Apr  6 14:05:03 EDT 2019
+________________________________
+
+  mpi_inf is being downloaded.
+    I'm like 90% sure I have neutrMosh in the right directory already.
+
+  Follow directions.  Finish training HMR.  Then win.
+    "TFRecord Generation" #3 in https://github.com/akanazawa/hmr/blob/master/doc/train.md.
+
+  Can we test HMR changes without downloading all the training data & setting it up?  I think mostly it's just better to download everything, documents the steps (gcloud ..., )
+    If we can see the body in real time via tensorboard, we know whether our changes are improving the training.  Therefore, we should DOWNLOAD THE TRAINING DATA 1st, EVEN THOUGH we DON'T HAVE a GPU
+
+  1.  Test the HMR training
+  2.  Come up with a list of problems I encountered during lugging my suit around NYC.
+    Women can't find pantsuits / formal skirts at Macy's anymore (Jeannine)
+
+  Intramural basketball/pickup basketball
+    reopen chrome sess for exercise TODO TODO
+
+  Tell Dario to get preorders (suits for job interviews)
+
+  I wanted to ensure we had EVERY img from COCO_train_2017.  So I put some images in /home/n/Documents/code/hmr_training_sandbox/hmr/data/COCO_train2014.  And this set of images must be IDENTICAL to the image set in /home/n/Downloads/coco_train_2014
+
+
+
+
+
+
+
+
+
+      1)  COCO API for python
+        What exactly does Kanazawa need this for?  Where does she use it?
+      2)  MPII images (~12.9 GB)
+        a)  MPII is being faster than the MoSh for some ***king reason
+      3)  MoShed data (~ 2.2 GB)
+        https://drive.google.com/file/d/1b51RMzi_5DIHeYh2KNpgEs8LVaplZSRP/view
+        ~ 2 MB/upd8
+
+
+
+
+
+________________________________
+
+  Sat Apr  6 14:05:03 EDT 2019
+________________________________
+
+  TensorFlow: figure out how to put the constant inputs to pose params in tf.
+    a.  src/trainer.py
+      1.  There's an initial input to "state" that we need to change in "src/trainer.py," and maybe ALSO one in src/RunModel.py.
+      2.  There's an iterative input to "state" that happens within the for loop.
+        a)  I think the 3D_module shouldn't spit out new pose parameters.  But should it take IN the 72 pose params?
+      3.  retrain HMR?  (look 4 directions 2 do this the right way)
+    b.  L8r, do src/RunModel.py.
+    c.  Write the pose params into the 2-D-projection module.
+    d.  They also need to go into the SMPL function M(theta, beta) (this func is illustrated in the HMR paper's diagram)        b4 they go into the discriminator D that checks whether the mesh is a realistic human or a monster.
+
+
+
+
+
+      1.  Maybe doesn't exist in here (we're just RUNNING the model, after all)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Ask dad for shekels?  Maybe go over to Switzerland and ask him in person.  Or ask gramma.  It's better than the intellectual slavery we have at Results Tutoring & even with Dario.
+    Sleep on the floor in Butler
+      Somehow we'd want to hide a sleeping bag/bed somewhere and take it out only after all the security guards left.
+        Find a thrown-out mattress somewhere in Manhattan to do this
+      Or sleeping bag in Butler stacks
+      Or a sleeping bag in some less-checked Columbia library.
+    The much much better version of this plan is to renovate a Manhattan dumpster like that guy "Gregory Kloehn" did.
+
+
+________________________________
+
+  Fri Apr  5 22:05:07 EDT 2019
+________________________________
+
+  Blow off Julian b4 it's too late.
+  Call DOlivieros
+  Clone fresh HMR
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Apr  3 22:06:50 EDT 2019
+________________________________
+
+  tf.constant()  input into HMR (lowercase pose params "thetas")  
+  Your suit is in GS Lounge. (left turn after entering)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ________________________________
 
   Sun Mar 31 10:59:24 EDT 2019
 ________________________________
+
+  Convert all pngs =====> jpgs where necessary;   also jpgs =====> pngs.
+    Copy images and render.pngs to the right directories.
+    Read 3D_MuVS.pdf and SMPLify.pdf so we understand why the HEVA model had to move and make a video of multiple frames.
+    MuVS almost certainly HAS to work on 3 camera views of literally the same frame.  That's how the HEVA dataset is, at least.  If this is true, we have to use a different model (ie. set of assumptions about the images we took of the customer) for our purposes.
+      I can always try it and see whether the fit is better than HMR?  Or perhaps I overreacted w.r.t HMR & we can just use that.  It's a tad unclear...  But I'm like 70% sure that we need to get the side view.  Perhaps multi-view HMR with slight replacements?  Or multi-view SMPLify.  Either way, we can't help but eventually figure out how 
+
+
+  1.  Right tints of color: shades of dots
+    a.  Looks fine
+  2.  Radius (size) of dots    ((roughly) proportional to segmask.shape???  Maybe we'll just check what MuVS does on this)
+  3.  Roundness of dots
+  4.  
+  5.
+  6.
+  7.
+  8.
+  9.
+  10.
+  11.
+  12.
+  13.
+  14.
+  15.
+  16.
+  17.
+  18.
+    TODO: use to get DCut and eventually MuVS
+
+  Try MuVS with marked.png.
+  Print MuVS.pdf and SMPLify.pdf .
+
+
+  Right after we finish recreating MuVS, we should go to functional specification in AS MUCH DETAIL AS POSSIBLE.  1st, we just need to do the func spec for the MVP.
+    clean the code out.
 
   1.  Debug top_head(), 
     a.
@@ -40,6 +1744,7 @@ ________________________________
   17.
   18.
 
+  set_bbox() or a similar function.
 
 
 
@@ -16803,4 +18508,558 @@ ________________________________
 
 
 
-  Ask dad about object-oriented next time
+  Ask dad/mom about object-oriented next time
+  If there's a way to live for free in Manhattan (ie. renovate a dumpster), we should definitely try to live around Columbia.  It's amazing how many random ideas I encounter just sitting in the GS lounge getting work done.  And the mere pressure of other people all being here that I know, familiarity with the environment, etc.  It's the perfect place for a kid to turn a project into the next big thing.  Besides Google (which may, unfortunately, be a bit too task-oriented), a university is the best place to think, to open your mind, to feel good enough about myself to have ambitions, etc.
+    Linux was born at a University.  The internet was born at a University.  Uni is the best place for adult play.  And only a spirit of play creates new ideas.  Restriction, depression, excessive focus, all are bad ways to encourage play, exploration, fun work, etc.
+      Maybe it's also worth my watching kids shop online during their classes to understand the use case.  It might be best to start it this way before then moving it to Oculus.  Tony's idea is not bad AT ALL.
+
+  Shaina's great, but her family (and sometimes her attitude) are not conducive to the type of shit you're trying to do right now.  Relentless play is the goal; not rote adherence to rules and routine.  Wait, Shaina's definitely not the problem.
+    Unfortunately, that basement is ****ing depressing.  I guess Javier is kind of an exception to this rule, but even most of my kids at Results, honestly, are kinda sh!tty.
+      Too much base-level survival emphasis and laziness rather than dreaming, ambition, etc.
+  Maybe I could get into a Ph.D program here?  Or FB AI or something.  I could always at least ASK Feiner.  It would be good to discuss Lisp with Bob Coyne too
+  The impromptu conversations are the ones that are most valuable, not sitting in lecture.  Impromptu with PROFESSORS are good too.
+
+
+
+
+
+
+
+
+check availability of "github.com/bendich"
+  or "github.com/nxb"
+
+
+________________________________
+
+  Wed Apr 10 09:48:09 EDT 2019
+________________________________
+  
+  Big picture:
+    1.  Get AWS/GCloud GPU instance working.
+      a.  Idk how long this will take.  1st step is figuring out costs.
+        0) no passphrase.  
+        1) Your identification has been saved in /home/n/.ssh/google_compute_engine.
+        2) Your public key has been saved in /home/n/.ssh/google_compute_engine.pub.
+        3) The key fingerprint is:
+          4) SHA256:JVEXATTIfjbwlsMsf4TGRWnJqgbjsRvqFte39vy1BgE n@elon-eats-my-shorts
+        4) The key's randomart image is:
+          +---[RSA 2048]----+
+          |       ..+=+==   |
+          |        +. E*    |
+          |       ..*.*.    |
+          |      + oo/ ..   |
+          |     . *SO +  .  |
+          |    . = + o ..   |
+          |     + + . o  . .|
+          |    o .   o.   o.|
+          |   o.    . .o.o. |
+          +----[SHA256]-----+
+        5) Updating project ssh metadata...⠼Updated [https://www.googleapis.com/compute/v1/projects/cat-2018-1529009540795].                                                                                                               
+      b.
+      c.  We can see how long it takes to train HMR on a Tesla K80
+    2.  Turn your ideas from recordings into code (1st into NN drawings {APPENDED to HMR rather than standalones}, THEN code).
+    3.
+    4.
+    5.
+    6.
+    7.
+    8.
+    9.
+Fix up Tensorflow on my laptop's CPU ?  Or maybe setup GCloud/AWS GPU
+  2019-04-11 10:02:46.143002: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+  2019-04-11 10:02:46.143038: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+  2019-04-11 10:02:46.143054: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+   10.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+potential cofounders: CD'guisto?
+
+
+company names:
+  C2 (see yourself)
+  C-U ?
+  See-U
+  tryit.com
+  see-me.com
+******************
+  beme.com
+  justbeme.com
+******************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  SValley  (http://www.123moviesok.org/episode/silicon-valley-season-1-episode-6/)
+    Do scrum with self (& with Pier?  (the engineers compete, making work happen faste  r)).
+    Not a bad idea; has to be implemented properly
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  How to interview properly?
+    Listen well.
+    Don't interrupt
+    Encourage
+
+
+
+
+	  1  a   "~/Desktop/40_minutes_deliberate_practice" line 1
+		2      "~/pyutils/post_practice_reflect.txt" line 1
+		3  a   "~/pyutils/old_txts/interview_prep.txt" line 1
+		5 #a   "~/pyutils/post_practice_reflect__April_27_2019__12:21_P.M._noon.txt" line 39
+		6 %a   "~/pyutils/post_practice_reflect__April_27_2019__1:48_P.M.___.txt" line 25
+
+  This once again opens up the question "should I even continue with this particular idea?"
+    No matter where I go, I COULD end up finding a real need that gives me money.  So therefore, it's best to still go with Black & this idea.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  This once again opens up the question "should I even continue with this particular idea?"
+    No matter where I go, I COULD end up finding a real need that gives me money.  So therefore, it's best to still go with Black & this idea.
+
+
+  MJB's assistant:
+    Melanie Feldhofer (Personal Assistant)
+    +49 7071 601 1800
+    melanie.feldhofer@tuebingen.mpg.de
+  MJB himself (https://ps.is.tuebingen.mpg.de/person/black):
+    +49 7071 601 1801
+    Office: N3.019
+    Max-Planck-Ring 4
+    72076 Tübingen 
+    Germany
+    +49 7071 601 1801
+    black@tue.mpg.de
+    michael_j_black
+    Find me on Linkedin
+    Find me on Google Scholar
+    Follow me on Twitter
+
+https://ps.is.tuebingen.mpg.de/jobs/aw-johannes-docx
+  requirements:
+  Enrolled at a German university in a study program related to IT/Computer Vision
+If we're determined to do this (and we ARE, because it's the best path for the future),   somehow we need to get a German visa (dad is far too far away to be able to successfully commute).
+  The best path is PROBABLY to get into a CS Master's/Ph.D at a shitty university, transfer to MPI, and try to get my Ph.D that way.  I can always ask for a personal favor, but it's very very unlikely I will get special treatment considering A) the sheer number of people asking Black et al. for such favors and B) how much time he/Melanie Feldhofer have in a day.
+    But it's still probably worth trying to get in through unofficial channels @ least once before resigning myself to be one of the crowd (tremendous number of the unwashed masses).
+    Should I try this way first, or should I see when CS grad schools take applicants?
+      Both, but 1st see when they take applicatns so 
+      Idk, both are important.  Just DO it.
+
+      Rolling Admission!!!!!!!!!
+      "We have no fixed starting date for the Ph.D. While we post calls for applicants throughout the year, you can apply any time by sending your application to ps-apply@tuebingen.mpg.de."
+
+
+  So, what are the requirements to apply for a Tuebingen Max Planck Ph.D.?
+    1.  Statement of intent behind the research project (refine this as much as possible)
+    2.  Rec letters
+    3.  Familiarity with recent research out of MPI (ie. my project shouldn't be redoing what someone else has already done)
+
+
+  Application
+
+  https://ps.is.tuebingen.mpg.de/jobs/phd
+    Admissions for graduate study in Perceiving Systems is done through our graduate schools — The "International Max Planck Research School for Intelligent Systems (IMPRS-IS)“ and the "Max Planck ETH Center for Learning Systems" offer a very interesting doctoral program. Please check the schools, requirements, and deadlines on the respective websites and apply there directly as described on the respective pages:
+
+    International Max Planck Research School for Intelligent Systems (hyperlink)
+    Max Planck ETH Center for Learning Systems (hyperlink)
+    There you will find all the information about how to apply on-line.
+
+When applying make sure to mention your interest in the department or in specific members of the department. This way your application will be seen by the right people.
+
+If you have specific questions about the department related to graduate study, please address them to ps-apply@tuebingen.mpg.de.
+
+======================================================================================================================================================================================================
+Things we look for (not all required):                                                                  Yes       No        Other
+======================================================================================================================================================================================================
+  1.  Have research experience                                                                           Y                                                                     
+  2.  Have a Master's degree                                                                                       N        TODO pA22
+  3.  Have great grades                                                                                            N        TODO post-Apr-29-2019 (pA22)
+  4.  Have letters from people who can talk about your research abilities                                          N        TODO pA22
+  5.  Have letters from people who do research at an international level                                           N        TODO pA22          (unless the "Verma-n" counts)
+  6.  Have letter writers who are passionate about you                                                             N        TODO pA22          (unless the "Verma-n" counts)
+  7.  Be passionate yourself                                                                                       N        TODO                                                
+  8.  Write well and present your CV and research statement well                                                   N        TODO
+  9.  Have done something you think is important                                                         Y                  
+  10. Want to do something important                                                                     Y                 
+  11. Know why you want a PhD                                                                            Y                                                                     
+  12. Know why you want to do it with us                                                                 Y                                                                     
+  13. Have failed or succeeded at something hard (it doesn't matter which)                               Y                         
+
+                                                                                                                            The answer to all the 5 last ones is "Cat"/"The VR Mall project"
+
+======================================================================================================================================================================================================
+Things we look for (not all required):                                                                  Yes       No        Other
+                                                                                                             "No" is good in this table.
+======================================================================================================================================================================================================
+Ways to be rejected:
+  1.  You do not know anything about our department                                                                N    
+  2.  You have not read any of our recent papers                                                         Y                  TODO: read more
+  3.  Your research statement is unrelated to our research                                                         N           
+  4.  Submit shoddy materials with grammar and spelling errors                                           Y                  TODO proofreading
+  5.  Fail to read this page                                                                             Y                  TODO: make sure you do EVERYTHING they listed on this page
+  6.                                                                     
+  7.
+  8.
+  9.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Results taxes:
+    Tax ID
+    Amount (2018)  (w-99)
+  
+  SpinCar
+    VR Car experience
+    Ian (Peter Pan Bus Philly to NYC)
+    
+  Project Phoenix
+    Rebuilding society from scratch after it dies
+    This serves as immunity to Black Swan shocks.
+
+
+
+
+
+
+
+
+
+
+
+  TODO:
+    Auto-shutdown script @ certain time (2 A.M.?   3 A.M.?)
+    finish the notification script
+    Then check Chrome for the self-control extension            & verify it works
+      "Freedom" and "Stayfocusd"
+
+
+
+   mutt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Tesla interviewer:
+  Things change TOO fast (requirements)
+    Code has to be robust
+
+  Pranay Suresh
+
+  Celery
+  RabbitMQ
+  PostGRES
+
+  DevOps
+  3 FullStack
+  1 Backend
+    
+  Michael Chiang will lmk in 3-4 days (fast turnaround)
+    I almost certainly did NOT get it.
+    But a guy can dream, right?    *sigh*
+  Next time, if it's something you REALLY want, I've gotta STUDY YOUR FUCKING ASS OFF.
+
+
+
+
