@@ -20,6 +20,133 @@
     TODO.txt
 ________________________________
 
+  Sun Jun  2 15:25:54 EDT 2019
+________________________________
+
+  Summarize   "Pose Parameter Training" section in SMPL.pdf
+    Do the betas/"shape blend shapes S" influence the joint regressor training & subsequent use?
+
+
+
+
+  Print the following pages:
+    https://en.wikipedia.org/wiki/Principal_component_analysis#Details
+
+    https://towardsdatascience.com/pca-using-python-scikit-learn-e653f8989e60
+
+
+
+
+
+
+
+
+________________________________
+
+  Fri May 31 01:13:06 EDT 2019
+________________________________
+
+  Some amt of personal passion in letter to MJB:
+    MJB has a heart
+    Something like "I don't know how many people are writing you this, but this dream is 100% my life, and I would give you my all."   (maybe grandpa doesn't know what he's talking about...   he's certainly not the best with feelings & motivation & dreams & all that)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Tim Ferriss:
+    HABITS, not "willpower"
+    ENVIRONMENT, not just self
+
+
+  The Confidence of Frank Abnagale ("Catch Me if you Can")
+    https://www.youtube.com/watch?v=vsMydMDi3rI
+
+    Absolutely believe in yourself and you'll convince everyone to believe in you.
+      Like Dario
+      Keep talking (like that woman who talked at Columbia (went from Harlem to Columbia Law))
+
+    Sell.
+    Sell yourself.
+    Impostor Syndrome is bullshit
+    Confidence of the young:
+      Remember what you need to remember to get what you want
+
+    Credit card keeps you from being liable
+      Improves your credit score
+      Gets you a job, mortgage
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed May 29 16:10:06 EDT 2019
+________________________________
+
+  Train to Philly
+  Peter Pan Bus to NYC
+    Bought Wednesday morning (11 A.M.?)
+  NOT GOING.
+
+
+  Tell everyone I'm actually gonna be at work on Thursday?
+    (Maybe it's easier to not change everything just for a teensy bit of extra cash)
+    Careful though; If Joe Evans knew, he might want me in at work to make the center more money
+    Ultimately everyone will probably just forget it ever happened
+
+
+
+
+
+  Perhaps I should just ask Prof. Black if I can have a different job in his lab???  But I also know making the virtual dressing room properly will take more than a year...  But mostly, I just need to SURVIVE for [insert xyz] years
+  NOTE: if applying to Berkeley, apply to the Master's/Ph.D program instead of the straight Ph.D (This (Master's/Ph.D instead of straight Ph.D) is the only one that give you a Master's if you decide to drop the Ph.D)
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
   Tue May 28 16:10:06 EDT 2019
 ________________________________
 
@@ -1366,8 +1493,10 @@ ________________________________
  
 
   Idea: we could go out to Berkeley, ditch the guys, and try to ask Kanazawa to be a cofounder.
+    Could still do this
     Could also do this with Alex Weiss, Matt Loper, Gerard Pons Moll, pretty much anyone who worked @ BodyLabs.
       Problem with this is what are you actually offering them?  To do the human side of things?
+    Definitely worth asking them a little about their lives (Ask the guy from Columbia....  Green?  Weissberg?  Some Jewish name.....)
 
 
 
@@ -18990,6 +19119,7 @@ Ways to be rejected:
 
   TODO:
     Auto-shutdown script @ certain time (2 A.M.?   3 A.M.?)
+
     finish the notification script
     Then check Chrome for the self-control extension            & verify it works
       "Freedom" and "Stayfocusd"
