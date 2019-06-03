@@ -23,6 +23,10 @@ ________________________________
   Sun Jun  2 15:25:54 EDT 2019
 ________________________________
 
+  E-mail to MJB:
+    Offer the gold to hook him FIRST, THEN introduce yourself
+
+
   Summarize   "Pose Parameter Training" section in SMPL.pdf
     Do the betas/"shape blend shapes S" influence the joint regressor training & subsequent use?
 

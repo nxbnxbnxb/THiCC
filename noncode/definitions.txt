@@ -1,0 +1,5 @@
+
+  What is "clean quad structure???"  I THINK it means the mesh is of high quality & doesn't have too much local over-stuffed triangle crap going on.
+
+  The valence of a vertex is defined as the number of edge-ends that emanates from that vertex.
+
