@@ -18,14 +18,73 @@
 
 
     TODO.txt
+
 ________________________________
 
-  Sun Jun  2 15:25:54 EDT 2019
+  Sat Jun  8 02:01:01 EDT 2019
 ________________________________
+
+  Yesterday (June 7th), I was trying to get ****ing HSR ("Human Shape Recovery") to work.  
+
+  1.  I had an idea about how to use deeplab to fix diff_seg(person_img, background_img);    if you are wearing black pants and the floor is black, simple "diff(person_img, background_img)" will not register that your pants are part of you; it will think your pants are part of the background.  BUT. if we take both DeepLab's segmentation AND the "diff(person_img, background_img)," PERHAPS we can do something clever where we find the large pants region that SHOULD be labeled "person" but was instead labeled "backgroiund (ie. not person)."  Take this region and "connect the dots" from the foreground found by the diff(), and connect the edges where there's supposed to be pants but that region was instead mistakenly labeled "background."     Also, BTW the reason we can't just use deeplab's segmentation is at the extremities it doesn't work (it fails on fingertips, toes, etc.)
+  2.  After getting 3 shadows (silhouettes) of the customer, we need to try SMPL betas (shape) & other parameters and calculate the reprojection loss with each set of those SMPL parameters.  As was recommended by HMR, I thought we should recover the "camera parameters," which, it turns out, is just one rotation matrix.  HMR just uses a vanilla Orthographic Projection (fancy-talk for turn vertex (x,y,z) into (x,y,0), (x,0,z), or (0,y,z)) to transform 3-D into 2-D.  Moreover, in the HMR paper, they kind of mislead you into thinking they're taking all these fancy camera parameters like Field of View, camera lens' focal length, etc.
+    a.  The real question is: should I do all those fancy calculations for the startup?  And I guess that depends on a number of things, but chief among them is "how much does this actually affect the precision of the result?  Is there a quantitative difference in the number of inches HSR says your waist is and how far it ACTUALLY IS around your waist?  9and how much of a difference is it: 2 inches?  6 inches?  consistently > 5% of the # of inches off? "
+  3.  There's still more to decide, like: how should I regularize the betas?  Should I regularize them?    Overfitting WILL kill us somehow if we're not looking out for the overfitting
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Jun  5 15:07:52 EDT 2019
+________________________________
+
+  Do things a little more traditionally, and they may just give you better results
+    Matt Might:
+      Apply to ~20 grad schools if you really want to be an academic (it's PROBABLY better than job life, and if you're gonna do it at all, you should do it NOW, before you get settled, trapped into having too much expen$ive shit, etc.)
+      Intro yourself to Michael Black and say something like "I'm interested in working for you."
+      He says "if you don't want to be a professor, don't apply to grad school"
+      Do I want to try to be someone like Gary V instead?  I definitely used to think so...
+
+    Intro to MJB & other potential advisors:
+			Contact a faculty member you'd like to work with. Email them a month or so before you apply. [Please read my guidelines on how to send email.] Tell them you were considering applying, and you're curious about the research opportunities available in the field. Comment intelligently on some research that faculty member has done. Attach any research you've done, and briefly summarize your research interests. That faculty member can then make sure your application receives a thorough review. Bear in mind that professors receive lots of form-letter spam from prospective students. It's painfully obvious when the email is form-letter spam, and most professors will summarily discard it.
+      Send a short follow-up email in December/January so they remember to tell the admissions committee to watch for you!
+
+
+
+
+  IF we're gonna try to do the startup on our own, we have to make a wedding dress mesh & start selling.
+    HMR doesn't have to be perfect.
+    Also remember, people want color, hair, etc.  The sizing DOES NOT HAVE to be perfect immediately.
+
+
+
+
 
   E-mail to MJB:
     Offer the gold to hook him FIRST, THEN introduce yourself
 
+
+
+
+
+
+
+________________________________
+
+  Sun Jun  2 15:25:54 EDT 2019
+________________________________
 
   Summarize   "Pose Parameter Training" section in SMPL.pdf
     Do the betas/"shape blend shapes S" influence the joint regressor training & subsequent use?
@@ -44,6 +103,8 @@ ________________________________
 
 
 
+
+  Get sucked in.  Re: top comment "Don't keep up with the joneses.": you gotta try to make sure the Joneses are people like Gary, not people who care about how nice your house is and whether your kids got into Harvard and Google
 
 ________________________________
 
@@ -19317,5 +19378,14 @@ Ways to be rejected:
 
 
 
+
+  "Quality is subjective   (until it hits the market)" - Gary Vaynerchuk, 2018
+  "To get the CEO's ear, send FB ad to "employees of [____]" (ie. Michael J Black)
+
+
+
+
+Contact a faculty member you'd like to work with. Email them a month or so before you apply. [Please read my guidelines on how to send email.] Tell them you were considering applying, and you're curious about the research opportunities available in the field. Comment intelligently on some research that faculty member has done. Attach any research you've done, and briefly summarize your research interests. That faculty member can then make sure your application receives a thorough review. Bear in mind that professors receive lots of form-letter spam from prospective students. It's painfully obvious when the email is form-letter spam, and most professors will summarily discard it.
+Send a short follow-up email in December/January so they remember to tell the admissions committee to watch for you!
 
 
