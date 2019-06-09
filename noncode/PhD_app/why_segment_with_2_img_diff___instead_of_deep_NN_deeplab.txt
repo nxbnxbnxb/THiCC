@@ -1,0 +1,76 @@
+
+  Remember to praise his past work!    Especially "Expressive Body Capture: 3D Hands, Face, and Body from a Single Image;" this is a recent development and he probably put many hours in / funded it heavily.
+
+
+  For HSR's shape-parameter-beta-fitting, Google's deeplab segmentation is worse than the 2-image "diff" segmentation I wrote (TODO: see if the literature has a fancy name for what you "invented").  This is because deeplab cuts the stomach too wide, whereas "NXB diff" segmentation gives a very tight cut around the chest, stomach, and hips.  As you can see here: [link to diff segmentation], the only ways my "NXB diff" segmentation performs worse than deeplab is 1. the salt-and-pepper noise outside the body and 2. sometimes my "NXB diff" cuts out internal real parts of the body due to lighting conditions.  1. The salt-and-pepper noise is unfortunate, but largely irrelevant for reprojection loss because the noise is not often concentrated in large numbers of pixels near the body; instead it is randomly dispersed and therefore won't negatively affect the reprojection loss.  2. this minor shortcoming can be mitigated by either A. letting HSR learn the hyperparameter "delta" end-to-end as Kanazawa et al. demonstrate in HMR (2018) or B. deliberately and manually learning this hyperparameter as seen in Expressive ... ("SMPLify-X"), Pavlakos et al. (2019).
+  The technical underpinning of the thesis I'm advancing is that it is the reprojection loss of the (begin italicize) **SILHOUETTE** (end italicize) that should be the data term for the objective function in "Expressive Body Capture: 3D Hands, Face, and Body from a Single Image."  Everything else is beautifully done: the integration of hands and face, the Variational Human Body Pose Prior [TODO: double-triple-check this by rereading "Expressive Body Capture: 3D Hands, Face, and Body from a Single Image" SMPL-X], the Collision penalizer to prevent the SMPL model's self-penetration, the E_[alpha] penalty limiting elbow and knee joint movement, the camera parameters K, etc.
+  To usher in a new age of 3-D clothing e-commerce, and bring innovative science and technology to the world in the name of IMPRS and Max Planck Institute, I must implement accurate-to-the-inch shape-recovery.  And this must happen from plain RGB images, so we need the "NXB diff" [appeal to the ETHOS of some famous statistician/programmer like the "Mahanolobis distance" mentioned in "Expressive Body Capture: 3D Hands, Face, and Body from a Single Image" SMPLify-X] described herein.  I will take care of the details, but this project will advance the human race and give credit where it is due, to the Max Planck Institution for Intelligent Systems and [TODO: insert the full name of IMPRS]
+
+
+
+
+
+  TODO:
+    Fill in "TODO"s wherever they appear.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
