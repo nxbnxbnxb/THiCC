@@ -15,16 +15,23 @@ import imageio as ii
 
 pr=print
 #=================================================================================================================================
-def openpose_2_deepercut(openpose_fname, img_fname):
+def openpose_2_deepercut(openpose_fname, img_fname, marked_fname):
+  print("openpose_fname: ")
+  print(openpose_fname)
+  print("img_fname: ")
+  print(img_fname)
+  print("marked_fname: ")
+  print(marked_fname)
+
   no_background, mask=segment_black_background(img_fname)
   pltshow(no_background)
-
   img=np_img(img_fname)
   OP_kps=measure(openpose_fname)
   mask=mask.astype('uint8')
   mask[np.nonzero(mask)]=255
   mask=skimg.transform.resize( mask, img.shape, anti_aliasing=True )
   marked=mark_img(img, OP_kps, mask)
+  ii.imwrite(marked_fname, marked)
   return marked
 #============================================ end func openpose_2_deepercut() ====================================================
 #=================================================================================================================================
@@ -115,6 +122,7 @@ def mark_img(img, OP_kps, mask):
 
 #===================================================================================================================================
 def top_head(neck, nose, mask):
+  # useful for SMPLify too
   '''
     calculates top of head within mask's coordinates (plt coords)
     x+ from left to right,
@@ -122,6 +130,36 @@ def top_head(neck, nose, mask):
 
     Debugged on 1 image.  We should double-check with more images later.
   '''
+  # NOTE: NEW method: overly simplistic method doesn't work for tilted heads, but the neck-nose-line doesn't work for side views because it tells us the top of the head is actually near the eyeball.
+  #   assumes neck is straight and the img of the person is "standard" (ie. head is near top of image, feet @ bottom, etc.)
+  if mask.dtype != 'bool':
+    mask=deepcopy(mask)
+    mask=mask.astype('bool')
+  if len(mask.shape)==3:
+    mask_2d = np.logical_and(mask[:,:,0],mask[:,:,1])
+    mask    = np.logical_and(mask_2d    ,mask[:,:,2])
+    print("mask.shape:")
+    print(mask.shape)
+
+  on_locs=np.nonzero(mask); X=1; Y=0
+  #pix_idx=np.argmin(on_locs[Y])
+  pix_idxes=np.argsort(on_locs[Y]) # low 2 high
+  for pix_idx in pix_idxes:
+    x=on_locs[X][pix_idx]
+    y=on_locs[Y][pix_idx]
+    # y,x
+    # TODO: error-check for mask edges
+    pe()
+    print("mask.dtype:")
+    print(mask.dtype)
+    print("mask.shape:")
+    print(mask.shape)
+    pe()
+    if mask[y+1,x-1] and mask[y+1,x] and mask[y+1,x+1]: # y+1 means "down" in numpy/plt
+    # if this point is right above 3 pixels that are also part of the body,
+      return (x,y)
+  raise Exception("Top of head not found in function named '{0}.'  Please doublecheck your code".format(funcname))
+  """
   RGB=3;X=0;Y=1
   if len(mask.shape)==RGB: # RGB
     mask01=np.logical_and(mask[:,:,0],mask[:,:,1])
@@ -145,6 +183,7 @@ def top_head(neck, nose, mask):
     else:
       x+=del_x
   raise Exception("Top of head not found in function named '{0}.'  Please doublecheck your code".format(funcname))
+  """
 #======================================= end func top_head(params) ========================================================
 #===================================================================================================================================
 if __name__=="__main__":
@@ -155,15 +194,19 @@ if __name__=="__main__":
   # '/home/n/Dropbox/vr_mall_backup/IMPORTANT/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE____.jpg'
   n8_back_OP_kps_fname  = '/home/n/Dropbox/vr_mall_backup/IMPORTANT/n8_back___jesus_pose___legs_closed___nude___grassy_background_Newark_DE_____keypoints.json'
   n8_back_img_fname     = '/home/n/Dropbox/vr_mall_backup/IMPORTANT/n8_back___jesus_pose___legs_closed___nude___grassy_background_Newark_DE____.jpg'
-  img                   = openpose_2_deepercut(n8_OP_kps_fname, n8_img_fname) # TODO: test on multiple images; try to get n8 working on your own video.
-  #img                  = openpose_2_deepercut(MuVS_OP_kps_fname, MuVS_img_fname) # TODO: test on multiple images; try to get MuVS working on your own video.
   marked_fname          = "marked.png"
-  ii.imwrite(marked_fname, img)
-  pltshow(img)
+  img                   = openpose_2_deepercut(n8_OP_kps_fname, n8_img_fname, marked_fname) # TODO: test on multiple images; try to get n8 working on your own video.
+  #img                  = openpose_2_deepercut(MuVS_OP_kps_fname, MuVS_img_fname) # TODO: test on multiple images; try to get MuVS working on your own video.
 #===================================================================================================================================
 
 
 
+# Glossary glossary:
+  '''
+    18:def openpose_2_deepercut(openpose_fname, img_fname, marked_fname):
+    32:def mark_img(img, OP_kps, mask):
+    118:def top_head(neck, nose, mask):
+  '''
 
 
 

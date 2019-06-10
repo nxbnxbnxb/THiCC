@@ -12,7 +12,8 @@ def cut():
     print('also sleeping for {0} seconds to make sure this is what you wanted to do'.format(delay))
     time.sleep(delay)
     local_vid_path = \
-      "/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_jesus_pose_legs_together_0227191404.mp4"
+      "/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/nxb_vid____1st_front_t-pose____then_just_background___reflective_floor.mp4"
+      #"/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_jesus_pose_legs_together_0227191404.mp4"
     root_img_dir   = "/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs"
     secs_btwn_frames=0.1#0.25
     should_put_timestamps=True

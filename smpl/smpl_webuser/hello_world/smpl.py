@@ -49,7 +49,7 @@ from math import pi
 from copy import deepcopy
 from pprint import pprint as p
 #=========================================================================
-pr=print
+#pr=print
 def pn(n=0): print('\n'*n)
 def pe(n=89): print('='*n)
 #=========================================================================
@@ -117,8 +117,11 @@ def orient_mesh(params):
   #func orient_mesh(params)
   X,Y,Z=0,1,2
   verts=params['mesh']['verts'] # verts.shape==(n,3)
+  verts=to_1st_octant(verts)
   x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len= vert_info(verts)
-  print("x_min: {0}\nx_max: {1}\ny_min: {2}\ny_max: {3}\nz_min: {4}\nz_max: {5}\nx_len: {6}\ny_len: {7}\nz_len: {8}\n".format(x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len))
+  #blender_render_mesh(params)
+
+  # back-to-stomach dimension of human:
   which=np.argmin((x_len,y_len,z_len))
   print("which:",which)
   def switch_axes(params):
@@ -126,10 +129,20 @@ def orient_mesh(params):
     swapped=deepcopy(verts___n_x_3)
     tmp=swapped[ax1]; swapped[ax1]=swapped[ax2]; swapped[ax2]=tmp
     return swapped
-  
   if which != Y:
     switch_params={'verts':verts, 'ax1':which, 'ax2':Y}
     verts=switch_axes(switch_params)
+  verts=to_1st_octant(verts)
+  x_max_vert=verts[  np.argmax(verts[:,X])]
+  x_min_vert=verts[  np.argmin(verts[:,X])]
+  z_max_vert=verts[  np.argmax(verts[:,Z])]
+  z_min_vert=verts[  np.argmin(verts[:,Z])]
+
+  x_max_vert=""
+  # TODO: continue?  Dario thinks maybe VHMR is better.
+
+
+ 
   verts=to_1st_octant(verts)
   params=deepcopy(params)
   params['verts']=verts
@@ -189,7 +202,7 @@ def normalize_mesh(vs, mode='HMR'):
   #               but we want z     "height," x    "width," and y is "depth"     (helpfully, this is ALSO how blender does it)
   #           This yz_swap solution below: (Wed Mar  6 13:49:35 EST 2019) is specifically tailored to:
   #             obj_fname='/home/n/Dropbox/vr_mall_backup/IMPORTANT/nathan_mesh.obj'
-  pr("This mesh was generated via ",mode)
+  print("This mesh was generated via ",mode)
 
   #==============================================================================
   #                         Geometric transformations:
@@ -258,8 +271,9 @@ def blender_render_mesh(params):
     I had to hack around the fact that subprocess.call() doesn't support cmd line args  ( or was it blender --python itself that doesn't?)
     So I rewrite a tiny python file with the argument supplied here and call blender with that.
   '''
+  # func blender_render_mesh(params):
   params=deepcopy(params)
-  mesh_fname=params['mesh_fname']
+  mesh_fname=params['mesh_fname'] # func blender_render_mesh()
   import_script="/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world/blender_import_obj.py"
   # overwrite
   with open(import_script, 'w') as fp:
@@ -272,6 +286,13 @@ def blender_render_mesh(params):
     funcname=  sys._getframe().f_code.co_name
     raise(Exception('{0} call failed.  Sorry.  No mesh for you.'.format(funcname)))
   return params
+#===================================================================================================================================
+
+
+
+
+
+
 #======================================= end func blender_render_mesh(params) ======================================================
 def write_smpl(params):
   '''
@@ -308,7 +329,7 @@ def smpl(info):
   ## Load SMPL model
   info  = model(info)
   info  = write_smpl(info)
-  info  = blender_render_mesh(info) # comment out when not debugging
+  #info  = blender_render_mesh(info) # comment out when not debugging
 
   mesh_fname=info['mesh_fname']
   m=info['model']
@@ -360,7 +381,7 @@ def get_betas():
     cmd line args.   If you wanna get 'em a diff way later (ie. reading from file), mutate in here.
   '''
   betas = np.zeros((10)).astype('float64')
-  # it's best to store the betas in a temporary variable so when we assign everything, SMPL calculates EVERYTHING in one step
+  # I think it's best to store the betas in a temporary variable so when we assign everything, SMPL calculates EVERYTHING in one step
   for i in range(1,len(sys.argv)):
     betas[i-1]=float(sys.argv[i])
   return betas
@@ -368,11 +389,12 @@ def get_betas():
 def main():
   gender = 'male'
   betas=get_betas() # cmd line -nxb (as of Wed Mar 27 17:15:52 EDT 2019)
-  smpl_params={
+  params={
     'gender':gender,
     'betas':betas,
     }
-  smpl(smpl_params)
+  params=smpl(params)
+  params=blender_render_mesh(params)
 #===================================================================================================================================
 if __name__=="__main__":
   main()

@@ -1383,7 +1383,7 @@ def mesh_hip(verts, faces, butt):
   # Pseudocode:  return  butt_height  +  (frac_of_height_btwn_hip_and_butt * height)
   x_min,x_max,y_min,y_max,z_min,z_max,x_len,y_len,z_len=vert_info(verts)
   Z=2; mesh_h=z_len; butt_h=butt[Z]
-  HIP_2_BUTT=0.2/7.5
+  HIP_2_BUTT=0.2/7.5 # 2 inches on Nathan's 75-inch-height-body
   # empirically derived from 3 openpose keypoints-rendered imgs of Nathan (WARNING: n==1) on screen.
   # roughly 2 inches on Nathan's body (between "butt apex" and openpose hip height)
   return butt_h + (mesh_h*HIP_2_BUTT)
@@ -1541,7 +1541,6 @@ def parse_obj_file(obj_fname):
 
 #========================================================== 
 def measure_hip(obj_fname, cust_height):
-  # This func mesh_err() Will become the loss function for a "Beta Neural Net" (BNN), operating on SMPL's shape parameters ("betas").
   '''
     hip from mesh only 
 
@@ -1576,6 +1575,7 @@ def measure_hip(obj_fname, cust_height):
 
   # Hip: 
   #   39.17823450610168 inches      (HMR)
+  #   40.90433152281367 inches      (using the last 10 parameters Thetas from HMR)
 
 #====================================================================================
 def mesh_err(obj_fname, json_fname, front_fname, side_fname, cust_height):
@@ -2003,8 +2003,24 @@ if __name__=="__main__":
   # TODO: uncomment
   #err, measures, vs=mesh_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)
   #print("error percentage was {0} percent".format(abs(err)))
-  DARIO_H=70
-  hip_circ=measure_hip('/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/Dario_T_pose_HMR.obj', DARIO_H)
+  DARIO_H = 70
+  #  Dario:
+  # Hip:
+  #   39.2              inches      (HMR)
+
+  # Hip:
+  #   39.17823450610168 inches      (HMR)
+  #   40.90433152281367 inches      (using the last 10 parameters Thetas from HMR)
+  # Dario's betas from the bent-leg image:
+  #   -0.02870184 -0.07119986  0.46138781  4.4833684   2.64429736  0.59576035   -0.0539456   0.24600834  0.46015197 -0.60956722
+  PIER_H  = 70 #180/2.54      # Pier's waist calculation is 37.7 inches, but his actual waist calculation is 41 inches
+  SIMO_H  = 71                # Simo's waist calculation is 37.9 inches using the betas as the last 10 parameters of all the parameters Thetas, using the betas as the 1st 10, we got 39.794762581394224 inches.   but his actual waist calculation is 36.9 inches.
+  dario_obj_fname = '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/Dario_betas_from_strange_pose_HMR_0004200000.obj'
+  # '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/Dario_betas_from_strange_pose_0004200000.obj' # '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smpl/smpl_webuser/hello_world/male_0004200000.obj' # '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/Dario_T_pose_HMR___last_10_Thetas_as_betas.obj' # '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/mesh.obj' # '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/Dario_T_pose_HMR___1st_10_Thetas_as_betas.obj' # '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/Dario_T_pose_HMR.obj'
+  pier_obj_fname  = '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/Pier_T_pose_HMR.obj'
+  simo_obj_fname  = '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/Simo_T_pose_HMR___1st_Thetas_as_betas.obj'
+  #'/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/Simo_T_pose_HMR___2nd_Thetas_as_betas.obj'  #'/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/Simo_T_pose_HMR___1st_Thetas_as_betas.obj'  #'/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/src/web/upload_img_flask/Simo_T_pose_HMR.obj'
+  hip_circ=measure_hip(dario_obj_fname, DARIO_H)
   print('hip_circ:',hip_circ)
 
 
@@ -2176,7 +2192,6 @@ glossary (for grep-easy-find):    Function definitions (function headers):
   261:def measures_2_inches(measures, front_fname, side_fname, cust_real_h):
   294:  #def shift(all_these params from conversion_consts()):
   359:def measure_body_viz(json_fname, front_fname, side_fname, cust_height):
-  545:#======================================= all for ellipse circum calculation.  Doesn't work yet.  def ellipse_circum_approx(a,b, precision=2): =======================================
   547:def perim_e(a, b, precision=6):
   610:def ellipse_circum_approx(a, b, precision=6):
   617:def ellipse_circum(a, b):

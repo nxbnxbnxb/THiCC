@@ -113,8 +113,13 @@ m.betas[:] = np.zeros(m.betas.size).astype('float64')
 ## Rotates (like a backflip)
 m.pose[0] =  pi  # NOTE # I'm p sure these rotations (I think it was pose[:3] that are the rotations) are taken care of differently in HMR.
 #m.pose[0] = 2.4
-#m.pose[41]= -1.1  # m.pose[41] is shoulder-level rotation.
-#m.pose[44]=  1.1  # m.pose[44] is shoulder-level rotation.
+#m.pose[41]= #-pi/4 #-1.1  # m.pose[41] is shoulder-level rotation.
+#m.pose[44]=   pi/4 # 1.1  # m.pose[44] is shoulder-level rotation.
+
+#m.pose[41]= -0.9
+#m.pose[44]=  0.9     # 0.9 is good arm pose to fit in the gucci.obj shirt/sweater/top that  Simo sent us on Slack.
+
+
 # more poses after, but I don't have to deal with 'em right now.
 
 # Todo: put the following code snippet (sys.argv...) in hello_smpl.py.  It adapts to however many cmd line args you feed this module.

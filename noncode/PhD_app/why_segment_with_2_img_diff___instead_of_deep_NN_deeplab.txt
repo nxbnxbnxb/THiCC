@@ -1,4 +1,7 @@
 
+  TODO: fill in more technical details (ie. the camera parameters   & the reprojection loss function)
+
+
   Remember to praise his past work!    Especially "Expressive Body Capture: 3D Hands, Face, and Body from a Single Image;" this is a recent development and he probably put many hours in / funded it heavily.  I'm sure they're still working on this
 
 
