@@ -19,6 +19,196 @@
 
     TODO.txt
 
+
+________________________________
+
+  Sun Jun  9 11:42:37 EDT 2019
+________________________________
+
+  Call mom on Skype to discuss tech ideas
+  Photos of work on Google Photos (https://photos.google.com/)
+
+
+
+
+________________________________
+
+  Sat Jun  8 21:22:51 EDT 2019
+________________________________
+
+  In your personal statement, mimic (read) Lincoln's Gettysburg Address.
+
+
+ *************************************************************************************************************
+ -1.  Make a short video explaining what I did today (target this at the IMPRS/MPII admissions committee)
+    a.  Show the difference in edge-of-body-performance (fingers & toes) between diff_seg() and deep_seg()
+    b.  If you're applying to MPII with this idea as your research, LOOK AT PAGERANK.pdf paper & see how Google got away with it.
+ *************************************************************************************************************
+  0.  Clean up after myself in room 417?
+
+
+
+
+  Big picture TODO:
+    1.  Camera perspective projection
+                     ____
+      a.  Capital PI  ||   projection (2D=>3D) function
+
+    The important big-picture realization is that NBF ("Neural Body Fitting") by Omran, Lassner, et al.  DOES THIS projection and can backpropagate through it.  Then the question becomes: "can we easily translate this to the masking case?"   #   -nxb, Mon Jun 10 11:37:26 EDT 2019
+      Or we just have to see the code for Pavlakos' work/someone else who did mask_diff() as a loss function (in Pavlakos' "Learning" paper, the notation is ||S_hat - S||_2 ^2 for "silhouette mask_diff()"  )
+
+
+
+ =================================
+  projection:
+ =================================
+      python code in NBF ("Neural Body Fitting: Unifying Deep Learning and Model Based Human Pose and Shape Estimation" by Mohammed Omran, Christoph Lassner, Gerard Pons-Moll, Peter V. Gehler, and Bernt Schiele)
+ =================================
+       from models/smpl/smpl.py:
+ =================================
+        def get_projected_joints(self, joints3D, smpl_trans_pred):
+            joints3D_trans = joints3D + tf.expand_dims(smpl_trans_pred, axis=1) # 23 x 3?  "trans" == Translation   -nxb, Mon Jun 10 11:37:26 EDT 2019
+            joints2D = joints3D_trans / joints3D_trans[:,:,2:] # in this line, I THINK we're normalizing to "z=1"     -nxb, Mon Jun 10 11:37:26 EDT 2019        shit. this isn't as simple as I thought it was.  Surprise!  (LOL)
+            joints2D = tf.reshape(tf.transpose(
+                             tf.matmul(self.cam_mtx[:],
+                             # the projection step is RIGHT HERE with the self.cam_mtx.   -nxb, Mon Jun 10 11:37:26 EDT 2019
+                                       tf.transpose(tf.reshape(joints2D,
+                                                               [-1, 3]))
+                                       )), [-1,self.num_landmarks,2])
+        def get_smpl_joint_locations(self, smpl_shape_pred, smpl_pose_pred, smpl_trans_pred):
+            with tf.variable_scope("smpl"):
+                smpl_joints3D_prepose = self.get_joints_in_neutral_pose(smpl_shape_pred)
+                if self.use_absrot:
+                    smpl_joints3D, rt_mats_abs_verts = self.get_smpl_joints_from_abs_rot_matrices(smpl_joints3D_prepose, smpl_pose_pred)
+                else:
+                    smpl_joints3D, rt_mats_abs_verts = self.get_smpl_joints_from_rel_rot_matrices(smpl_joints3D_prepose, smpl_pose_pred)
+                  
+                joints3D = self.get_posed_joints(smpl_joints3D, smpl_shape_pred, rt_mats_abs_verts, smpl_pose_pred)
+ ===================================================================================================
+                joints2D = self.get_projected_joints(joints3D, smpl_trans_pred)  # <== key line
+ ===================================================================================================
+
+            return smpl_joints3D_prepose, joints3D, joints2D
+
+    2.  Reprojection loss (use openpose?)
+      a.  How do I define derivative of mapping from continuous to discrete?
+        1)  OR (AKA) "how do I take a derivative of the 'round()' function?"
+      b.  "Indirect deep structured learning for 3D human body shape and pose prediction"
+        1)  maps SMPL_verts=>2D_mask
+    3.  Fix pose (we probably need 3-views of the same person; varied poses)
+      a.  Play with SMPL on your machine
+
+
+
+
+  3.  Check bug_list (did I call it bugs.txt?)   and fix anything in seg.py before moving ahead
+  4.  More documentation?
+    a.  Look up what Spolsky, John Skeet, etc. think about writing detailed documentation (I'm like 90% sure probably they DON'T do it    unless someone else is about to take over their project.)
+
+
+
+ =================================
+  Documenting my thought process (edited-down version):
+    seg.py: technical reasons I chose img_diff(background, img_w_person_in_it)
+  (Documentation of my thought process on Sun May  5 19:18:40 EDT 2019)    is in ref/bugs.txt
+ =================================
+  1.  I'm PRETTY sure I'm going to decide on just using the diff_seg() (and maybe openpose too) and   calculating reprojection loss from that silhouette.
+    It might be worth tuning the hyperparameters on the norm() in function "img_diff()" / changing the norm I use / ...[insert similar thought(s)] ;
+  2.  We could also try both deep_seg() AND diff_seg()   into the reprojection loss.  But then we'd have to build the HSR NN architecture specifically AROUND that sh!t.
+  3.  We could also try making the HSR NN end-to-end so it can mess with the value of RGB_THRESH s.t. it can maximize the reprojection loss.
+    a.  Or we could separately LEARN the value of that hyperparameter Tau ("T" for "thresh")    (or we could call it Delta b/c, you know, the triangle symbol is a "diff")
+
+  4.  The more principled way to fix this problem is to train a NN to label "foreground" for people in this particular pose.  But there's approx. 0% chance you could get MJB to directly fund this proposition; probably we'd have to raise money for the startup 1st.
+    a.  The segmentation NN must emphasize the toes and fingers.   
+      1)  This takes a lot of money, training data and time, but it could be done.
+
+
+
+  It's also important to get all the camera parameters right, the pose parameters,  and the projection 3D => 2D (we can look at what SMPLify-X did to solve this with the VAE,   or we can do the optics physics/math ourselves)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ =================================
+ =================================
+ =================================
+ =================================
+ =================================
+
+
+Whole messy thought-process:
+  What do we HAVE?    (instead of what can we DO?   because we don't know what can be done 'til we know the strengths/weaknesses of each approach)
+    1.  Extremities and no extra crap from diff_seg()
+    2.  No-holes-within-body          from deep_seg()
+
+
+
+  seg.py IDEAs: 
+    0.  We could also just TRY it with the shitty diff_seg()   and feed it into HSR's reprojection loss
+      a.  This might actually work.  Despite the holes in the middle of the body, HSR still SHOULD minimize loss by minimizing reprojection error, which means 
+
+    1.  deeplab + extending-fingertips-and-toes
+    2.  Or we can train a toe-and-finger-specific segmentation (this takes a lot of training data and time, but yes, it COULD be done)
+    3.  deeplab+mask somehow???
+    4.  Toe-and-fingertip-identifier (openpose)  (has to figure out heel=>toe direction toooo)
+      a.  But how will it know how far to extend these?
+    5.  deeplearn && diff and then fill in the holes.
+    6.
+    7.
+    8.
+    9.
+    10.
+    11.
+    12.
+    13.
+    14.
+    15.
+    16.
+    17.
+    18.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ________________________________
 
   Sat Jun  8 02:01:01 EDT 2019

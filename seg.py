@@ -315,19 +315,41 @@ def segment_black_background(local_fname):
   if debug:
     pltshow(img); pltshow(segmap)
   # as of (Wed Feb 20 17:49:37 EST 2019), segmap is 0 for background, 15 for human ( before astype('bool'))
-  segmap=np.logical_not(segmap.astype('bool'))
 
   # cut out the human from the img
-  img[segmap]=BLACK
+  background=np.logical_not(segmap.astype('bool'))
+  img[background]=BLACK
   if debug:
     pltshow(img)
   fname='person_cutout__black_background.png'
   ii.imwrite(fname,img)
-  return img, np.logical_not(segmap)
+  return img, segmap
   # logical_not() because mask should be where there's a person, not where there's background
 #========== end segment_black_background(params): ==========
 
+
+
+#========================================================================
+def deep_main(img_path):
+  print('\n'*2)
+  print ("currently segmenting image found at location: \n  "+img_path)
+  no_background, segmap = segment_black_background(img_path)
+  pltshow(no_background)
+  pltshow(segmap)
+  person_img     = np_img(img_path)
+  cropped,_=crop_person(person_img,segmap)
+  crop_fname='cropped.png'
+  ii.imwrite(crop_fname,cropped.astype('uint8'))
+  no_background, segmap = segment_black_background(crop_fname)
+  ii.imwrite("mask.png",segmap.astype('float64'))#.astype("uint8"))
+  ii.imwrite("cutout_blackground.png",no_background)#.astype("uint8"))
+  pltshow(no_background)
+  # Note: not tested.      <==   What the ***k did I mean by this?  What wasn't tested?  (-nxb, Jun 9, 2019)
+#========================================================================
+
 """
+#========================================================================
+#   deep-learned segmentation (Google's deeplab)
 #========================================================================
 if __name__=='__main__':
   if len(sys.argv) == 1:
@@ -534,11 +556,15 @@ def img_diff(img1, img2):
     img2=deepcopy(img2).astype('int64')
 
   RGB=2
-  RGB_THRESH=123#99
+  #====================================================================
+  RGB_THRESH=55#66#44#123#99          # 66 gets a bit of salt-n-peppa noise.   99 gets too little of the actual img.
+  #====================================================================
   simple_diff=img1-img2
   big_enough_diff=np.greater(
     np.linalg.norm(simple_diff, axis=RGB),
     RGB_THRESH)
+    # TODO: L1 norm?   Maybe I meant to punish large deviations more....   I guess that actually makes sense...  After all, small deviations are to be expected (from camera noise)
+    # I probably should have documented WHY I chose to use a norm.  But I guess as long as it works, who cares?            -(Sat Jun  8 20:39:41 EDT 2019), NXB
   return big_enough_diff
 #====================================================================
 
@@ -546,18 +572,50 @@ def img_diff(img1, img2):
 
 #========================================================================
 if __name__=='__main__':
-  nxb_img1=np.asarray(ii.imread(
-    '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/n8_T_pose___reflective_floor_ISE_UDel_____2019_05_05____18:29_PM.jpg'))
-  nxb_img2_background=np.asarray(ii.imread(
-    '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/n8_T_pose___reflective_floor_ISE_UDel___just_background_____2019_05_05____18:29_PM.jpg'))
-  diff=img_diff(nxb_img1,nxb_img2_background)
+  this_dir='/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/'
+  root_img_dir='/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/imgs/'
+  side_img_fname=root_img_dir+'n8_seg_blue_background___ISE_UDel___2019_June_8____8:21_PM/side_view_nxb.png'
+  front_img_fname=root_img_dir+'n8_seg_blue_background___ISE_UDel___2019_June_8____8:21_PM/front_view_nxb.png'
+  background_img_fname=root_img_dir+'n8_seg_blue_background___ISE_UDel___2019_June_8____8:21_PM/background.png'
+
+  # deeplab's neural-network-based segmentation
+  deep_main(front_img_fname)
+
+
+  # TODO: put all this below in a function
+  # my image-diff-based segmentation (uses both 1. view & 2. background)
+  #person_img     = np_img(side_img_fname)
+  person_img     = np_img(front_img_fname)
+  background_img = np_img(background_img_fname)
+
+  diff=img_diff(person_img,background_img)
   pltshow(diff)
-  #diff=diff.reshape(*diff.shape,1)
+
+  background_mask=np.logical_not(diff)
+  person_img[background_mask]=BLACK
+  pltshow(person_img)
+
+  #diff=diff.reshape(*diff.shape,1)                           # diff.shape==(720, 480)
   #diff=np.concatenate((diff,diff,diff),axis=2)
-  #print("diff.dtype = ",diff.dtype)
+  #print("diff.dtype = ",diff.dtype)                          # BOOL
   #print("nxb_img1.dtype = ",nxb_img1.dtype)
-  pltshow(diff)
+  #pltshow(diff)
   #np.logical_and(nxb_img1,diff))     # old/old_seg.py's "def segment_black_background(local_fname):"
+
+  # back:                      ====================================
+  #   blue_background_seg0008.png
+  # side  view   (me in photo):====================================
+  #   blue_background_seg0295.png
+  # front view   (me in photo):====================================
+  #   blue_background_seg0357.png
+
+
+  # filenames:
+    #'/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/n8_T_pose___reflective_floor_ISE_UDel_____2019_05_05____18:29_PM.jpg'))
+    #'/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/n8_T_pose___reflective_floor_ISE_UDel___just_background_____2019_05_05____18:29_PM.jpg'))
+
+    #'foreground_frame_NXB_in_img____t-pose_June_8_2019____beige_background__green_floor____white_TheMall_t-shirt_with_green_lines___Black_shorts_blk_shoes_blk_socks.png'))
+    #'background_frame_June_8_2019__Harker_ISE_bldg_University_of_Delaware__Nathan_Bendich_nxb_room_417__beige_background__green_floor____white_TheMall_t-shirt_with_green_lines___Black_shorts_blk_shoes_blk_socks.png'))
 #========================== end __main__ =====================================
 
 
@@ -570,7 +628,7 @@ if __name__=='__main__':
 
 
 
-
+# frontground (t-pose): ~/x/.../out0199.png
 
 
 
