@@ -19,6 +19,42 @@
 
     TODO.txt
 
+________________________________
+
+  Mon Jun 10 16:53:39 EDT 2019
+________________________________
+
+  https://www.tensorflow.org/guide/extend/op#implement_the_gradient_in_python
+
+
+
+  Default loss function:
+    cross-entropy loss function
+
+
+
+
+  /home/n/Documents/code/Unite_The_People/up/3dfit/bodyfit.py,   line 338
+    raise NotImplementedError("Silhouette fitting is not supported in "
+                              "this code release due to dependencies on "
+                              "proprietary code for the "
+                              "distance computation.")
+
+
+    "Unite the People"   SMPL_mesh<->mask reprojection loss function not released because "The code for fitting 3D bodies to silhouettes is currently not included, solely due to a licensing problem with the CGAL library that we used for our implementation" (this notice was posted on http://files.is.tuebingen.mpg.de/classner/up/)
+
+
+
+
+
+  4.  More documentation?
+    a.  Look up what Spolsky, John Skeet, etc. think about writing detailed documentation (I'm like 90% sure probably they DON'T do it    unless someone else is about to take over their project.)
+
+
+  You can use Amazon Mechanical Turk for your data labelling!   We still need to take a bunch of picture of diff shaped people in particular poses, though...  Wow, we could probably crowdsource that tooo on Amazon Mechanical Turk!  Crowdsourcing ftw!
+    Holy shit, I'm smiling and getting super manic excited again  :-)
+
+
 
 ________________________________
 
@@ -49,6 +85,7 @@ ________________________________
 
 
 
+ =================================
   Big picture TODO:
     1.  Camera perspective projection
                      ____
@@ -57,7 +94,55 @@ ________________________________
     The important big-picture realization is that NBF ("Neural Body Fitting") by Omran, Lassner, et al.  DOES THIS projection and can backpropagate through it.  Then the question becomes: "can we easily translate this to the masking case?"   #   -nxb, Mon Jun 10 11:37:26 EDT 2019
       Or we just have to see the code for Pavlakos' work/someone else who did mask_diff() as a loss function (in Pavlakos' "Learning" paper, the notation is ||S_hat - S||_2 ^2 for "silhouette mask_diff()"  )
 
+    Which projection uses this focal_length matrix?
 
+      | f 0 x |    *    | x |                 | x_projected |
+      | 0 f y |         | y |               = | y_projected |
+                        | z |
+      Orthographic?
+      Perspective?
+
+            f = self.focal_length/(1.*self.input_size/self.interm_size)  # self.focal_length = config['focal_length']
+            cam_mtx = np.array([[f, 0, pt[0]], [0, f, pt[1]]]) # vital in projection_3D_to_2D()      -nxb, Mon Jun 10 11:37:26 EDT 2019"
+            self.cam_mtx = tf.Variable(initial_value=cam_mtx, trainable=False, name="cam_mtx", 
+                                  expected_shape=(2,3), 
+                                  dtype=tf.float32)
+
+ =================================
+  Our solution is in "Unite the People"
+ =================================
+
+ =================================
+    Code:
+ =================================
+  /home/n/Documents/code/Unite_The_People/up/3dfit/bodyfit.py,   line 338
+    raise NotImplementedError("Silhouette fitting is not supported in "
+                              "this code release due to dependencies on "
+                              "proprietary code for the "
+                              "distance computation.")
+
+    "Unite the People"   SMPL_mesh<->mask reprojection loss function not released because "The code for fitting 3D bodies to silhouettes is currently not included, solely due to a licensing problem with the CGAL library that we used for our implementation" (this notice was posted on http://files.is.tuebingen.mpg.de/classner/up/)
+
+ =================================
+    Paper ("UP"):
+ =================================
+  "Section 3.1. Improving Body Shape Estimation"
+
+  "[... previous words] Our aim is to match the shape of the body model as accurately as possible to the images, hence we must incorporate a shape objective in the fitting."
+  "The best evidence for the extent of a 3D body projected on a 2D image is encoded by its silhouette. We define the silhouette to be the set of all pixels belonging to a body’s projection. Hence, we add a term to the original SMPLify objective to prefer solutions for which the image silhouette, S, and the model silhouette, Ŝ, match."
+  [then there's a shit-ton of Greek letters that are hard to encode/push to github].
+  The gist is "energy_shape(theta, beta, gamma;   S, K) = sum over vertices x_vector in projected silhouette S_hat... sum(dist(x_vector, S)^2)     + (sum over vertices x_vector belonging to silhouette S (the "real" silhouette gotten by 2-D masking the original image)."   This is the data term (the main part of the loss function) that we're trying to minimize in "Unite the People" by Lassner et al.
+  "The first term in Eq. (1) computes the distance from points of the projected model to a given silhouette, while the second term computes the distance from points in the silhouette to the model. We find that the second term is noisier and use the plain L1 distance to measure its contri- bution to the energy function while we use the squared L2 distance to measure the contribution of the first. We op- timize the overall objective including this additional term using OpenDR [27], just as in [4]"
+
+
+
+
+ =================================
+ =================================
+ =================================
+ =================================
+ =================================
+ =================================
 
  =================================
   projection:
@@ -70,11 +155,14 @@ ________________________________
             joints3D_trans = joints3D + tf.expand_dims(smpl_trans_pred, axis=1) # 23 x 3?  "trans" == Translation   -nxb, Mon Jun 10 11:37:26 EDT 2019
             joints2D = joints3D_trans / joints3D_trans[:,:,2:] # in this line, I THINK we're normalizing to "z=1"     -nxb, Mon Jun 10 11:37:26 EDT 2019        shit. this isn't as simple as I thought it was.  Surprise!  (LOL)
             joints2D = tf.reshape(tf.transpose(
-                             tf.matmul(self.cam_mtx[:],
+                             tf.matmul(self.cam_mtx[:],   # self.cam_mtx can be found in func "def initialise_smpl_variables(self):"
                              # the projection step is RIGHT HERE with the self.cam_mtx.   -nxb, Mon Jun 10 11:37:26 EDT 2019
                                        tf.transpose(tf.reshape(joints2D,
                                                                [-1, 3]))
                                        )), [-1,self.num_landmarks,2])
+     #=================================
+        # and:
+     #=================================
         def get_smpl_joint_locations(self, smpl_shape_pred, smpl_pose_pred, smpl_trans_pred):
             with tf.variable_scope("smpl"):
                 smpl_joints3D_prepose = self.get_joints_in_neutral_pose(smpl_shape_pred)
@@ -89,6 +177,21 @@ ________________________________
  ===================================================================================================
 
             return smpl_joints3D_prepose, joints3D, joints2D
+
+ ===================================================================================================
+  self.cam_mtx:
+ ===================================================================================================
+    def initialise_smpl_variables(self):
+            f = self.focal_length/(1.*self.input_size/self.interm_size)  # self.focal_length = config['focal_length']
+            cam_mtx = np.array([[f, 0, pt[0]], [0, f, pt[1]]]) # vital in projection_3D_to_2D()      -nxb, Mon Jun 10 11:37:26 EDT 2019"
+            self.cam_mtx = tf.Variable(initial_value=cam_mtx, trainable=False, name="cam_mtx", 
+                                  expected_shape=(2,3), 
+                                  dtype=tf.float32)
+            model_trans = np.array([[-0.01,0.115,20.3]]) # why the f**k is this "model_trans" variable hardcoded?   -nxb, Mon Jun 10 11:37:26 EDT 2019
+            model_trans = tf.Variable(initial_value=model_trans, trainable=False, name="model_trans", 
+                                      expected_shape=(1,3,), 
+                                      dtype=tf.float32)
+
 
     2.  Reprojection loss (use openpose?)
       a.  How do I define derivative of mapping from continuous to discrete?
@@ -19499,11 +19602,28 @@ Ways to be rejected:
     But a guy can dream, right?    *sigh*
   Next time, if it's something you REALLY want, I've gotta STUDY YOUR FUCKING ASS OFF.
 
+  Given a vertex (1,2,3.1), we want to find the closest point in the shadow
+    vert=(1,2,3.1)
+    min_dist=MAX_VALUE #... TODO:
+    for pixel in shadow:
+      if dist(vert, pixel) < min_dist:
+        min_dist=dist(vert, pixel)
 
 
+  derivative of nearest neighbor()
 
 
+ideas from mom:
 
+Colleen Chen
+
+DEFINE COST FUNCTION
+9:26 PMColleen Chenderivative(x):
+9:30 PMColleen Chen      if x <0:     deri = -0.5
+9:30 PMColleen Chen           eif x==0:     deri=0.2
+9:30 PMYoubut if x==0: deri = undefined
+9:31 PMColleen Chen     else x> 0:    deri=0
+9:31 PM
 
 
 
@@ -19578,4 +19698,12 @@ Ways to be rejected:
 Contact a faculty member you'd like to work with. Email them a month or so before you apply. [Please read my guidelines on how to send email.] Tell them you were considering applying, and you're curious about the research opportunities available in the field. Comment intelligently on some research that faculty member has done. Attach any research you've done, and briefly summarize your research interests. That faculty member can then make sure your application receives a thorough review. Bear in mind that professors receive lots of form-letter spam from prospective students. It's painfully obvious when the email is form-letter spam, and most professors will summarily discard it.
 Send a short follow-up email in December/January so they remember to tell the admissions committee to watch for you!
 
+
+
+  Yesterday (June 7th), I was trying to get ****ing HSR ("Human Shape Recovery") to work.  
+
+  1.  I had an idea about how to use deeplab to fix diff_seg(person_img, background_img);    if you are wearing black pants and the floor is black, simple "diff(person_img, background_img)" will not register that your pants are part of you; it will think your pants are part of the background.  BUT. if we take both DeepLab's segmentation AND the "diff(person_img, background_img)," PERHAPS we can do something clever where we find the large pants region that SHOULD be labeled "person" but was instead labeled "backgroiund (ie. not person)."  Take this region and "connect the dots" from the foreground found by the diff(), and connect the edges where there's supposed to be pants but that region was instead mistakenly labeled "background."     Also, BTW the reason we can't just use deeplab's segmentation is at the extremities it doesn't work (it fails on fingertips, toes, etc.)
+  2.  After getting 3 shadows (silhouettes) of the customer, we need to try SMPL betas (shape) & other parameters and calculate the reprojection loss with each set of those SMPL parameters.  As was recommended by HMR, I thought we should recover the "camera parameters," which, it turns out, is just one rotation matrix.  HMR just uses a vanilla Orthographic Projection (fancy-talk for turn vertex (x,y,z) into (x,y,0), (x,0,z), or (0,y,z)) to transform 3-D into 2-D.  Moreover, in the HMR paper, they kind of mislead you into thinking they're taking all these fancy camera parameters like Field of View, camera lens' focal length, etc.
+    a.  The real question is: should I do all those fancy calculations for the startup?  And I guess that depends on a number of things, but chief among them is "how much does this actually affect the precision of the result?  Is there a quantitative difference in the number of inches HSR says your waist is and how far it ACTUALLY IS around your waist?  9and how much of a difference is it: 2 inches?  6 inches?  consistently > 5% of the # of inches off? "
+  3.  There's still more to decide, like: how should I regularize the betas?  Should I regularize them?    Overfitting WILL kill us somehow if we're not looking out for the overfitting
 
