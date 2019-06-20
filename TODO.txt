@@ -19,18 +19,457 @@
 
     TODO.txt
 
+
+________________________________
+
+  Thu Jun 20 09:43:54 EDT 2019
+________________________________
+
+
+"Cat:"
+  1.  cs231n   assn2
+  2.  Backup assn1
+    Google Photos?   lolololol
+  3.
+  4.
+  5.
+  6.
+  7.
+  8.
+  9.
+  10.
+  11.
+  12.
+  13.
+  14.
+  15.
+  16.
+  17.
+  18.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Trevor's gonna talk to Kumar and ask whether they should hire me
+    tkeane@aetrex.com
+
+    He asked about epipolar geometry and essential matrix vs. fundamental matrix
+
+
+
+
+    tkeane@aetrex.com
+
+  Interview w/ Trevor from Aetrex:
+  Good guy
+  Team player
+    tkeane@aetrex.com
+
+  "Kumar"
+    CTO
+    TKeane is going to go back to Kumar 
+
+  "Larry"
+    CEO
+    Nontechnical
+    Makes decisions but doesn't know why the decision(s) should be made
+
+
+
+  CEO/CTO don't need to know the technical reasons
+    "epipolar geometry      is off for these 16 cameras"
+
+
+
+  c#
+  python
+
+  "Albert" camera
+    16 cameras in a ring    around the foot
+
+  Active illumination?
+  "Orthotics"
+  ________________________________
+
+  Ask friends to refer me to jobs
+    Girardeau
+    Kelsey D'Souza
+    Ashu
+    Dyer
+    Nimo?
+    BKim
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Jun 19 11:48:54 EDT 2019
+________________________________
+
+  Turn off YouTube's "auto pause" feature.
+
+  1. Lookup how numpy vectorization works   
+    Too complicated.
+  2. Experiments with vectorization (AKA parallelization)!
+    However, we COULD solve this guy.
+
+
+  Back up the cs231n assn1 stuff.
+    The most super hacky way of getting unlimited space is to put it on Google Photos on your phone
+      LoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoLoL
+      You're a terrible person.
+        But nah; Google has so much money they shouldn't be worried about anythin
+    
+    `zip` it, etc.
+
+    DropBox
+    GDrive
+    copy, etc. (services LIKE DropBox)
+    github?
+
+
+
+
+  Python repl hgr(), hgr|tail, etc.
+    (all history commands I alias in ~/.bashrc)
+    TODO:    try to find / implement
+
+  It's easier to make a habit   of calling 'jn' instead of 'p3'
+ 
+
+
+
+  ________________________________
+
+  Ask friends to refer me to jobs
+    Girardeau
+    Kelsey D'Souza
+    Ashu
+    Dyer
+    Nimo?
+    BKim
+
+
+________________________________
+
+  Mon Jun 17 23:46:00 EDT 2019
+________________________________
+
+
+  Finish Optimizer example
+
+
+
+
+
+
+
+
+________________________________
+
+  Sun Jun 16 13:32:54 EDT 2019
+________________________________
+
+  Send final msg to Joseph Yang
+    "Do you have room for a data-driven analysis intern on your team?"
+
+
+
+  Download all cs231 lectures (also to your EVISTR   voice recorder)
+
+
+
+  Read thru cs231n slides   (instead of just YouTube slides)
+    Mom was wrong about writing out every term on paper.  This is the stupidest way to compute things.  That's the whole fucking POINT of inventing computers and using TensorFlow to compute partial derivatives (gradients) for you.
+    The whole point of inventing computers is to break things down into bite-sized parts and not have to rewrite everthing.
+      Also true of naming subvariables (ie. y=x^2; z = y+x)
+
+  Plug the HSR partial derivatives directly into TF
+
+
+
+
+
+  TF
+
+
+  4:00
+  Figure out when you have to leave
+  Try to plan the day's study around that leaving time???
+    Maybe this is too complicated and just doesn't happen.
+  AT LEAST, we can figure out when we have to leave the library.
+
+
+
+
+
+
+
+________________________________
+
+  Sat Jun 15 12:35:31 EDT 2019
+________________________________
+
+
+
+  (  https://uoguelph-mlrg.github.io/tensorflow_gradients/  )
+
+  Find example of tf.RegisterGradient: grad(min(v1, v2, v3, ..., vN))
+  @tf.RegisterGradient("Square")
+    (  https://uoguelph-mlrg.github.io/tensorflow_gradients/  )
+
+
+
+  Get on TensorFlow Slack
+    Mom can recommend you
+
+
+  Can we take a numerical derivative in TensorFlow?
+
+  Find where gradients.py DEFINITIONS OF GRADIENTS are located.
+    add deriv(    np.min(vect))   definition to list of gradients.
+
+  Mom's ideas:
+    NN to learn the Silhouette boundary distance
+    NN to learn "inside" or "outside" the silhouette
+
+
+  Jiou Jiou
+    *****Need a Translator (Mandarin <=> English)*****
+    WeChat
+    E-mail
+
+    Maybe he could raise a fund
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Fri Jun 14 15:07:16 EDT 2019
+________________________________
+
+  Josh Gordon:
+    Show mom the TF slides.
+
+
+  Add Peter Gehler from DevFest &
+    The other Google guy John
+
+  Clear out old notifications
+    No more Google Play!
+    Twitter ML / Deep NN ppl instead
+
+    https://twitter.com/DynamicWebPaige
+    https://twitter.com/randoms_forests
+
+
+  Plan out every detail of Ph.D apps?
+    Google Calendar
+
+
+  Keras tutorials are the simplest way to understand what's going on
+  Is cs231 worth it?  Or is it too slow?
+
+  Are grad school apps the way to go?
+    Or should I just try to fundraise alone?
+      Then I could hire Alan Du/someone else.
+      But this would probably require fundraising via crowdsourcing.
+        Mayyyyyybe YCombinator
+        1.  Paid ads on FB could get me in front of VCs, but I could also just try to crowdsource on gofundme.com (or kickstarter.com, etc.) and this might not require as big/functional a prototype.
+
+  Move all old sh!t from Chromium's settings page's "open on startup"      to "Last Chrome Session."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Thu Jun 13 16:47:45 EDT 2019
+________________________________
+
+
+  msg Andy abt scanner (cost, functionality)
+  Columbia alums abt real estate
+    Jonathan (I met on a Megabus from Newark to D.C.) is free most of the summer (less free during school year)
+
+  Distance between 2 silhouettes might be doable as matrix diff(), np.square(), np.min(), etc..   (tf.square(), ..., etc.)
+    See knn.py
+  How do I take the derivative of the np.minimum()/tf.minimum() function?
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Jun 12 13:09:14 EDT 2019
+________________________________
+
+  Make a YouTube vid & share with friends, ask for advice, etc.
+    https://www.youtube.com/watch?v=yWIqdDHuvY
+    Like that musical "Dear Evan Hansen"
+    crowdfund
+
+
+  Print their code base & read daily.
+    UP.pdf (www.github.com//Lassner_UP/)
+
+
+  Deep Learning class:
+    GCloud
+    ~/.config/gcloud/configurations/config_default
+
+  KNN  (we were at the Cross-Validation step):
+    /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/ref/tutorials/knn.ipynb
+    assn1:
+    http://cs231n.github.io/assignments2019/assignment1/
+    http://cs231n.github.io
+    http://cs231n.github.io/classification/
+  CNNs:
+    http://cs231n.stanford.edu/slides/2016/winter1516_lecture11.pdf
+
+  Maybe we should properly set up gcloud on our personal laptop's bash shell.  Might save time.
+
+
+
+
+
+
+
+
+
+  
 ________________________________
 
   Mon Jun 10 16:53:39 EDT 2019
 ________________________________
 
   https://www.tensorflow.org/guide/extend/op#implement_the_gradient_in_python
-
-
-
-  Default loss function:
-    cross-entropy loss function
-
+    Look up derivative of n-way minimum func (min(x1, x2, x3, ..., xN))
 
 
 
@@ -19641,6 +20080,21 @@ DEFINE COST FUNCTION
 
 
 
+Google DevFest talk (John Ragan, Kubernetes)
+  Docker
+    Low coupling (Docker/ Kubernetes fixes a lot of the install problems, versioning problems, etc.)
+    Can clean up your laptop afterwards w/ Docker (kind of like conda but for a more detailed "virtualenv")
+
+    Dockerfile is a .txt file
+      Makes images
+        Container is a running Docker image.  ()
+          Can have multiple running containers @ once.
+
+    "VMWare image"  (very remotely like Docker)
+
+  Kubernetes
+    Which servers are we going to run the Docker containers on?
+    [list of Kubernetes benefits on John Ragan's slides]
 
 
 
@@ -19674,6 +20128,15 @@ DEFINE COST FUNCTION
 
 
 
+
+  TPUs use systolic arrays
+    John@... .com
+      DC Google DevFest
+
+
+
+  TF's (tensorflow's)  Default loss function:
+    cross-entropy loss function
 
 
 
@@ -19706,4 +20169,184 @@ Send a short follow-up email in December/January so they remember to tell the ad
   2.  After getting 3 shadows (silhouettes) of the customer, we need to try SMPL betas (shape) & other parameters and calculate the reprojection loss with each set of those SMPL parameters.  As was recommended by HMR, I thought we should recover the "camera parameters," which, it turns out, is just one rotation matrix.  HMR just uses a vanilla Orthographic Projection (fancy-talk for turn vertex (x,y,z) into (x,y,0), (x,0,z), or (0,y,z)) to transform 3-D into 2-D.  Moreover, in the HMR paper, they kind of mislead you into thinking they're taking all these fancy camera parameters like Field of View, camera lens' focal length, etc.
     a.  The real question is: should I do all those fancy calculations for the startup?  And I guess that depends on a number of things, but chief among them is "how much does this actually affect the precision of the result?  Is there a quantitative difference in the number of inches HSR says your waist is and how far it ACTUALLY IS around your waist?  9and how much of a difference is it: 2 inches?  6 inches?  consistently > 5% of the # of inches off? "
   3.  There's still more to decide, like: how should I regularize the betas?  Should I regularize them?    Overfitting WILL kill us somehow if we're not looking out for the overfitting
+
+
+
+
+
+  Ask Joel Tropp about getting into his grad school.
+
+
+
+  Xiaoice (Chinese AI chatbot that is marketable)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  TensorFlow 2.0
+    Josh Gordon @random_forests
+    tensorflow.org/beta
+
+    @tf.function is the only thing that isn't "pythonic"
+      8 or 9 times faster  (passes the function to C     instead of "ping-ponging")
+      Debug in vanilla python 
+        And we can 
+
+    Swift and JS can do TF also
+
+=====================================================================
+  Get the slides!!!  bit.ly.   {...]
+
+  bit.ly/icse3
+  bit.ly/icse3
+  bit.ly/icse3
+=====================================================================
+
+  Keras
+    layers API
+  Deep  
+
+  ML book ()
+  Hands-on Maching Learning with scikit-learn, keras, and tensorflow
+    version 2 (TF 2)
+      online
+
+  Paige Bailey
+    Follow on Twitter
+      Users groups, etc.
+
+  @random_forests
+    Josh Gordon
+
+
+
+  tensorflow.org/beta
+    Advanced tutorials
+
+  Gradient Tape
+    https://www.tensorflow.org/beta/tutorials/quickstart/advanced
+    This is how Tensorflow 2.0 works here
+
+
+  Deep Dream
+    HOW do CNNs work SO WELL on image classification?
+    keras.sequential
+    "Deep Learning"   IS Representation Learning.
+
+    Deep Dream PROVES the NN learns features of the image.
+    pretrained 
+      Do preprocessing on input images to excite TF layers differently
+
+    *********************************************************************
+    This shows that a NN actually learned faces
+      Modify the images s.t. they have faces in them (ie. "Starry Night" but with faces in it)
+    *********************************************************************
+
+
+
+
+  Convolution just means "sliding"
+
+
+  TensorFlow 2.0
+    Josh Gordon @random_forests
+    tweet @ him, Skype him, etc.  (other TF people)
+    Deep Dream
+    Linear Regression
+
+  Not ideal for grad students
+    (meant to do distributed systems Deep Learning like Google needs)
+
+  Get the slides!!!  bit.ly
+
+  bit.ly
+  bit.ly/tf-ws1
+  bit.ly/mini-dream
+  bit.ly/minimal-nmt
+
+
+  Tensorflow JS in browser
+    Can go from python to JS         goes into browser
+
+  keras
+  model.fit() is worse than TF2
+
+
+
+  collaboratory
+    collab.google.com
+    t4 NVIDIA
+
+  pip install -q tensorflow==2.0.0-beta
+    eager/imperative by default
+    like numpy
+
+  Print the gradients in TF (better way to understand  than Keras)
+  import keras 
+
+  Here they put something like 
+  subclass-ing   in TF 2.
+  debugging is easy (good for learning the fundamentals of Deep Learning )
+    Python
+
+
+
+
+
+
+
+
+
+
+
+===================================================================================================
+  TODO: 
+    python libraries:
+      import tqdm
+      import unittest   (like JUnit???????)
+      import logging
+      import clustertools
+        http://github.com/classner/clustertools/tarball/master#egg=clustertools
+      import pymp
+      import click
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
