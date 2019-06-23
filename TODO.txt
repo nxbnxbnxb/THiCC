@@ -18,6 +18,63 @@
 
 
     TODO.txt
+________________________________
+
+  Sun Jun 23 18:09:12 EDT 2019
+________________________________
+
+  Apologize to Mauel?
+    Would prob help u get a good rec letter
+      IFF he was mulling it over & ruminating.
+      b/c You want to be careful not to ...
+      Nah, actually, there's very little worst case.  Apologizing won't make him decide to not recommend you.
+
+  Finish documenting the ****ing SVM.py code
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Fri Jun 21 12:52:40 EDT 2019
+________________________________
+
+  Backup tar xz   again   and push to github/x/p/.../cs231n_Assignment1.tar.xz
+
+  Stopping microinterruptions is probably good for your brain (studies show??!?)
+    ie. turn off "auto-stop" in YouTube playlist
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ________________________________
@@ -25,11 +82,31 @@ ________________________________
   Thu Jun 20 09:43:54 EDT 2019
 ________________________________
 
+  svm.py:
+    svm_loss_naive.py
+  Can write code on my machine.
+    (I don't have to burn $ on the GCloud Compute Engine instance)
+
+
+
+  $288.67 is remaining on GCloud Compute Engine
+    Started with $300 full free promotional credits
+
 
 "Cat:"
   1.  cs231n   assn2
   2.  Backup assn1
+    Check that everything is in its proper place (reread through the assn,   double-check code)
+
+      a. knn.ipynb
+      b. k_nearest_neighbor.py
+        (full file loc:  /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/ref/tutorials/cs231/assn1/home/cat_macys_vr/assignment1/cs231n/classifiers/k_nearest_neighbor.py )
+
+      It doesn't have to be perfect; mainly it should just be good enough that if we look back at it later, it makes sense and helps us get back up to speed.
+        Honestly, are we ever going to look at this assignment again?  Lol.  Probably (if ever) later in the cs231n course where we are working on more complex stuff and want to remember how KNNs, SVMs, Vanilla Linear Classifiers, etc. work. 
+
     Google Photos?   lolololol
+    Github.
   3.
   4.
   5.
