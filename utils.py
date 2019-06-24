@@ -1112,7 +1112,8 @@ def newline(f):
 
 def pn(n=0):        print('\n'*n)
 
-def pif(s=''):      if debug: print (s)
+def pif(s=''):      
+  if debug: print (s)
 
 def pe(n=89):       print('='*n)
 
