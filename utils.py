@@ -1143,6 +1143,7 @@ def ht(n=10):
 #===================================================================================================
 
 def hgr(s='print'):
+  # grep through my python history
   import readline
   pn(); pe(39)
   for i in range(readline.get_current_history_length()):

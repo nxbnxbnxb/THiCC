@@ -18,12 +18,245 @@
 
 
     TODO.txt
+
+________________________________
+
+  Thu Jun 27 11:41:45 EDT 2019
+________________________________
+
+  Backup (ie.   *.tar.xz)
+
+
+
+  ________________________________
+
+  Where is this difference coming from???
+    Gradient difference: 9.942298
+  ________________________________
+
+    Using VECTORIZED (1 for loop   ("for j in range(...):")   )
+      training accuracy:    0.203612
+      validation accuracy:  0.211000
+
+      That took 21.076469s
+
+
+
+
+  ________________________________
+
+    Using NAIVE (for loop(s)):
+      training accuracy:                              0.223163
+      validation accuracy:                            0.226000
+      # evaluate on test set
+      softmax on raw pixels final test set accuracy:  0.251000
+
+      That took 160.533141s
+
+
+
+			iteration 0 		/ 1500: loss 392.940081
+			iteration 100 	/ 1500: loss 239.211986
+			iteration 200 	/ 1500: loss 146.049819
+			iteration 300 	/ 1500: loss 89.754490
+			iteration 400 	/ 1500: loss 55.048178
+			iteration 500 	/ 1500: loss 34.304835
+			iteration 600 	/ 1500: loss 21.725634
+			iteration 700 	/ 1500: loss 13.911883
+			iteration 800 	/ 1500: loss 9.270084
+			iteration 900 	/ 1500: loss 6.485862
+			iteration 1000 	/ 1500: loss 4.718845
+			iteration 1100 	/ 1500: loss 3.738217
+			iteration 1200 	/ 1500: loss 3.085654
+			iteration 1300 	/ 1500: loss 2.714212
+      iteration 1400 / 1500: loss 2.544673
+
+
+  ________________________________
+
+
+
+
+  ________________________________
+
+  Next, full vectorization.
+  ________________________________
+
+
+
+
+  ________________________________
+
+  Am I more or less productive with music on?
+    vs. white noise
+  ________________________________
+
+
+
+
+
+  Also look at Wed's (26th) TODOs & close your loops
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Compare individual terms (naive vs. vectorized)
+    =========
+    *********
+      3_2
+    *********
+    =========
+    term 3_1 is done.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Jun 26 12:37:42 EDT 2019
+________________________________
+
+
+  Write a letter to future you.
+
+  Send letter to Amber Moody?
+    /home/n/letters_personal/to_Amber_Moody___June_26_2019.txt
+
+
+
+  Make sure softmax.py was saved
+    or at LEAST 
+    .softmax.py.swp
+
+
+
+
+  Remind mom "you were the one who asked me what I wanted for my birthday"
+    Hold her to her shit.
+
+
+
+  Look up Stephens The's number
+    We just want his supplier's #
+      or Missoni's #
+      or Pantera Bianca's #
+
+
+
+
+
+
+
+
+________________________________
+
+  Tue Jun 25 16:12:31 EDT 2019
+________________________________
+
+
+
+
+  Answer to Softmax's "inline question 2"
+    True.
+
+    $\color{blue}{\textit Your Explanation:}$
+     Because SVM ignores images that are correctly classified, but Softmax doesn't.  So adding an image that is correctly classified via the current weights W wouldn't change the SVM loss, but it would change the Softmax loss.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Mon Jun 24 15:35:15 EDT 2019
+________________________________
+
+  Add to "Finances Records" Google Docs document
+  $276.67
+    GCloud credit left (Mon Jun 24 15:35:15 EDT 2019)
+    Started with $300.00 on ... June 14th?
+
+  dist(X,S_hat)  from NBF should be solvable as a matrix multiplication like in KNN.ipynb (/KNN.py) in cs231n assignment 1  .
+
+
+ ________________________________
+
+  Get June some money & a card for her birthday.
+ ________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Do a minimal example to confirm every last ****ing dimension.
+    DONE.
+
 ________________________________
 
   Sun Jun 23 18:09:12 EDT 2019
 ________________________________
-
-  Download Lecture 3 to your BLU android phone
 
 
 
@@ -42,6 +275,9 @@ ________________________________
 
 
 
+
+  Download Lecture 3 to your BLU android phone
+    done
 
 
 
