@@ -22,6 +22,11 @@ ________________________________
   Sat Jul 27 01:33:55 EDT 2019
 ________________________________
 
+  UDel wi-fi password:
+    dei99arco
+
+  
+
   I think we actually know:
     conv_fwd()    and
     conv_bwd() are more critical to our understanding () than    the cython speedups.
@@ -134,6 +139,9 @@ ________________________________
     YouTube 30 mins
     Nutaku ~1 hr
     Music while doing something complicated (~30 mins)
+    fapped 30 mins
+    YTube
+    napped 30 mins
 
 
 
