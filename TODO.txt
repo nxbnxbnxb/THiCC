@@ -5,12 +5,10 @@
 
   Follow your gut.
     You KNOW this app to MJB could work, even if it's nonstandard (doesn't 100% conform to usual rubric/algorithm/formula)
+    You KNOW this technology WILL sell once it's good.
+    Vision.
 
-  You can do it.  Sometimes the bold confidence is all you need to get started.
-
-
-
-
+  YOU. CAN. DO. IT.    DON'T. QUIT.  Sometimes the bold confidence is all you need to get started.
 
 
 
@@ -18,6 +16,2469 @@
 
 
     TODO.txt
+
+________________________________
+
+  Sat Jul 27 01:33:55 EDT 2019
+________________________________
+
+  Habitica dock pts:
+    FPH
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Thu Jul 18 11:00:11 EDT 2019
+________________________________
+
+
+  UDel wi-fi password:
+    liza23chin
+
+
+  Dropout:
+    fc_nets.py
+      put it in the middle of layers
+    copy new code & run it; see what the difference is.
+      Maybe there's a tool that checks the LOGIC instead of  doing naive text matching
+
+
+
+
+
+
+
+
+
+
+  Get the guy's number
+    Or at least name
+    Play it chill, though
+    Act like Connor.  Just channel the Connor
+    Meh.  We didn't get it today.  Hopefully we get into  MPII, at least.
+
+
+  ===================================================================================================
+  There's lots of good code I can swipe   in layer_utils.py:
+    ie.
+      affine_relu_forward(x,w,b):           return out, (fc_cache, relu_cache)
+      affine_relu_backward(dout, cache):    return dx, dw, db
+      l
+      
+      layer_
+    
+  ===================================================================================================
+    
+    I think the problem is   that dropout   isn't "turning on"
+      fc_net.py_nxb,   line 498
+                            422
+    
+  ===================================================================================================
+
+
+
+
+
+
+  Ask Mrs. Gaymon whether    they got the ACT book.
+    Samahj
+
+  Do pinta drawings with Chris Pollard.
+    and/or type out the math in LaTeX/Desmos .
+
+
+
+
+
+
+
+
+
+
+  38 before, 39 after
+  38 before, 39 after
+  98  - 59 = 39 
+  50  - 12 = 38  (before)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Jul 17 11:19:32 EDT 2019
+________________________________
+
+  UDel wi-fi password:
+    liza23chin
+
+
+  Dropout
+    fc_nets.py
+      put it in the middle of layers
+
+
+
+user:  rtinstructors@gmail.com
+pass: tutorstaff
+
+  folder:
+    Samahj Gaymon
+
+  @ Mikayla:
+    Do you have work tomorrow?
+
+
+
+
+
+
+
+
+
+
+  morning routine
+
+
+  1.  "Letter" (actually an e-mail) to MJB   asking for a call
+    a.  Check e-mail; clear out all the crap
+  2.  cs231n assignment 2 (today we're doing Layer Norm & getting to   more of assn2)
+    a.  layernorm_bwd()
+      1)  the "dx" term
+
+
+  buy better android phone?   (to use  "3D scanner" app)
+
+
+
+
+  Joe Evans' number:
+    (302)-559-2200
+
+
+  Yesterday's "to-do"s:
+
+
+
+
+
+
+
+
+
+
+
+
+  So which order should I do these things in?
+    Epstein/Grandparents vs. cs231n?
+    Probably both should be done at some point.
+    But hearing from MJB could  change what you're studying in ways you can't anticipate.
+      Fiiiiiiiiiiiine I'll do the shit where I have to think and doubt myself >_< 
+        lol
+
+    Payment to CRD 1982   is to your Credit Card.
+    I think payment to/from 5545 is your Debit Card
+    Mom & grandma's birthday money went through.
+      How about dad's?
+
+
+
+
+
+
+  GCloud Compute billing:
+    $239.75
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Tue Jul 16 11:06:05 EDT 2019
+________________________________
+
+  Official "buoy system"
+    Nicole
+    Shaina
+    June
+    Dad?
+    Mom
+  youtube.com/...   y-combinator/
+
+  YC app
+    But this is unlikely to work.  Is it really worth the time???
+    Maybe.
+
+
+
+  Resume to Towson Master's degree application
+
+
+  Ask Epstein if he's ever gotten a professor to cold call him, and if so, how he did it: did he simply ask "hey can you call me?" or did he 2.  justify himself or did he 3.  show off some technical expertise?
+
+
+  You know what's needed.
+    (Layer norm)
+    Backprop sometimes has to "compress" (probably usually ADD; ie. np.sum(W.dot(dout), axis=1)) upstream gradients into lower dimensional spaces (the classic example I remember is db for biases; upstreams might be the shape of W (10x3073, or internal layers 50x3073 or Nx3073 ))
+      ie. Just see any of Karpathy's cs231n notes  about backprop calculations.  There might be other good tutorials from medium.com or Bendersky or Learned-Miller or JJohns or SYeung or Fei-Fei Li or whoever
+
+
+  Chabad/Catholic church
+    (just go to the one around the corner;  I think it's a Catholic church?)
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Feynman Method:
+    This tests how well you actually understand the idea/material.
+    Important when studying NNs;   maybe this means I should go to   D.C. meetups & mentor people.
+  To mom:
+    Also, it would definitely be good for me to give a lecture, especially if the audience wants to know about the neural networks
+
+
+  Is there a CNN / NNs class at UD over the summer???
+
+
+  Just send your resume to the Towson Master's program.  It doesn't take TOO much time so long as you don't have to spend 5 hours editing shit.
+    The reality is probably that you'll probably have to go back and get some kind of Master's or a job 1st.
+      So then, the question becomes "well then, is it time to call it a day?"
+        Maybe it should be what's his name's (Gaurav?) startup idea instead 
+
+  Apply to be Hinton's Ph.D
+    /Bengio
+    /Goodfellow
+    /LeCunn
+    /Schmidhuber
+
+    /Jimmy Lei Ba   (@ UToronto)
+    /Kingma, Diederik
+    /Welling
+    /Paisley
+    /Michael I. Jordan
+
+    /Andrew Ng
+    /
+
+  Lookup more about the astounding success of AlphaGo and AlphaZero.
+    Is it RNNs?  ANNs?
+
+
+
+
+  Remove the cs231n reddit comment (make more fair to Serena;  obviously she works very hard   and had to do a lot to get to where she is and doesn't deserve excess criticism)
+
+
+  VR payments startup?
+    Ask that Indian Columbia guy who was at the pitch competition   & that you've been chatting with on FB Messenger
+
+
+  alias ljn = 'l *ipynb'
+  alias mvback2='mv /home/cat_macys_vr/Downloads/*.py ...'
+    instead of chaining everything in one ugly, undebuggable command that has to wait 600 seconds to terminate, we want manual termination
+
+
+
+
+
+
+  Is there a CNN / NNs class at UD over the summer???
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Call the owner of the wallet behind you.
+
+
+
+
+  Instead of "Ethical Culture"  or the local church, see if there's something LIKE ethical culture but for agnostic/atheists/environmentalists
+    Maybe the (white) Buddhists are a tad more chill
+
+
+
+
+
+
+
+  Chabad/Catholic church
+    (just go to the one around the corner;  I think it's a Catholic church?)
+
+
+
+
+
+
+
+  Feynman Method:
+    This tests how well you actually understand the idea/material.
+    Important when studying NNs;   maybe this means I should go to   D.C. meetups & mentor people.
+
+
+
+
+
+
+  or in the words of @shl (Sahil Lavingia):
+    """
+    Physically manifesting an idea is a great way to find out if you really understand it.
+
+    Think you know? Write it down. Think you see? Draw it.
+
+    More than the words or the drawing, you'll have a list of concepts you don't understand well enough to communicate it effectively.
+    """
+
+
+
+
+
+
+________________________________
+
+  Mon Jul 15 13:14:48 EDT 2019
+________________________________
+
+  UDel wi-fi passwd:
+    did42aux
+
+
+  Write MJB: ("Can we hop on a 15 minute call?")
+    And whatever else mom suggested (besides the "piecewise SMPL" suggestion)
+
+
+
+  assn2:
+    <F3> to recover old session
+    bnorm_fwd()
+      and
+    bnorm_bwd()
+
+  1st get the bare minimum working b4 you start perfecting every little thing.
+
+  Whenever you get stuck, just look up the answer.  This isn't school "meritocracy" torture.  It's practical day-to-day shit.
+
+
+
+
+  Yesterday's tabs & shit:
+    https://gitlab.com/me-learnz/CS231n/blob/master/assignment2/cs231n/layers.py
+    https://gitlab.cs.washington.edu/liangw6/assignment2-for-stanford231n/blob/9e006430aecf8301413f03ad39d65ff640f6b994/cs231n/layers.pyj
+    https://github.com/haofeixu/stanford-cs231n-2018/blob/master/assignment2/cs231n/layers.py
+    https://github.com/martinkersner/cs231n/blob/master/assignment2/fc_net.py
+    https://github.com/martinkersner/cs231n/blob/master/assignment2/layers.py
+    https://github.com/cthorey/CS231/blob/master/assignment2/BatchNormalization.ipynb
+    https://www.google.com/search?client=ubuntu&hs=F37&ei=sLksXZ6aD4KxggfFgY6ICQ&q=layers.py+cs231n&oq=fc_net.py+cs231n&gs_l=psy-ab.3.0.0i71l8.0.0..4537722...0.0..0.0.0.......0......gws-wiz.7q7twRViMbI
+    https://github.com/cthorey/CS231/blob/master/assignment2/BatchNormalization.ipynb
+
+
+
+
+
+  Epstein's idea:
+    "3-D reconstruction from electron microscopy"
+    http://www.trnio.com/#/lito/
+    Course:
+      "Google it for @ least 1 hour before "
+
+    "Call Michael J Black"
+      Ask what efforts are currently being undertaken   towards this
+    Send a follow-up e-mail  to MJB
+    Ask to call & discuss
+
+
+
+
+  get your mouse from home
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sun Jul 14 17:15:19 EDT 2019
+________________________________
+
+
+  UDel wi-fi passwd:
+    did42aux
+
+
+
+  Flash cards online:
+    Pre-made deep learning flashcards
+    Anki  (Ubuntu app  Lookup "Deep Learning")
+    Google "Anki"
+
+
+
+
+  The f**king partial derivatives will have to wait until I either 
+    a)  See mom (so I can ask her what I'm doing wrong)
+    b)  Need to take the partial derivative of the "dist(S, S_hat)" function in HSR (I believe this was in NBF (Neural Body Fitting))
+
+
+
+  I really spectacularly failed to rederive the Batch_norm backward pass.  I have to take the notes to mom and ask her what I'm doing wrong (they're on pages near 17 in my notes, cs231n; assignment 2)
+
+
+
+
+
+
+
+
+________________________________
+
+  Sat Jul 13 17:35:08 EDT 2019
+________________________________
+
+  UDel wi-fi passwd:
+    dilo42exec
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Fri Jul 12 14:43:48 EDT 2019
+________________________________
+
+  UDel wi-fi passwd:
+    uns15tubs
+
+
+  Get your
+    1.  Phone Charger from home
+    2.  Headphones
+      (they're both in the suitcase in Shaina's room)
+
+
+
+  batchnorm is in lec 6.
+    forwards.
+    THEN backwards
+      do the computation graph   / analytic derivate (partial w.r.t. gamma, beta?): backprop
+
+    Training NNs I
+    0:49:00
+    Confirm my understanding of the paper
+      Print it at iSuite tomorrow.
+
+
+
+
+  assignment2's   "FullyConnectedNets.ipynb"
+    TODO: come back & retrain once we implemented dropout and BatchNorm.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Thu Jul 11 02:39:41 EDT 2019
+________________________________
+
+  UDel wi-fi passwd:
+    redo20otc
+
+  assignment1's   "two_layer_net.ipynb"
+    search (ctrl+f)
+      "plt.subplot(2, 1, 1)"
+     also
+      "plt.scatter(x_scatter, y_scatter, marker_size, c="  ...
+
+  assignment2's   "FullyConnectedNets.ipynb"
+    How to find:
+    search the query:
+      "for i in range(n_iters):  "   (ctrl+F)
+
+  2-D plot with colors & sizes
+    implement sizes if we can (ie. it's easier to tell if a dot is big AND red than just red)
+  
+===================================================================================================
+  Did I zero-mean the data?    *********
+===================================================================================================
+
+  Read up on Xavier initialization
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  1.  kill the (audio) volume popup
+  
+  2.  put Jennifer Yoon's next homework meetup on my Google Calendar
+
+
+  Maybe we should just do hyperparam search   via np.logspace(min, max) like in the earlier assignments
+    (too much analysis is just too slow.)
+    On the other hand, it's pretty important to be able to  understand WHY everything's happening, especially if we're in the phase where we're just LEARNING about NNs
+
+    Getting the NN hyperparams just right is really annoying.
+
+
+  yet TODO:
+    plot the nathan_norm()s, ie. :
+
+    |=====================================================================
+    |
+    |                                             o
+    |
+    |
+    |
+    |
+    |
+    |
+    |                                   o
+    |
+    |
+    |
+    |                         o
+    |
+    |               o
+    |      o 
+    |=====================================================================
+         layer1   layer2    layer3    layer4    layer5
+ 
+
+
+
+
+  So first thing tomorrow, we should look at the inputs to the 5-layer-NN and take a 
+    np.linalg.norm(inputs) of them.
+  We might have to keep the learning rate REAL low too.
+
+    pre-training VS. post-training
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Jul 10 02:51:29 EDT 2019
+________________________________
+
+  UDel wi-fi passwd:
+    redo20otc
+
+  Assignment 2:
+    For weight initialization,  remember that the weights are repeatedly multiplied by each other as the logits flow from layer to layer.  So any number much lower than 1?? (0.9?????) ought to multiply basically to 0 after only a few matrix multiplications.  (obviously this depends a LITTLE bit on the inputs, but not TOO much, right, esp. after quite a few multiplications; even input values at 1e+10 will go near 0 if weights are around 1e-2 and there are 50 layers)
+      See Lecture 6: Training Neural Networks I.mp4,
+        @Time 0:41:12
+    if np.randn(1e-1)
+
+  So first thing tomorrow, we should look at the inputs to the 5-layer-NN and take a 
+    np.linalg.norm(inputs) of them.
+  We might have to keep the learning rate REAL low too.
+
+
+  Assignment 2:
+    dropout
+    batch norm
+
+    Rewatch those lectures on the way home.
+
+
+
+  confirm SSN on passport @ home
+    337 or
+    377?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+===================================================================================================
+  Apps:
+    0.  Berkeley
+      a.  App opens September 2019.
+      b.  The next available admissions cycle will be for Fall 2020.  The application will be available by early September 2019.
+      c.  GRE:  
+        1.  Institution Code 4833
+      d.  They want an essay
+        1.  Technically called a "personal statement"
+      e.
+      f.
+===================================================================================================
+    1. SF State University?
+      The Ph.D application opens on August 1st, 2019.
+
+      Standard Admission Requirements
+      a.    SFSU Online Application Form (Cal State Apply (link is external))
+      b.    Undergraduate minimum GPA: 3.0 or higher
+      c.    TOEFL Score
+      d.    4-year Bachelors Degree
+      e.    Current general GRE (taken within last 3 years, submitted both electronically directly from ETS and uploaded as a PDF to your Cal State Apply application)
+        1.    GRE CODES:
+          a.    School Code: 4684
+      f.    2 Letters of Recommendation (Uploaded by your recommender in the Cal State Apply Application)
+      g.    Statement of Purpose
+      h.
+      i.
+      j.  Mom recommended (fast.ai came out of SF state?)  
+        1.  The school is called **_something_** like this
+        2.  fast.ai
+      
+===================================================================================================
+    2.  imprs (MPII Tuebingen)
+      a.  I'm waiting on an e-mail at nathanbendich@gmail.com to confirm my account registration
+
+
+===================================================================================================
+    3.  UCSD (Verma might be able to help you get in here)
+      Deadline: *AROUND* December 17, 2019
+
+      Vision:
+        1. http://jacobsschool.ucsd.edu/visualcomputing/
+        2. https://cse.ucsd.edu/graduate/graduate-admissions-faq#appdeadline
+
+      a.  
+      b.  His advisor was Sanjoy Dasgupta.
+        1. But it's not related to CV (unsupervised learning, and super-old-fashioned ML, rather than GANs)
+      c.
+      d.
+      e.
+      f.
+      g.
+      h.
+      i.
+      j.
+      k.
+      l.
+      m.
+      n.
+      o.
+      p.
+      q.
+      r.
+      s.
+      t.
+      u.
+      v.
+      w.
+      x.
+      y.
+      z.
+===================================================================================================
+    4.  Basically, almost all the app deadlines are later.  SFSU is around 
+    5.  Stanford  
+      Type              Entry Quarter   Application Date  Decision Date
+      Ph.D. Applicants  Autumn 2020-21  December 3, 2019  Mid February 2020
+                                        ****************
+    6.  Caltech
+      December 15, 2019
+    7.
+    8.
+    9.
+    10.
+    11.
+    12.
+    13.
+    14.
+    15.
+    16.
+    17.
+    18.
+
+
+
+
+
+
+  MINIMAL effort on the Ph.D apps
+    But don't piss off Mauel.  Def don't annoy him by keeping him waiting
+
+
+
+
+
+
+
+
+
+
+  Towson:
+    To apply for the D.Sc degree,   I need to have a Master's degree first.
+    Master's in CS: (admission requirements at:   https://www.towson.edu/fcsm/departments/computerinfosci/grad/computersci/admission.html)
+
+    1.  Official Transcripts:
+      a.  8000 York Road, Towson, MD 21252
+    2.  Required Test Scores:
+      a.  Ask whether GRE scores are required         TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+    3.  All supplemental materials submitted
+      a.  Ask whether other supplemental materials are needed.    TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+    4.  Read ALL instructions carefully
+    5.
+    6.
+
+
+
+
+    1.  $45 fee:
+      a.  Or waiver: https://www.towson.edu/academics/graduate/admissions/apply/waiver.html)
+      b.  Nope; Can't get a waiver.
+      c.  Paid it.
+    2.  Transcript:
+      a.  Official transcripts must be sealed and stamped by the issuing institution and mailed to: Towson University, Graduate Admissions, 8000 York Road, Towson, MD 21252. Issuing institutions for domestic students also may send encrypted electronic transcripts via email to gradtranscript@towson.edu. Pre-degree students must make sure their transcript includes all grades from the first semester of their senior year. 
+        1.  Online transcript was sent.
+        2.  My paper transcript was sent too!
+      b.  Send "an encrypted electronic transcript may be sent directly via email to gradtranscript@towson.edu)
+    3.  GRE
+      a. Towson University’s identification number for test score submission is 5404
+    4.
+    5.  Check your app's status [here:](https://www.towson.edu/academics/graduate/admissions/apply/)
+    6.
+    7.
+    8.
+    9.
+
+    No:
+    10. Resume
+    11. Written statement?
+    12.
+
+________________________________
+
+  Tue Jul  9 14:13:54 EDT 2019
+________________________________
+
+  UDel wi-fi passwd:
+    supp99ouze
+
+
+
+  MINIMAL effort on the Ph.D apps
+    But don't piss off Mauel.  Def don't annoy him by keeping him waiting
+
+  assn2
+
+
+  Do Samahj's session at  Panera.
+    Nope; there's no tutoring tomorrow
+
+
+
+
+
+
+
+
+________________________________
+
+  Tue Jul  9 03:07:32 EDT 2019
+________________________________
+
+  UDel wi-fi passwd:
+    thig81laky
+
+
+________________________________
+
+  Mon Jul  8 03:07:32 EDT 2019
+________________________________
+
+  UDel wi-fi passwd:
+    supp99ouze
+
+
+  1.  Grad school apps (Towson)
+    a.
+  2.  cs231n assignment 2
+  3.
+  4.
+  5.
+  6.
+  7.
+  .
+  9.
+  10.
+  11.
+  12.
+  13.
+  14.
+  15.
+  16.
+  17.
+  18.
+
+
+
+
+
+
+    Doctorate in Information Techology (IT   D.Sc):
+    1.    Requested forwarding of all previous college official transcripts
+    2.    Requested forwarding of any required test scores for your program
+    3.    Submitted all supplemental materials for your program of study
+    4.    Read all instructions carefully, including those describing the university's admission standards
+    5.    Answered all appropriate questions on the application form
+    6.    University Admissions, 8000 York Rd., Towson, MD 21252
+    7.    
+    8.    
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Re: Lauritz David
+    Don't bullshit people    & just flash shit
+    See: the advice of Gary Vaynerchuk:
+      https://www.youtube.com/watch?v=qRj144Gd7EA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sun Jul  7 12:07:03 EDT 2019
+________________________________
+
+  Backup & gpus & gpul   the assignment_1.tar.xz file on the instance (~5 minutes)
+
+
+  It's worth remembering that any lessons learned on the naive FC nets MAY NOT transfer seamlessly to CNNs and/or deep nets.  For instance, the gains you get from using full batch may be worth it if you have a GPU to massively parallelize the training, but if on a CPU-only machine training is MUCH slower, then those gains aren't worth it.
+
+  Therefore, let's move on to assn2 where the real, important techniques are.
+
+  On the other hand, if we ever have to use FC layers (ie. the beta-recovery in HSR   or new-beta (piecewise, body-part specific betas) recovery later,   this intuition WILL be important.  Fuck.)
+    But we have to be specific about exactly what we're going to learn right now, right?  Because "learning" something new isn't the same as ...
+
+  TODOs:
+      0.  Memory layout (tensorflow-GPU sped-up version)
+        a.  https://duckduckgo.com/?q=memory+layout+in+tensorflow&t=canonical&ia=web
+      1. Wait, is it principled to use regularization on NNs?  (JJohns alluded to this, saying that Dropout was a more principled version of regularization for NNs than L2/L1 reg)
+           Read paper(s) (ie. the Dropout paper) to tell
+             Actually, I might have to dive into the f***king code / weights and do it that way.   Hrmph.
+      2. Read up on why saturation might actually be GOOD
+
+
+  Your water bottle is in Jeannine's car.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Seems almost like the loss is INVERTED.  Fix signs?
+    (in "features.ipynb")
+    b/c it seemed like SVM worked well...  I'm confused.
+    Should the loss function be different???
+
+
+    I think it's **almost** always the learning rate.
+    It was *this* time.
+      Are there multiple "best" learning rates?
+      Or is it always the same (range of) lrs that work best?
+
+
+
+
+  The cs231n CNN Lecture goes together with "CNN Architectures" Lecture
+    "training NNs I" goes with "training NNs II"
+
+
+
+
+
+________________________________
+
+  Sat Jul  6 01:31:43 EDT 2019
+________________________________
+
+  UDel wi-fi passwd:
+    fers71frap (new)
+    goar83ense
+
+
+  Increase the lr & see whether that gives us > 10% acc
+ 
+
+
+
+
+________________________________
+
+  cs231n Lectures "meta notes"
+________________________________
+
+  Instead of recording the timestamps everywhere, we can just go to the slides (ie. http://cs231n.stanford.edu/slides/2019/cs231n_2019_lecture08.pdf), search for text
+    ie. query "Dropout"
+
+
+
+
+
+
+________________________________
+
+  cs231n Lecture 6 ("Training Neural Networks I"):
+________________________________
+
+
+    All the best takeaways are at the END of Serena's Lecture 6.   (she summarized EVERYTHING)
+
+    Serena talks about activation functions until
+
+   Overview:
+    (this slide is shown at time 0:04:39)
+    Part 1:  
+      1.  Activation Functions
+      2.  Data Preprocessing
+      3.  Weight Initialization 
+      4.  Batch Normalization
+      5.  Babysitting the Learning Process
+      6.  Hyperparameter Optimization
+
+    (part 1 is Lecture 6;  
+     part 2 is Lecture 7)
+
+
+     1.  Activation Functions
+      starts at time  4:49
+     2.  Data Preprocessing
+      starts at time 27:17
+
+     3.  Weight Initialization 
+      starts at time 34:22
+        Xavier init   fixes a lot of the problems.
+
+     4.  Batch Normalization
+      starts at time 49:00
+        If we want unit gaussian activations, we can just make them unit
+        From cs231n Assignment 2, BatchNormalization.ipynb:  "Batch normalization has proved to be effective in making networks easier to train, but the dependency on batch size makes it less useful in complex networks which have a cap on the input batch size due to hardware limitations."
+          So we use layer normalization.  Layernorm does the same thing, but for a single training example:
+            """
+             In this paper, we transpose batch normalization into layer normalization by
+             computing the mean and variance used for normalization from all of the summed
+             inputs to the neurons in a layer on a single training case. Like batch normalization,
+             we also give each neuron its own adaptive bias and gain which are applied after
+             the normalization but before the non-linearity. Unlike batch normalization, layer
+             normalization performs exactly the same computation at training and test times
+            """
+            - Ba, Kiros, & Hinton, 2016
+
+
+            """
+            Layer Normalization:
+              Batch normalization has proved to be effective in making networks easier to train, but the dependency on batch size makes it less useful in complex networks which have a cap on the input batch size due to hardware limitations.
+              Several alternatives to batch normalization have been proposed to mitigate this problem; one such technique is Layer Normalization [2]. Instead of normalizing over the batch, we normalize over the features. In other words, when using Layer Normalization, each feature vector corresponding to a single datapoint is normalized based on the sum of all terms within that feature vector.
+            """
+
+
+
+
+     5.  Babysitting the Learning Process
+     6.  Hyperparameter Optimization
+
+  ________________________________
+
+    TODO during training   (Serena lays out all the steps at 1:04:44.):
+
+      Basic sanity checks:
+      0.  Initial loss value (is loss(X,W,   epoch=0) correct?)
+      1.  Checking initialization:
+        a.  Turn off the regularization.
+        b.  SMALL small sample of training dataset,    
+          1)  get loss to 0.  (sanity check)
+          2)  Training acc  should go to 1  on the small set
+
+
+      2.  Learning Rate  
+        a.  (now turn on regularization)
+          Wait, is it principled to use regularization on NNs?  (JJohns alluded to this, saying that Dropout was a more principled version of regularization for NNs than L2/L1 reg)
+            Read paper(s) (ie. the Dropout paper) to tell
+              Actually, I might have to dive into the f***king code / weights and do it that way.   Hrmph.
+        b.  Get the right learning rate
+        c.  Too small => loss to 0
+        d.  Too big => loss to +\infty   (NaNs)
+        e.  (Broad)  Run for a few epochs  over many LRs   (broad)
+
+      3.  Sample other hyperparams randomly rather than uniformly???  I'm still not sure what she means here.  Like "change the bin size regularly so you don't miss some magical hyperparameter setting????"
+        a.  But what range of hyperparams should we sample from, Serena?
+        b.  I think the random noise on top of np.logspace() is decent.
+          1) max_lr8 = 3e+0 #1e+2
+          min_lr8 = 3e-2 #1e-8
+          n_lr8s  = 25 #17  #11 #100
+
+          l_r8s=np.logspace(
+              math.log10(min_lr8),
+              math.log10(max_lr8),
+              n_lr8s
+          )
+          # noise
+          l_r8s+= (np.random.random(
+              l_r8s.shape,
+          ) * 3e-2)   # BAD: the noise on the lower end is more significant than on the upper end.
+
+      4.  Graph it!
+        a. acc
+        b. loss
+
+
+
+
+      Problems:
+        a.  The loss starts high & flat, goes down sharply at a certain point
+          1.  The issue is probably bad initialization =>    Fix it by... merely initializing again?  Xavier Init?
+        b.  
+        c.
+        d.
+
+
+
+    Initialization:
+      Understand Xavier initialization
+        Doesn't work with ReLU
+          B/c ReLU kills half the neurons (whenever they're in the "zero regime").
+      Xavier does (I think, roughly speaking)   "Calculate the mean & variance @ each layer & FORCE it to be a unit Gaussian"
+
+      Same as batch norm?
+        mostly in CNNs, not Recurrent
+
+        Compute the empirical mean & variance   across each layer & batch
+        Also works for Convolutional layers   AND Fully Connected layers
+      Xavier will be done in HW 2
+
+      Xavier changes INPUTS to each layer to be std Gaussian
+        Before or AFTER the nonlinear activation func (ie. tanh, ReLU, PReLU, Leaky ReLU, etc.)?
+
+    Backprop & 
+    Activation functions are LESS important, but also still very important.
+      I think leaky ReLU is the best, based on what Serena was saying.
+      Read up on why saturation might actually be GOOD
+    Backprop is pretty much the key to the whole learning process.
+
+    Dimensionalities & what the linearity MEANS
+
+
+
+
+
+  ________________________________
+
+    Batch Normalization
+      After FC / conv layer
+      Before nonlinearity
+
+      Can backprop through this batch normalization (just take a partial derivative and multiply by it)
+
+      Batch norm lets the network LEARN the scaling and shifting?
+        Gamma and Beta
+          learned during training (not man-set hyper parameters)
+      But is this the point of batch norm or, are we supposed to just use stddev and mean   to scale and shift?
+
+
+      I think Serena mispeaks:
+        if inputs to a layer aren't Gaussian, there's no way a simple shift and scale would make them Gaussian-ly distributed.  Imagine points -1, 0, 1, 2, and 3 (a reasonable approximation of a uniform distribution).  if we shift by the mean (-1 to all); [-2, -1, 0, 1, 2], and scale (divide) by the variance (10/5 = 2)  (10 b/c we square the differences from x_i to mean mu; 2**2 + 1**2 + 0**2 + ...), we get [-1, -0.5, 0, 0.5, and 1] (still uniformly distributed)
+  ________________________________
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+
+________________________________
+
+  cs231n Lecture 7 ("Training Neural Networks II"):
+________________________________
+
+
+    Assignment 2 is the longest one.
+
+
+    Most of Assignment 2 is only CPU.
+      Cheaper!  :)
+    While working on Assignment 2, look back at the slides at time 8:07
+
+    Coarse => fine search
+      initial deltas should be BIG over a big space
+    Then we narrow in
+      And we learned this experientially/empirically anyway
+
+    Usually changes in 1 hyperparameter don't affect the others' optimal values THAT MUCH.
+
+
+    This lecture covers the fancier optimization algorithms
+      1.  Momentum
+        a.
+      2.  RMSProp
+        Slows down the learning rate later in the learning process
+        Sample code:
+          cache = decay_rate * cache + (1 - decay_rate) * dx**2
+          x += - learning_rate * dx / (np.sqrt(cache) + eps)
+      3.  AdaGrad
+      4.  AdaMax
+      5.  AdaM
+      6.
+      7.
+      8.
+      9.
+      10.
+      11.
+      12.
+      13.
+      14.
+      15.
+      16.
+      17.
+      18.
+
+
+    Other types of regularization (at time 14:15)
+      Problems with SGD:
+        1.  Loss may have "high condition number"
+          Meaning == "Much more sensitive to one input variable    than the other"
+            This problem is much much worse in very high dimensional space than in R^3.
+          "Taco shell problem"
+            AKA "angled half-pipe" (Tony Hawk)
+        2.  Local minima, saddle points
+          In R^10000,  SADDLE POINTS are very common & a problem.  
+          Local minima are not such a big deal (they mean in EVERY dimension I change value, the loss goes up)
+      Momentum fixes a lot of these problems
+      Even SINGLE SIMPLE momentum term will fix it
+      How does momentum fix the "high condition number" problem?
+
+______________________________
+
+    optimization algos
+      AdaM is probably the best algo
+
+
+      Momentum
+        Can overshoot sometimes
+        Usually a bug, not a feature (steep minima may not be real; they may be due to biases in the dataset b/c training dataset size small)
+      AdaGrad
+        Slower than momentum
+        But may stop too soon
+          (Good in convex case, but in nonconvex case it sucks.
+      RMSProp fixes the AdaGrad problem of stopping too soon  ()
+      AdaM
+        Momentum mixed with  RMSProp
+        (kinda)
+        FIRST STEP IS TOO BIG b/c we're dividing by second moment (we're subtracting by the 2nd moment)
+
+        Johnson gave us the ideal initial setting of AdaM & lr
+          beta1=0.9
+          beta2=0.999
+          lr=1e-3 or 5e-4
+        AdaM doesn't fix EVERYTHING
+          (see time 44:57 for technical explanation of a problem AdaM DOESN'T solve)
+
+        L-BFGS
+          Less stochasticity
+          Good if you can afford full-batch GD
+          Style transfer
+          Less often for training NNs
+
+
+
+        around (49:26)
+        Second-order version of "lr decay"  can step more quickly to the minimum (right to it!)
+          This is a Taylor series   using the 2nd term
+          But the quadratic approx isn't perfect
+          You can get away with no LR
+______________________________
+
+        Model ensembles
+          Better than just minimizing training error
+          The point is, VALIDATION accuracy is what we care about
+______________________________
+
+        Regularization:
+          Regularization is better than ensembles?
+          Pattern in regularization: 
+            1.  Add randomness in during training
+            2.  Take out the randomness during test time
+
+          Single models
+          Dropout makes more sense for NNs than just L2 norm penalty
+            "Mask" that randomly zeroes out particular neurons during training
+          1.  "one neuron learns 'furriness'; another learns 'tail-ness;'    etc."
+            (less interdependency between neurons/layers where everything learns the same thing)
+          2.  "Model ensembling within 1 model"
+
+          But what happens at test time?
+            (maybe we should turn off dropout at same epoch N-9)
+            OR; we  just get rid of it at test time
+
+          Pattern in regularization: 
+            1.  Add randomness in during training
+            2.  Take out the randomness during test time
+
+          "Inverse dropout"
+______________________________
+
+          Time: 1:03:55
+
+          Batch norm
+            Fits the following description of regularization:
+            Pattern in regularization: 
+              1.  Add randomness in during training
+              2.  Take out the randomness during test time
+______________________________
+
+          Time: 1:04:48
+
+          Data augmentation
+            Horizontal flips
+            Crops (cropped cat is still a cat)
+            Vary the contrast or brightness
+
+______________________________
+
+
+          "DropConnect"
+          Fractional max-pooling
+          Stochastic Depth
+
+          Best to regularize AFTER you see problems   rather than blindly adding them
+            Except batchnorm; that's always a good idea.
+
+
+______________________________
+
+
+    Transfer learning (1:09:40)
+      (ie. retraining a ResNet for Body-Measuring or VGG-16 or ...)
+      We never have enough data (use all of Hinton's pre-work on  CIFAR-10)
+      Another way 
+
+      Have to reinitialize parts of the network in a thoughtful way 
+        (maybe it's mostly the last layer(s) ?? )
+        Redo the later layers.
+
+        Remember to freeze the weights (no backprop into 'em) of the earlier layers
+        Basically train a linear classifier on top of the last few layers
+        Drop the Learning Rate significantly.
+
+      This is less possible for specialized problems where the images differ from ImageNET/CIFAR-100 a lot
+        ie. CAT scans
+
+      Transfer learning is EVERYWHERE
+        DEFINITELY useful for our cases
+        Esp. if people are in the training data (for "Cat")
+
+
+
+
+
+
+
+
+
+
+
+COPY THESE NOTES TO ANOTHER LOCATION (ie. consolidate them all)
+___________________________________________________________________________________________________
+
+  Lecture 9: CNN architectures
+___________________________________________________________________________________________________
+
+
+
+
+
+  Summary: CNN architectures
+    Case studies:
+      1.  AlexNet
+      2.  VGG
+      3.  GoogLeNet
+      4.  ResNet
+  ___________________________________________________________________________________________________
+    
+
+
+
+
+    New research:
+      NiN (Network in Network)
+      Wide ResNet
+      ResNeXT
+      Stochastic Depth
+      DenseNet
+      FractalNet
+      SqueezeNet
+
+
+    AlexNet
+      Destroyed previous ML (non-Neural-Network) CVision models
+      Ensemble (many AlexNets were trained in parallel and then they did majority-voting)
+      Trained on 2 GPUs at once
+      8 layers
+  ___________________________________________________________________________________________________
+
+    VGGNet
+      Oxford
+
+      Much deeper
+      16-19 layers
+      Small (tiny) filters  (3x3)
+
+      What does "1st place in localization" mean?
+        Bounding box
+
+
+  ___________________________________________________________________________________________________
+
+
+    GoogLeNet
+      2014 winner
+
+      ImageNet challenge
+        Killed everything but VGGNet
+      No Fully Connected layers
+        Fewer parameters (fewer even than the much "shallower" AlexNet)
+      Inception module
+
+      The original LeNet:
+        MNIST hand-written digit recognition  ("OCR")
+  ___________________________________________________________________________________________________
+
+    ResNet
+      2015 winner ImageNet
+
+      What is a "residual?"
+
+
+
+
+      Different paradigm than previous architectures
+        Hugely deeper
+      152 layers
+
+      Problems of straight depth AREN'T caused by overfitting
+        Deeper models are harder to optimize
+        If "learning" were straightforward, the last layers could just learn the identity mapping
+        Deeper should work AT LEAST as well as an NN with similar architecture but shallower
+
+
+      More recent winners:
+        http://image-net.org/challenges/LSVRC/2016/results
+      2018:
+        https://jiankangdeng.github.io
+
+      Skip connection
+        Learn F(x) = H(x) - x
+        (x == "prev layer's input")
+        The idea is that learning the identity mapping would be ideal.  So basically, we cheated and "fed the identity" to the next layer (ie. the skipped-ahead outputs of prev layer's neurons go to the next layer / "next-next layer")
+        "What is it that we need to add to the original input to 'learn?'   "
+        The new thing we're learning (F(x) in this notation) is the "residual"
+
+      Their theory may not be right, but their model sure works.
+        Who knows why?
+
+
+      No dropout
+        Reason??
+
+      ResNet + Inception combo
+        How about newer networks?
+        Any new techniques?
+  ___________________________________________________________________________________________________
+
+    (time: 1:07:38)
+    Ideas since (more recent) that improve upon the ResNet performance:
+      1. "Identity Mappings in Deep Residual Networks"
+      He et al.,  2016
+        More direct path for propagating information throughout the network (moves activation to residual mapping pathway)
+        Better performance than ResNet
+
+      (time: 1:08:40)
+      2. "Wide Residual Networks"
+      Zagoruyko et al.,  2016
+      Residuals' effect > Depth's effect
+        Therefore, wider residual blocks
+          Wider are more parallelizable
+          Depth is sequential  (~= resistors in series vs. parallel)
+        50-layer wide ResNet outperforms 152-layer original ResNet
+
+      3. ResNeXT
+      (time == "1:10:56")
+      Xie et al. 2016
+        This "ResNeXT" paper is by the original author(s) of ResNet
+        Width of residual block through multiple parallel pathways ("cardinality")
+          See the picture in the slides; it'll be much clearer what this "MULTIPLE PARALLEL PATHWAYS" means
+
+        Similar in spirit to Inception module
+
+      4. "Deep Networks with Stochastic Depth"
+      (time == 1:11:21)
+
+      Stochastic Depth
+        Motivation: reduce vanishing gradients and training time through short networks during training
+
+        Randomly drop a subset of layers during each training pass
+        Dropout but for ResNets
+          (Dropout but for skip layers)
+        Use the full deep network at test time
+        
+        Bypass with identity function
+
+
+
+  ___________________________________________________________________________________________________
+
+    NiN ("Network in Network")
+      Lin et al. 2014
+      "micronetwork" within each conv layer to compute more abstract features for local patches
+
+      The micronetwork uses MLP (FC, ie. 1x1 conv layers)
+
+      It calculates more complex features to feed into the Neural network
+
+
+  ___________________________________________________________________________________________________
+
+   Personal pet theory:
+    Could we do HOG => a CNN?
+    Some kind of complex preprocessing of the data to get the performance we REALLY want
+    (idea for "Cat")
+    Complex, distilled features like edges, outlines, "tails," "blobs of fat around your midsection," but going into the CNN   instead of used raw
+
+
+
+
+
+
+
+
+  Beyond ResNets:
+    1. "FractalNet: Ultra-Deep Neural Networks without Residuals"
+      Larsson et al. 2017
+
+      More dropout for regularization
+        "regularization" is also kind of like saying "keep the network learning"
+
+      Arguments: 
+        The key is transitioning effectively from shallow to deep.
+        Residual representations are not necessary
+        "Fractal" architecture with both shallow and deep paths to output
+        Trained with dropping out sub-paths
+        Full network at test time
+
+      There are BOTH shallow and deep paths to the end Loss value
+        This is more variable than the ResNet.  I wonder if you could visualize the outputs of each "sub net" as an image and actually understand what each subnet is doing
+___________________________________________________________________________________________________
+
+    2. "Densely Connected Convolutional Networks"
+    (time == 1:13:58)
+      Huang et al. 2017
+
+      nxb:  I've heard of this.  Idk if that means it's 1. good or   2.  just trendy.
+
+
+
+      Dense blocks where each layer is connect to every other layer   (feedforward)
+
+
+      Problems fixed:
+        1. Fixes the "vanishing gradient" problem
+        2. Encourages feature reuse
+___________________________________________________________________________________________________
+
+    3.  SqueezeNet:
+      AlexNet-level Accuracy with 50x Fewer Parameters and <0.5Mb Model Size
+
+      Iandola et al. 2017
+
+      Efficient.
+
+      Fire modules consisting of a 'squeeze' layer with 1x1 filters feeding an 'expand' layer with 1x1 and 3x3 filters (see the image; it helps communicate the big idea)
+      AlexNet level accuracy on ImageNet with 50x fewer parameters
+      Can compress to 510x smaller than AlexNet
+
+
+      Good for mobile, in-browser NNs
+
+
+
+
+
+  ___________________________________________________________________________________________________
+
+  Summary: CNN architectures
+    Case studies:
+      1.  AlexNet
+      2.  VGG
+      3.  GoogLeNet
+      4.  ResNet
+    
+    New research:
+      NiN (Network in Network)
+      Wide ResNet
+      ResNeXT
+      Stochastic Depth
+      DenseNet
+      FractalNet
+      SqueezeNet
+
+  ___________________________________________________________________________________________________
+
+    ResNet widely available, used everywhere
+
+    Trend towards very deep networks
+      (except the most recent ResNet)
+
+
+
+
+
+
+
+  https://www.youtube.com/watch?v=DAOcjicFr1Y&list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv&index=9
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ___________________________________________________________________________________________________
+  ___________________________________________________________________________________________________
+  ___________________________________________________________________________________________________
+  ___________________________________________________________________________________________________
+  ___________________________________________________________________________________________________
+
+      MIT's more recent CNN lectures:
+        https://www.youtube.com/watch?v=H-HVZJ7kGI0
+  ___________________________________________________________________________________________________
+  ___________________________________________________________________________________________________
+  ___________________________________________________________________________________________________
+  ___________________________________________________________________________________________________
+  ___________________________________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  spades online
+  SS smash Bros
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Fri Jul  5 23:27:16 EDT 2019
+________________________________
+
+  UDel wi-fi passwd:
+    goar83ense
+
+
+
+  features.ipynb:
+    In this exercise we will show that we can improve our classification performance by training linear classifiers not on raw pixels but on features that are computed from the raw pixels.
+
+
+
+
+NOTE: TODO:   do this later, but a lot of it should be after I complete more of the work.  (the more I learn, the better such a sheet will be)
+  Make a "Neural Network TODO list"
+    If I have problem x, which of the ys should I start trying to fix?
+      ie. 
+      1.  Vanishing gradient
+      2.  Exploding gradient
+      3.  Change activation func
+      4.  More training epochs
+      5.  Different NN architecture
+      6.  Regularization
+        a.  Dropout?
+        b.  L1?  L2?
+        c.  Batch norm?
+
+      7.  Batch normalization
+      8.  Change optimization algorithm
+      9.  
+      10.
+      11.
+      12.
+      13.
+      14.
+      15.
+      16.
+      17.
+      18.
+
+    For instance, fiddling with regularization should:
+      1.  Reduce overfitting
+        a.  which is manifested in maximizing quantity "val_acc - train_acc"
+        b.
+      2.  if reg=>np.inf   too high   
+        a.  then the NN Squashes the weights to zero (no learning)
+      3.  If reg is small (close to 0 or negative)
+        a.  then the gradients & weights will go extreme (either extremely negative or extremely postiive)   (close to either +\infty or -\infty)
+        Explode gradients and stop learning after the first few iterations if "reg" is close to 0
+      4.  
+    )
+
+At least wait to start compiling this more seriously until AFTER features.ipynb
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Plot the data from latest "results" dictionary:
+    1.  the code is ~/Desktop/graph_results.py
+
+    2.  plots: /home/n/Desktop/H___vs_train_val_gap.png
+          and  /home/n/Desktop/Reg___vs_train_val_gap.png
+
+
+
+
+
+    (reg and hidden)
+    Regularization WORKS to decrease the gap!  Huh.  I guess that shouldn't be surprising.
+      The follow-up question is whether these findings are statistically significant.  They're probably not.
+    Strange...  It seems like if there's any trend in the hidden layer size, it's that more neurons INCREASES the gap.
+      The follow-up question is whether these findings are statistically significant.  They're probably not.
+
+
+
+
+    scatterplot (dots, not lines)
+    ***make a stem-and-leaf-plot (histogram)***
+
+    AVERAGE val-train values in BIIGGGG dots on the scatter plot
+
+
+
+
+
+  .bashrc aliases for "cs231n-CPU"  and
+                      "cs231n-GPU"
+    DONE.
+  Do all tar.xz management via github:
+    `g cl https://github.com/neonb88/vr_mall____fresh___Dec_12_2018.git`
+  gpus from GPU-instance
+  gpul on new CPU-only-instance
+    DONE.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Thu Jul  4 13:46:31 EDT 2019
+________________________________
+
+  UDel wi-fi passwd:
+
+
+  Graph accuracy:     
+    Validation-Train
+      *MINUS*
+    For each change suggested in the JuPyter notebook
+      1. hidden layer size,
+      2. learning rate, 
+      3. number of training epochs, and 
+      4. regularization strength
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  neural_net.py /
+  nn.ipynb:
+    experiment with different values of the various hyperparameters, including
+    1. hidden layer size,
+    2. learning rate, 
+    3. number of training epochs, and 
+    4. regularization strength
+
+
+
+
+
+
+
+  "Training NNs" lecture tonight on walk home
+  Download Karpathy lectures offline
+    Lec 6 & 7
+    idk how diff they really are from jJohnson/sYeung  's lecs
+
+
+  refactor into dictionary options
+    "reg"
+    "lr"
+    'hidden'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Jul  3 13:46:31 EDT 2019
+________________________________
+
+  UDel wi-fi passwd:
+    tin84comp
+
+
+
+  Grab my flash drive when I get home (so I can print in the iSuite)
+    DONE.
+
+
+
+  Pull all money out of your bank & only pay for things with your credit card.
+    Shodan.com is terrifying.
+  Put all the shekels in a Swiss Bank?
+    See end of this document for where all your money is
+
+
+
+
+
+
+
+
+
+
+
+  If I used 1. eLu or 2. leaky ReLU or ... (just NOT ReLU)
+    I think they fix the vanishing gradients I'm getting
+    But then I have to take a partial derivative of the new activation function.
+
+
+
+
+  Get on Slack (mom's link)
+    To ask the question about np.sum()
+    Or maybe I could just do it myself...
+    Maybe it's honestly not that important.  The most important thing is to realize that the gradients should be hand coded as partial gradients in a computation graph   so as not to overwhelm the algebraist (me, in our case)
+
+
+
+
+
+
+  Start mini-blog posts for dad, mom, and grandparents to read
+    Different blog from your initial one?  (Too many unsavory opinions on the wordpress "Building Brains" one)
+
+
+
+
+
+  Was there a line graph somewhere?
+  Yes; 90% sure it was in nn.ipynb
+    X:  learning_rate 
+    Y:  val acc
+
+    or 
+    X:  reg
+    Y:  val acc
+
+    or 
+    X:  hidden layer size
+    Y:  val acc
+ 
+
+
+
+
+  neural_net.py /
+  nn.ipynb:
+    experiment with different values of the various hyperparameters, including
+    1. hidden layer size,
+    2. learning rate, 
+    3. number of training epochs, and 
+    4. regularization strength
+
+
+
+
+
+
+
+
+
+
+
+  Tell mom about the Karpathy article
+    https://medium.com/@karpathy/yes-you-should-understand-backprop-e2f06eab496b
+  Print this article when I get home
+    Print all the top posts on https://docs.google.com/document/d/1jkooTkCo8jbOYT3pJK_2Pnual2AloWwrlEG8SWw6Zs8/edit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Tue Jul  2 14:03:23 EDT 2019
+________________________________
+
+   cs231n_assn1_.tar.xz :   nn.py's (or is it called '2_layer_nn.py' or '2_layer_nn.ipynb' or 'neural_net.py' ?)     working, but still tuning hyperparameters and answering some of the in-line wordy questions in 2_layer.ipynb
+
+
+
+
+  Reading:
+    Cross entropy loss ?   (Bendersky: ()  )
+
+  Maybe another bug to fix:
+  /home/cat_macys_vr/assignment1/cs231n/classifiers/neural_net.py:133: RuntimeWarning: divide by zero encountered in log
+    correct_logprobs = -np.log(probs[range(N),y])
+  /home/cat_macys_vr/assignment1/cs231n/classifiers/neural_net.py:126: RuntimeWarning: overflow encountered in subtract
+    np.max(scores,axis=ACROSS)
+  /home/cat_macys_vr/assignment1/cs231n/classifiers/neural_net.py:126: RuntimeWarning: invalid value encountered in subtract
+    np.max(scores,axis=ACROSS)
+  /home/cat_macys_vr/assignment1/cs231n/classifiers/neural_net.py:103: RuntimeWarning: invalid value encountered in maximum
+    hidden_layer= np.maximum(0, X.dot(W1)   + b1) # this line's "np.maximum()" is ReLU..
+  /usr/local/lib/python3.5/site-packages/numpy/core/fromnumeric.py:83: RuntimeWarning: invalid value encountered in reduce
+    return ufunc.reduce(obj, axis, dtype, out, **passkwargs)
+  /home/cat_macys_vr/assignment1/cs231n/classifiers/neural_net.py:159: RuntimeWarning: invalid value encountered in less_equal
+    dhidden[hidden_layer <= 0] = 0
+
+
+
+
+
+
+  What is vim's  "ex mode"?
+    mostly useless ("stackexchange" it!)
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+  Say "hi" to Ray?
+  / make a real friend somehow
+  That "Pasquale" guy?
+    Or Jay?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  So. It seems we're getting exploding gradients:
+    np.max(scores):  9.539319885992922e+35
+    Final training loss:  5.014035215563381e+31
+
+    np.max(scores):  1.7945276760462093e+36
+    Final training loss:  3.4622042389298683e+31
+  I didn't add regularization to dW and db
+
+
+
+
+
+
+
+  Tell Shaina "u were a good influence this morning."  I feel fine @ work.
+
+
+
+  ________________________________
+
+    GCloud balance:  $262.28
+  ________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sun Jun 30 01:30:57 EDT 2019
+________________________________
+
+  Vectorization seems to only have a 4x speedup.  I guess that matters when we're training lots of times w/ different parameters, but...
+
+    naive loss:       2.340350e+00 computed in      0.205070s <= naive
+    vectorized loss:  2.340350e+00 computed in      0.051656s <= vectorized
+  ________________________________
+
+    GCloud: $263.48
+  ________________________________
+
+
+
+  Lookup alternate vectorization code (softmax)
+    ie. https://github.com/martinkersner/cs231n/blob/master/assignment1/softmax.py
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+    Using VECTORIZED (1 for loop   ("for j in range(...):")   )
+      training accuracy:    0.203612
+      validation accuracy:  0.211000
+
+      That took 21.076469s
+
+
+
+
+  ________________________________
+
+    Using NAIVE (for loop(s)):
+      training accuracy:                              0.223163
+      validation accuracy:                            0.226000
+      # evaluate on test set
+      softmax on raw pixels final test set accuracy:  0.251000
+
+      That took 160.533141s
+
+
+
+
+________________________________
+
+  Sat Jun 29 13:20:53 EDT 2019
+________________________________
+
+  Bother / ask Kelsey D'Souza about the referral
+    Maybe it was after today?  (ie. Monday)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Fri Jun 28 14:54:24 EDT 2019
+________________________________
+
+
+
+  Debug "fully_vectorized()" term by term;
+    Compare to "1 for loop version" (just "for j in range(n_classes):"   )
+    1.  all_grad
+    2.  corrects_grad
+    3.  all_pre_grad
+    4.  corrects_pre_grad
+    5.
+
+    And finally,
+    6.  (corrects_grad  / all_pre_grad)\
+        -\
+        (all_grad       / corrects_pre_grad)
+
+    7.
+    8.
+    9.
+    10.
+    11.
+    12.
+    13.
+    14.
+    15.
+    16.
+    17.
+    18.
+
+
+
+
+  Put records on GDrive (GDragon)
+
+
+  cat.macys.vr @gmail.com 's   GCloud Compute Billing statement  :
+  ________________________________
+
+    (as of Fri Jun 28 14:54:24 EDT 2019)
+    $267.91 / $300.00
+      Started with a $300 credit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Offer Vivian a sympathetic ear
+    "I've been through some real stress lately too"
+    I know we don't really know each other, but
+    It's really hard
+  ________________________________
+
+  Brew Haha @ 7 A.M. tomorrow morning (I'm probably just not gonna go.)
+
+
 
 ________________________________
 
@@ -55,20 +2516,20 @@ ________________________________
 
 
 
-			iteration 0 		/ 1500: loss 392.940081
-			iteration 100 	/ 1500: loss 239.211986
-			iteration 200 	/ 1500: loss 146.049819
-			iteration 300 	/ 1500: loss 89.754490
-			iteration 400 	/ 1500: loss 55.048178
-			iteration 500 	/ 1500: loss 34.304835
-			iteration 600 	/ 1500: loss 21.725634
-			iteration 700 	/ 1500: loss 13.911883
-			iteration 800 	/ 1500: loss 9.270084
-			iteration 900 	/ 1500: loss 6.485862
-			iteration 1000 	/ 1500: loss 4.718845
-			iteration 1100 	/ 1500: loss 3.738217
-			iteration 1200 	/ 1500: loss 3.085654
-			iteration 1300 	/ 1500: loss 2.714212
+      iteration 0     / 1500: loss 392.940081
+      iteration 100   / 1500: loss 239.211986
+      iteration 200   / 1500: loss 146.049819
+      iteration 300   / 1500: loss 89.754490
+      iteration 400   / 1500: loss 55.048178
+      iteration 500   / 1500: loss 34.304835
+      iteration 600   / 1500: loss 21.725634
+      iteration 700   / 1500: loss 13.911883
+      iteration 800   / 1500: loss 9.270084
+      iteration 900   / 1500: loss 6.485862
+      iteration 1000  / 1500: loss 4.718845
+      iteration 1100  / 1500: loss 3.738217
+      iteration 1200  / 1500: loss 3.085654
+      iteration 1300  / 1500: loss 2.714212
       iteration 1400 / 1500: loss 2.544673
 
 
@@ -156,7 +2617,7 @@ ________________________________
 
 
   Remind mom "you were the one who asked me what I wanted for my birthday"
-    Hold her to her shit.
+    She said she'd send money.  I shouldn't be confrontational :)
 
 
 
@@ -1112,7 +3573,7 @@ ________________________________
       Do I want to try to be someone like Gary V instead?  I definitely used to think so...
 
     Intro to MJB & other potential advisors:
-			Contact a faculty member you'd like to work with. Email them a month or so before you apply. [Please read my guidelines on how to send email.] Tell them you were considering applying, and you're curious about the research opportunities available in the field. Comment intelligently on some research that faculty member has done. Attach any research you've done, and briefly summarize your research interests. That faculty member can then make sure your application receives a thorough review. Bear in mind that professors receive lots of form-letter spam from prospective students. It's painfully obvious when the email is form-letter spam, and most professors will summarily discard it.
+      Contact a faculty member you'd like to work with. Email them a month or so before you apply. [Please read my guidelines on how to send email.] Tell them you were considering applying, and you're curious about the research opportunities available in the field. Comment intelligently on some research that faculty member has done. Attach any research you've done, and briefly summarize your research interests. That faculty member can then make sure your application receives a thorough review. Bear in mind that professors receive lots of form-letter spam from prospective students. It's painfully obvious when the email is form-letter spam, and most professors will summarily discard it.
       Send a short follow-up email in December/January so they remember to tell the admissions committee to watch for you!
 
 
@@ -3598,7 +6059,7 @@ ________________________________
 
 
 2019-03-24 13:10:03.133259: E tensorflow/core/common_runtime/executor.cc:644] Executor failed to create kernel. Invalid argument: NodeDef mentions attr 'dilations' not in Op<name=Conv2D; signature=input:T, filter:T -> output:T; attr=T:type,allowed=[DT_HALF, DT_FLOAT]; attr=strides:list(int); attr=use_cudnn_on_gpu:bool,default=true; attr=padding:string,allowed=["SAME", "VALID"]; attr=data_format:string,default="NHWC",allowed=["NHWC", "NCHW"]>; NodeDef: MobilenetV2/Conv/Conv2D = Conv2D[T=DT_FLOAT, data_format="NHWC", dilations=[1, 1, 1, 1], padding="SAME", strides=[1, 2, 2, 1], use_cudnn_on_gpu=true, _device="/job:localhost/replica:0/task:0/cpu:0"](sub_7, MobilenetV2/Conv/weights/read). (Check whether your GraphDef-interpreting binary is up to date with your GraphDef-generating binary.).
-	 [[Node: MobilenetV2/Conv/Conv2D = Conv2D[T=DT_FLOAT, data_format="NHWC", dilations=[1, 1, 1, 1], padding="SAME", strides=[1, 2, 2, 1], use_cudnn_on_gpu=true, _device="/job:localhost/replica:0/task:0/cpu:0"](sub_7, MobilenetV2/Conv/weights/read)]]
+   [[Node: MobilenetV2/Conv/Conv2D = Conv2D[T=DT_FLOAT, data_format="NHWC", dilations=[1, 1, 1, 1], padding="SAME", strides=[1, 2, 2, 1], use_cudnn_on_gpu=true, _device="/job:localhost/replica:0/task:0/cpu:0"](sub_7, MobilenetV2/Conv/weights/read)]]
 Traceback (most recent call last):
   File "measure.py", line 2086, in <module>
     err, measures, vs=mesh_err(obj_fname, json_fname, front_fname, side_fname,NATHANS_HEIGHT_INCHES)
@@ -3621,7 +6082,7 @@ Traceback (most recent call last):
   File "/home/n/Documents/code/old/hmr/hmr_March_24_2019/local/lib/python2.7/site-packages/tensorflow/python/client/session.py", line 1340, in _do_call
     raise type(e)(node_def, op, message)
 tensorflow.python.framework.errors_impl.InvalidArgumentError: NodeDef mentions attr 'dilations' not in Op<name=Conv2D; signature=input:T, filter:T -> output:T; attr=T:type,allowed=[DT_HALF, DT_FLOAT]; attr=strides:list(int); attr=use_cudnn_on_gpu:bool,default=true; attr=padding:string,allowed=["SAME", "VALID"]; attr=data_format:string,default="NHWC",allowed=["NHWC", "NCHW"]>; NodeDef: MobilenetV2/Conv/Conv2D = Conv2D[T=DT_FLOAT, data_format="NHWC", dilations=[1, 1, 1, 1], padding="SAME", strides=[1, 2, 2, 1], use_cudnn_on_gpu=true, _device="/job:localhost/replica:0/task:0/cpu:0"](sub_7, MobilenetV2/Conv/weights/read). (Check whether your GraphDef-interpreting binary is up to date with your GraphDef-generating binary.).
-	 [[Node: MobilenetV2/Conv/Conv2D = Conv2D[T=DT_FLOAT, data_format="NHWC", dilations=[1, 1, 1, 1], padding="SAME", strides=[1, 2, 2, 1], use_cudnn_on_gpu=true, _device="/job:localhost/replica:0/task:0/cpu:0"](sub_7, MobilenetV2/Conv/weights/read)]]
+   [[Node: MobilenetV2/Conv/Conv2D = Conv2D[T=DT_FLOAT, data_format="NHWC", dilations=[1, 1, 1, 1], padding="SAME", strides=[1, 2, 2, 1], use_cudnn_on_gpu=true, _device="/job:localhost/replica:0/task:0/cpu:0"](sub_7, MobilenetV2/Conv/weights/read)]]
 
 Caused by op u'MobilenetV2/Conv/Conv2D', defined at:
   File "measure.py", line 2086, in <module>
@@ -3642,7 +6103,7 @@ Caused by op u'MobilenetV2/Conv/Conv2D', defined at:
     self._traceback = self._graph._extract_stack()  # pylint: disable=protected-access
 
 InvalidArgumentError (see above for traceback): NodeDef mentions attr 'dilations' not in Op<name=Conv2D; signature=input:T, filter:T -> output:T; attr=T:type,allowed=[DT_HALF, DT_FLOAT]; attr=strides:list(int); attr=use_cudnn_on_gpu:bool,default=true; attr=padding:string,allowed=["SAME", "VALID"]; attr=data_format:string,default="NHWC",allowed=["NHWC", "NCHW"]>; NodeDef: MobilenetV2/Conv/Conv2D = Conv2D[T=DT_FLOAT, data_format="NHWC", dilations=[1, 1, 1, 1], padding="SAME", strides=[1, 2, 2, 1], use_cudnn_on_gpu=true, _device="/job:localhost/replica:0/task:0/cpu:0"](sub_7, MobilenetV2/Conv/weights/read). (Check whether your GraphDef-interpreting binary is up to date with your GraphDef-generating binary.).
-	 [[Node: MobilenetV2/Conv/Conv2D = Conv2D[T=DT_FLOAT, data_format="NHWC", dilations=[1, 1, 1, 1], padding="SAME", strides=[1, 2, 2, 1], use_cudnn_on_gpu=true, _device="/job:localhost/replica:0/task:0/cpu:0"](sub_7, MobilenetV2/Conv/weights/read)]]
+   [[Node: MobilenetV2/Conv/Conv2D = Conv2D[T=DT_FLOAT, data_format="NHWC", dilations=[1, 1, 1, 1], padding="SAME", strides=[1, 2, 2, 1], use_cudnn_on_gpu=true, _device="/job:localhost/replica:0/task:0/cpu:0"](sub_7, MobilenetV2/Conv/weights/read)]]
 
 
 
@@ -3824,8 +6285,8 @@ ________________________________
 
 
 
-	properly align the ***king hip and butt.
-	~/Dropbox/vr_mall_backup/IMPORTANT/
+  properly align the ***king hip and butt.
+  ~/Dropbox/vr_mall_backup/IMPORTANT/
   /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/measure.py
   /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/reformat_json.py
   /home/n/Dropbox/vr_mall_backup/IMPORTANT/nxb_manually_tuned_(NNN)___smpl_mesh____4th_iteration__02-2.250000000.obj
@@ -20028,11 +22489,11 @@ company names:
 
 
 
-	  1  a   "~/Desktop/40_minutes_deliberate_practice" line 1
-		2      "~/pyutils/post_practice_reflect.txt" line 1
-		3  a   "~/pyutils/old_txts/interview_prep.txt" line 1
-		5 #a   "~/pyutils/post_practice_reflect__April_27_2019__12:21_P.M._noon.txt" line 39
-		6 %a   "~/pyutils/post_practice_reflect__April_27_2019__1:48_P.M.___.txt" line 25
+    1  a   "~/Desktop/40_minutes_deliberate_practice" line 1
+    2      "~/pyutils/post_practice_reflect.txt" line 1
+    3  a   "~/pyutils/old_txts/interview_prep.txt" line 1
+    5 #a   "~/pyutils/post_practice_reflect__April_27_2019__12:21_P.M._noon.txt" line 39
+    6 %a   "~/pyutils/post_practice_reflect__April_27_2019__1:48_P.M.___.txt" line 25
 
   This once again opens up the question "should I even continue with this particular idea?"
     No matter where I go, I COULD end up finding a real need that gives me money.  So therefore, it's best to still go with Black & this idea.
@@ -20658,6 +23119,332 @@ Send a short follow-up email in December/January so they remember to tell the ad
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+Notes/ideas:
+  https://duckduckgo.com/?q=shodan+vulnerable+servers&t=canonical&ia=web
+    "Shodan"
+    Public database (list) of vulnerable servers
+      Jesus.  The world is a scary place.
+      I wonder, if this is PUBLIC, how much sh!t some of these Russian hacker groups have.
+        Yeesh.  Security is a real thing in the internet age, man.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+___________________________________________________________________________________________________
+
+  Other TODOs   (one-offs):
+___________________________________________________________________________________________________
+
+  Personal:
+    Pull all money out of your bank & only pay for things with your credit card.
+
+
+  Tech:
+    Notes on "Lecture 8" of cs231n:
+      Distributed
+
+    Google has lots of internal frameworks.  Very confusing.
+      prettytensor
+      DeepMind's "Sonnet"
+    Way too many Deep Learning frameworks
+
+    Inspired by Theano (Uni of Montreal)
+
+
+
+
+
+  Supplier:   (maybe 6 months/1 year out)
+    Look up Stephens The's number
+      We just want his supplier's #
+        or Missoni's #
+        or Pantera Bianca's #
+
+
+
+  Try to avoid keeping money for anyone.
+    Do bitcoin
+    Or physical cash
+      It's in the black suitcase in Shaina's room.
+      So is your passport.
+    Or literally valuable goods (cows, wheat, corn, gasoline, nonperishable food (granola, dried fruit, ), etc.)
+
+
+
+
+
+  Get a FREE! website:
+    https://pages.github.com
+    ie. https://jiankangdeng.github.io
+      Good for a "projects portfolio" (showing off the work I've done)
+
+
+  "CrowdFlower" is kind of (very kind of) like Amazon Mechanical Turk (https://www.youtube.com/watch?v=Ilg3gGewQ5U)
+
+
+
+
+
+  numpy project:
+    rearrange all the args to functions like np.randn(dim1, dim2, dim3, ..., dimN)    and np.random.random(([tuple of ] dim1, dim2, dim3, ..., dimN] ))
+
+
+
+
+
+
+
+  NN ComputerPhile videos
+    www.youtube.com/
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+___________________________________________________________________________________________________
+
+  Daily:
+___________________________________________________________________________________________________
+
+
+
+
+___________________________________________________________________________________________________
+
+  Do:
+___________________________________________________________________________________________________
+
+    0.  Learn from others' experiences (save yourself pain, energy, and time)
+      a.  Listen & memorize cs231n lectures
+      b.  Review them after Kaggle comps
+      c.  (Whenever you actually do WORK.)
+
+
+    1.  Stay present (not really actionable; more idealogical )
+    2.  Kaggle comps
+    3.  Don't reinvent the wheel ((reading & copying) > thinking)
+    4.  cs231n
+    5.  Do real problems (Kaggle > assignments > ...)
+    6.  Dive into the guts of the Neural Net 
+      a.  Learn how to debug it
+    7.  Teach others / discuss with Pasquale 
+
+    8.  Organize & summarize sections of the cs231n lectures
+      a.  Even just putting in the "11:34  :  Dropout" through all the lectures will be very valuable to you in the future and you can share these with others (ie. the D.C. group)
+    9.  Make 
+
+
+
+
+
+    3.  Brush teeth
+    4.  Sunscreen
+    5.  Make food
+          Broccoli
+          Crackers
+    6.  Bring your phone
+    7.    
+
+    8.  Check Results schedule
+    9.  
+    10. Stand up straight (Posture)
+    11. 7 hours of sleep
+    12. Be hella, HELLA. patient & persistent
+    13. 
+    14. Backup cs231n assn 1 work.
+    15. Walk to work                                                                     
+    16. Play cs231 lec on the way to work
+    17. Shower (on days we have to work)
+    18. Talk to Shaina about how I felt today.  Share worries AND successes
+    19. Don't reinvent the wheel ((reading & copying) > thinking)
+
+    20. Read Eli Bender / Andrej Karpathy    for EXCELLENT   ML / Deep Learning / Math tips.
+      a.  He talks about how np arrays are parallelized in memory
+    21. Deep breaths
+    22.
+    23. Paste the most recent UDel Wi-Fi code   in TODO list
+    24.
+    25.
+    26.
+    27.
+    28.
+    29. IMPATIENCE is a virtue.  Lines of code / hour is the metric to maximize.   NOT perfection (this DNExist), not "UNDERSTANDING;" the understanding will come as you code for cs231n.  The pace must be fast enough that you don't forget sh!t.            
+      a.  Starcraft.   Actions. Per. Minute.
+    30.
+    31.
+    32.
+    33.  1st get the bare minimum working b4 you start perfecting every little thing.
+    34.
+    35.
+    36.   Understand as many of the underlying principles (small stuff)    as possible so you can fix the big stuff (a giant ResNet)
+    37.
+    38.   Work hard.
+    39.   Don't quit.
+    40.   You'll get there eventually.
+
+
+
+___________________________________________________________________________________________________
+
+
+
+
+___________________________________________________________________________________________________
+
+  Don't:
+___________________________________________________________________________________________________
+
+
+
+    1.    Take long vid_Game breaks (> 1 hour)
+    2.    Futz too much over potential jobs
+    3.    Lose your temper with Shaina, Jeannine, or Michael.
+    4.    Talk toooo long in the iSuite
+    5.    Be too hard on yourself for single days off
+    6.    Fap too much
+    7.    Isolate yourself too much
+    8.
+    9.    Waste too much time worrying
+    10.   Do too much peripheral shit just because "I feel bad"
+    11.
+    12.   REDERIVE COMPLICATED MATH.   COPY COPY COPY; this is real-life code, not f**king school.  No need to worry about "cheating" or "patenting"
+    13.
+    14.
+    15.
+    16.
+    17.
+    18.
 
 
 
