@@ -22,13 +22,189 @@ ________________________________
   Sat Jul 27 01:33:55 EDT 2019
 ________________________________
 
+  I think we actually know:
+    conv_fwd()    and
+    conv_bwd() are more critical to our understanding () than    the cython speedups.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  im2col ...
+    setup in an old dir and move to the new one.
+
+
+  clone a fresh assignment2 and try setup there.  Once you get it working, move it back.  You did this before; you can do it now.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   Habitica dock pts:
     FPH
     YouTube 30 mins
     Nutaku ~1 hr
+    Music while doing something complicated (~30 mins)
+
+
+
+
+
+
+
+
+
 
   70 hour weeks means 10 hours / day
     (but then there's Results' interruptions to consider)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
