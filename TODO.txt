@@ -19,6 +19,20 @@
     
 
 
+________________________________
+
+  Tue Jul 30 00:20:12 EDT 2019
+________________________________
+
+  UDel wi-fi password:
+    pare28palp
+
+
+
+
+
+
+
 
 
 ________________________________
@@ -28,7 +42,7 @@ ________________________________
 
   As far as studying under/with someone,
     DeepMind seems like a better idea than almost anywhere else
-    Maybe openAI
+    Or maybe OpenAI
 
 
 
