@@ -16,7 +16,663 @@
 
 
     TODO.txt
-    
+
+________________________________
+
+  Wed Jul 31 23:58:51 EDT 2019
+________________________________
+
+
+
+
+________________________________
+
+  Visualize (see) (print out)     Conv weights in Torch:
+    https://discuss.pytorch.org/t/how-to-visualize-the-actual-convolution-filters-in-cnn/13850/2
+
+
+
+________________________________
+
+Submission for last layer:
+  First I tried a layer   of 32 5x5 convolutional filters   into  
+    LeakyReLU w/ neg slope 0.2 (ie. max(0.2x, x))  into
+    flatten()  into
+    Linear().
+
+  with AdaM as the optimizer   (optim.Adam(model.parameters(), lr, betas=(0.999, 0.9 ) , eps=1e-8, weight_decay=0, amsgrad=False))
+    TODO: read up on amsgrad
+      It's easy enough to Google the paper & find what it does
+
+'''
+
+model = nn.Sequential(
+    nn.Conv2d( in_channels=RGB, out_channels= F1, kernel_size=HH1, stride=1, padding=2, dilation=1, groups=1, bias=True ),
+    nn.GroupNorm(num_groups=G, num_channels=F1, eps=1e-05, affine=True),
+    nn.LeakyReLU(negative_slope=0.2),
+    Flatten(),
+    nn.Linear( in_features = fc_in_dim,    out_features = C, bias=True),
+)
+
+optimizer = optim.Adam(model.parameters(), lr=lr,   betas=(0.9, 0.999), eps=1e-8, weight_decay=0, amsgrad=False)
+
+'''
+________________________________
+
+
+________________________________
+
+  Second, I added GroupNorm   AFTER the 1st Conv layer.  It's unclear this had significant positive effect, but I did see validation acc of 60.6%, 60.1%, 60.1%, 60.4%, 61.2%, 61.3%, 61.6%, 61.6%, 60.7%, 61.3%, 60.7%, 60.2%, 60.8%, 61.1%,     and 61.8%.
+
+
+'''
+
+model = nn.Sequential(
+    nn.Conv2d( in_channels=RGB, out_channels= F1, kernel_size=HH1, stride=1, padding=2, dilation=1, groups=1, bias=True ),
+    nn.GroupNorm(num_groups=G, num_channels=F1, eps=1e-05, affine=True),
+    nn.LeakyReLU(negative_slope=0.2),
+    Flatten(),
+    nn.Linear( in_features = fc_in_dim,    out_features = C, bias=True),
+)
+
+optimizer = optim.Adam(model.parameters(), lr=lr,   betas=(0.9, 0.999), eps=1e-8, weight_decay=0, amsgrad=False)
+
+'''
+________________________________
+
+
+
+
+________________________________
+
+  This 1-conv network is super stupidly simple (we can't learn anything other than 1 FC layer with edge/corner inputs ), but still we get 55-60% accuracy.
+________________________________
+
+
+
+
+
+
+
+  Just deploy a model from torch
+    (ResNeXT)       The problem with using ResNeXT like this    is it requires tuning (ImageNet has many many more classes than CIFAR-10; CIFAR-10 has 10 classes,  but ImageNet has 1000)
+  Watch a vid on it ()
+
+
+
+  To perfect this performance:
+    Lecture 9 CNN architectures:
+      
+      1.  https://www.youtube.com/watch?v=DAOcjicFr1Y
+        a.
+      2.  w/ The most recent slides (2019):
+        a. http://cs231n.stanford.edu/slides/2019/cs231n_2019_lecture09.pdf
+      3.
+      4.
+      5.
+      6.
+      7.
+      8.
+ 
+
+
+
+  Assignment 2 PyTorch.ipynb part v :     start simple (ie. 1 conv => 1 FC)
+    AdaM   or Nesterov
+    Leaky ReLU,   PReLU,   ReLU6
+    Groupnorm
+    Dropout
+    Kaiming He/Xavier Glorot Initialization
+    max_norm regularization
+
+    Skip layers   (ResNet, maybe ResNeXT)
+    Take inspiration from the Kaiming He talk   (whatever the latest ImageNet winner's NN architecture is)
+
+
+  Take notes on what you're doing   as you do it.
+    1.  Graphs you made to measure  how well your network is doing at various stages.
+      a.
+    2.
+    3.
+
+
+
+
+    Dock points for comparing self to Kaiming He
+      "                             " 
+                    fapping
+    Being slow in the evening (dragging feet to the reservoir laps, etc.)
+
+
+
+
+
+
+===================================================================================================
+  Last part's assignment :
+===================================================================================================
+  # Part V. CIFAR-10 open-ended challenge
+
+    In this section, you can experiment with whatever ConvNet architecture you'd like on CIFAR-10. 
+
+    Now it's your job to experiment with architectures, hyperparameters, loss functions, and optimizers to train a model that achieves **at least 70%** accuracy on the CIFAR-10 **validation** set within 10 epochs. You can use the check_accuracy and train functions from above. You can use either `nn.Module` or `nn.Sequential` API. 
+
+    Describe what you did at the end of this notebook.
+
+    Here are the official API documentation for each component. One note: what we call in the class "spatial batch norm" is called "BatchNorm2D" in PyTorch.
+
+    * Layers in torch.nn package: http://pytorch.org/docs/stable/nn.html
+    * Activations: http://pytorch.org/docs/stable/nn.html#non-linear-activations
+    * Loss functions: http://pytorch.org/docs/stable/nn.html#loss-functions
+    * Optimizers: http://pytorch.org/docs/stable/optim.html
+
+
+    ### Things you might try:
+    - **Filter size**: Above we used 5x5; would smaller filters be more efficient?
+    - **Number of filters**: Above we used 32 filters. Do more or fewer do better?
+    - **Pooling vs Strided Convolution**: Do you use max pooling or just stride convolutions?
+    - **Batch normalization**: Try adding spatial batch normalization after convolution layers and vanilla batch normalization after affine layers. Do your networks train faster?
+    - **Network architecture**: The network above has two layers of trainable parameters. Can you do better with a deep network? Good architectures to try include:
+        - [conv-relu-pool]xN -> [affine]xM -> [softmax or SVM]
+        - [conv-relu-conv-relu-pool]xN -> [affine]xM -> [softmax or SVM]
+        - [batchnorm-relu-conv]xN -> [affine]xM -> [softmax or SVM]
+    - **Global Average Pooling**: Instead of flattening and then having multiple affine layers, perform convolutions until your image gets small (7x7 or so) and then perform an average pooling operation to get to a 1x1 image picture (1, 1 , Filter#), which is then reshaped into a (Filter#) vector. This is used in [Google's Inception Network](https://arxiv.org/abs/1512.00567) (See Table 1 for their architecture).
+    - **Regularization**: Add l2 weight regularization, or perhaps use Dropout.
+
+    ### Tips for training
+    For each network architecture that you try, you should tune the learning rate and other hyperparameters. When doing this there are a couple important things to keep in mind:
+
+    - If the parameters are working well, you should see improvement within a few hundred iterations
+    - Remember the coarse-to-fine approach for hyperparameter tuning: start by testing a large range of hyperparameters for just a few training iterations to find the combinations of parameters that are working at all.
+    - Once you have found some sets of parameters that seem to work, search more finely around these parameters. You may need to train for more epochs.
+    - You should use the validation set for hyperparameter search, and save your test set for evaluating your architecture on the best parameters as selected by the validation set.
+
+    ### Going above and beyond
+    If you are feeling adventurous there are many other features you can implement to try and improve your performance. You are **not required** to implement any of these, but don't miss the fun if you have time!
+
+    - Alternative optimizers: you can try Adam, Adagrad, RMSprop, etc.
+    - Alternative activation functions such as leaky ReLU, parametric ReLU, ELU, or MaxOut.
+    - Model ensembles
+    - Data augmentation
+    - New Architectures
+      - [ResNets](https://arxiv.org/abs/1512.03385) where the input from the previous layer is added to the output.
+      - [DenseNets](https://arxiv.org/abs/1608.06993) where inputs into previous layers are concatenated together.
+      - [This blog has an in-depth overview](https://chatbotslife.com/resnets-highwaynets-and-densenets-oh-my-9bb15918ee32)
+
+    ### Have fun and happy training! 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Notes on PyTorch's Sequential API   and why it's better than Modules API.
+    "Fortunately, PyTorch provides a container Module called `nn.Sequential`, which merges the above steps into one. It is not as flexible as `nn.Module`, because you cannot specify more complex topology than a feed-forward stack, but it's good enough for many use cases.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  My debug statement   (making a conv2d NN (conv-> ReLU-> conv-> ReLU-> Linear-> ReLU  -> cross-entropy/"softMax" loss)    with torch's  (PT's)  nn.Sequential() API)   :
+    RuntimeError: size mismatch, m1: [32768 x 32], m2: [16384 x 10] at /pytorch/aten/src/THC/generic/THCTensorMathBlas.cu:268
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  In "__init__()" :
+    in_channel  :   3072
+    channel_1   :     32
+    channel_2   :     16
+    num_classes :     10
+
+
+
+
+
+
+
+
+
+
+
+
+  In "forward(),"
+    x.shape == [64, 3, 32, 32]
+      x.shape is fine:  64 == N   && 3 == C   && 32 == H    && 32 == W.
+
+    That means conv1.shape should be    []
+
+
+
+
+
+
+
+
+
+
+  in_channel=  3            # so is F1 == 3???
+  channel_1 = 12
+  channel_2 =  8
+  n_classes =  C= 10
+
+
+
+
+
+
+
+
+
+
+
+  In "train_part34(model, optimizer):"           the dimensions are:
+
+
+
+
+
+
+
+
+  train_part34:
+    scores = model(x)
+      forward()  # some PT magic                but maybe the problem is in "def fwd():"
+ 
+
+              This "weight" is self.conv1.shape ==  [32,3072,5,5] &  x.shape == [64, 3, 32, 32]
+        RuntimeError: Given groups=1, weight of size 32 3072 5 5, expected input[64, 3, 32, 32] to have 3072 channels, but got 3 channels instead
+
+
+
+
+
+
+
+    RuntimeError                              Traceback (most recent call last)
+    <ipython-input-22-7270f6a70123> in <module>
+         25 ################################################################################
+         26 
+    ---> 27 train_part34(model, optimizer)
+
+    <ipython-input-18-0807bf043cab> in train_part34(model, optimizer, epochs)
+         17             y = y.to(device=device, dtype=torch.long)
+         18 
+    ---> 19             scores = model(x)
+         20             loss = F.cross_entropy(scores, y)
+         21 
+
+    /usr/local/lib/python3.5/dist-packages/torch/nn/modules/module.py in __call__(self, *input, **kwargs)
+        491             result = self._slow_forward(*input, **kwargs)
+        492         else:
+    --> 493             result = self.forward(*input, **kwargs)
+        494         for hook in self._forward_hooks.values():
+        495             hook_result = hook(self, input, result)
+
+    <ipython-input-21-3677b6f8af67> in forward(self, x)
+        119 
+        120         # All layers:
+    --> 121         x=self.conv1(x)
+        122         x=F.relu(x)
+        123         x=self.conv2(x)
+
+    /usr/local/lib/python3.5/dist-packages/torch/nn/modules/module.py in __call__(self, *input, **kwargs)
+        491             result = self._slow_forward(*input, **kwargs)
+        492         else:
+    --> 493             result = self.forward(*input, **kwargs)
+        494         for hook in self._forward_hooks.values():
+        495             hook_result = hook(self, input, result)
+
+    /usr/local/lib/python3.5/dist-packages/torch/nn/modules/conv.py in forward(self, input)
+        336                             _pair(0), self.dilation, self.groups)
+        337         return F.conv2d(input, self.weight, self.bias, self.stride,
+    --> 338                         self.padding, self.dilation, self.groups)
+        339 
+        340 
+
+
+
+
+
+
+
+
+
+  RuntimeError: Given groups=1, weight of size 32 3072 5 5, expected input[64, 3, 32, 32] to have 3072 channels, but got 3 channels instead
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ________________________________
@@ -1844,11 +2500,18 @@ ________________________________________________________________________________
 
     NiN ("Network in Network")
       Lin et al. 2014
-      "micronetwork" within each conv layer to compute more abstract features for local patches
-
-      The micronetwork uses MLP (FC, ie. 1x1 conv layers)
-
-      It calculates more complex features to feed into the Neural network
+    
+    
+      1.  "micronetwork" within each conv layer to compute more abstract features for local patches
+        a.  computes more abstract features for local patches
+      2.  Inspiration for GoogLeNet
+      3.  The micronetwork uses MLP (FC, ie. 1x1 conv layers)
+      4.  It calculates more complex features to feed into the Neural network
+      5.
+      6.
+      7.
+      8.
+      9.
 
 
   ___________________________________________________________________________________________________
