@@ -22,9 +22,663 @@ ________________________________
   Wed Jul 31 23:58:51 EDT 2019
 ________________________________
 
+  It seems I had a 63% result   using 2 conv2d layers
 
-  Bill came out to 
+
+5 layers:
+
+  Iteration 0, loss = 2.4681
+  Checking accuracy on validation set
+  Got 195 / 1000 correct (19.50)
+
+  Iteration 100, loss = 2.3258
+  Checking accuracy on validation set
+  Got 387 / 1000 correct (38.70)
+
+  Iteration 200, loss = 1.9005
+  Checking accuracy on validation set
+  Got 462 / 1000 correct (46.20)
+
+  Iteration 300, loss = 1.3576
+  Checking accuracy on validation set
+  Got 525 / 1000 correct (52.50)
+
+  Iteration 400, loss = 1.0621
+  Checking accuracy on validation set
+  Got 544 / 1000 correct (54.40)
+
+  Iteration 500, loss = 1.1220
+  Checking accuracy on validation set
+  Got 564 / 1000 correct (56.40)
+
+  Iteration 600, loss = 1.2215
+  Checking accuracy on validation set
+  Got 581 / 1000 correct (58.10)
+
+  Iteration 700, loss = 0.7867
+  Checking accuracy on validation set
+  Got 580 / 1000 correct (58.00)
+
+  Iteration 0, loss = 0.9701
+  Checking accuracy on validation set
+  Got 604 / 1000 correct (60.40)
+
+  Iteration 100, loss = 0.9387
+  Checking accuracy on validation set
+  Got 600 / 1000 correct (60.00)
+
+  Iteration 200, loss = 0.8655
+  Checking accuracy on validation set
+  Got 606 / 1000 correct (60.60)
+
+  Iteration 300, loss = 0.9875
+  Checking accuracy on validation set
+  Got 599 / 1000 correct (59.90)
+
+  Iteration 400, loss = 1.0915
+  Checking accuracy on validation set
+  Got 639 / 1000 correct (63.90)
+
+  Iteration 500, loss = 0.9198
+  Checking accuracy on validation set
+  Got 634 / 1000 correct (63.40)
+
+  Iteration 600, loss = 1.1503
+  Checking accuracy on validation set
+  Got 635 / 1000 correct (63.50)
+
+  Iteration 700, loss = 1.1659
+  Checking accuracy on validation set
+  Got 646 / 1000 correct (64.60)
+
+  Iteration 0, loss = 0.7948
+  Checking accuracy on validation set
+  Got 652 / 1000 correct (65.20)
+
+  Iteration 100, loss = 0.9335
+  Checking accuracy on validation set
+  Got 666 / 1000 correct (66.60)
+
+  Iteration 200, loss = 0.7359
+  Checking accuracy on validation set
+  Got 665 / 1000 correct (66.50)
+
+  Iteration 300, loss = 0.6469
+  Checking accuracy on validation set
+  Got 646 / 1000 correct (64.60)
+
+  Iteration 400, loss = 0.7839
+  Checking accuracy on validation set
+  Got 664 / 1000 correct (66.40)
+
+  Iteration 500, loss = 0.6581
+  Checking accuracy on validation set
+  Got 669 / 1000 correct (66.90)
+
+  Iteration 600, loss = 0.8801
+  Checking accuracy on validation set
+  Got 672 / 1000 correct (67.20)
+
+  Iteration 700, loss = 0.8201
+  Checking accuracy on validation set
+  Got 665 / 1000 correct (66.50)
+
+  Iteration 0, loss = 0.7807
+  Checking accuracy on validation set
+  Got 662 / 1000 correct (66.20)
+
+  Iteration 100, loss = 0.6377
+  Checking accuracy on validation set
+  Got 673 / 1000 correct (67.30)
+
+  Iteration 200, loss = 0.7281
+  Checking accuracy on validation set
+  Got 649 / 1000 correct (64.90)
+
+  Iteration 300, loss = 0.7054
+  Checking accuracy on validation set
+  Got 678 / 1000 correct (67.80)
+
+  Iteration 400, loss = 0.6442
+  Checking accuracy on validation set
+  Got 659 / 1000 correct (65.90)
+
+  Iteration 500, loss = 0.5576
+  Checking accuracy on validation set
+  Got 671 / 1000 correct (67.10)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  66 or 70 is the top
+
+
+
+	Iteration 0, loss = 2.4517
+  Checking accuracy on validation set
+  Got 169 / 1000 correct (16.90)
+
+  Iteration 100, loss = 2.9614
+  Checking accuracy on validation set
+  Got 368 / 1000 correct (36.80)
+
+  Iteration 200, loss = 2.5752
+  Checking accuracy on validation set
+  Got 431 / 1000 correct (43.10)
+
+  Iteration 300, loss = 1.7710
+  Checking accuracy on validation set
+  Got 485 / 1000 correct (48.50)
+
+  Iteration 400, loss = 1.5384
+  Checking accuracy on validation set
+  Got 529 / 1000 correct (52.90)
+
+  Iteration 500, loss = 1.4655
+  Checking accuracy on validation set
+  Got 533 / 1000 correct (53.30)
+
+  Iteration 600, loss = 1.0316
+  Checking accuracy on validation set
+  Got 541 / 1000 correct (54.10)
+
+  Iteration 700, loss = 1.2152
+  Checking accuracy on validation set
+  Got 583 / 1000 correct (58.30)
+
+  Iteration 100, loss = 1.0664
+  Checking accuracy on validation set
+  Got 608 / 1000 correct (60.80)
+
+  Iteration 200, loss = 1.2862
+  Checking accuracy on validation set
+  Got 597 / 1000 correct (59.70)
+
+  Iteration 300, loss = 1.1375
+  Checking accuracy on validation set
+  Got 579 / 1000 correct (57.90)
+
+  Iteration 400, loss = 0.9120
+  Checking accuracy on validation set
+  Got 634 / 1000 correct (63.40)
+
+  Iteration 500, loss = 1.2677
+  Checking accuracy on validation set
+  Got 573 / 1000 correct (57.30)
+
+  Iteration 600, loss = 0.9571
+  Checking accuracy on validation set
+  Got 607 / 1000 correct (60.70)
+
+  Iteration 700, loss = 1.2097
+  Checking accuracy on validation set
+  Got 631 / 1000 correct (63.10)
+
+  Iteration 0, loss = 0.8666
+  Checking accuracy on validation set
+  Got 613 / 1000 correct (61.30)
+
+  Iteration 100, loss = 1.1489
+  Checking accuracy on validation set
+  Got 612 / 1000 correct (61.20)
+
+  Iteration 200, loss = 1.1303
+  Checking accuracy on validation set
+  Got 621 / 1000 correct (62.10)
+
+  Iteration 300, loss = 1.1111
+  Checking accuracy on validation set
+  Got 607 / 1000 correct (60.70)
+
+  Iteration 400, loss = 1.2675
+  Checking accuracy on validation set
+  Got 618 / 1000 correct (61.80)
+
+  Iteration 500, loss = 1.0318
+  Checking accuracy on validation set
+  Got 617 / 1000 correct (61.70)
+
+  Iteration 600, loss = 0.9542
+  Checking accuracy on validation set
+  Got 663 / 1000 correct (66.30)
+
+  Iteration 700, loss = 1.0660
+  Checking accuracy on validation set
+  Got 652 / 1000 correct (65.20)
+
+  Iteration 0, loss = 0.5691
+  Checking accuracy on validation set
+  Got 633 / 1000 correct (63.30)
+
+  Iteration 100, loss = 0.6639
+  Checking accuracy on validation set
+  Got 632 / 1000 correct (63.20)
+
+  Iteration 200, loss = 0.7791
+  Checking accuracy on validation set
+  Got 629 / 1000 correct (62.90)
+
+  Iteration 300, loss = 0.6365
+  Checking accuracy on validation set
+  Got 635 / 1000 correct (63.50)
+
+  Iteration 400, loss = 0.6814
+  Checking accuracy on validation set
+  Got 645 / 1000 correct (64.50)
+
+  Iteration 500, loss = 0.8211
+  Checking accuracy on validation set
+  Got 647 / 1000 correct (64.70)
+
+  Iteration 600, loss = 0.9090
+  Checking accuracy on validation set
+  Got 627 / 1000 correct (62.70)
+
+  Iteration 700, loss = 0.4963
+  Checking accuracy on validation set
+  Got 636 / 1000 correct (63.60)
+
+  Iteration 0, loss = 0.7647
+  Checking accuracy on validation set
+  Got 634 / 1000 correct (63.40)
+
+  Iteration 100, loss = 0.7811
+  Checking accuracy on validation set
+  Got 661 / 1000 correct (66.10)
+
+  Iteration 200, loss = 0.6088
+  Checking accuracy on validation set
+  Got 638 / 1000 correct (63.80)
+
+  Iteration 300, loss = 0.6895
+  Checking accuracy on validation set
+  Got 659 / 1000 correct (65.90)
+
+  Iteration 400, loss = 0.7363
+  Checking accuracy on validation set
+  Got 626 / 1000 correct (62.60)
+
+  Iteration 500, loss = 0.6749
+  Checking accuracy on validation set
+  Got 649 / 1000 correct (64.90)
+
+  Iteration 600, loss = 0.6213
+  Checking accuracy on validation set
+  Got 612 / 1000 correct (61.20)
+
+  Iteration 700, loss = 0.8447
+  Checking accuracy on validation set
+  Got 634 / 1000 correct (63.40)
+
+  Iteration 0, loss = 0.5044
+  Checking accuracy on validation set
+  Got 649 / 1000 correct (64.90)
+
+  Iteration 100, loss = 0.6570
+  Checking accuracy on validation set
+  Got 646 / 1000 correct (64.60)
+
+  Iteration 200, loss = 0.5236
+  Checking accuracy on validation set
+  Got 650 / 1000 correct (65.00)
+
+  Iteration 300, loss = 0.8095
+  Checking accuracy on validation set
+  Got 632 / 1000 correct (63.20)
+
+  Iteration 400, loss = 0.8506
+  Checking accuracy on validation set
+  Got 639 / 1000 correct (63.90)
+
+  Iteration 500, loss = 0.5481
+  Checking accuracy on validation set
+  Got 649 / 1000 correct (64.90)
+
+  Iteration 600, loss = 0.7288
+  Checking accuracy on validation set
+  Got 651 / 1000 correct (65.10)
+
+  Iteration 700, loss = 0.9448
+  Checking accuracy on validation set
+  Got 635 / 1000 correct (63.50)
+
+  Iteration 0, loss = 0.5786
+  Checking accuracy on validation set
+  Got 616 / 1000 correct (61.60)
+
+  Iteration 100, loss = 0.4726
+  Checking accuracy on validation set
+  Got 655 / 1000 correct (65.50)
+
+  Iteration 200, loss = 0.6496
+  Checking accuracy on validation set
+  Got 638 / 1000 correct (63.80)
+
+  Iteration 300, loss = 0.6085
+  Checking accuracy on validation set
+  Got 655 / 1000 correct (65.50)
+
+  Iteration 400, loss = 0.7305
+  Checking accuracy on validation set
+  Got 634 / 1000 correct (63.40)
+
+  Iteration 500, loss = 0.7885
+  Checking accuracy on validation set
+  Got 636 / 1000 correct (63.60)
+
+  Iteration 600, loss = 0.5869
+  Checking accuracy on validation set
+  Got 626 / 1000 correct (62.60)
+
+  Iteration 700, loss = 0.6876
+  Checking accuracy on validation set
+  Got 651 / 1000 correct (65.10)
+
+  Iteration 0, loss = 0.4310
+  Checking accuracy on validation set
+  Got 649 / 1000 correct (64.90)
+
+  Iteration 100, loss = 0.3402
+  Checking accuracy on validation set
+  Got 654 / 1000 correct (65.40)
+
+  Iteration 200, loss = 0.3444
+  Checking accuracy on validation set
+  Got 634 / 1000 correct (63.40)
+
+  Iteration 300, loss = 0.6545
+  Checking accuracy on validation set
+  Got 641 / 1000 correct (64.10)
+
+  Iteration 400, loss = 0.7417
+  Checking accuracy on validation set
+  Got 642 / 1000 correct (64.20)
+
+  Iteration 500, loss = 0.5541
+  Checking accuracy on validation set
+  Got 624 / 1000 correct (62.40)
+
+  Iteration 600, loss = 0.8100
+  Checking accuracy on validation set
+  Got 644 / 1000 correct (64.40)
+
+  Iteration 700, loss = 0.9368
+  Checking accuracy on validation set
+  Got 652 / 1000 correct (65.20)
+
+  Iteration 0, loss = 0.4321
+  Checking accuracy on validation set
+  Got 639 / 1000 correct (63.90)
+
+  Iteration 100, loss = 0.4696
+  Checking accuracy on validation set
+  Got 641 / 1000 correct (64.10)
+
+  Iteration 200, loss = 0.4667
+  Checking accuracy on validation set
+  Got 633 / 1000 correct (63.30)
+
+  Iteration 300, loss = 0.5701
+  Checking accuracy on validation set
+  Got 654 / 1000 correct (65.40)
+
+  Iteration 400, loss = 0.4083
+  Checking accuracy on validation set
+  Got 646 / 1000 correct (64.60)
+
+  Iteration 500, loss = 0.4852
+  Checking accuracy on validation set
+  Got 638 / 1000 correct (63.80)
+
+  Iteration 600, loss = 0.6248
+  Checking accuracy on validation set
+  Got 638 / 1000 correct (63.80)
+
+  Iteration 700, loss = 0.6221
+  Checking accuracy on validation set
+  Got 629 / 1000 correct (62.90)
+
+  Iteration 0, loss = 0.3349
+  Checking accuracy on validation set
+  Got 644 / 1000 correct (64.40)
+
+  Iteration 100, loss = 0.3404
+  Checking accuracy on validation set
+  Got 666 / 1000 correct (66.60)
+
+  Iteration 200, loss = 0.4503
+  Checking accuracy on validation set
+  Got 651 / 1000 correct (65.10)
+
+  Iteration 300, loss = 0.4970
+  Checking accuracy on validation set
+  Got 651 / 1000 correct (65.10)
+
+  Iteration 400, loss = 0.5615
+  Checking accuracy on validation set
+  Got 651 / 1000 correct (65.10)
+
+  Iteration 500, loss = 0.3912
+  Checking accuracy on validation set
+  Got 633 / 1000 correct (63.30)
+
+  Iteration 600, loss = 0.5670
+  Checking accuracy on validation set
+  Got 636 / 1000 correct (63.60)
+
+  Iteration 700, loss = 0.5594
+  Checking accuracy on validation set
+  Got 645 / 1000 correct (64.50)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  The bill came out to 
     $224.84
+    But it was $229.23    as of July 30, 2019.
+    It was $224.84 on August 1, 2019, at 1:56 P.M.  
   I think GPU is actually super pricey w/ any length of time (I did ~3.5 hours)
 
 
@@ -139,6 +793,11 @@ ________________________________
     Skip layers   (ResNet, maybe ResNeXT)
     Take inspiration from the Kaiming He talk   (whatever the latest ImageNet winner's NN architecture is)
 
+  We DON'T like:
+    Pooling
+    tanh
+    sigmoid
+    f
 
   Take notes on what you're doing   as you do it.
     1.  Graphs you made to measure  how well your network is doing at various stages.
@@ -2408,6 +3067,11 @@ ________________________________________________________________________________
       What does "1st place in localization" mean?
         Bounding box
 
+
+
+      Did better than GoogLeNet on certain tasks
+      3x3 Conv filters *ALL THE WAY* .   (3x3 is the smallest possible filter that has *ANY* spatial awareness.
+      But also very deep
 
   ___________________________________________________________________________________________________
 
