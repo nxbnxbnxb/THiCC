@@ -23,8 +23,19 @@ ________________________________
 ________________________________
 
 
+  Bill came out to 
+    $224.84
+  I think GPU is actually super pricey w/ any length of time (I did ~3.5 hours)
 
 
+
+
+
+
+
+
+
+ 
 ________________________________
 
   Visualize (see) (print out)     Conv weights in Torch:
