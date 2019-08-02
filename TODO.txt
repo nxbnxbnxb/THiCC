@@ -17,9 +17,13 @@
 
     TODO.txt
 
+
+
+
+
 ________________________________
 
-  Fri Aug  2 00:11:42 EDT 2019
+  Fri Aug  2 07:17:50 UTC 2019
 ________________________________
 
   https://github.com/kuangliu/pytorch-cifar
@@ -32,6 +36,12 @@ ________________________________
 
 
   What else did I leave at home yesterday morning?
+
+
+
+
+
+
 
 
 
@@ -209,7 +219,7 @@ ________________________________
     Cloud 
 
     What problem does it solve?
-      Me:  Get points for buying nice clothes.   Social jealousy element
+      Get points for buying nice clothes.   Out of 
 
 
 
@@ -314,7 +324,7 @@ ________________________________
 
 
 
-=============================================================================
+=======
   It seems I had a 63% result   using 2 conv2d layers
 
 
