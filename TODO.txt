@@ -17,19 +17,24 @@
 
     TODO.txt
 
-
-
-
-
-
-
-
-
-
 ________________________________
 
-  Fri Aug  2 07:17:50 UTC 2019
+  Fri Aug  2 00:11:42 EDT 2019
 ________________________________
+
+  https://github.com/kuangliu/pytorch-cifar
+  https://github.com/huyvnphan/PyTorch-CIFAR10
+    A symlink to this directory is on ~/Desktop/  ...
+
+
+
+  Walk into Formal Affairs &  ask them what they would pay for.
+
+
+  What else did I leave at home yesterday morning?
+
+
+
 
   Fuck, there was definitely something I thought up.  Prob not that important, though.
 
@@ -204,7 +209,7 @@ ________________________________
     Cloud 
 
     What problem does it solve?
-      Get points for buying nice clothes.   Out of 
+      Me:  Get points for buying nice clothes.   Social jealousy element
 
 
 
@@ -309,7 +314,7 @@ ________________________________
 
 
 
-=======
+=============================================================================
   It seems I had a 63% result   using 2 conv2d layers
 
 
