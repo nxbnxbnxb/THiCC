@@ -22,6 +22,31 @@ ________________________________
   Wed Jul 31 23:58:51 EDT 2019
 ________________________________
 
+  Startup School call at 9 P.M.
+
+ 
+
+  I can get into the internet on my laptop @ Evans Hall  by sending the code to my e-mail and getting into e-mail from their PCs.
+
+
+
+  If you want to get ResNet or ResNeXT working,  I think you have to use PyTorch's modules API (Sequential doesn't let you do skip layers)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   Bill came out to 
     $224.84
