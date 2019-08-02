@@ -18,6 +18,181 @@
     TODO.txt
 
 
+
+
+
+
+
+
+
+
+________________________________
+
+  Fri Aug  2 07:17:50 UTC 2019
+________________________________
+
+  Fuck, there was definitely something I thought up.  Prob not that important, though.
+
+resNeXt:
+epochs = 1
+
+
+
+Iteration 0, loss = 4.3491
+Checking accuracy on validation set
+Got 79 / 1000 correct (7.90)
+
+Iteration 100, loss = 2.1394
+Checking accuracy on validation set
+Got 222 / 1000 correct (22.20)
+
+Iteration 200, loss = 1.8152
+Checking accuracy on validation set
+Got 292 / 1000 correct (29.20)
+
+Iteration 300, loss = 1.3868
+Checking accuracy on validation set
+Got 387 / 1000 correct (38.70)
+
+Iteration 400, loss = 2.3200
+Checking accuracy on validation set
+Got 399 / 1000 correct (39.90)
+
+Iteration 500, loss = 1.7742
+Checking accuracy on validation set
+Got 463 / 1000 correct (46.30)
+
+Iteration 600, loss = 1.7822
+Checking accuracy on validation set
+Got 396 / 1000 correct (39.60)
+
+Iteration 700, loss = 1.6796
+Checking accuracy on validation set
+Got 473 / 1000 correct (47.30)
+
+Iteration 0, loss = 1.4550
+Checking accuracy on validation set
+Got 349 / 1000 correct (34.90)
+
+Iteration 100, loss = 1.6709
+Checking accuracy on validation set
+Got 380 / 1000 correct (38.00)
+
+Iteration 200, loss = 1.8279
+Checking accuracy on validation set
+Got 455 / 1000 correct (45.50)
+
+Iteration 300, loss = 1.5736
+Checking accuracy on validation set
+Got 444 / 1000 correct (44.40)
+
+Iteration 400, loss = 1.4400
+Checking accuracy on validation set
+Got 465 / 1000 correct (46.50)
+
+Iteration 500, loss = 1.9875
+Checking accuracy on validation set
+Got 458 / 1000 correct (45.80)
+
+Iteration 600, loss = 1.9080
+Checking accuracy on validation set
+Got 418 / 1000 correct (41.80)
+
+Iteration 700, loss = 1.6117
+Checking accuracy on validation set
+Got 347 / 1000 correct (34.70)
+
+Iteration 0, loss = 1.6633
+Checking accuracy on validation set
+Got 370 / 1000 correct (37.00)
+
+Iteration 100, loss = 2.0094
+Checking accuracy on validation set
+Got 427 / 1000 correct (42.70)
+
+Iteration 200, loss = 1.4959
+Checking accuracy on validation set
+Got 465 / 1000 correct (46.50)
+
+Iteration 300, loss = 1.6535
+Checking accuracy on validation set
+Got 522 / 1000 correct (52.20)
+
+Iteration 400, loss = 1.5259
+Checking accuracy on validation set
+Got 397 / 1000 correct (39.70)
+
+Iteration 500, loss = 2.1393
+Checking accuracy on validation set
+Got 363 / 1000 correct (36.30)
+
+Iteration 600, loss = 1.9598
+Checking accuracy on validation set
+Got 322 / 1000 correct (32.20)
+
+Iteration 700, loss = 1.3565
+Checking accuracy on validation set
+Got 510 / 1000 correct (51.00)
+
+Iteration 0, loss = 1.3176
+Checking accuracy on validation set
+Got 486 / 1000 correct (48.60)
+
+Iteration 100, loss = 1.6131
+Checking accuracy on validation set
+Got 410 / 1000 correct (41.00)
+
+Iteration 200, loss = 1.6164
+Checking accuracy on validation set
+Got 323 / 1000 correct (32.30)
+
+Iteration 300, loss = 1.2947
+Checking accuracy on validation set
+Got 492 / 1000 correct (49.20)
+
+Iteration 400, loss = 1.1869
+Checking accuracy on validation set
+Got 538 / 1000 correct (53.80)
+
+Iteration 500, loss = 1.2640
+Checking accuracy on validation set
+Got 533 / 1000 correct (53.30)
+
+Iteration 600, loss = 1.3538
+Checking accuracy on validation set
+Got 551 / 1000 correct (55.10)
+
+Iteration 700, loss = 1.2459
+Checking accuracy on validation set
+Got 558 / 1000 correct (55.80)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ________________________________
 
   Thu Aug  1 00:08:24 EDT 2019
