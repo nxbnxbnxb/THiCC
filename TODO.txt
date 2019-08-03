@@ -25,6 +25,22 @@ ________________________________
 
   Fri Aug  2 07:17:50 UTC 2019
 ________________________________
+                |                                                     
+    Started     |   Stopped                                             
+  12:22 A.M.    |   3:18 A.M.                     (August 2, 2019)                      still doing git backup after this point.
+                |                                                     
+                |                                                     
+                |                                                     
+                |                                                     
+________________________________                                      
+
+
+
+    $224.84  => $218.88  (I think this was over a 5 hour period, so the GPU instance is priced at roughly $1.20 / hour)
+
+
+
+
 
   https://github.com/kuangliu/pytorch-cifar
   https://github.com/huyvnphan/PyTorch-CIFAR10
