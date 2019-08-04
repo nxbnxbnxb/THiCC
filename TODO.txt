@@ -17,6 +17,84 @@
 
     TODO.txt
 
+________________________________
+
+  Sat Aug  3 19:20:34 UTC 2019
+________________________________
+
+  So we're going from 1 image =>  1 whole caption   (image ==> "a black cat is laying on a bed")
+    I'm pretty sure this is "1 => many"
+    But x.shape ==(N, T, D)...   Is it "many => many" ?
+      And if so, why?  Are we trying to construct a story of what happens in a video?  (ie. MULTIPLE images)
+        Maybe it's saying we're trying to do multiple images => multiple captions, one per image.   -nxb, 3:40 P.M.,  Aug 3, 2019
+
+
+
+  https://github.com/madalinabuzau/cs231n-convolutional-neural-networks-solutions/blob/master/2017%20Spring%20Assignments/assignment3/cs231n/rnn_layers.py
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
