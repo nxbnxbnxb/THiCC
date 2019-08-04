@@ -17,6 +17,80 @@
 
     TODO.txt
 
+
+
+
+
+
+________________________________
+
+  Sun Aug  4 01:46:03 EDT 2019
+________________________________
+
+  I **THINK** word embeddings are just runs of rnn_forward() and rnn_backward().  
+    "word_embed_fwd( )"    and "word_embed_bwd()"
+
+  I think there are like 6 things TODO in RNN_Captioning.ipynb
+    1.  word_embedding_fwd()
+      a.
+    2.  word_embedding_bwd()
+    3.  cs231n/classifiers/rnn.py   CaptioningRNN class'  loss()    function
+    4.  cs231n/classifiers/rnn.py   CaptioningRNN class'  loss()  bwd()    function 
+    5.  cs231n/classifiers/rnn.py, implement the sample() method
+    6.
+    7.
+    8.
+    9.
+    10.
+    11.
+    12.
+    13.
+    14.
+    15.
+    16.
+    17.
+    18.
+
+
+  1. Look ahead @ the next parts of the assignment and figure out how we can finish it by end of Sunday while also fitting in calls to June and dad.
+    a.
+  2.  Do the next part of the assignment in ~2 hours
+  3.  Brush your teeth
+  4.  Floss
+  5.  Time for one-offs (Monday evening?)
+    IDC when, but it has to be sometime or my health will decline.
+      ie.
+      Call JLi
+      Call Nicole
+      Catch up with other old friends (ie. Raghav)
+
+
+
+  6.  Sleep
+  7.  
+
+
+
+  Everything should be as clear as that LSTM YouTube Video.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ________________________________
 
   Sat Aug  3 19:20:34 UTC 2019
