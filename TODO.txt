@@ -34,7 +34,8 @@ ________________________________
 
 
 
-
+  Good RNN & LSTM video:
+    www.youtube.com/watch?v=WCUNPb-5EYI
 
 
 
