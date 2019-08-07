@@ -17,6 +17,224 @@
 
     TODO.txt
 
+________________________________
+
+  Wed Aug  7 16:51:15 EDT 2019
+________________________________
+
+
+
+
+  Get into old .vimrc on the pytorch VM instance.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Tue Aug  6 20:24:37 EDT 2019
+________________________________
+
+  Ask Tarun  to hook you up with that deep learning job.
+  "gpul" and "gpus" .bashrc    to my-config-files
+
+  For Habitica, I started working around 10:00 or 10:30   today (Aug 6, 2019)
+    Also took a ~20-30 minute break around 1:50-2:12 A.M.
+    Idea: deep LSTM
+      More than 1 cell of memory
+      Memory with multiple goals   (ie. part of the brain studies logarithmic thinking    where the other part of the brain does arithmetic/linear thinking)
+
+  https://github.com/madalinabuzau/cs231n-convolutional-neural-networks-solutions/blob/master/2017%20Spring%20Assignments/assignment3/cs231n/rnn_layers.py
+    Do "bwd()"   on LSTM:  https://kevinzakka.github.io/2016/09/14/batch_normalization/
+      https://towardsdatascience.com/back-to-basics-deriving-back-propagation-on-simple-rnn-lstm-feat-aidan-gomez-c7f286ba973d
+      https://wiseodd.github.io/techblog/2016/08/12/lstm-backprop/
+      https://medium.com/@aidangomez/let-s-do-this-f9b699de31d9
+    LSTM   version of the "char-CNN" Karpathy did.
+      https://github.com/nicodjimenez/lstm/blob/master/lstm.py
+ 
+
+
+
+
+
+
+  ________________________________
+  ________________________________
+  ________________________________
+  ________________________________
+  ________________________________
+
+
+  Ask Chris what he thinks of my ideas to 
+    You don't have to completely build out a copy of UP or NBF or HMR before you contact Black et al.
+
+
+
+
+
+  Ask MJB's grad students  (e-mail them)
+    Romero
+    Pons-Moll
+    Kostas Daniilidis'  former grad student
+    "How will this work out after grad school?"
+    Naureen Mahmood
+    G
+
+
+    Tell them HOW they can help me
+      1.  Be nice
+      2.  Show off my work
+        a.  My  www.github.com
+        b.  
+      3.
+      4.
+      5.
+      6.
+      7.
+      8.
+      9.
+
+
+    Show myself as an asset (what experience I have that could be useful to them, etc.)
+      1.  Competent
+      2.  Friendly
+      3.  f
+      4.
+      5.
+      6.
+      7.
+      8.
+      9.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Mon Aug  5 23:25:51 EDT 2019
+________________________________
+
+  "Sampling" isn't stochastic.  It just means "give it an image,   get out a caption"
+
+  Print out the code & write the code via hand
+    rnn.py
+    rnn_layers.py
+    layers.py
+
+
+
+  New account &     PyTorch GPU instance: try to secure it & keep your personal identification off it.
+    Only use this b!tch @ home for awhile.
+      See if it stops.  If it still doesn't, the issue is the security rather than the proximity to UDel
+        (Maybe someone far from UDel is the attacker {ie. a Russian cybergang }        )
+
+    cat.vr.clothes@gmail.com
+      luckey's_..._...
+      Maybe change the passwd once you get home.
+
+
+  If my  gcloud instance is **STILL** down, 
+    1.  Submit my ycombinator   update & tell them when I'm free on Thurs
+    2.  Everything else  on habitica and/or gmail
+      a.  Medicaid
+    3.  Medicaid
+    4.
+    5.  I can always try simply creating a new instance w/ a new e-mail address,   or a new instance w/ the same e-mail address
+    6.
+    7.
+    8.
+    9.
+
+  To fix the security issue, I have tried:
+    1.  Changing my Google password
+    2.
+    3.
+    4.
+    5.
+    6.
+    7.
+    8.
+    9.
+
+
+  I've yet to try:
+    1.  
+    2.  Secure the instance  (firewall rules?  however u get that "Not Secure"  notice OFF the jupyter notebook in browser)
+    3.  Work from home
+    4.
+    5.
+    6.
+    7.
+    8.
+    9.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -105,6 +323,8 @@ ________________________________
 
 
   https://github.com/madalinabuzau/cs231n-convolutional-neural-networks-solutions/blob/master/2017%20Spring%20Assignments/assignment3/cs231n/rnn_layers.py
+  RL class:
+    http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching.html
 
 
 
@@ -25179,6 +25399,8 @@ Notes/ideas:
       I wonder, if this is PUBLIC, how much sh!t some of these Russian hacker groups have.
         Yeesh.  Security is a real thing in the internet age, man.  
 
+"Networking"  chat with Chris Malec:   (August 6, 2019)
+  SpringBoard data science bootcamp
 
 
 
