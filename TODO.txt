@@ -17,15 +17,309 @@
 
     TODO.txt
 
+
+________________________________
+
+  Mon Aug 12 14:14:12 EDT 2019
+________________________________
+
+  Save the local JNote to the VM Instance.
+    Copy the "torch.Sequential()"    code from assignment 2 PyTorch.ipynb.
+
+
+
+
+
+
+
+
+
+
+
+  Fill out the "Andy form?"
+    / tie that Andy form to Habitica habits
+    We gotta clear out some of Habitica (it's metastasized to include a whole lotta bullsh!t we don't care about)
+      "metastasize"
+
+
+  NetworkVisualization-PyTorch.ipynb  :   226848 characters on line  168
+                                          311664 characters on line  552
+                                          ...
+                                          170688 characters on line 1514
+                                          163348 characters on line 1526
+                                          169644 characters on line 1538
+                                        only 1591 total lines.
+
+
+
+  Doesn't Neural-Style-Transfer **GENERATE** stuff too?
+    Strictly speaking, it's not JUST GANs.
+
+
+
+
+
+
+
+________________________________
+                                
+  Sun Aug 11 13:18:56 EDT 2019
+________________________________
+
+
+
+
+  GCloud total (acct == "cat.macys.vr@gmail.com")
+    $200.24
+
+
+
+
+
+
+
+
+
+
+
+
+  Google Sheets        (feat. Andy Novocin)
+    Lose streaks
+    Social obligation(s)
+
+
+
+
+
+
+
+  UDel wi-fi password:
+    crew52tidi
+
+
+  cat.vr.clothes@gmail.com
+    luckey's_..._...
+    Maybe change the passwd once you get home.
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Vectorized matmul()  (4-tensor times 4-tensor)
+    Does this exist?
+      ie. mm(axis=3)
+
+
+
+
+
+
+
+________________________________
+
+  Sat Aug 10 02:08:59 EDT 2019
+________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  In StyleTransfer-PyTorch.ipynb,   it seems like there are generally 3 things TODO:
+    1.  Content loss
+    2.  Style loss
+    3.  Total Variation loss
+    4.
+    5.
+    6.
+    7.
+    8.
+    9.
+    10.
+
+  b. E-mails to  MPII grad students.
+
+
+
+
+
+
+
+
+
+
+________________________________
+                                
+  Fri Aug  9 01:12:23 EDT 2019  
+________________________________
+
+  cs231n
+    Vectorize "sample()"
+  *THEN* e-mails
+  
+  Rent  to Jeannine  ()
+  medicaid
+    I think there was something else important to put on habitica
+  socialize (Shaina, running, w/e)
+
+
+
+  Call Nicole back
+
+
+
+
+
+
+
+
+  check the GCloud logs     (did anyone get on to mine crypto?)
+    Who was doing shit the night of August 5, 2019?
+    Also Aug 6, 2019.    night of August 6th?
+
+  Tell Lakisha "You're a really positive person.  A real leader.  I hope we get to work together more in the future."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Folding file is downstairs:
+    DING
+  Laptop charger:
+    DING  (checkmark)
+
+
+
+
+
+
+
+  Has Elizabeth Warren taken money from corporations?
+
+
+________________________________
+
+  Thu Aug  8 19:29:40 EDT 2019
+________________________________
+
+
+
+  ===================================================================================================
+  E-mailing Black's/Pons-Moll's grad students:
+  ===================================================================================================
+    https://academia.stackexchange.com/questions/8507/what-questions-should-one-ask-to-the-former-current-students-of-a-professor-befo?noredirect=1&lq=1
+  ===================================================================================================
+
+  Reply to Bob McGurk
+  Contact info from all 3 other SSchhol groups today
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Heavy lift tech-wise. Build tech first, business case is clearly there. Clothing/softgoods are tough. Maybe find an industry that needs size/shape determination for hard goods as early customers?
+    I guess maybe he's saying stuff like furniture?
+      I will grant that it IS true that modeling dynamic people and/or clothes will be harder than modeling  furniture.
+        Yes, it's a good point, Bob,  **but** I don't really care about furniture/housing at this point in my life
+
+
+
+
+
+
+
+
 ________________________________
 
   Wed Aug  7 16:51:15 EDT 2019
 ________________________________
 
+  Show Shaina the Black Jeopardy one with Black Panther
 
 
 
   Get into old .vimrc on the pytorch VM instance.
+    "Maybe find an industry that needs size/shape determination for hard goods as early customers?
+
 
 
 
@@ -94,7 +388,7 @@ ________________________________
   ________________________________
 
 
-  Ask Chris what he thinks of my ideas to 
+  Ask Chris Malec what he thinks of my ideas to 
     You don't have to completely build out a copy of UP or NBF or HMR before you contact Black et al.
 
 
@@ -127,7 +421,7 @@ ________________________________
     Show myself as an asset (what experience I have that could be useful to them, etc.)
       1.  Competent
       2.  Friendly
-      3.  f
+      3.  F
       4.
       5.
       6.
@@ -3521,7 +3815,7 @@ ________________________________
 
 ________________________________
 
-  cs231n Lecture 7 ("Training Neural Networks II"):
+  cs231n  Lecture 7 ("Training Neural Networks II"):
 ________________________________
 
 
@@ -3713,7 +4007,135 @@ ______________________________
 COPY THESE NOTES TO ANOTHER LOCATION (ie. consolidate them all)
 ___________________________________________________________________________________________________
 
-  Lecture 9: CNN architectures
+  Lecture 12: CNN architectures
+___________________________________________________________________________________________________
+
+  t-SNE is like PCA but nonlinear  (Deep Learning people use it to reduce dimensionality)
+    ie. looks just like that famous MNIST image   on xy Cartesian coordinates
+      (https://www.researchgate.net/profile/Efthymios_Tzinis/publication/326572550/figure/fig5/AS:651846066663431@1532423621302/2D-manifold-of-MNIST-dataset-learned-using-t-SNE.png)
+
+  How do we visualize deep layers of CNNs  (video on Jason Yosinski 's  website)   (23:00 and a little before)
+    **Very** VERY related to NN interpretability & debugging
+
+
+  Wait, what does the "activation map" MEAN   in the middle layers of a CNN?
+    / how is it mathematically defined?
+
+
+  There's also KNN on late layers of the network.
+    Maps all the types of images from images onto 2 dimensions   (https://cs.stanford.edu/people/karpathy/cnnembed/cnn_embed_full_4k_seams.jpg)
+
+
+  "Maximally Activating Patches" :   (a little before 26:00 in the YouTube video for Lecture 12)
+    Shows the types of images   that activate particular Neurons
+
+  Occlusion Experiments: (29:13)
+    "Visualizing and Understanding Convolutional Networks" (2014)
+    Mask part of elephant 
+    Which part makes you less confident it's an elephant?
+
+  Saliency Maps:  (31:30)
+    *** Which pixels matter for classification? ***
+    More **PRECISE** than  the occlusion mask experiments?
+    Maybe just different
+
+    Useful for Semantic segmentation
+      Karen's paper?
+      No need for labeled data!
+        Great!
+        But performance SUCKS.
+        More of a cool novel idea than a useful 
+      Grabcut
+
+  Intermediate Features via (guided) backprop  (34:38)
+    Compute the gradient of neuron value w.r.t. image pixels.
+    Only backprop positive gradients through ReLUs
+    Zeiler and Fergus, "Visualizing and Understanding Convolutional Networks" , ECCV 2014
+    Used in tandem with previous technique to verify what particular neurons are "looking for"
+
+
+
+
+  Visualizing CNN features: (38:10 started,   but the SUCCESS is at 40:39  )
+    Paper name:
+      Yosinski et al. "Understanding Neural Networks through Deep Visualization" 2014
+        Random noise is what maximizes the confidence of the Detection ("Detection" is AKA "Identification") score.
+    1. Gradient Ascent
+    2. Guided backprop
+    But **ALSO** we want it to be a nice-looking image
+    Find (*synthesize* / make) the image that maximally activates a particular neuron.
+    If this technique is  applied this to **ALL** the neurons in the **WHOLE** CNN, maybe we can picture everything each neuron is doing.
+      I think this is basically my idea.  Maybe we would like a more "miniature" version of this same idea, though.   (ie. "What are the particular filters that this neuron fires for,   and can we look at only **THOSE** features")  
+
+    Better regularization => better images
+
+    Nguyen et al.,  "Synthesizing the preffered inputs for neurons in neural networks via Deep Generator Networks"
+      2016, NIPS
+      Optimize in FC6 latent space instead of pixel space
+
+
+    Fooling image networks (47:43)
+      (ie.  Crashing self-driving cars)
+      Random-seeming noise
+      Incomprehensibly different
+      But then why do the NNs still WORK    SO. FUCKING. WELL. on regular images?
+        More from Goodfellow   in guest lecture  (GANs)
+
+    Why do we care?
+      Criticism of black-box-i-ness    compared to "shallow learning" methods.   than  Neural Networks
+
+    Deep Dream (52:50)
+      Amplify existing features
+      Does more of whatever a neuron "wants to see"   in an image
+
+    Feature Inversion  (57:10)
+      "Give us an image that matches this given feature vector"
+      Deeper parts of the network   lose more of the idea of "what does a photo of an elephant look like?"
+      1st layer basically preserves the original image
+
+    Texture synthesis (59:59)
+      Old old graphics problem  (make a vgame background)
+        Classical CV just copies pixels
+      Gram Matrix does ("hand-wavily") "which pixel values tend to cooccur with which other pixel values in the (spatially) nearby vicinity?"
+        Kind of like covariance
+        Computing this Gram matrix is less computationally expensive than   computing a *proper* covariance matrix
+      We could use Style Transfer to make video game    textures/backgrounds.
+        Computing the gram matrices on Deeper layers  of the network reproduces more of the image at a time
+
+
+    Neural Style Transfer (1:09:24)
+      More control of what the image looks like   than we get over DeepDream
+      You can blend multiple style images    & put both of them in your constructed image.
+      DeepDream + StyleTransfer
+        DogSlugs + Starry Night  + Stanford campus
+      Can be slow if done naively.    Have to pre-train another "style network,"   but then you can do fast StyleTransfer
+    Fast-style-blended-multiple-styles
+      Also a thing you can do.
+
+
+
+    Can make memes of the president (Obama in red and blue)
+
+
+
+    25:53 (how much time was on the "DON'T PROCRASTINATE" app)  at   15:24:30 EDT 2019    (Mon Aug 12 15:24:47 EDT 2019)
+    24:59
+      My dodging-technique worked.  Haha, oops.
+
+
+
+
+
+
+
+
+
+
+
+
+___________________________________________________________________________________________________
+
+  Lecture  9: CNN architectures
 ___________________________________________________________________________________________________
 
 
@@ -25522,6 +25944,11 @@ ________________________________________________________________________________
 
 
   Tech:
+    Visualization of later layers   (ie. Feed the weights in layer 2   backwards through the NN to earlier layers [ie. layer 1 filters to visualize them in appropriate proportions]  of to the point where we can produce visualizable filters)
+
+
+    Fix Jupyter's "nested markup" problem   (ie. the sentence (*R*NN stands for ***Recurrent*** Neural Networks)           )
+
     Notes on "Lecture 8" of cs231n:
       Distributed
 
@@ -25532,6 +25959,11 @@ ________________________________________________________________________________
 
     Inspired by Theano (Uni of Montreal)
 
+
+
+
+  PyTorch forums:
+    https://discuss.pytorch.org/u/neonb88/preferences/profile
 
 
 
@@ -25559,6 +25991,8 @@ ________________________________________________________________________________
     https://pages.github.com
     ie. https://jiankangdeng.github.io
       Good for a "projects portfolio" (showing off the work I've done)
+
+
 
 
   "CrowdFlower" is kind of (very kind of) like Amazon Mechanical Turk (https://www.youtube.com/watch?v=Ilg3gGewQ5U)
