@@ -19,6 +19,729 @@
 
 ________________________________
 
+  Tue Aug 20 01:42:15 EDT 2019
+________________________________
+
+  Flashcards:
+     1. In Machine/Deep Learning,  what are the 3 data sets called?
+      a.  1) Train 2) Validation 3) Test
+     2. Initially, loss functions SHOULD equal
+      a.  0
+     3. Before the _____ _____________   technique, Very careful weight initialization   was necessary
+      a.  Batch Normalization
+     4. For "inverse dropout," during test time, you must [MULTIPLY? ADD? DIVIDE?] the outputs of a dropout layer by "p," the **keep** probability
+      a.  Double-check: I *THINK* it's multiply.  Multiply by number in range (0,1] => lower activations when the whole network is there.
+     5. In PyTorch, you must subclass this class to use a particular API
+      a.  torch.nn.Module
+     6. This API is extremely fast to program, but can only do feedforward networks.
+      a.  `torch.nn.Sequential()`
+     7. How you tell PyTorch to calculate gradients
+      a. loss.backward()  (or just "the `backward()` function")
+     8. Frameworks like Tensorflow and PyTorch give you 2 big wins over numpy:
+      a.  GPU-speed-ups
+      b.  Calclulate most ("non-exotic") gradients automatically,   thereby making the backprop step almost effort-free.
+     9. To fool a Vanilla CNN, all you have to do is feed the NN an image and a target class     do SGD on the 
+      a.  Pixels of the image
+    10. Probability theory says a VAE learns *this* over data
+      a.  "Prior"
+    11. This generative model is said to perform better than a VAE but is notoriously difficult to train
+      a.  GAN
+    12. The KL Divergence measures the "distance" between 2 ___________ _____________.
+      a.  Probability Distributions (AKA PDFs)
+    13. In SVM, we calculate the loss this way ("Cross entropy loss" )
+      a.  -log(  (exp(correct_score) / sum(torch.exp(scores)))   )   "neg log of the exponentiated scores"
+    14. This is how you tell torch autograd to calculate the gradient for this variable   so we can update it.
+      a. tensor.requires_grad = True  (W.requires_grad = True)
+    15. The name of PyTorch's key class (as of torch version 1.2)
+      a.  torch.tensor
+    16. Call this function to put your NN in test mode    and not calculate any gradients.
+      a.  eval()
+    17.
+      a.  PyTorch's "autograd"
+    18. Cross-entropy measures ...
+      a.
+    19. Hinton doesn't like this kind of downsampling
+      a.  Max pooling
+    20. Hinton proposed this in reaction to   pooling and other problems 
+      a.  Capsule nets
+    21. After the theory of the "revolution of depth," all the best-performing CNNs use these:
+      a. Skip connections  (like ResNet)
+    22. f
+      a.
+    23.
+      a.
+    24.
+      a.
+    25.
+      a.
+    26.
+      a.
+    27.
+      a.
+    28.
+      a.
+    29.
+      a.
+    30.
+      a.
+    31.
+      a.
+    32.
+      a.
+    33.
+      a.
+    34.
+      a.
+    35.
+      a.
+    36.
+      a.
+    37.
+      a.
+    38.
+      a.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Mon Aug 19 16:58:48 EDT 2019
+________________________________
+
+  I'm doing everything in cat11.  cat12 is a stable, old, working conda environment with python3.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  https://github.com/vchoutas/smpl-x
+    This one first.
+    "Our results are obtained on the 483 × 724 pixels resolution of the original images."
+  https://github.com/vchoutas/smplify-x
+    This one second (SMPLify-X)
+
+    For help with SMPL-X, contact  " smplx@tue.mpg.de "
+
+
+
+
+
+  
+  
+
+  
+  
+  
+  
+  
+
+-12.  Save the environment variables that go into  /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplifyx/smplify-x/run.sh (MODEL_DIR, etc.)
+    DATA_FOLDER=/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplx/_homogenus_____CLICKME/homogenus/samples/ # Input Images, I'm assuming.  (ie. NOT the homogenus NN, SMPL-X data, VPoser data, etc.)
+    OUTPUT_FOLDER=/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplifyx/smplify-x/SMPLify-X___results # Just output :   doesn't give SMPLify-X any useful input information.
+    MODEL_FOLDER=/home/n/Downloads/smplx/models/  #/home/n/Downloads/smplx/models/smplx/    #SMPL-X?
+    VPOSER_FOLDER=/home/n/Downloads/vposer_v1_0  # smart pose prior
+    # Where do we link to  the "homogenus" model to detect gender?
+
+
+-19.  "The moment I saw SMPL-X dancing around on my shitty laptop screen,   I knew.  All the past 1.5 year's work had built up to this.  SMPL is great, but seeing the pure, smooth white mesh superimposed over the images, it was like an epiphany.  As far as I can tell, it looks damn real.  And after my experience(s) in cs231n, I knew I could understand all the 'Deep Learning'/NN stuff "
+-18.
+-17.
+-16.
+-15.
+-14.
+-13.
+-12.  Use Tesla K80 GPU   on gcloud compute engine  / free GPU on Google Colab .
+-11.  Retrain their SMPL-X from scratch.
+-10.    Learn about SMPL, learn about Deep Learning, PyTorch, etc.
+- 9.  Print out another copy of the interpenetration term.
+- 8.      The problem *might*   be in VPoser.  viz.py wasn't working  (ie. a function *LIKE* "show_SMPL-X()").
+- 7.  1. TODO: (esp. for training new "VPoser")    Install torch-mesh-isect from   " /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplx/_VPoser_____CLICKME/human_body_prior/Self_Intersection_Term_____SEPARATE_GITHUB_REPO/torch-mesh-isect "
+- 6.  2.  E-mail them asking what I should do next.  (/ figure it out myself)
+- 5.  3.  DOUBLE-TRIPLE-CHECK  that I've turned in enough of YC/StartupSchool's weekly updates    to qualify for the money.
+- 4.    a.  How do the program's  leaders evaluate who should get the money????!?     Participation on forums?
+- 3.
+- 2.
+- 1.  Wake up Shaina tomorrow.  6 A.M.?
+  0.  Remember, all this crap is just to get the demo "show()" working.  Maybe instead of dealing with all this SH!T, you can just use Blender as a "pltshow()."  You did this before, to at least mild success.
+
+  1.  Download the right version of torch (CPU, not GPU) for SMPLify-X.
+  2.  Clear out old shit if I need to.  (3.5G available)
+  3.  Buy shoes.
+  4.  Medicaid.
+  5.  Check Habitica.
+  6.
+  7.  E-mail Choutas/Pons-Moll.
+    '''
+    Hello all,
+
+    I hope this e-mail finds you in good spirits and health.  I am interested in replicating your lab's results and understanding what everyone went through to produce this beautiful SMPL-X work!  I am just starting this process; where would you recommend I start retraining the model?  Is the SMPL-X training process significantly different than the training process for SMPL, MANO, and FLAME?
+    '''
+
+    a.  "Let me in because I MIGHT make you rich and famous.   Much better than whatever the other lazy f**ks in your lab are doing"
+    b.  (But say it more politely)
+  8.
+  9.
+  10.
+  11.
+  12.
+  13.
+  14.
+  15.
+  16.
+  17.
+  18.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sat Aug 17 16:48:21 EDT 2019
+________________________________
+
+  Piranha technique:
+    1.  What do the contents of the encoded variable in a VAE mean?  
+      a.  Are they means and variances?
+      b.  Or are they actual real numbers that can be directly translated back into images/data/whatever we put into the VAE?
+    2.  When we put an image into the encoder, what comes out?
+    3.  When we want to generate data back out of the encoder, can we put the values right into the latent space z?  Or do put values into a Gaussian (ie. feed it a mean and/or a variance/covariance?)
+
+
+
+  Go run once I get home.
+
+
+
+  Download SMPL-X
+
+
+
+
+  Explain (YouTube video) SMPL, SMPL-X,   various mesh-recovery methods.
+    Do the same for your project; talk it through; see whether you *really* understand it.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ________________________________
+
+    UDel wi-fi password:
+      wham59inti
+  ________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Fri Aug 16 15:21:34 EDT 2019
+________________________________
+
+  My website!  :
+    http://www.columbia.edu/~nxb2101/
+    https://tinyurl.com/y3x3l26m
+
+
+  ________________________________
+
+    UDel wi-fi password:
+      filo89umps
+  ________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Thu Aug 15 13:42:20 EDT 2019
+________________________________
+
+  Startup School today:
+    8 P.M.?
+      at Starbucks.
+      No, at UDel
+
+
+
+  ________________________________
+
+    Startup school notes:
+  ________________________________
+
+
+
+
+  ________________________________
+
+    0.  Cat
+      "Amazon meets Oculus"
+      I think we could sell clothes   by buying on Amazon and then shipping directly to users
+
+      Go to market strategy   - Pablo
+        Banana Republic jeans == $110
+        New brand comes out   and it fits the same but 
+        Housewives?
+          Married to early FB founder (Neilda's friend)
+          Directly to fashion shows
+
+          Talk to housewives/women with disposable income
+          College students, young professionals
+            People who don't have time to go shopping
+
+          Fashion club @ Columbia
+            Trend-setters
+            Best feedback
+            f
+            These are the types of people to ask.
+            People like:
+              Playmate Iryna
+
+    Understand how people shop
+      Watch them while they use the   product.
+      Go to the airport.
+        Captive audience.
+        People can't get away from you at the airport, they have nothing to do, etc.
+          It's not as rude to start a conversation (the same goes for buses)
+
+      Talk to people selling   the clothing.  They know their customers, the needs, etc.
+
+  ________________________________
+
+
+
+
+
+  ________________________________
+
+    1.  HospitalFee
+      "Masterclass, but for Fortune 1000 companies"
+        Teaches people how to make more money
+        Teaches people skills
+        Like shadowing, but recording it (job skills, etc.)
+
+      Like the club Pablo does on campus
+
+      www.500firms.com
+        Teaches people how people moved up in a company
+
+      Founder is  Pablo Arellano
+      Competition :   4/30 teams
+      Master's at Ohio State
+      What is it?  I'm confused.
+  ________________________________
+
+
+
+
+  ________________________________
+
+    2.  MindGlow
+      Active shooter response training using virtual reality
+        Training virtualy
+      For ordinary people
+      CEO
+
+      Oculus Go
+
+      Wants to finish online research for customer segments
+        B2B?
+        B2C
+
+
+      Safety training
+        She felt safer after the training
+        Scales for businesses ()
+        I would imagine this would useful for businesses
+      "Neilda" == "Nelda (sounds like Zelda)"
+
+
+      Sell to?
+        f
+
+      What is her goal?
+        f
+
+
+
+      Seems like a well-connected person,    knows an early Facebook founder's wife.
+        SF area
+        Neilda 
+  ________________________________
+
+
+
+
+
+
+
+
+
+
+    3.  Laazy
+      Currently based out of Mexico 
+      From New Zealand, Australia
+      Most efficient way to resize images
+        Product-market fit
+        2nd of 3 products launched ()
+      Onboarding e-mail campaign
+      Used to work in advertising
+        Images were annoying
+
+      Goal:
+        His goal
+          f
+        He met his goal to release the MVP.
+          
+        Few weeks away from marketing campaign
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ________________________________
+
+    SMPL-X   paper & code:
+  ________________________________
+
+      Print today
+      Get running
+        ~15 minutes
+
+
+      Do basic planning (when should X be due by?)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ________________________________
+
+    *BRIEF* summary of my NN shit (cheatsheet     for future programming, etc.)
+      PyTorch.ipynb
+      Conv derivatives
+      Graphs of all the backpropped derivatives
+      
+      High-level summaries of  various layer-types
+        Batch norm
+          Layer norm
+          Group norm
+          Instance norm
+        Affine
+        Conv
+        RNN
+        LSTM
+        Dropout
+        Optimizers
+
+        Backpropagation
+        Affine
+        Nonlinearity
+        
+        Data bias
+
+      Architectures
+  ________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ________________________________
+
+    event countdown (November 9?  Whenever MJB's application is due)
+      ~15 minutes
+
+      November 6, 2019
+  ________________________________
+
+  ________________________________
+
+    git post cs231n in a separate repo
+      ~15 minutes
+  ________________________________
+
+
+  ________________________________
+
+    UDel wi-fi password:
+      rho98gran
+  ________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
   Wed Aug 14 13:41:37 EDT 2019
 ________________________________
 
@@ -27,7 +750,8 @@ ________________________________
     gcloud compute instances move XXXX --zone europe-west4-b --destination-zone europe-west4-c
 
 
-
+  UDel wi-fi password:
+    rho98gran
 
 
 
@@ -62,7 +786,17 @@ ________________________________
   Tue Aug 13 15:48:06 EDT 2019
 ________________________________
 
+___________________________________________________________________________________________________
+
   Lecture 13:  Generative Models
+___________________________________________________________________________________________________
+
+    Good VAE video:
+      https://www.youtube.com/watch?v=9zKuYvjFFS8
+
+
+
+
     GANs:  0:55:07
     Training & the technical aspects (we already get the big picture.)
 
@@ -4127,7 +4861,7 @@ ______________________________
 COPY THESE NOTES TO ANOTHER LOCATION (ie. consolidate them all)
 ___________________________________________________________________________________________________
 
-  Lecture 12: CNN architectures
+  Lecture 12: Visualizing and Understanding
 ___________________________________________________________________________________________________
 
   t-SNE is like PCA but nonlinear  (Deep Learning people use it to reduce dimensionality)
@@ -6281,6 +7015,10 @@ ________________________________
 
 
   It's also important to get all the camera parameters right, the pose parameters,  and the projection 3D => 2D (we can look at what SMPLify-X did to solve this with the VAE,   or we can do the optics physics/math ourselves)
+    Why did SMPLify-X use a VAE?
+    Why does anyone use a VAE when they **COULD** just penalize the divergence of the latent variables from 0   with a regular norm penalty?  (ie. L1, L2, or Linf norm)
+      The fucking VAE is so fucking annoyingly complicated and nested.
+        AAAAargh (-nxb,   Sat Aug 17 18:18:06 EDT 2019)
 
 
 
@@ -26089,6 +26827,9 @@ ________________________________________________________________________________
   Other TODOs   (one-offs):
 ___________________________________________________________________________________________________
 
+  Setup/fix e-mail forwarding (from cat.macys.vr@gmail.com    to nathanbendich@gmail.com).
+
+
   Personal:
     Pull all money out of your bank & only pay for things with your credit card.
 
@@ -26187,11 +26928,47 @@ ________________________________________________________________________________
 
 
 
+
+
+___________________________________________________________________________________________________
+
+  Don't:
+___________________________________________________________________________________________________
+
+
+
+   -1.
+    0.
+    1.    Take long vid_Game breaks (> 1 hour)
+    2.    Futz too much over potential jobs
+    3.    Lose your temper with Shaina, Jeannine, or Michael.
+    4.    Talk toooo long in the iSuite
+    5.    Be too hard on yourself for single days off
+    6.    Fap too much
+    7.    Isolate yourself too much
+    8.
+    9.    Waste too much time worrying
+    10.   Do too much peripheral shit just because "I feel bad"
+    11.
+    12.   REDERIVE COMPLICATED MATH.   COPY COPY COPY; this is real-life code, not f**king school.  No need to worry about "cheating" or "patenting"
+    13.
+    14.
+    15.
+    16.
+    17.
+    18.
+
+
+
+
+
+
 ___________________________________________________________________________________________________
 
   Do:
 ___________________________________________________________________________________________________
 
+   -1.  
     0.  Learn from others' experiences (save yourself pain, energy, and time)
       a.  Listen & memorize cs231n lectures
       b.  Review them after Kaggle comps
@@ -26259,6 +27036,50 @@ ________________________________________________________________________________
     38.   Work hard.
     39.   Don't quit.
     40.   You'll get there eventually.
+    41.
+    42.   Piranha method for un-sticking yourself:
+      a.  https://www.youtube.com/watch?v=JZoVqGEe3Zs&list=PLY1rn9AjOKu3g7HYr8FuxoXR0VWhP0LnA&index=6&t=0s
+      b.  Is your next step obvious?  If yes, do it!  Then go back here to "b."    If not obvious, go to c.
+      c.  What isn't obvious?  What do you need to figure out?  Write down a question.  Make it AS SPECIFIC AS YOU CAN.  Go to d.
+      d.  Answer the question.  Then go to b.
+      e.
+      f.
+      g.
+      h.
+      i.
+      j.
+      k.
+      l.
+      m.
+      n.
+      o.
+      p.
+      q.
+      r.
+      s.
+      t.
+      u.
+      v.
+      w.
+      x.
+      y.
+      z.
+    43.
+    44.
+    45.
+    46.
+    47.
+    48.
+    49.
+    50.
+    51.
+    52.
+    53.
+    54.
+    55.
+    56.
+    57.
+    58.
 
 
 
@@ -26267,41 +27088,30 @@ ________________________________________________________________________________
 
 
 
-___________________________________________________________________________________________________
-
-  Don't:
-___________________________________________________________________________________________________
-
-
-
-    1.    Take long vid_Game breaks (> 1 hour)
-    2.    Futz too much over potential jobs
-    3.    Lose your temper with Shaina, Jeannine, or Michael.
-    4.    Talk toooo long in the iSuite
-    5.    Be too hard on yourself for single days off
-    6.    Fap too much
-    7.    Isolate yourself too much
-    8.
-    9.    Waste too much time worrying
-    10.   Do too much peripheral shit just because "I feel bad"
-    11.
-    12.   REDERIVE COMPLICATED MATH.   COPY COPY COPY; this is real-life code, not f**king school.  No need to worry about "cheating" or "patenting"
-    13.
-    14.
-    15.
-    16.
-    17.
-    18.
 
 
 
 
 
 
+  My website!  :
+    http://www.columbia.edu/~nxb2101/
+    https://tinyurl.com/y3x3l26m
 
 
-
-
+  Big ideas:  to improve SMPL/SMPL-X/SMPL-H for   "Cat" (Virtual Dressing Room / Virtual Mall):
+    1.  BPW-SMPL (body-part-wise)
+      a.  Requires retraining, perhaps more data.
+    2.  V-HMR (AKA multiple views, AKA "Video Human-Mesh-Recovery")
+      a.  Best for customer (better than fixing pose,    which would take WAYYYY too much precision to work, *AND* would require retraining the model on data.)
+    3.  Fixed-pose-SMPLify
+      a.  My guess is this is the best.   Why?
+        1.  Fairly low
+      b.  
+      c.
+      d.
+    4.
+    5.
 
 
 
