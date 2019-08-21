@@ -22,6 +22,117 @@ ________________________________
   Tue Aug 20 01:42:15 EDT 2019
 ________________________________
 
+  Install everything  (conda/pip) on gcloud.
+
+  Decide which training to replicate
+    SMPLify-X first?
+    SMPL-X first?
+    VPoser?
+    Interpenetration loss   term?
+
+
+  Transfer flashcards to ankidroid
+
+
+  Read paper, line for line, taking notes
+  Read the SMPLify-X code, line for line, taking detailed notes.
+
+  Make time for the MedicAid   signup.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   Flashcards:
      1. In Machine/Deep Learning,  what are the 3 data sets called?
       a.  1) Train 2) Validation 3) Test
