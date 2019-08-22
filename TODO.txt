@@ -17,10 +17,330 @@
 
     TODO.txt
 
+
+
+________________________________
+
+  Thu Aug 22 05:45:16 EDT 2019
+________________________________
+
+
+
+
+  (also "ctrl+shift+t"   to open previous tabs in Chrome)
+
+  Links from yesterday (also "ctrl+shift+t"   to open previous tabs in Chrome):
+    https://github.com/openai/gym/issues/936  (before `xvfb-run -s "-screen 0 1366x768x24" jupyter notebook SMPLX_SandBox.ipynb` )
+    
+    https://stackoverflow.com/questions/24747625/pyglet-requires-an-x-server-with-glx
+    https://stackoverflow.com/questions/40195740/how-to-run-openai-gym-render-over-a-server
+    https://github.com/openai/gym/issues/384
+
+  "conda activate SMPLX_1"
+
+  earliest:
+      https://github.com/fogleman/Minecraft/issues/46
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Aug 21 21:29:03 EDT 2019
+________________________________
+
+  gcloud compute --project "secret-voice-243500" ssh --ssh-flag=-vvv --ssh-flag=-X --zone "us-west1-b" "cat_macys_vr@pytorch-1-vm"
+
+  I'm gonna try to just do everything through the Jupyter notebook instead of being confused about X11 forwarding some more.
+    I wish I knew everything about X and X11-forwarding so I could just immediately have the answer, but I don't.  So this is much much more practical.
+
+
+  I still have to download a few more trivial files from the SMPL-X folder (the one downloaded from MPII Tubingen).
+    Also, `gcloud compute scp`   the hidden files:
+      1)  .*.pkl
+      2)  .*.npz
+    DONE. (all SMPL-X files copied.  Now I have to get `pyrender` and `trimesh` working)
+
+
+
+
+name of display:    :99
+version number:    11.0
+vendor string:    The X.Org Foundation
+vendor release number:    11902000
+X.Org version: 1.19.2
+maximum request size:  16777212 bytes
+motion buffer size:  256
+bitmap unit, bit order, padding:    32, LSBFirst, 32
+image byte order:    LSBFirst
+number of supported pixmap formats:    6
+supported pixmap formats:
+    depth 1, bits_per_pixel 1, scanline_pad 32
+    depth 4, bits_per_pixel 8, scanline_pad 32
+    depth 8, bits_per_pixel 8, scanline_pad 32
+    depth 16, bits_per_pixel 16, scanline_pad 32
+    depth 24, bits_per_pixel 32, scanline_pad 32
+    depth 32, bits_per_pixel 32, scanline_pad 32
+keycode range:    minimum 8, maximum 255
+focus:  PointerRoot
+number of extensions:    23
+    BIG-REQUESTS
+    Composite
+    DAMAGE
+    DOUBLE-BUFFER
+    DPMS
+    Generic Event Extension
+    MIT-SCREEN-SAVER
+    MIT-SHM
+    Present
+    RANDR
+    RECORD
+    RENDER
+    SECURITY
+    SHAPE
+    SYNC
+    X-Resource
+    XC-MISC
+    XFIXES
+    XINERAMA
+    XInputExtension
+    XKEYBOARD
+    XTEST
+    XVideo
+default screen number:    0
+number of screens:    1
+
+screen #0:
+  dimensions:    1366x768 pixels (347x195 millimeters)
+  resolution:    100x100 dots per inch
+  depths (6):    24, 1, 4, 8, 16, 32
+  root window id:    0x43
+  depth of root window:    24 planes
+  number of colormaps:    minimum 1, maximum 1
+  default colormap:    0x20
+  default number of colormap cells:    256
+  preallocated pixels:    black 0, white 16777215
+  options:    backing-store WHEN MAPPED, save-unders NO
+  largest cursor:    1366x768
+  current input event mask:    0x0
+  number of visuals:    3
+  default visual id:  0x21
+  visual:
+    visual id:    0x21
+    class:    TrueColor
+    depth:    24 planes
+    available colormap entries:    256 per subfield
+    red, green, blue masks:    0xff0000, 0xff00, 0xff
+    significant bits in color specification:    8 bits
+  visual:
+    visual id:    0x22
+    class:    DirectColor
+    depth:    24 planes
+    available colormap entries:    256 per subfield
+    red, green, blue masks:    0xff0000, 0xff00, 0xff
+    significant bits in color specification:    8 bits
+  visual:
+    visual id:    0x41
+    class:    TrueColor
+    depth:    32 planes
+    available colormap entries:    256 per subfield
+    red, green, blue masks:    0xff0000, 0xff00, 0xff
+    significant bits in color specification:    8 bits
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Command to manually "conda install"   into a given Python environment:
+    conda install --yes --prefix /Users/jakevdp/anaconda numpy
+
+
+
+
+
+
+
+
+
+  Brandon Rohrer  (https://www.youtube.com/watch?v=JZoVqGEe3Zs&list=PLY1rn9AjOKu3g7HYr8FuxoXR0VWhP0LnA&index=6&t=0s):
+    1. Write down a question.  Make it as *specific*   as possible.
+    2. Answer the question.
+    3. If your next step is still NOT obvious, goto 1.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Ask yourself questions.
+    Specificity => action
+    Writing / talking can help.
+    Writing is probably easier and better for technical things.  If the problem is 
+
+
+
+
+
+
+
 ________________________________
 
   Tue Aug 20 01:42:15 EDT 2019
 ________________________________
+
+
+
+  Start a new GCloud instance w/ SMPL training.
+    Not just SMPL-X,   but do the PCA, understand the PCA,   reread the PCA, etc.
+    Why a new instance?  Somehow I locked myself out of torch-5.  Derp.
+
+
+
+
+
+
+
+
+
+  Let's do x11 first. (Wed Aug 21 23:30:51 EDT 2019)
+    This is the only part that requires me to learn / think.  The rest of the work is just blindly downloading files, cloning repositories, bullshit like that.
+    After we get x11 working, let's get the rest working.
+
+
+
+
+
+  I'm very confused.
+    Is it possible to get x11 forwarding working through gcloud compute ssh?
+    I see no indication it isn't...  But someone *did* say you need a login... did they say literally "with the same username????"
+
+
+    One thing is says that we don't like is        
+      3.  debug1: Requesting X11 forwarding with authentication spoofing.
+      4.  debug2: channel 0: request x11-req confirm 1
+      5.  debug3: Ignored env XAUTHORITY
+        a.  This means there was some environment variable "XAUTHORITY"
+      6.
+      7.
+      8.
+      9.
+      10.
+      11.
+      12.
+      13.
+      14.
+      15.
+      16.
+      17.
+      18.
+    We got rid of these 2,   though:
+      1.  "debug1: No xauth program."
+      2.  Warning: No xauth data; using fake authentication data for X11 forwarding.
+
+
+
+
+
+
+    Positive news?
+      1. debug2: X11 forwarding request accepted on channel 0
+        a.  Does this mean it's working?
+        b.  But clearly X11 **isn't** working.  So this confuses me too.
+        c.
+        d.
+        e.
+        f.
+      2.
+      3.
+      4.
+      5.
+      6.
+      7.
+      8.
+      9.
+
+
+
+
+
+
+
+
+  To do X11 forwarding, try `xtruss` :
+    1.  https://github.com/krafczyk/xtruss
+    2.  https://github.com/NixOS/nixpkgs/tree/master/pkgs/tools/X11/xtruss
 
   Install everything  (conda/pip) on gcloud.
 
@@ -36,6 +356,33 @@ ________________________________
 
   Read paper, line for line, taking notes
   Read the SMPLify-X code, line for line, taking detailed notes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   Make time for the MedicAid   signup.
 
