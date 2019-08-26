@@ -17,12 +17,589 @@
 
     TODO.txt
 
+________________________________
+
+  Mon Aug 26 01:03:11 EDT 2019
+________________________________
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sun Aug 25 00:11:00 EDT 2019
+________________________________
+
+  git push from dir "~/"
+  git push from dir "~/x/p/.../vr_mall.../"
+
+  Get the interpenetration term working in SMPLX 
+    (They suggested specific versions of CUDA, Ubuntu, etc. at 
+      https://github.com/vchoutas/torch-mesh-isect/issues/2)
+
+
+
+
+
+
+
+
+  Clear goal(s) for tomorrow:
+    1.  `conda install torch`   && torch.cuda.gpu_available()
+      a.
+      '''
+      import torch
+      print(torch.cuda.current_device())  # 0
+      print(torch.cuda.device(0))         # Out[3]: <torch.cuda.device at 0x7efce0b03be0>
+      print(torch.cuda.device_count())    # Out[4]: 1
+      print(torch.cuda.get_device_name(0))# Out[5]: Tesla K80
+      print(torch.cuda.is_available())    # Out[6]: True
+      '''
+    2.  pip install SMPL-X
+    3.
+    4.
+    5.
+    6.
+    7.
+    8.
+    9.
+    10.
+    11.
+    12.
+    13.
+    14.
+    15.
+    16.
+    17.
+    18.
+
+
+
+  Clear, specific goal for the week:
+    0.  How badly (numerically) does SMPL-X do on training data?
+      a0. (ie. How many inches off is the chest measurement?)
+      a.  Retrain SMPL   / SMPL-X
+      b.
+    1.  Take clothing models and measure how "off" they are from   reality (see if we can get a model of a real t-shirt/pants/dress)
+    2.  
+    3.
+    4.
+    5.
+
+
+
+
+
+
+
+  Can also set up a cron job to recurringly scp contents of a file to my local machine
+    Or just use Google's   "rsync utils."
+    I can view the files in blender, or pyrender, or matplotlib.
+
+  Actually, it's amazing how stupidly stubborn I was being about this.  Probably should have just mentioned this to someone in iSuite (talking to Brandon sure cleared my head)
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Piranha method:          (what do I need to know to go forward?)
+    1.  What is broken?
+      a.  But how do I figure out what is broken?
+    2.  Detailed error message(s)
+      a.  How can I find those descriptive error message(s)?
+    3.  Logs   from ssh / feh / X11 / OpenGL.    (**Any** kind of debugging information)
+
+
+    Unit tests!  Use first-principles ("bottom-up") reasoning.
+
+    Most specific question I can solve:
+      a.  Is there a problem with x11vnc server?  (1. debug Xvfb, then 2. debug feh's interaction with Xvfb, 3. debug x11vnc, then 4.) 
+      b.  Is there a problem with the viewer?  (remmina    or VNCviewer or ...)
+      c.
+      d.
+      e.
+      f.
+    
+      What is keep
+
+
+  The other way to go would be to literally try every SOverflow/Superuser/AskUbuntu/Unixstackexchange question sequentially in a very rigorous, detail-oriented manner (write notes on which combinations work, don't work, etc.)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  UDel wi-fi passwd:
+    pres33jabs
+  ________________________________
+  
+  Started work around 12 midnight.
+  Started work around 12 midnight.
+  Started work around 12 midnight.
+  Started work around 12 midnight.
+  Started work around 12 midnight.
+  Started work around 12 midnight.
+  Started work around 12 midnight.
+  Started work around 12 midnight.
+  Started work around 12 midnight.
+  Started work around 12 midnight.
+
+
+  x11 forwarding.
+    On a Deep Learning VM.
+    *THEN* all the other shit.
+
+    Test the above cuda   in jupyter **THEN** in conda. 
+      I checked this.
+      I'm going to fiddle with torch AFTER the x11 forwarding is done.
+
+
+
+
+  My T420 Laptop screen's dimensions: 1366x768x24
+     `xvfb-run -s "-screen 0 1366x768x24" jupyter notebook SMPLX_SandBox.ipynb`
+
+
+
+
+  0.  [INSERT TODO STUB]
+  1.  Try on fresh vm.  (not Debian;   Ubuntu)
+      (maybe it's a GCloud problem)
+  2.  Then try the "better" solution propposed by that last guy you upvoted on SO / Unix / Ubuntu / wherever you saw it.
+    a.  xpra
+  3.  Try a different cloud.
+    a.  Azure?
+    b.  AWS?
+    c.
+    d.
+  4.  Google Colab?
+  5.  
+  6.  
+  7.
+  8.
+  9.
+  10.
+  11.
+  12.
+  13.
+  14.
+  15.
+  16.
+  17.
+  18.
+
+
+
+
+
+
+
+  local7.* /var/log/boot.log
+  local6.debug /var/log/sshd.log
+
+
+
+
+
+
+
+
+
+
+
+  Also conda torch.cuda.
+    '''
+		import torch
+    print(torch.cuda.current_device())  # 0
+    print(torch.cuda.device(0))         # Out[3]: <torch.cuda.device at 0x7efce0b03be0>
+    print(torch.cuda.device_count())    # Out[4]: 1
+    print(torch.cuda.get_device_name(0))# Out[5]: Tesla K80
+    print(torch.cuda.is_available())    # Out[6]: True
+    '''
+
+  Call someone (Charles or the older coder... whatwashisname)           or Vishal!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sat Aug 24 01:29:34 EDT 2019
+________________________________
+
+  x11 forwarding.
+    On a Deep Learning VM.
+    *THEN* all the other shit.
+  Also conda torch.cuda.
+    '''
+		import torch
+    print(torch.cuda.current_device())  # 0
+    print(torch.cuda.device(0))         # Out[3]: <torch.cuda.device at 0x7efce0b03be0>
+    print(torch.cuda.device_count())    # Out[4]: 1
+    print(torch.cuda.get_device_name(0))# Out[5]: Tesla K80
+    print(torch.cuda.is_available())    # Out[6]: True
+    '''
+
+    Test the above cuda   in jupyter **THEN** in conda. 
+      I checked this.
+      I'm going to fiddle with torch AFTER the x11 forwarding is done.
+      
+
+
+
+
+
+
+local7.* /var/log/boot.log
+local6.debug /var/log/sshd.log
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Fri Aug 23 18:26:54 EDT 2019
+________________________________
+
+  This link below (on the line below this one)  is telling me Debian 9 "Stretch" may not be supported.
+    https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#pre-installation-actions
+    Also TODO:
+      Step 2.2 in https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#pre-installation-actions
+
+    I need to use the nvidia kernel headers of version:
+      "  4.9.0-9-amd64 "
+      Unless these are also already installed?   (due to this being a "Deep Learning VM" as the Marketplace lists)
+
+    I also ignored the "kernel headers"   (step 2.4 in https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#pre-installation-actions)
+ 
+
+  Should I use an ubuntu instance instead?
+    Probably.
+    https://www.google.com/search?q=use+a+n+ubuntu+instance+instead%3F+But+some+of+the+work+I+did+last+time+would+be+lost...&oq=use+a+n+ubuntu+instance+instead%3F+++++But+some+of+the+work+I+did+last+time+would+be+lost...&aqs=chrome..69i57.12089j0j0&client=ubuntu&sourceid=chrome&ie=UTF-8
+
+
+    The other option is to try to retry getting X11 forwarding working on a Google Marketplace Deep Learning VM.   with Jupyter 
+      The only problem with this is the weird debian 9 thing that doesn't let certain things happen w.r.t.  PyGlet, OpenGL, 
+
+
+
+
+  I started this VM (torch-smplx-1-darigan)  ~40 minutes ago.
+
+
+
+
+
+
+
+
+
+     `xvfb-run -s "-screen 0 1366x768x24" jupyter notebook SMPLX_SandBox.ipynb`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  3 hours work yesterday.  (Cat call and 1 hour programming,   then 1 more hour of work 5:00-6:00)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ________________________________
 
   Thu Aug 22 05:45:16 EDT 2019
 ________________________________
+
+  Debugging pyrender & trimesh:
+    The problem isn't images.
+    `img=PIL.image.open(filepath); img`   will show an image within the Jupyter notebook.
+
+    Reinstall nvidia drivers!
+      Cuda version 10.
 
 
 
@@ -52,6 +629,73 @@ ________________________________
 
 
 
+
+
+
+
+
+
+  Startup school:
+    Me:
+      Cat
+        Be wary of Amazon.  They do very good at taking startups' technology and profiting from it
+
+
+
+
+
+  ________________________________
+
+    Daniel Jiang
+      949-413-3280
+      "Tasti Inc."
+        App. (Mobile)
+        (restaurant rewards program (for instance, if you eat at McDonald's, you can get rewards for Burger King)   bargain-sharing app)
+  ________________________________
+
+
+
+
+
+
+
+  ________________________________
+
+    Joseph Manigan:
+      joseph.c.mansigian@gmail.com
+      ()
+      "Steps"
+      Search engine for companies:
+        Startups can get bought by bigger companies,
+        Bigger companies can get 
+      Not launched.
+      NLP
+        Apache Lucene Search Engine
+        LSTM
+
+      Useful to someone like  YCombinator.
+  ________________________________
+
+
+
+
+
+  ________________________________
+
+    Charles Hubbard:
+      216-802-9844 
+      chubbard@endepthdata.com
+
+      He's looking for a technical cofounder.
+
+      "EnDepth Data Inc."
+      Operations background
+
+      (EnDepth Data Inc.)
+      Accounting software
+        How do the numbers impact your business?
+      > $1,000,000 business
+  ________________________________
 
 
 
@@ -1243,6 +1887,152 @@ ________________________________
 
   Tue Aug 13 15:48:06 EDT 2019
 ________________________________
+
+
+
+
+___________________________________________________________________________________________________
+
+  Lecture 11:  Detection and Segmentation
+___________________________________________________________________________________________________
+
+
+
+
+  ___________________________________________________________________________________________________
+
+  Segmentation is basically just a encoder-decoder trained end-to-end.
+    Each input pixel => label ()
+    I don't remember whether he said that we have to know the labels of all the classes (kind of objects) in the image a priori, or if the network will just decide (ie. CIFAR-10 would have 11 classes, including "background" class)
+
+
+
+
+
+  ___________________________________________________________________________________________________
+
+  Localization is another task:
+    Given picture with dog (X / input)  ,  
+      put bounding box around the dog (Y / output).
+
+    We don't know "there's a dog in the picture;"    we just get the picture, and there might be a dog, or 2 dogs, or ... etc.
+
+    "Multi-loss loss"  (37:06)
+      1.  "there's a dog in the picture"
+      2.  "That dog is precisely within:
+        (x_pixel_low_left , y_pixel_low_left)
+        (x_pixel_hi_left  , y_pixel_hi_left)
+        (x_pixel_low_right, y_pixel_low_right)
+        (x_pixel_hi_right , y_pixel_hi_right)
+    There is a hyperparameter that weights   between the 2 losses
+
+
+    f
+  ___________________________________________________________________________________________________
+
+  Pose estimation 
+    (39:36)
+    People
+    But also animals?
+
+  I DIDN'T TAKE GOOD NOTES ON THIS LECTURE.  I ought to come back to time ~40:00  to finish the notes.  -nxb, Sun Aug 25 06:05:00 EDT 2019
+
+  ___________________________________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ___________________________________________________________________________________________________
 
@@ -27172,7 +27962,42 @@ Notes/ideas:
 
 
 
+  List of people to ship the cat demo to:
 
+
+
+    Other startups:
+
+    1.  Daniel Jiang      ("Tasti") :
+      a.  949-413-3280
+      b.
+      c.  
+    2.  Charles Hubbard   (EnDepth Data Inc.) :
+      a.  216-802-9844
+      b.  chubbard@endepthdata.co
+      c.
+      d.
+    3.  Joseph Mansigian  ("Steps") :
+      a.  joseph.c.mansigian@gmail.com
+      b.
+      c.  Apache Lucene Search Engine
+      d.
+      e.
+    4.
+    5.
+    6.
+    7.
+    8.
+    9.
+    10.
+    11.
+    12.
+    13.
+    14.
+    15.
+    16.
+    17.
+    18.
 
 
 
@@ -27371,7 +28196,8 @@ ________________________________________________________________________________
 
 
 
-
+  To read:
+    https://donperlgut.wordpress.com/2009/09/15/books-that-changed-the-world/
 
 
 
