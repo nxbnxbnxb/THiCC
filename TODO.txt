@@ -1,14 +1,6 @@
+  Don't ignore your dreams; don't work too much; say what you think; cultivate friendships; be happy.
 
-  What did you learn today?
-    Just do it.  Actions (mistakes) / minute.
-    https://ps.is.tuebingen.mpg.de/jobs/phd
-
-  Follow your gut.
-    You KNOW this app to MJB could work, even if it's nonstandard (doesn't 100% conform to usual rubric/algorithm/formula)
-    You KNOW this technology WILL sell once it's good.
-    Vision.
-
-  YOU. CAN. DO. IT.    DON'T. QUIT.  Sometimes the bold confidence is all you need to get started.
+  We had more, but let's leave it at less instead.
 
 
 
@@ -17,12 +9,698 @@
 
     TODO.txt
 
+
+
+
+
+
+
+
+
+________________________________
+
+  Fri Aug 30 22:19:56 EDT 2019   
+________________________________
+
+    (technically the next day ;   I've been sleeping approximately 6 A.M. - 2 P.M.)
+
+  To re-deploy, you have to go to
+    https://console.cloud.google.com/appengine/settings?_ga=2.160202237.-1932346022.1567043374&project=secret-voice-243500&folder&organizationId
+    And hit the "Enable application" button on that page before opening up EITHER 
+      1. The appspot (https://secret-voice-243500.appspot.com)   
+        or 
+      2. A IP-address-based link (http://34.73.163.67:8081) to your Google App Engine   page.
+
+  https://cloud.google.com/storage/pricing
+    5 GB-months are free    for GCloud storage buckets.
+
+
+
+  We should follow  the tutorial at
+    "https://cloud.google.com/nodejs/getting-started/tutorial-app"   On the GCloud Compute Engine "cuda-version-0" instance
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   With permissions:   "Storage Admin"
+
+   cat ~/.gsutil/gcecredcache
+   {"scopes": 
+    ["https://www.googleapis.com/auth/cloud.useraccounts.readonly",
+     "https://www.googleapis.com/auth/cloudruntimeconfig",
+     "https://www.googleapis.com/auth/compute",
+     "https://www.googleapis.com/auth/devstorage.read_only",
+     "https://www.googleapis.com/auth/logging.write",
+     "https://www.googleapis.com/auth/monitoring.write"],
+   "svc_acct_name": "default"}
+   
+    All of the contents of " ~/.gsutil/gcecredcache ",  " ~/.gsutil_old2/gcecredcache ",  " ~/.gsutil_old3/gcecredcache ", all the way up to " ~/.gsutil_old8/gcecredcache " say
+      THE SAME THING.
+      In other words, the permissions aren't changing fast enough for me to log back in and do anything useful.
+      What if I:
+         1.  Rebooted the VM?
+         2.  Waited until tomorrow?
+         3.  Manually edited the    " ~/.gsutil/gcecredcache "   file?
+         4.  
+         5.  
+         6.  
+         7.  
+         8.  
+         9.  
+        10.  
+
+
+
+    Kill the GCloud App Engine app.
+      (the one that acts as the server to "https://secret-voice-243500.appspot.com/")
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Fri Aug 30 00:16:26 EDT 2019
+________________________________
+
+      On the other hand, [this Google tutorial](https://cloud.google.com/nodejs/getting-started/tutorial-app) seems pretty comprehensive and it's written in (relatively) plain English.
+      On the other hand, [this Google tutorial](https://cloud.google.com/nodejs/getting-started/tutorial-app) seems pretty comprehensive and it's written in (relatively) plain English.
+      On the other hand, [this Google tutorial](https://cloud.google.com/nodejs/getting-started/tutorial-app) seems pretty comprehensive and it's written in (relatively) plain English.
+      On the other hand, [this Google tutorial](https://cloud.google.com/nodejs/getting-started/tutorial-app) seems pretty comprehensive and it's written in (relatively) plain English.
+
+  Working "upload" functionality
+    Then *maybe* do some React tutorials.
+    But what we'd   ***REALLLYY*** love    is something to show investors, users,     etc.
+
+    Prettification can wait.
+
+    I started work (coding)   at 12:27 (midnight) today (Fri Aug 30 00:27:50 EDT 2019)
+
+    http://www.columbia.edu/~nxb2101/
+
+
+  Try writing to the bucket somehow?
+    There's gotta be a solution to the launch.  
+      On the other hand, [this Google tutorial](https://cloud.google.com/nodejs/getting-started/tutorial-app) seems pretty comprehensive and it's written in (relatively) plain English.
+    I think maybe the problem with node on GCloud COMPUTE engine was that it wasn't APP engine.
+      Wait, that doesn't make sense.  We launched from COMPUTE earlier with the simpler thing.
+      Maybe if I try it with the more comprehensive tutorial?
+      Or somehow find the issue with the bucket / env_name for the bucket.  gs
+        """
+        GCLOUD_STORAGE_BUCKET: "gs://vrdr_bucket_1"
+        # gs://vrdr_bucket_1/
+        """
+        in   /home/cat_macys_vr/web/nodejs-docs-samples/appengine/storage/standard/app.yaml
+
+    But you should double-check.
+    The full filepath is "/home/cat_macys_vr/web/nodejs-docs-samples/appengine/storage/standard"
+
+  I install nodejs-legacy from Ubuntu 16 Xenial, but 
+    I think that might not be the version that "plays nice" with npm version 3.5.2  ...
+
+
+
+
+
+
+
+
+    But also, we're gonna need to put something blender-like    in our browser window.
+      1.  https://www.blend4web.com/en/company/
+        a.  https://en.wikipedia.org/wiki/Blend4Web
+        b.  It seems like blend4web just works with vanilla JavaScript.  I think these fuzzy, marketing words like "framework" as in the sentence   "Angular and React are **FRAMEWORKS**  "     Are for some library in JS that just helps you make pretty icons, buttons, etc.
+      2.  webgl.com
+        a.  https://en.wikipedia.org/wiki/WebGL
+      3.
+      4.
+      5.
+      6.
+      7.
+      8.
+      9.
+
+
+
+
+  What is React?
+    (  https://www.youtube.com/watch?v=0KlRgFEEz0g  )
+    Just UIs  (Interfaces)
+
+
+    1.  Interactive   things
+      a.  buttons 
+      b.  searchboxes (~= www.google.com)
+      c.
+      d.
+      e.
+      f.
+      g.
+      h.
+      i.
+      j.
+      k.
+      l.
+    2.  JSX is optional.  HTML-like
+      a.  Many benefits
+      b.
+      c.
+      d.
+      e.
+    3.  Client OR server-side code
+    4.  Fairly small
+      a.  Not trying to do EVERYTHING
+      b.
+      c.
+      d.
+      e.
+      f.
+      g.
+      h.
+      i.
+      j.
+      k.
+      l.
+      m.
+      n.
+      o.
+      p.
+      q.
+      r.
+      s.
+      t.
+    5.  DOM (Document-Object Model)
+      a.  Cache
+      b.  Fast changes
+      c.
+      d.
+      e.
+      f.
+      g.
+      h.
+      i.
+      j.
+      k.
+      l.
+      m.
+      n.
+      o.
+      p.
+      q.
+      r.
+    6.  React Native is from FB
+      a.  It allows you to write real native code for whatever platform the user is on?
+      b.  I ***THINK*** that's what the "LevelUpTuts"  guy said.  (https://www.youtube.com/watch?v=0KlRgFEEz0g)
+      c.  What does "Native" ****MEAN**** ?     (ie. what does this "Native" word mean?)
+      d.  NOT   a wrapper put into an HTML site.
+      e.  My best guess is that  it's faster.
+      f.  
+      g.
+      h.
+      i.
+      j.
+      k.
+      l.
+      m.
+      n.
+      o.
+      p.
+      q.
+      r.
+      s.
+     7.  Like regular, vanilla  Javascript
+      a.   This is actual javascript.
+      b.  Teaches you vanilla JavaScript
+      c.
+      d.
+      e.
+      f.
+      g.
+      h.
+      i.
+      j.
+     8. Inferno && Preact
+     9. "React"  ==   Facebook's core API.
+    10.
+    11.
+    12.
+    13.
+    14.
+    15.
+    16.
+    17.
+    18.
+
+
+
+  Can we mix-and-match Angular and React?
+    React seems like it's the lightweight one, so I guess we'd start using React and then 
+
+    I'm just going to use Vanilla JS.   React.  It's JUST the MVP.
+
+
+
+I should have used an Excel spreadsheet instead of this trash.    Vim is TERRIBLE for t-charts.  That's NOT what it was made for.
+
+===================================================================================================
+  React vs. Angular vs. Vue
+    https://www.youtube.com/watch?v=SWZ_4YBFBhs        by "Max"
+========================================================================================================================================
+  |  React                             |  Angular                                   |  Vue
+==+====================================+============================================+===================================================
+  |                                    |                                            |                                                  
+  | Just a Library for JavaScript      |                                            |  Vue = "React + Angular had sex"                  
+  |                                    |                                            |                                                    
+  | Facebook  and Netflix both use it  |  Google                                    |  Mostly small businesses                     
+  |   They break it regularly          |    They still maintain and develop Angular |  More features than React, fewer than Angular         
+  |   Obvious benefit                  |                                            |                                                        
+  |   Like TFlow and Torch             |  Lots of features (React is simpler)       |  Rely on non-core-team to maintain external features
+  | "Components"                       |  TypeScript:  not JavaScript               |                                              
+  |   Build & render components.       |    Similar to JS, though.                  |                                                     
+  |                                    |                                            |  NOT backed by a single company                  
+  | The guy who made this video        |                                            |    Evan You                                        
+  |   ("Max") doesn't like             |  Routing  right in Angular  unlike React   |  Laravel backs development of Vue                 
+  |   JSX                              |    No third-party library bullshit         |                                                           
+  | Routing has to be added manually.  |  State management, http, all inside.       |                                                             
+  |   Different than Angular.          |                                            |  Paid for by the community                       
+  | Can do mobile                      |                                            |                                                       
+  |   WITHOUT knowing Android OR Swift |  Less useful for mobile apps?              |                                                          
+  |   YUSSSSSSS                        |                                            |  Fewer mobile-app benefits                              
+  |   Mobile is probably even faster in|                                            |                                                           
+  |     React Native                   |                                            |                                                          
+  |                                    |                                            |                                                          
+  |                                    |                                            |                                                          
+  |                                    |                                            |                                                          
+  | Can mix-and-match easier?          |  Learn TypeScript                          |                                                          
+  |   Can also go back later and use   |    "Dependency Injection" needs to be learned"                                                         
+  |                                    |                                            |                                                          
+  | For SPAs, you have to use community|  Complex workflow is *REQUIRED*            |                                                          
+  |   modules                          |    This is *NOT* true in React.            |                                                          
+  |   "Single Page Apps" is what       |                                            |                                                          
+  |     "SPA" means                    |                                            |                                                          
+  |                                    |                                            |                                                          
+  |                                    |                                            |                                                          
+  |                                    |                                            |                                                          
+  |                                    |                                            |                                                          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Thu Aug 29 02:27:27 EDT 2019
+________________________________
+
+
+
+
+  CloudOptics         (Aseem Rastogi)
+    Security company?
+    Fixes the issue(s)  from recent AWS security breach
+    What precisely is the MVP?
+      Is there a single problem it solves?      No; 3 problems:
+    1.  Businesses forget old resources   (say Aseem leaves his old instance running)
+    2.  Security
+    3.  Compliance
+    4.
+
+    Seems like something I might use   as a corporate client. 
+    aseem.rastogi@cloudoptics.io
+
+
+
+
+
+
+  Quick Catalogue     (Jorge Del Carpio)
+    Mass-produce catalogs quickly
+    There was a bank that   catalogued their assets
+      Does it auto-generate a  picture?
+
+    Cities
+
+    Bolivia is a problem.
+    He's 10-15 days away from launching.
+    He calls each product an "SKU"
+
+    Faster
+
+    +591 789 92003
+    qcatalogue@gmail.com
+
+
+
+
+
+
+  bbox                (Dmitry Efimov)
+    Automatically count stuff
+    Dmitry can also aggregate data  like this.
+
+    1.  Experience in Tensorflow
+      Looking for a person who knows TF
+      Ideally a student
+    2.  Business (has to find some way to get money from   businesses who can't see a prototype   )
+
+    Josh Gordon
+
+    nginx
+
+
+
+
+
+
+
+  "Cat"               (Nathan Bendich)
+    There will be unforeseen use cases
+    $1 app?         Jorge said he would pay for this.  He's super pumped about the idea.
+    Data 
+      Demographics:
+        "Detroit has an average height   of 5.7 meters"
+      This is far future
+    "nginx" web framework
+
+
+
+  https://reactjs.org/tutorial/tutorial.html
+
+
+  I may also wanna do "last session" (ctrl+shift+T   a buncha times)
+
+
+
+
+________________________________
+
+    React       suggestions:
+
+    > core-js@3.1.4 postinstall /home/cat_macys_vr/web/web/react/react-file-upload_3/app/src/react-dropzone/node_modules/core-js
+    > node scripts/postinstall || echo "ignore"
+
+    + react@16.9.0
+    + react-dom@16.9.0
+    + react-scripts@3.1.1
+    added 1435 packages from 685 contributors and audited 903611 packages in 46.314s
+    found 0 vulnerabilities
+
+
+    Success! Created react-dropzone at /home/cat_macys_vr/web/web/react/react-file-upload_3/app/src/react-dropzone
+    Inside that directory, you can run several commands:
+
+      npm start
+        Starts the development server.
+
+      npm run build
+        Bundles the app into static files for production.
+
+      npm test
+        Starts the test runner.
+
+      npm run eject
+        Removes this tool and copies build dependencies, configuration files
+        and scripts into the app directory. If you do this, you can’t go back!
+
+    We suggest that you begin by typing:
+
+      cd react-dropzone
+      npm start
+
+    Happy hacking!
+________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Aug 28 18:52:09 EDT 2019                        Today, August 28, 2019,    is a *MOMENTOUS DAY*.  It is the day I decided to resume the project in full spirits, regardless of whether I get into MPII, etc.  Today, I am MY OWN MAN.
+________________________________
+
+
+  UDel wi-fi passwd:
+    mad23malt
+
+  Host the website on GCloud instead of AWS. 
+    But first, let's just get it running on cunix?
+      Cheaper.
+
+  What do I need to figure out?  (as specific as possible)
+    Which framework (or vanilla JS) can I run on cunix to have a website?         
+    What command do I type into the terminal to launch proper JS?
+      Let's find the simplest possible JS / CSS to run.
+        Animation
+
+
+  Should I host on github.io?
+    Or GCloud Compute Engine?
+    For now, just build what you can on this tiny piece-of-shit cunix Columbia thing.   it.
+
+
+  Push all my CUNIX website shit    on to gcloud so I can install JavaScript, Angular, etc.
+    aptinst npm
+    aptinst npm
+    aptinst angular
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Tue Aug 27 16:16:53 EDT 2019
+________________________________
+
+
+
+  UDel wi-fi passwd:
+    trip43tace
+
+
+
+
+  Take pictures of self to use in SMPLify-X.
+    /Shaina
+    /whoever's measurements I can get a hold of .
+
+
+  Idea from John Fish's video
+    What was it, again?
+    Check YT history.
+
+
+
+  Make organized list of all the patents.
+
+    1.  What's applicable to what I am doing?
+    2.  Contact the people I need to license from
+    3.  How do I license it?
+
+    Try to get an **EXCLUSIVE** License    on the MPII datasets.
+      
+    Do provisional patent application.
+      Before licensing
+      Work with attorneys
+
+
+
+    Who is **assigned** the patents?
+    Doesn't matter who **CREATED** the patents.
+    Bob thinks I should do this
+
+
+  Ask MPII what Intellectual Property rights    I give up to go to  grad school there
+
+
+
+
+
+
+
+
+
+  Bob filed a patent application already.
+    Hemp background
+      Fuel    (hemp is very high-quality fuel)
+        Takes a lot of pretreatment
+        Solvent-treatment
+      Even better than   Switchgrass.
+    Marijuana
+
+
+
+
+
+
+
+
+
+
+
+
+  Formal Affairs
+    Stop by and       IN PERSON.
+    *Owner*   OWNER.
+    Ask what problems he has.
+    Don't come off as a telemarketer
+
+
+  Start with MY problem.
+    Long Jeans
+
+
+  Bob's problem:
+    He can't tell the colors   apart online.
+    Always buys the same 5 pieces of clothes
+    It's a hassle for dudes.
+    Not for dudettes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ________________________________
 
   Mon Aug 26 01:03:11 EDT 2019
 ________________________________
 
+  UDel wi-fi passwd:
+    von34eggs
 
+
+
+
+  Competition for SMPL performance       (~Kaggle)
+  SMPLify-X / other methods
+
+  Same for   SMPLify-X / other methods.
+
+  SMPLify-X / other methods
+  SMPLify-X / other methods
+  SMPLify-X / other methods
+  SMPLify-X / other methods
+  SMPLify-X / other methods
 
 
 
@@ -1904,6 +2582,7 @@ ________________________________________________________________________________
   Segmentation is basically just a encoder-decoder trained end-to-end.
     Each input pixel => label ()
     I don't remember whether he said that we have to know the labels of all the classes (kind of objects) in the image a priori, or if the network will just decide (ie. CIFAR-10 would have 11 classes, including "background" class)
+    Upsampling is done by "Transpose Convolution"s
 
 
 
@@ -1927,19 +2606,50 @@ ________________________________________________________________________________
     There is a hyperparameter that weights   between the 2 losses
 
 
-    f
+    
   ___________________________________________________________________________________________________
 
   Pose estimation 
     (39:36)
-    People
-    But also animals?
+    Get the poses of people
+    But also the poses of animals?
 
   I DIDN'T TAKE GOOD NOTES ON THIS LECTURE.  I ought to come back to time ~40:00  to finish the notes.  -nxb, Sun Aug 25 06:05:00 EDT 2019
 
   ___________________________________________________________________________________________________
 
+  Object detection
+    R-CNN:
+      "Region" CNN
+      RoI :  "Regions of Interest"
+      The big picture:
+      1.  Traditional (old) CV techniques to find candidate regions   where objects might be, 
+      2.  Then run CNN on each region to tell   A) which object is present    or B) whether it's just background
+      Slow.  this is bad (http://cs231n.stanford.edu/slides/2019/cs231n_2019_lecture12.pdf page 85).
 
+    Fast R-CNN:
+      Faster than R-CNN
+    Faster R-CNN:
+      Faster than ... wait for it....   Fast R-CNN
+      Super fast!
+
+      One/both of these "Fast(er) R-CNN"s reuses convolution computation on different regions of the image (the candidate regions that might have objects sometimes overlap)  
+
+
+    All these are slower than SSD and YOLO.
+      SSD only does a single Conv pass   (less computation)
+
+  ___________________________________________________________________________________________________
+
+  Can also do multi-person
+    Segmentation or
+    Pose detection
+
+      Instance segmentation:
+
+
+      "Mask R-CNN"
+        "Instance segmentation"
 
 
 
@@ -3036,6 +3746,10 @@ ________________________________
 
 
   ________________________________
+
+
+    IP agreement at MPII:            (http://www.max-planck-innovation.de/en/inventors_founders/inventors_faq/#07)
+      "Inventions made by MPG staff members usually emerge within the scope of their research activities or are based on the institute's experience or work. These inventions are thus called "employee inventions". In accordance with the German Employees' Inventions Act, the employer, i.e. the Max Planck Society, is entitled to such inventions – in so far as the Max Planck Society claims them under the stipulations of the act. The claim will be examined and lodged within four months after the filing of your invention disclosure form.  "
 
 
     Bob:
@@ -15426,7 +16140,7 @@ ________________________________
     https://webmuch.com/how-to-customize-a-file-upload-button-using-css3-html5-and-javascript/
 
 
-  Mistakes:
+  Mistakes   to learn from:
     I started working on the wrong, shitty old code rather than the new deep learning stuff.
     I burned too many bridges with recruiters at tech places and now I wish I still had those options.
     I'm gonna finally do the ****ing openpose installation
@@ -26354,7 +27068,7 @@ Only the Paranoid Survive, (by Andy Grove) page 32
 
 
 Fri Jan 11 18:22:13 EST 2019
-  Applied to a lyft job I'll probably never hear back from.  Mostly submitted my resume online just so I could feel like I'd done SOMETHING today, rather than nothing but thinking.
+  Applied to a Lyft job I'll probably never hear back from.  Mostly submitted my resume online just so I could feel like I'd done SOMETHING today, rather than nothing but thinking.
   I now think getting a job at a startup (ideally a VR startup) will help me in life in multiple ways, first at least in giving me a salary and then also it will give me a shot at getting to know some VCs, meet people who have connections, who have more experience writing software, etc.
 
 
@@ -26940,6 +27654,10 @@ ________________________________
       Home service provider
     Just do AWS
       Security
+
+    https://blog.dbi-services.com/a-free-postgresql-cloud-database/
+      Free versions of Cloud databases
+      
 
     Relational Databases are very well established
       Paul Graham is wrong these days.
@@ -27696,6 +28414,9 @@ Google DevFest talk (John Ragan, Kubernetes)
     Which servers are we going to run the Docker containers on?
     [list of Kubernetes benefits on John Ragan's slides]
 
+  Mistakes   to learn from:
+    I started working on the wrong, shitty old code rather than the new deep learning stuff.
+    I burned too many bridges with recruiters at tech places and now I wish I still had those options.
 
 
 
@@ -27999,6 +28720,17 @@ Notes/ideas:
     17.
     18.
 
+  The old thing that was at the top of this "TODO" list:
+
+
+
+  What did you learn today?
+    Just do it.  Actions (mistakes) / minute.  https://ps.is.tuebingen.mpg.de/jobs/phd
+
+  Follow your gut.  Vision.
+    It could work.  You will make it work.
+
+  YOU. CAN. DO. IT.    DON'T. QUIT.  Sometimes the bold confidence is all you need to get started.
 
 
 
@@ -28110,6 +28842,103 @@ ________________________________________________________________________________
   Other TODOs   (one-offs):
 ___________________________________________________________________________________________________
 
+
+  http://paulgraham.com/ambitious.html
+    A list of very ambitious projects.
+
+
+  http://paulgraham.com/name.html
+  Change your name.
+    Get "x.com"
+    "x.com" shows you're powerful,   legit, etc.
+
+  Business analysis of "Cat:"
+    https://www.youtube.com/watch?v=C27RVio2rOs
+
+    1.  Who is your (1st) customer?
+      a.  We have to find the right person to be the customer
+      b.  INTENSE PAIN
+        1)  Hair on fire
+      c.  The problem **OFTEN** comes up
+        1)
+      d.
+    2.  
+    3.
+    4.  Are they willing to pay?
+      a.  Apparently if you charge people and they still come back to you, those are the customers you should be looking for
+      b.  Free clothing buyers won't be die-hard customers;   they'll be "just browsing" folks.
+    
+    5.  How easy is it for customers to find me?
+      a.  I should be on the web at first.  Easier to find
+      b.  Advertise somehow   (offer people free shit if they sign up with me)
+      c.
+      d.
+      e.
+      f.
+      g.
+      h.
+      i.
+      j.
+      k.
+    6.  Does your MVP actually solve the problem?
+      a.  The truth hurts.
+      a.  It sucks.
+      b.
+    7.  Which customers should you go after first?
+      a.  MVP sucks.
+      b.  Who is willing to use a bad product?
+      c.  Who are the most desperate customers first?
+        1)  Very weirdly-shaped people
+      d.  Who's business will go out of business without you?
+        1)  Don't talk to your friends
+          a)  Jessica Li   didn't have this problem.
+          b)  
+        2)  Investors aren't the users
+        3)  f
+        4)
+        5)
+        6)
+        7)
+        8)
+        9)
+      e.  Find bad customers    
+        1)  Get rid of them
+        2)  Actively "fire" the customer
+        3)  If you deliver value,  there *WILL* be people trying to abuse your value
+        4)
+        5)
+        6)
+        7)
+        8)
+        9)
+      f.
+      g.
+      h.
+      i.
+      j.
+      k.
+      l.
+      m.
+      n.
+    8.  Sell like Zenefits
+      a.  "After X months,   this AWS discount will expire"
+      b.
+      c.
+      d.
+      e.
+      f.
+      g.
+      h.
+      i.
+    9.
+   10.
+
+
+
+
+
+
+
   Setup/fix e-mail forwarding (from cat.macys.vr@gmail.com    to nathanbendich@gmail.com).
 
 
@@ -28198,6 +29027,11 @@ ________________________________________________________________________________
 
   To read:
     https://donperlgut.wordpress.com/2009/09/15/books-that-changed-the-world/
+
+
+    Warren Buffett
+      Annual report (Berkshire)
+      "10k"
 
 
 
