@@ -445,4 +445,276 @@ Wed Feb 27 10:46:38 EST 2019
   Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
   saving segmentation map in  _segmented____binary_mask_.jpg
   WARNING:root:Lossy conversion from int64 to uint8. Range [0, 15]. Convert image to uint8 prior to saving to suppress this warning.
+======================================================================
+
+
+
+
+
+
+======================================================================
+Sat Aug 31 03:24:19 EDT 2019
+
+  I'm trying to launch & run SMPL / SMPL-X on my own      GCloud App Engine/ Compute Engine.
+
+  vrdr stands for "Virtual Reality Dressing Room"
+
+
+    I guess we should follow  the tutorial at
+        "https://cloud.google.com/nodejs/getting-started/tutorial-app"   On the GCloud Compute Engine "cuda-version-0" instance
+======================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+======================================================================
+  This "journal" could probably be fused with "debug.txt"    to good effect.
+
+
+
+
+
+
+
+
+  I'm trying to launch & run SMPL / SMPL-X on my own      GCloud App Engine/ Compute Engine.
+
+  vrdr stands for "Virtual Reality Dressing Room"
+
+
+    I guess we should follow  the tutorial at
+        "https://cloud.google.com/nodejs/getting-started/tutorial-app"   On the GCloud Compute Engine "cuda-version-0" instance
+
+
+  Today we logged in to  "cat.macys.vr@gmail.com" on "cuda-version-test-0-vm"
+    It used to be on the service account, but I couldn't get it to let me write to the gcloud storage bucket.
+    So I signed in as cat.macys.vr@gmail.com    instead.
+      ` gcloud compute --project "secret-voice-243500" ssh --ssh-flag=-vvv --ssh-flag=-X --zone "us-east1-d" "cat_macys_vr@cuda-version-test-0-vm"    `
+
+
+
+
+
+  Added permissions for various Google APIs as suggested by   
+    https://stackoverflow.com/questions/35928534/403-request-had-insufficient-authentication-scopes-during-gcloud-container-clu
+
+
+
+
+
+
+
+
+  I got decently far with a simple file upload using the code from
+    1.  https://github.com/GoogleCloudPlatform/nodejs-docs-samples/tree/master/appengine/storage/standard
+    2.  http://34.73.163.67:8081            (the website's URL (**technically** just an IP address)   )
+  Error message:
+         node app.js 
+    App listening on port 8081
+    Press Ctrl+C to quit.
+    Error: Insufficient Permission
+        at Util.parseHttpRespBody (/home/cat_macys_vr/web/nodejs-docs-samples/appengine/storage/standard/node_modules/@google-cloud/common/build/src/util.js:194:38)
+        at Util.handleResp (/home/cat_macys_vr/web/nodejs-docs-samples/appengine/storage/standard/node_modules/@google-cloud/common/build/src/util.js:135:117)
+        at retryRequest (/home/cat_macys_vr/web/nodejs-docs-samples/appengine/storage/standard/node_modules/@google-cloud/common/build/src/util.js:420:22)
+        at onResponse (/home/cat_macys_vr/web/nodejs-docs-samples/appengine/storage/standard/node_modules/retry-request/index.js:206:7)
+        at /home/cat_macys_vr/web/nodejs-docs-samples/appengine/storage/standard/node_modules/teeny-request/build/src/index.js:193:17
+        at processTicksAndRejections (internal/process/task_queues.js:86:5)
+
+    3.  This error message will probably be informative in debugging    the "bookshelf"
+    4.
+    5.
+    6.
+    7.
+    8.
+    9.
+    10.
+    11.
+    12.
+    13.
+    14.
+    15.
+    16.
+    17.
+    18.
+======================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
