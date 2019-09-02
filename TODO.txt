@@ -10,6 +10,220 @@
     TODO.txt
 
 
+________________________________
+
+  Sun Sep  1 20:05:43 EDT 2019
+________________________________
+
+
+  If you start having trouble with the docker,    do Google Colab.
+    https://github.com/CMU-Perceptual-Computing-Lab/openpose/issues/949
+    https://colab.research.google.com/github/tugstugi/dl-colab-notebooks/blob/master/notebooks/OpenPose.ipynb
+  Docker : get openpose-kp-production working within  the docker container in  openpose-ubuntu-1  
+
+  
+  ___________________
+
+  Plan the week out when you get home.
+    Or at least do it Tuesday morning.
+
+
+  On OPose, find the linked Dockerfile that requires CUDA-10 already installed.
+    in docker: 
+      use cmake and install via *.tar.gz (cmake hasn't been pushed to Ubuntu 18.04 yet)
+
+  ___________________
+
+  Last Chrome session:
+    There were a lot of important, detailed technical details   on VARIOUS (scattered and somewhat disorganized) pages of the openpose github repo:
+    1. https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/prerequisites.md
+    #cmake-command-line-configuration-ubuntu-only  # I don't think this was actually written.  I think the authors just realized there was a need, but didn't do the actual work of writing the details down for us.
+    2. https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/prerequisites.md#ubuntu-prerequisites
+    3. https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/prerequisites.md#cmake-command-line-configuration-ubuntu-only
+    4. https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/installation.md#update-openpose
+    5.
+    https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/installation.md#requirements-and-dependencies
+
+    http://34.73.163.67:8081/
+
+    https://developer.nvidia.com/rdp/cudnn-download
+    https://hub.docker.com/r/cwaffles/openpose
+    https://stackoverflow.com/questions/44480740/how-to-save-a-docker-container-state
+    https://cmake.org/download/
+    https://github.com/esemeniuc/openpose-docker
+  ___________________
+
+
+  ___________________
+
+  $1,462.99/month
+
+
+  Touch the new gsutil rsync bucket in ~/Downloads/touchshit.sh.
+  First, try **withOUT** openpose kps.
+
+
+
+
+
+
+
+
+  For my records: let's just say I stopped working at 12:30 midnight.
+
+
+
+
+
+
+
+
+
+
+
+  Re-open Chrome & Opera sessions.
+
+  Server:  (JavaScript)
+    /home/cat_macys_vr/MOSTLY_working_file_upload_dir
+
+  SMPL_X
+    ~/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplx/githubs/smplify-x/run.sh
+    run it with a "&" or "screen"
+
+  Open files in vim   on the GCloud VM:
+    ~/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplx/githubs/smplify-x/run.sh
+    ~/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplx/githubs/smplify-x/smplifyx/main.py
+
+    ~/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/SMPLX_from_imgs_python_____.py
+      Where was this last one????
+        Answer:  /home/cat_macys_vr/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplx/githubs/smplify-x/interaction_w_rest_of_VRDR_app_/SMPLX_from_imgs_python_____.py
+
+    /home/cat_macys_vr/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplx/githubs/homogenus/samples/openpose_keypoints/im1834_keypoints.json
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Why isn't `gsutil ls gs://vrdr_bucket_1/` working???
+  Just sync the bucket to a local one, and use vanilla `ls` .
+    It's slow, but it'll work.
+    Hack, hack, hack.
+    None of this slow, corporate bullshit.
+
+________________________________
+
+  Sat Aug 31 05:20:50 EDT 2019
+________________________________
+
+  OPEN THE LAST CHROME SESSION.
+    Prev session.
+
+
+
+
+  Look up the solution for "python within JavaScript" StackOverflow solution.
+    Found it.
+    You had it once before.  Where is it?
+       1.   StackOverflow history (all votes)
+       2.   Chrome history
+       3.   
+       4.
+       5.
+       6.
+       7.
+       8.
+       9.
+      10.   
+      11.
+      12.
+      13.
+      14.
+      15.
+      16.
+      17.
+      18.
+
+
+
+
+  Test parts of the "str_diff()"   function,    as well as all the rest of it.  "it" means:
+    "/home/cat_macys_vr/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplx/githubs/smplify-x/interaction_w_rest_of_VRDR_app_/SMPLX_from_imgs_python_____.py"
+
+
+
+
+
+
+  cd ~/web/nodejs-docs-samples/appengine/storage/standard/;     v app.js
+    This guy is the gcloud bucket (AKA "storage")  upload.
+   1.   Read the contents of the gcloud bucket in python?
+      a.  But I think doing this directly would require (minor) installation.
+      b.      I think we should instead try the sketchy hack-y way of rerouting stdout instead.
+      c.   
+      d.   
+      e.   
+      f.   
+      g.   
+   2.   
+   3.
+   4.
+   5.
+   6.
+   7.
+   8.
+   9.
+  10.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  cd /home/cat_macys_vr/web/web/nodejs-getting-started/2-structured-data
+
+
+
+
+
+
+
+
+
+
+
 
 
 
