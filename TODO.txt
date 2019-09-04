@@ -1,6 +1,7 @@
   Don't ignore your dreams; don't work too much; say what you think; cultivate friendships; be happy.
 
   We had more, but let's leave it at less instead.
+    Money ASAP.  That's why the MVP should be  FAST FAST FAST.
 
 
 
@@ -8,6 +9,248 @@
 
 
     TODO.txt
+ 
+
+
+
+
+
+
+
+
+
+  GCloud billing today:
+    $139.92
+
+
+
+  "fix" docker .bash_history
+  https://stackoverflow.com/questions/28279862/docker-and-bash-history
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Tue Sep  3 05:01:13 EDT 2019
+________________________________
+
+  docker commit [hash] [image] AGAIN.
+  Post on www.github.com/openpose that exsidius/openpose  was the successful docker image.  (not cwaffles/openpose   docker)
+
+
+
+  Single shell script "go.sh"       that spawns multiple child processes that do everything I want them to.
+    #!/bin/bash
+
+    start_upload_server.sh &    
+      file contents of  "start_upload_server.sh" :
+
+      #!/bin/bash
+      VM=cuda-version-test-0-vm
+      ZONE=--zone "us-east1-d"
+      PROJ=--project "secret-voice-243500"
+      FLAGS=--ssh-flag=-vvv --ssh-flag=-X
+      gcloud compute $PROJ ssh $FLAGS  $ZONE "$VM" &&\
+      cd MOSTLY_WORKING_UPLOAD_DIR &&\
+      npm start 
+
+    file contents of "mv_customer_img.sh" :
+      #!/bin/bash
+      VM=cuda-version-test-0-vm
+      ZONE=--zone "us-east1-d"
+      PROJ=--project "secret-voice-243500"
+      FLAGS=--ssh-flag=-vvv --ssh-flag=-X
+      gcloud compute $PROJ ssh $FLAGS  $ZONE "$VM" &&\          
+      # AKA gcloud compute --project "secret-voice-243500" ssh --ssh-flag=-vvv --ssh-flag=-X --zone "us-east1-d" "cuda-version-test-0-vm" &&\
+      
+    s
+    ./do_OpenPose.sh
+      docker cp
+
+
+
+
+
+
+
+
+  'gcloud compute scp ... openpose-ubuntu16-1'   onto Ubuntu 16 instance;
+    n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE____.jpg
+    n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE_____keypoints.json
+    n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE_____keypoints.py
+    n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE_____rendered.png
+
+  https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda-repo-ubuntu1604-10-0-local-10.0.130-410.48_1.0-1_amd64
+
+
+
+
+
+
+
+
+
+
+In /home/n/pyutils/copy_the_file\,_____then_run_openpose_png_so_I_can_see_results.txt
+
+  File identified.
+  Running openpose...
+    Find the right f****king command.
+    Make demo work.
+      Caffe bug?
+
+  Debug it.
+
+  Maybe we give docker til the end of today.
+    Then it's probably better to just install everything directly onto Ubuntu 18, and just make a new VM if I **REALLY** need to.
+    Docker isn't the problem.
+     1.   Caffe
+     2.   OpenCV
+     3.   
+     4.
+     5.
+
+
+/home/n/Documents/code/openpose/many_useful_openpose_cmds.sh
+
+
+feh on :
+  1. /home/n/Dropbox/vr_mall_backup/IMPORTANT/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE_____rendered.png
+  2. /home/n/Dropbox/vr_mall_backup/IMPORTANT/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE____.jpg
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Mon Sep  2 19:05:22 EDT 2019
+________________________________
+
+  Should I apologize to Connor?
+  And say "thanks" to Jeannine and Michael.
+  Tell Evan he's great
+    Invite him to Settlers of Catan?
+
+    And that I need a friend too.
+    Tell him I was crying last night?
+
+
+
+
+  docker cp .png file into ./openpose
+  Make openpose/docker/build/demo work.
+    What if we just moved `CMakeLists.txt`   into /openpose/build   and did it that way?
+
+  1.  I think we should probably redo everything just so we're sure we know what's going on.
+    Otherwise it's SOOOOO much harder to debug shit.
+  either 1. or 
+  2.  Find the "magic solution" by fixing  "symbol lookup error: /openpose/src/openpose/libopenpose.so.1.5.0: undefined symbol: _ZN5caffe3NetIfE21CopyTrainedLayersFromERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"
+    (ie. "find the symbol _ZN5caffe3NetIfE21CopyTrainedLayersFromERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE")
+
+
+  Take note at home:
+    Got up at 2:30?  3:00?
+
+  SSchool update:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  IDEA:
+    Teach DNNs (cs231n) at DSI (the Newark, Delaware meetup)
+    I could also teach whats-it-called,   PCA.
+
+
+
+
+
+
+
+
 
 
 ________________________________
@@ -63,6 +306,8 @@ ________________________________
   First, try **withOUT** openpose kps.
 
 
+  interview w/ Python creator Rossum:
+    https://www.youtube.com/watch?v=IWAe_mdTslc
 
 
 
@@ -29444,6 +29689,51 @@ ________________________________________________________________________________
       d.
     4.
     5.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
