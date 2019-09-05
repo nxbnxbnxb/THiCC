@@ -2,6 +2,7 @@
 
   We had more, but let's leave it at less instead.
     Money ASAP.  That's why the MVP should be  FAST FAST FAST.
+    http://dumbledore.com/
 
 
 
@@ -10,7 +11,175 @@
 
     TODO.txt
  
+________________________________
 
+  Thu Sep  5 03:52:19 EDT 2019
+________________________________
+
+  Lookup whether blend4web NEEDS direct connection to your    home blender window.
+
+
+  Startup School   Group Session   companies:
+    MassVX:   " A talent matching platform for Principal Investigators to be matched with a successful entrepreneurial champion who will quickly spin out the company and raise funds.  "
+     Founders:
+      Stephen Smiddy
+      Susan Ahern
+
+      Would **you** use the tool?
+        (ie. did *you* have this problem?)
+
+      So is it like founder dating?
+        If not, how is it different?
+
+
+
+
+
+
+
+
+
+    1787fp
+     Jean Jacques Borno:
+      Our tools help our customers take control of their finances and work towards financial independence!
+
+      How is it different from RobinHood?
+      Does it need to be different from RobinHood?
+      Would **you** use the tool?
+        (ie. did *you* have this problem?)
+
+      Maybe you could gamify.
+        Tell him about www.habitica.com
+
+
+    Devs Decide:
+      Software tools to track and improve the effectiveness of your technical interviews.
+      Solomon Lasluisa
+
+        How often do you (or does anyone) have this problem?
+        Why can't you just use Google Sheets or MSWord to track this stuff?
+
+
+
+
+
+
+
+
+
+
+
+
+  Last Chrome session:
+
+
+    1.  https://docs.blender.org/manual/en/2.79/render/workflows/command_line.html
+      a.  Example cmd:
+        `blender -b /home/n/Dropbox/vr_mall_backup/3D_model_files/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE_____SMPLify-X.blend -x 1 -o `pw`/frame_##### -f 1`
+
+      b.  "Rendering Blender Projects on Google Cloud Compute Engine"     
+        1)  https://www.youtube.com/watch?v=z6FzdMZbvEo
+      c.  It doesn't do the GUI part, but it lets you use `blender` as a cmd line tool to render pngs from .blend files
+      d.  Similar to https://docs.blender.org/manual/en/2.79/render/workflows/command_line.html
+
+
+    2.  https://www.blend4web.com/en/downloads/
+      a.  Loc of the blend4web SDK:  /home/n/Downloads/blend4web_ce_18_05_0.zip
+
+
+    3.  https://medium.com/p/78fccda09e5c/responses/show
+      a.  ^^^^^ Get VNC running on **ANY** Ubuntu14 GCloud Compute Instance.
+      b.  I **think** the issue the last time I did it was    the GCloud Compute Instances Firewall rule.
+      c.  Also tells you how to kill the VNC server process afterwards
+      d.
+      e.
+      f.
+
+
+    4.  I'm **still** confused about why I couldn't rotate the camera in Blender.
+
+
+    5.  Blend4Web :   tutorial(s)
+      a.  https://www.youtube.com/watch?v=c5_KfXlhSu8
+      b.  Also    https://www.youtube.com/watch?v=j4_AJC_-rlg .
+        1)  This one is the actual "blend4web" tutorial.
+      c.  The Official Documentation:
+        1)  https://www.blend4web.com/doc/en/index.html
+
+
+    6.  Prevent accidental auto-deletion of GCloud VM Instances
+      a.  https://cloud.google.com/compute/docs/instances/preventing-accidental-vm-deletion?hl=en_US&_ga=2.5445619.-1177185021.1567643930
+      b.  https://cloud.google.com/compute/docs/containers/deploying-containers?hl=en_US&_ga=2.18094073.-1177185021.1567643930
+      c.
+      d.
+      e.
+      f.
+      g.
+      h.
+      i.
+      j.
+
+    7.
+    8.
+    9.
+    10.
+    11.
+    12.
+    13.
+    14.
+    15.
+    16.
+    17.
+    18.
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Sep  4 20:41:51 EDT 2019
+________________________________
+
+
+
+
+  Need to somehow standardize the "put the human SMPL-X mesh in front of the camera"
+    So we can use xdotool to automate the mouse clicks / key_presses to create the best render.png possible.
+
+
+
+
+  [This method](https://www.youtube.com/watch?v=z6FzdMZbvEo)
+    requires that I **personally** use **MY LAPTOP's** "blender" to set all the background values (sky color, opacity, textures, etc.)
+    This is **fine**, but it means 
+      A)  Another slight speed bottleneck and 
+      B)  My laptop has to be open all the time when customers are using      the website
+         1. Then the only advantage to  doing Blender Rendering on  GCE (GCloud Compute Engine)  would be to use their GPUs.  (Performance, not necessity)
+         2. We'll optimize performance later, when we can "profile" the whole process (like profiling a Python/Lisp script, but more complex:   (There's no single profiler)  )
+         3.
+         4.
+         5. scp onto my laptop, 
+         6. automatically make `show.html` in blender (blend4web)
+         7. or the second method ()
+          a.  https://docs.blender.org/manual/en/latest/render/workflows/command_line.html
+         8.
+         9.
+        10.
+        11.
+        12.
+        13.
+        14.
+        15.
+        16.
+        17.
+        18.
 
 
 
@@ -24,8 +193,26 @@
 
 
 
-  "fix" docker .bash_history
-  https://stackoverflow.com/questions/28279862/docker-and-bash-history
+  "fix" docker .bash_history:
+    https://stackoverflow.com/questions/28279862/docker-and-bash-history
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -29729,6 +29916,15 @@ ________________________________________________________________________________
 
 
 
+
+
+
+
+
+
+
+
+  www.dumbledore.com
 
 
 
