@@ -1,6 +1,8 @@
   Don't ignore your dreams; don't work too much; say what you think; cultivate friendships; be happy.
 
   We had more, but let's leave it at less instead.
+    Money ASAP.  That's why the MVP should be  FAST FAST FAST.
+    http://dumbledore.com/
 
 
 
@@ -8,6 +10,650 @@
 
 
     TODO.txt
+ 
+________________________________
+
+  Thu Sep  5 03:52:19 EDT 2019
+________________________________
+
+  Lookup whether blend4web NEEDS direct connection to your    home blender window.
+
+
+  Startup School   Group Session   companies:
+    MassVX:   " A talent matching platform for Principal Investigators to be matched with a successful entrepreneurial champion who will quickly spin out the company and raise funds.  "
+     Founders:
+      Stephen Smiddy
+      Susan Ahern
+
+      Would **you** use the tool?
+        (ie. did *you* have this problem?)
+
+      So is it like founder dating?
+        If not, how is it different?
+
+
+
+
+
+
+
+
+
+    1787fp
+     Jean Jacques Borno:
+      Our tools help our customers take control of their finances and work towards financial independence!
+
+      How is it different from RobinHood?
+      Does it need to be different from RobinHood?
+      Would **you** use the tool?
+        (ie. did *you* have this problem?)
+
+      Maybe you could gamify.
+        Tell him about www.habitica.com
+
+
+    Devs Decide:
+      Software tools to track and improve the effectiveness of your technical interviews.
+      Solomon Lasluisa
+
+        How often do you (or does anyone) have this problem?
+        Why can't you just use Google Sheets or MSWord to track this stuff?
+
+
+
+
+
+
+
+
+
+
+
+
+  Last Chrome session:
+
+
+    1.  https://docs.blender.org/manual/en/2.79/render/workflows/command_line.html
+      a.  Example cmd:
+        `blender -b /home/n/Dropbox/vr_mall_backup/3D_model_files/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE_____SMPLify-X.blend -x 1 -o `pw`/frame_##### -f 1`
+
+      b.  "Rendering Blender Projects on Google Cloud Compute Engine"     
+        1)  https://www.youtube.com/watch?v=z6FzdMZbvEo
+      c.  It doesn't do the GUI part, but it lets you use `blender` as a cmd line tool to render pngs from .blend files
+      d.  Similar to https://docs.blender.org/manual/en/2.79/render/workflows/command_line.html
+
+
+    2.  https://www.blend4web.com/en/downloads/
+      a.  Loc of the blend4web SDK:  /home/n/Downloads/blend4web_ce_18_05_0.zip
+
+
+    3.  https://medium.com/p/78fccda09e5c/responses/show
+      a.  ^^^^^ Get VNC running on **ANY** Ubuntu14 GCloud Compute Instance.
+      b.  I **think** the issue the last time I did it was    the GCloud Compute Instances Firewall rule.
+      c.  Also tells you how to kill the VNC server process afterwards
+      d.
+      e.
+      f.
+
+
+    4.  I'm **still** confused about why I couldn't rotate the camera in Blender.
+
+
+    5.  Blend4Web :   tutorial(s)
+      a.  https://www.youtube.com/watch?v=c5_KfXlhSu8
+      b.  Also    https://www.youtube.com/watch?v=j4_AJC_-rlg .
+        1)  This one is the actual "blend4web" tutorial.
+      c.  The Official Documentation:
+        1)  https://www.blend4web.com/doc/en/index.html
+
+
+    6.  Prevent accidental auto-deletion of GCloud VM Instances
+      a.  https://cloud.google.com/compute/docs/instances/preventing-accidental-vm-deletion?hl=en_US&_ga=2.5445619.-1177185021.1567643930
+      b.  https://cloud.google.com/compute/docs/containers/deploying-containers?hl=en_US&_ga=2.18094073.-1177185021.1567643930
+      c.
+      d.
+      e.
+      f.
+      g.
+      h.
+      i.
+      j.
+
+    7.
+    8.
+    9.
+    10.
+    11.
+    12.
+    13.
+    14.
+    15.
+    16.
+    17.
+    18.
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Sep  4 20:41:51 EDT 2019
+________________________________
+
+
+
+
+  Need to somehow standardize the "put the human SMPL-X mesh in front of the camera"
+    So we can use xdotool to automate the mouse clicks / key_presses to create the best render.png possible.
+
+
+
+
+  [This method](https://www.youtube.com/watch?v=z6FzdMZbvEo)
+    requires that I **personally** use **MY LAPTOP's** "blender" to set all the background values (sky color, opacity, textures, etc.)
+    This is **fine**, but it means 
+      A)  Another slight speed bottleneck and 
+      B)  My laptop has to be open all the time when customers are using      the website
+         1. Then the only advantage to  doing Blender Rendering on  GCE (GCloud Compute Engine)  would be to use their GPUs.  (Performance, not necessity)
+         2. We'll optimize performance later, when we can "profile" the whole process (like profiling a Python/Lisp script, but more complex:   (There's no single profiler)  )
+         3.
+         4.
+         5. scp onto my laptop, 
+         6. automatically make `show.html` in blender (blend4web)
+         7. or the second method ()
+          a.  https://docs.blender.org/manual/en/latest/render/workflows/command_line.html
+         8.
+         9.
+        10.
+        11.
+        12.
+        13.
+        14.
+        15.
+        16.
+        17.
+        18.
+
+
+
+
+
+
+
+
+  GCloud billing today:
+    $139.92
+
+
+
+  "fix" docker .bash_history:
+    https://stackoverflow.com/questions/28279862/docker-and-bash-history
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Tue Sep  3 05:01:13 EDT 2019
+________________________________
+
+  docker commit [hash] [image] AGAIN.
+  Post on www.github.com/openpose that exsidius/openpose  was the successful docker image.  (not cwaffles/openpose   docker)
+
+
+
+  Single shell script "go.sh"       that spawns multiple child processes that do everything I want them to.
+    #!/bin/bash
+
+    start_upload_server.sh &    
+      file contents of  "start_upload_server.sh" :
+
+      #!/bin/bash
+      VM=cuda-version-test-0-vm
+      ZONE=--zone "us-east1-d"
+      PROJ=--project "secret-voice-243500"
+      FLAGS=--ssh-flag=-vvv --ssh-flag=-X
+      gcloud compute $PROJ ssh $FLAGS  $ZONE "$VM" &&\
+      cd MOSTLY_WORKING_UPLOAD_DIR &&\
+      npm start 
+
+    file contents of "mv_customer_img.sh" :
+      #!/bin/bash
+      VM=cuda-version-test-0-vm
+      ZONE=--zone "us-east1-d"
+      PROJ=--project "secret-voice-243500"
+      FLAGS=--ssh-flag=-vvv --ssh-flag=-X
+      gcloud compute $PROJ ssh $FLAGS  $ZONE "$VM" &&\          
+      # AKA gcloud compute --project "secret-voice-243500" ssh --ssh-flag=-vvv --ssh-flag=-X --zone "us-east1-d" "cuda-version-test-0-vm" &&\
+      
+    s
+    ./do_OpenPose.sh
+      docker cp
+
+
+
+
+
+
+
+
+  'gcloud compute scp ... openpose-ubuntu16-1'   onto Ubuntu 16 instance;
+    n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE____.jpg
+    n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE_____keypoints.json
+    n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE_____keypoints.py
+    n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE_____rendered.png
+
+  https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda-repo-ubuntu1604-10-0-local-10.0.130-410.48_1.0-1_amd64
+
+
+
+
+
+
+
+
+
+
+In /home/n/pyutils/copy_the_file\,_____then_run_openpose_png_so_I_can_see_results.txt
+
+  File identified.
+  Running openpose...
+    Find the right f****king command.
+    Make demo work.
+      Caffe bug?
+
+  Debug it.
+
+  Maybe we give docker til the end of today.
+    Then it's probably better to just install everything directly onto Ubuntu 18, and just make a new VM if I **REALLY** need to.
+    Docker isn't the problem.
+     1.   Caffe
+     2.   OpenCV
+     3.   
+     4.
+     5.
+
+
+/home/n/Documents/code/openpose/many_useful_openpose_cmds.sh
+
+
+feh on :
+  1. /home/n/Dropbox/vr_mall_backup/IMPORTANT/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE_____rendered.png
+  2. /home/n/Dropbox/vr_mall_backup/IMPORTANT/n8_front___jesus_pose___legs_closed___nude___grassy_background_Newark_DE____.jpg
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Mon Sep  2 19:05:22 EDT 2019
+________________________________
+
+  Should I apologize to Connor?
+  And say "thanks" to Jeannine and Michael.
+  Tell Evan he's great
+    Invite him to Settlers of Catan?
+
+    And that I need a friend too.
+    Tell him I was crying last night?
+
+
+
+
+  docker cp .png file into ./openpose
+  Make openpose/docker/build/demo work.
+    What if we just moved `CMakeLists.txt`   into /openpose/build   and did it that way?
+
+  1.  I think we should probably redo everything just so we're sure we know what's going on.
+    Otherwise it's SOOOOO much harder to debug shit.
+  either 1. or 
+  2.  Find the "magic solution" by fixing  "symbol lookup error: /openpose/src/openpose/libopenpose.so.1.5.0: undefined symbol: _ZN5caffe3NetIfE21CopyTrainedLayersFromERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"
+    (ie. "find the symbol _ZN5caffe3NetIfE21CopyTrainedLayersFromERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE")
+
+
+  Take note at home:
+    Got up at 2:30?  3:00?
+
+  SSchool update:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  IDEA:
+    Teach DNNs (cs231n) at DSI (the Newark, Delaware meetup)
+    I could also teach whats-it-called,   PCA.
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sun Sep  1 20:05:43 EDT 2019
+________________________________
+
+
+  If you start having trouble with the docker,    do Google Colab.
+    https://github.com/CMU-Perceptual-Computing-Lab/openpose/issues/949
+    https://colab.research.google.com/github/tugstugi/dl-colab-notebooks/blob/master/notebooks/OpenPose.ipynb
+  Docker : get openpose-kp-production working within  the docker container in  openpose-ubuntu-1  
+
+  
+  ___________________
+
+  Plan the week out when you get home.
+    Or at least do it Tuesday morning.
+
+
+  On OPose, find the linked Dockerfile that requires CUDA-10 already installed.
+    in docker: 
+      use cmake and install via *.tar.gz (cmake hasn't been pushed to Ubuntu 18.04 yet)
+
+  ___________________
+
+  Last Chrome session:
+    There were a lot of important, detailed technical details   on VARIOUS (scattered and somewhat disorganized) pages of the openpose github repo:
+    1. https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/prerequisites.md
+    #cmake-command-line-configuration-ubuntu-only  # I don't think this was actually written.  I think the authors just realized there was a need, but didn't do the actual work of writing the details down for us.
+    2. https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/prerequisites.md#ubuntu-prerequisites
+    3. https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/prerequisites.md#cmake-command-line-configuration-ubuntu-only
+    4. https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/installation.md#update-openpose
+    5.
+    https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/installation.md#requirements-and-dependencies
+
+    http://34.73.163.67:8081/
+
+    https://developer.nvidia.com/rdp/cudnn-download
+    https://hub.docker.com/r/cwaffles/openpose
+    https://stackoverflow.com/questions/44480740/how-to-save-a-docker-container-state
+    https://cmake.org/download/
+    https://github.com/esemeniuc/openpose-docker
+  ___________________
+
+
+  ___________________
+
+  $1,462.99/month
+
+
+  Touch the new gsutil rsync bucket in ~/Downloads/touchshit.sh.
+  First, try **withOUT** openpose kps.
+
+
+  interview w/ Python creator Rossum:
+    https://www.youtube.com/watch?v=IWAe_mdTslc
+
+
+
+
+
+
+  For my records: let's just say I stopped working at 12:30 midnight.
+
+
+
+
+
+
+
+
+
+
+
+  Re-open Chrome & Opera sessions.
+
+  Server:  (JavaScript)
+    /home/cat_macys_vr/MOSTLY_working_file_upload_dir
+
+  SMPL_X
+    ~/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplx/githubs/smplify-x/run.sh
+    run it with a "&" or "screen"
+
+  Open files in vim   on the GCloud VM:
+    ~/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplx/githubs/smplify-x/run.sh
+    ~/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplx/githubs/smplify-x/smplifyx/main.py
+
+    ~/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/SMPLX_from_imgs_python_____.py
+      Where was this last one????
+        Answer:  /home/cat_macys_vr/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplx/githubs/smplify-x/interaction_w_rest_of_VRDR_app_/SMPLX_from_imgs_python_____.py
+
+    /home/cat_macys_vr/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplx/githubs/homogenus/samples/openpose_keypoints/im1834_keypoints.json
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Why isn't `gsutil ls gs://vrdr_bucket_1/` working???
+  Just sync the bucket to a local one, and use vanilla `ls` .
+    It's slow, but it'll work.
+    Hack, hack, hack.
+    None of this slow, corporate bullshit.
+
+________________________________
+
+  Sat Aug 31 05:20:50 EDT 2019
+________________________________
+
+  OPEN THE LAST CHROME SESSION.
+    Prev session.
+
+
+
+
+  Look up the solution for "python within JavaScript" StackOverflow solution.
+    Found it.
+    You had it once before.  Where is it?
+       1.   StackOverflow history (all votes)
+       2.   Chrome history
+       3.   
+       4.
+       5.
+       6.
+       7.
+       8.
+       9.
+      10.   
+      11.
+      12.
+      13.
+      14.
+      15.
+      16.
+      17.
+      18.
+
+
+
+
+  Test parts of the "str_diff()"   function,    as well as all the rest of it.  "it" means:
+    "/home/cat_macys_vr/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplx/githubs/smplify-x/interaction_w_rest_of_VRDR_app_/SMPLX_from_imgs_python_____.py"
+
+
+
+
+
+
+  cd ~/web/nodejs-docs-samples/appengine/storage/standard/;     v app.js
+    This guy is the gcloud bucket (AKA "storage")  upload.
+   1.   Read the contents of the gcloud bucket in python?
+      a.  But I think doing this directly would require (minor) installation.
+      b.      I think we should instead try the sketchy hack-y way of rerouting stdout instead.
+      c.   
+      d.   
+      e.   
+      f.   
+      g.   
+   2.   
+   3.
+   4.
+   5.
+   6.
+   7.
+   8.
+   9.
+  10.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  cd /home/cat_macys_vr/web/web/nodejs-getting-started/2-structured-data
+
+
+
+
+
+
+
+
+
 
 
 
@@ -29230,6 +29876,60 @@ ________________________________________________________________________________
       d.
     4.
     5.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  www.dumbledore.com
+
+
+
+
+
 
 
 
