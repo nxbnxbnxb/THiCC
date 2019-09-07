@@ -2,7 +2,8 @@
 
   We had more, but let's leave it at less instead.
     Money ASAP.  That's why the MVP should be  FAST FAST FAST.
-    http://dumbledore.com/
+    Company name:
+      http://www.dumbledore.com/
 
 
 
@@ -10,11 +11,182 @@
 
 
     TODO.txt
+
+
+
+________________________________
+
+________________________________
+
+
+
+  We can't use gcloud compute ssh **OR** scp from the docker container.
+    So:
+
+  Make new gcloud compute storage bucket.
+    Transmit json to json_bucket
+    Have SMPLX wait for json (use the "w8_4_img_upload_____then_run_OPose_.py"  script you've been using: 
+      `git push` from docker)
+    Except the only difference is:
+      run SMPLX demo.py after the json appears 
+      instead of running "openpose()."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sat Sep  7 00:44:11 EDT 2019
+________________________________
+
+
+
+  Automate the blender-render workflow.
+    The master shell script is ***SOMEWHERE***.
+    Blender_oldscreen. png
+      OPENED.
  
+
+
+    "images" ->
+      jpgs
+    "keypoints/" ->
+      *.json
+
+
+
+
+
+
+  Restart cuda-version-test-0-vm .
+    Save the docker state on the "openposeVM" .   
+    Again.
+
+  Test the "copy-the-json-to-the-right-json-dir" command.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ________________________________
 
   Thu Sep  5 03:52:19 EDT 2019
 ________________________________
+
+
+  Automate the blender-render workflow.
+    The master shell script is ***SOMEWHERE***.
+    Blender_oldscreen. png
+      OPENED.
+
+
+
+  Notes:
+
+
+
+
+
+
+
 
   Lookup whether blend4web NEEDS direct connection to your    home blender window.
 
@@ -31,11 +203,23 @@ ________________________________
       So is it like founder dating?
         If not, how is it different?
 
+===================================================================================================
+
+    Cat:
+      Use Stripe!
+      Payments
+      Super super easy to get set up
+        2 lines of code and set it up on your website
+
+      3DS Max?
+
+
+      Better than PayPal
+        Bigger fees
 
 
 
-
-
+===================================================================================================
 
 
 
@@ -50,6 +234,80 @@ ________________________________
 
       Maybe you could gamify.
         Tell him about www.habitica.com
+
+      Zamarin (their version of React Native)
+        Microsoft
+        C#
+
+===================================================================================================
+
+    Financial planning
+      Help customers work on Financial freedom.
+      MVP:
+        iOS version is done
+ 
+      Longer-term customers
+        50x the money acorn
+      Merrill Lynch:
+        $1 mil    minimum
+
+===================================================================================================
+
+    Operations
+      He has a talented guy looking to join
+    CFO in mind
+
+    Looking for 3-4 engineers
+
+
+    Tips for Pitching:
+      1.  Found local startup investor
+      2.  AirBnB pitch deck
+      3.  YC application
+      4.
+      5.  How big is the market?    If we get 10% of the market, this is your revenue:  [$...]
+      6.    Team's successes
+      7.  Advisory board:
+        a.  Former CTO of eTrade
+        b.
+        c.
+        d.
+        e.
+        f.
+        g.
+        h.
+        i.
+        j.
+      8.
+      9.
+
+
+
+
+
+
+
+
+
+
+    Suggestion:
+      Profile on my site:
+        Pinterest?
+        Tommy Hil
+        North Face
+
+        Advertising model
+          Pay me for the clicks
+          Customer is the big company/small clothing company
+
+
+
+
+
+
+
+
+
 
 
     Devs Decide:
