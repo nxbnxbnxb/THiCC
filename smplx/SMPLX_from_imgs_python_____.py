@@ -91,40 +91,49 @@ def mkdir():
 #====================================== end function definition of "mkdir():"======================================
 
 
-#===================================================================================================
-if __name__=="__main__":
+
+
+
+
+
+
+
+
+#==================================================================================================================
+def get_customer_imgfname():
   '''
-    Rapid prototyping:   M.V.MP.
+    Returns the filename of the picture of the customer     that was uploaded via the simple webpage.
+
+  1.
+  # TODO:  We wanna try to avoid making a high-detail large-file-size **image** be sent too many times.
+  # We wanna try to avoid making a high-detail large-file-size mesh be sent too many times.
+  # Can we do a function "upload_img_directly_from_gs_util_storage_bucket()" ?
+  # Or do we have to copy the image locally BEFORE we run SMPLify-X on it?   I could ***probably*** do everything remotely  (on gcloud storage/bucket)  if I installed the GCloud API, but we're very much in "rapid-prototyping-startup-MVP mode" right now.   ***Besides***, the best way we can make the end product ***fastest*** is by using the ***profiler*** at the end, rather than trying to predict which part of the process is going to bottleneck it for the customer.
+
+  2.
+  # TODO NOTE:  we have to sync "gs://vrdr_bucket_1/" to '/home/cat_macys_vr/vrdr_customer_imgs________gsutil_bucket' MORE OFTEN than every minute (that's what crontab is currently doing)
+
+  3.
+  # TODO: error handling.
   '''
-  #tmp_dir_name=mkdir()
+
   encoding='utf-8'
 
-  # TODO NOTE:  we have to sync "gs://vrdr_bucket_1/" to '/home/cat_macys_vr/vrdr_customer_imgs________gsutil_bucket' MORE OFTEN than every minute (that's what crontab is currently doing)
-  local_bucket_fname='/home/cat_macys_vr/vrdr_customer_imgs________gsutil_bucket/'
+  local_bucket_fname='/home/cat_macys_vr/vrdr_customer_imgs________gsutil_bucket/images/'
   cmd=['ls', '-tr', local_bucket_fname]
-  # this was the "diff"  :   -rw-r--r--1cat_macys_vrcat_macys_vr0Sep202:35sigmoid.png_.gstmp
-  # I put the sync in editcron. (/etc/crontab)        ("sync" more technically means    `gsutil rsync`.   For some reason this (["gsutil", "ls", bucket_name])  was being weird to call within python3 )
 
-
-
-  #bucket_name="gs://vrdr_bucket_1/"
-    #["gsutil", "ls", bucket_name]   # this (["gsutil", "ls", bucket_name]) was giving us trouble for some reason.
-  # OLD comment.  Only left here briefly so I remember why I changed the code to its current state. -nxb, Sun Sep  1 21:38:26 EDT 2019    
-  #   The old comments:   NOTE:  here, I assume the output of "gsutil ls [bucket-name]" is INVARIANT as long as the bucket hasn't been changed.  ie. `gsutil ls buck` doesn't spit out "buck/1.txt" then "buck/2.txt"    and then 5 seconds later spit out "buck/2.txt" then "buck/1.txt".
-  #                       NOTE:  this assumption might be WRONG.  (If our assumption is WRONG, it would make our code not merely *slow*, but also send back the WRONG mesh [wrong person's body measurements]. )
-
-
-  # Initial "ls -ltrAh /path/to/imgdir/"      (like do-while loop) :
+  # Initial "ls -ltrAh /path/to/imgdir/"      (like a "do-while" loop) :
   bucket_proc = sp.Popen(cmd, stdout=sp.PIPE) 
   # Description of "sp.Popen():"      https://docs.python.org/3/library/subprocess.html   and   https://stackoverflow.com/questions/89228/calling-an-external-command-in-python/92395#92395 .
   prev_bucket_contents, err = bucket_proc.communicate()
   prev_bucket_contents= prev_bucket_contents.decode(encoding)
+  # To understand "bytes_obj.decode(...)", see   https://stackoverflow.com/questions/606191/convert-bytes-to-a-string 
   assert not err
 
   secs_waited=0
-  go_again=True
+  # NOTE:  we break out of this "while True:" loop with a very particular `return` condition
   #===================================================================================================
-  while go_again:
+  while True:
     time.sleep(1)
     if secs_waited%5==0:
       print("Been waiting "+str(secs_waited)+" seconds for an image file.") 
@@ -135,156 +144,179 @@ if __name__=="__main__":
     bucket_contents=bucket_contents.decode(encoding)
     assert not err
     # TODO: error handling.
-    print(bucket_contents)
     if err:
       pass
 
+    else: #(if not err):
+      new_img_uploaded  = not (bucket_contents == prev_bucket_contents)
+      #==============================================================================
+      if new_img_uploaded:
+        # Basically, the next line of code is "img_fname  =  curr - prev"  (the next line of code is "str1_minus_2(curr, prev)")
+        img_fname=str1_minus_2(bucket_contents, prev_bucket_contents)
+        img_path=local_bucket_fname+img_fname
+        img_fname=img_fname[:-1]      # <===== This line `img_fname=img_fname[:-1]` cuts out the newline character.
+        if not   ( img_fname.endswith('png') or img_fname.endswith('jpeg') or img_fname.endswith('jpg') ):
+          #prev_bucket_contents=bucket_contents   
+          # I was gonna do `prev_bucket_contents=bucket_contents`, but it actually doesn't matter.  
+          # We leave "why doesn't it matter?" as an exercise to the reader.  -nxb, Sun Sep  1 23:44:15 EDT 2019
+          continue
+        return img_path
+      #============================================================== end "if new_img_uploaded:" ===============================================================
+    prev_bucket_contents=bucket_contents
+  #===============================================================end "while True:"===============================================================
 
-    #======================================================================================================================================================================================================
+  raise Exception("I don't know why you would ever hit this line of code.    Something is wrong, and it's probably Nathan's fault, not yours.")
+#=========================================== end function definition of "wait_4_customer_img():"===========================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#===================================================================================================
+if __name__=="__main__":
+  '''
+    Rapid prototyping:   M.V.P.
+  '''
+  customer_img_path=get_customer_imgfname()
+  print(customer_img_path)
+  #======================================================================================================================================================================================================
+  # TODO.
+  #openpose(customer_img_path)
+  #smplifyx(customer_img_path)  # This can't be opening any GUIs.  TODO TODO TODO   NOTE  TODO TODO TODO.
+  #======================================================================================================================================================================================================
+#===================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# old debugging shit:
+'''
+  In "wait_4_customer_img()" :
+      # This was `img_fname` : -rw-r--r--1cat_macys_vrcat_macys_vr0Sep202:35sigmoid.png_.gstmp     (solved this bug with the "if not ..." check right below this line)
       # NOTE:  here I assume the output of "gsutil ls [bucket-name]" is INVARIANT as long as the bucket hasn't been changed.  
       #        ie. `gsutil ls buck` doesn't spit out "buck/1.txt" then "buck/2.txt"    and then 5 seconds later spit out "buck/2.txt" then "buck/1.txt".
       # NOTE:  this assumption might be WRONG.  (If our assumption is WRONG, it would make our code not merely *slow*, but also send back the WRONG mesh [wrong person's body measurements]. )
     #======================================================================================================================================================================================================
-    else: #(if not err):
-
-      new_img_uploaded  = not (bucket_contents == prev_bucket_contents)
-      print("new_img_uploaded? ",new_img_uploaded)
-      if new_img_uploaded:
-        print(" bucket_contents:",bucket_contents)
-        print("  prev_bucket_contents:",prev_bucket_contents)
-        '''
-        # TODO:  We wanna try to avoid making a high-detail large-file-size **image** be sent too many times.
-        # We wanna try to avoid making a high-detail large-file-size mesh be sent too many times.
-        # Can we do a function "upload_img_directly_from_gs_util_storage_bucket()" ?
-        # Or do we have to copy the image locally BEFORE we run SMPLify-X on it?   I could ***probably*** do everything remotely  (on gcloud storage/bucket)  if I installed the GCloud API, but we're very much in "rapid-prototyping-startup-MVP mode" right now.   ***Besides***, the best way we can make the end product ***fastest*** is by using the ***profiler*** at the end, rather than trying to predict which part of the process is going to bottleneck it for the customer.
-        '''
-
-        # Basically, the next line of code is "img_fname  =  curr - prev"  (the next line of code is "str1_minus_2(curr, prev)")
-        img_fname=str1_minus_2(bucket_contents, prev_bucket_contents)
-        print('\n'+'='*99)
-        print("There's an image from the customer.")
-        print('='*99+'\n')
-        print('img_fname[-9:]: ',img_fname[-9:])    # There **should** be 9 characters printed.
-        img_path=local_bucket_fname+img_fname
-        # This was `img_fname` : -rw-r--r--1cat_macys_vrcat_macys_vr0Sep202:35sigmoid.png_.gstmp     (solved this bug with the "if not ..." check right below this line)
-
-        img_fname=img_fname[:-1] # This line `img_fname=img_fname[:-1]` cuts out the newline character.
-        if not   ( img_fname.endswith('png') or img_fname.endswith('jpeg') or img_fname.endswith('jpg') ):
-          print('Skipping 1 loop iteration')
-          continue
-
-        # https://stackoverflow.com/questions/606191/convert-bytes-to-a-string  (to understand "bytes_obj.decode(...)")
-
-        #failed=sp.call(['gsutil', 'cp', bucket_name+img_fname, './'+tmp_dirname])
-        # I'm probably making some assumptions to the effect of    "we didn't just change directories somehow, and './' from os.getcwd() is the same dir as the one where I locally "gsutil copied" the image to in the first place.   -nxb, Sun Sep  1 20:23:02 EDT 2019
-        go_again=False
-        print("Now leaving the 'while' loop.")
-
-        #======================================================================================================================================================================================================
-        # TODO.
-        #smplifyx(curr_img_path)  # This can't be opening any GUIs.  TODO TODO TODO   NOTE  TODO TODO TODO.
-        #======================================================================================================================================================================================================
-      #============================================================== end "if new_img_uploaded:" ===============================================================
-    prev_bucket_contents=bucket_contents
-  #===============================================================end "while True:"===============================================================
-   #failed=sp.call(['rm', '-rf', tmp_dir_name])   # NOTE:   can also do "succeeded = not sp.call(...)"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      # Basically, the next line of code is "img_fname  =  curr - prev"  (the next line of code is "str1_minus_2(curr, prev)")
+      # this was the "diff"  :   -rw-r--r--1cat_macys_vrcat_macys_vr0Sep202:35sigmoid.png_.gstmp
+      # I put the sync in editcron. (/etc/crontab)        ("sync" more technically means    `gsutil rsync`.   For some reason this (["gsutil", "ls", bucket_name])  was being weird to call within python3 )
+      #bucket_name="gs://vrdr_bucket_1/"
+        #["gsutil", "ls", bucket_name]   # this (["gsutil", "ls", bucket_name]) was giving us trouble for some reason.
+      # OLD comment.  Only left here briefly so I remember why I changed the code to its current state. -nxb, Sun Sep  1 21:38:26 EDT 2019    
+      #   The old comments:   NOTE:  here, I assume the output of "gsutil ls [bucket-name]" is INVARIANT as long as the bucket hasn't been changed.  ie. `gsutil ls buck` doesn't spit out "buck/1.txt" then "buck/2.txt"    and then 5 seconds later spit out "buck/2.txt" then "buck/1.txt".
+      #                       NOTE:  this assumption might be WRONG.  (If our assumption is WRONG, it would make our code not merely *slow*, but also send back the WRONG mesh [wrong person's body measurements]. )
+      # I'm probably making some assumptions to the effect of    "we didn't just change directories somehow, and './' from os.getcwd() is the same dir as the one where I locally "gsutil copied" the image to in the first place.   -nxb, Sun Sep  1 20:23:02 EDT 2019
+
+      #failed=sp.call(['rm', '-rf', tmp_dir_name])   # NOTE:   can also do "succeeded = not sp.call(...)"
+'''
