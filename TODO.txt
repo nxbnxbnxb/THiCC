@@ -1,9 +1,8 @@
   Don't ignore your dreams; don't work too much; say what you think; cultivate friendships; be happy.
 
   We had more, but let's leave it at less instead.
-    Money ASAP.  That's why the MVP should be  FAST FAST FAST.
-    Company name:
-      http://www.dumbledore.com/
+    MVP.  Money ASAP.  That's why the MVP should be  FAST FAST FAST.
+    Company name: "Dumbledore"   :   http://www.dumbledore.com/
 
 
 
@@ -14,9 +13,43 @@
 
 
 
-________________________________
+
+
+
+
+
+
+
+
+
+  1. Disable public access to the gcloud storage buckets (as of September 7, 2019,   I (nxb) called it  "openpose_json")
+  Do smaller tests so we can more rapidly edit code &&
+    Focus more on the relevant bugs
+    Are these called "unit tests???"
+
+
+
+
+
+
+
+
+
 
 ________________________________
+
+  Sun Sep  8 00:26:56 EDT 2019
+________________________________
+
+  `gad [all_the_right_files] &&   gci "commit_msg" && gpus` and label (by "label," I mean "do documentation for") all the right files.
+
+    clean out all the local directories?
+    clean out all the local directories?
+    clean out all the local directories?
+    clean out all the local directories?
+    clean out all the local directories?
+
+
 
 
 
@@ -32,6 +65,16 @@ ________________________________
       instead of running "openpose()."
 
 
+  "biz" folder:
+    /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplifyx/smplify-x/biz
+
+  /home/n/Pictures/Blender_success_right_camera_view.png
+
+
+
+
+
+  1. Disable public access to the gcloud storage buckets
 
 
 
@@ -41,11 +84,7 @@ ________________________________
 
 
 
-
-
-
-
-
+  arguments are "file_suffix" and    ("def bucket_diff(bucket_name, file_types)")
 
 ________________________________
 
@@ -327,8 +366,10 @@ ________________________________
 
 
 
+________________________________
 
   Last Chrome session:
+________________________________
 
 
     1.  https://docs.blender.org/manual/en/2.79/render/workflows/command_line.html
@@ -30183,6 +30224,7 @@ ________________________________________________________________________________
 
 
   www.dumbledore.com
+  www.yourethebest.com
 
 
 
@@ -30192,3 +30234,4 @@ ________________________________________________________________________________
 
 
 
+  1. Disable public access to the gcloud storage buckets
