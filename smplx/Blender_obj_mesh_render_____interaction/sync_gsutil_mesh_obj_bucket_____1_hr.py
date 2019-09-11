@@ -2,16 +2,15 @@ import subprocess as sp
 import time
 import os
 
-def sync():
-  local_dir = "/home/cat_macys_vr/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplx/githubs/smplify-x/customer_data/keypoints"    # This image sync directory path is    on the gcloud  instance I, nxb, call "cuda-version-test--0-vm" as of September 8, 2019.
-  bucket="gs://openpose_json/"
+def sync(
+  local_dir='/home/n/___vrdr_customer_obj_mesh_____gsutil_bucket/meshes',
+  bucket='gs://obj_meshes/'
+  ):
   gsutil_sync_cmd=[
-    "gsutil",
-    "rsync",
-    bucket,
-    local_dir,
+    "gsutil", "rsync",
+    bucket, local_dir,
     #">>",
-    #"./gsutil_rsync_____log.txt"
+    #"./gsutil_rsync_____log.txt"    # TODO: NOTE TODO:   we should suppress the output of the command "gsutil rsync x y".
   ]
   success = not sp.call(gsutil_sync_cmd)
   if not success:
@@ -36,6 +35,8 @@ if __name__=="__main__":
     time.sleep(1)
     if i%60==0:
       print("1 minute passed!")
+
+
 
 
 
