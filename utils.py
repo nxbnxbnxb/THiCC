@@ -1130,6 +1130,7 @@ def hist():
         print (readline.get_history_item(i + 1))
     pe(39)
 
+
 h=hist
 H=h
 #===================================================================================================
@@ -1157,7 +1158,7 @@ def print_dict(d):
     # do pprint.pprint() instead
     print_dict_recurs(d, 0)
 
-def print_dict_recurs(d, indent_lvl):
+def print_dict_recurs(d, indent_lvl=2):
     for k,v in d.items():
         print (('  ')*indent_lvl+'within key '+str(k)+': ')
         if type(v)==type({}) or type(v)==type(OrderedDict()):

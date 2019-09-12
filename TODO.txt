@@ -13,11 +13,185 @@
 
 
 
+  Put 30 minutes - 1 hour on "hours count" Google Sheets spreadsheet.
+
+
+
+
+________________________________
+
+  Wed Sep 11 20:51:35 EDT 2019
+________________________________
+
+
+   1.  To properly test whether      our "max dist btwn 2 vertices" corresponds to the "up" vector (this would allow us to rotate the body vertices s.t. the mesh is facing whatever direction we want)  
+      a.  We'd have to at least call `pyrender.scene()` on  1 face s.t. we have face.append  ( idx_of_vertex_in_suspected_head, idx_of_vertex_in_suspected_foot,  idx_of_vert_that's_roughly_the_mean_of_foot_and_head ) =
+      b.  Do PCA to find the direction of maximum variance?
+        1)  This would take more time.
+        2)  It might **ALSO** teach us about PCA, though, which COULD be useful for understanding SMPL later.
+        3)  Doing PCA would be     Not at all very "do-the-MVP-super-fast" style, though
+          a)  It would be  much much better to just take the top pairs of vertices (pairs that are all quite distant from each other)    and (if we can somehow determine a pair belongs to a finger-vertex<----->finger-vertex pair instead of  a top-of-head-vertex<----->bottom-of-foot-vertex pair) pick the best candidate for a head-toe-pair and use the vector between that head-vertex and that toe-vertex
+          b)  I anticipate THIS   to be the most annoying technical problem in writing this code.
+        4)
+        5)
+        6)
+        7)
+        8)
+        9)
+      c.
+      d.
+      e.
+      f.
+      g.
+      h.
+      i.
+      j.
+   2.   But then we would **also** have to deal with the arbitrary rotation between 2 vectors.
+      a.  Is this going to be a problem?
+        1) I don't **THINK** so.
+        2) If nothing else, can't we just decompose the macro rotation into a bunch of mini-rotations?
+        3)  https://math.stackexchange.com/questions/180418/calculate-rotation-matrix-to-align-vector-a-to-vector-b-in-3d
+        4)
+        5)
+        6)
+        7)
+        8)
+        9)
+      b.  We
+      c.
+      d.
+      e.
+      f.
+      g.
+      h.
+      i.
+      j.
+   3.
+   4.
+   5.
+   6.
+   7.
+   8.
+   9.
+  10.
+  11.
+  12.
+  13.
+  14.
+  15.
+  16.
+  17.
+  18.
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Tue Sep 10 23:08:32 EDT 2019
+________________________________
+
+
+    Music:      22:24 / 1:16:50 (Taking You Higher, part 1)
+
+    https://www.youtube.com/watch?v=7WLLjgNZES0&list=PLADDE44EA9F742980&index=31
+    This is a good one (Sum 41 : "So Long Goodbye")
+      very wholesome
+
+    Pick back up after a nap.
+      There's **GOTTA** be some transformation(s) that   get the mesh f*cking facing us.
+      /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplx/Blender_obj_mesh_render_____interaction/obj_2_png.py
+ 
+
+  pyrender.   Not `import pywavefront`;  `pywavefront.
+    Get the x11 shit working on GCloud   
+      ( section 1.2 of the documentation:   https://buildmedia.readthedocs.org/media/pdf/pyrender/latest/pyrender.pdf )
+      Documentation for pyrender is also easily available offline.
+
+pyglet.gl.ContextException: Could not create GL context
+      OpenGL version string: 3.0 Mesa 18.0.5
+
+  ________________________________
+
+      https://github.com/mmatl/pyrender/issues/13 :
+  ________________________________
+
+        See "@oarriaga" 's response near the bottom of the webpage.
+
+
+
+
+     1.   There is probably a better way to load a `mesh.obj` into `faces=[...]; vertices=[...];`
+     ====================================================================
+     2.   save_as_png(obj_fname):
+     ====================================================================
+     3.
+     4.   Probably enough to just do pyrender instead.
+        a.  I don't wanna break anything in conda env `cat11` .
+  ________________________________
+
+     5.   Still need to Save as png 
+        a.  (But we can just use matplotlib to save it.)
+        b.  Or if that image quality is too low,     ***use pyrender directly.***
+
+     6.   Check the sh!t out of  broken     `pip install`s and    `conda install`s due to     `pip install pyWavefront`.
+     7.
+     8.   Derp.  I could have just used the overlaid person_with_SMPLX_mesh_____overlaid.png
+  ________________________________
+
+     9.
+    10.
+    11.   The bug is *EITHER* the lighting **OR**   
+      a.    we didn't put the mesh in the scene.    **OR**
+      b.    camera parameters.  
+    12.
+    13.
+    14.   YC App by September 17?   (It's due the 25th)
+    15.
+    16.
+    17.
+    18.
+  More reliable.
+    Customer doesn't care about fluff *YET*. (M.V.P.  == **"Minimum"**)
 
 ________________________________
 
@@ -29339,6 +29513,10 @@ Ways to be rejected:
 
 
 
+  "Jay Reynolds"
+    This is the Evans Hall iSuite Jay.
+
+
 
 
 
@@ -29691,8 +29869,6 @@ Notes/ideas:
 
   List of people to ship the cat demo to:
 
-
-
     Other startups:
 
     1.  Daniel Jiang      ("Tasti") :
@@ -29737,7 +29913,6 @@ Notes/ideas:
     It could work.  You will make it work.
 
   YOU. CAN. DO. IT.    DON'T. QUIT.  Sometimes the bold confidence is all you need to get started.
-
 
 
 
