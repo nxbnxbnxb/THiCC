@@ -189,7 +189,7 @@ def get_customer_obj_fname():
     TODO: error handling.
   '''
   return bucket_diff(
-    local_rsync_dir_path='/home/n/___vrdr_customer_obj_mesh_____gsutil_bucket/meshes',
+    local_rsync_dir_path='/home/n/___vrdr_customer_obj_mesh_____gsutil_bucket/meshes/',
     file_types=['obj']
   )
 #=========================================== end function definition of "get_customer_obj_fname():"===========================================
@@ -212,9 +212,9 @@ def blender_render(obj_filepath):
 
 
 #===================================================================================================
-def cp_obj_mesh_2_gsutil(local_path):
-  bucket='gs://obj_meshes/'
-  cmd=['cp', output_png_path, bucket]
+def cp_png_2_gsutil(local_path):
+  bucket='gs://cust_pngs/'
+  cmd=['gsutil', 'cp', local_path, bucket]
   success = not sp.call(cmd)
   if not success:
     raise Exception("Failure to copy file to "+bucket+" according to command "+str(cmd))
@@ -237,8 +237,30 @@ if __name__=="__main__":
   #===================================================================================================
   customer_obj_path = get_customer_obj_fname()
   output_png_path = obj_2_png.main(customer_obj_path)
-  cp_obj_mesh_2_gsutil(output_png_path)
+  #output_png_path='/home/n/tmp.png'  # this cmd worked.
+  cp_png_2_gsutil(output_png_path)    # this cmd worked.
 
+  #===================================================================================================
+#==================================================================================================================
+#======================================= end 'if __name__=="__main__":' ===========================================
+#==================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  '''
   #===================================================================================================
   # Get the filename of the picture that the customer uploaded of themselves   so we can locate the .obj mesh file to send to Nathan (nxb)'s laptop so blender can render a png so we can show the customer a mesh of their body.
   #===================================================================================================
@@ -265,17 +287,9 @@ if __name__=="__main__":
     raise Exception("There was an error when trying to copy the customer's .obj mesh file   to a gcloud storage bucket.  \nThe command attempted is "+ str(cp_obj_mesh_to_gcloud_bucket_cmd) )
   #"gsutil copy obj_mesh_file_path obj_file_bucket_name"
   #===================================================================================================
-#==================================================================================================================
-#======================================= end 'if __name__=="__main__":' ===========================================
-#==================================================================================================================
-
-
-
-
-
-
-
-  '''
+  #===================================================================================================
+  #===================================================================================================
+  #===================================================================================================
   print("="*99)
   print(" "*22+"Customer .obj Path : ")
   print(" "*15+customer_obj_path)
@@ -288,6 +302,44 @@ if __name__=="__main__":
   if not blender_success:
     raise Exception("There was an error when trying to run blender on  "+cust_data_dir  + "\n with output directory " + str(SMPLify_X____output_dir))
   '''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -325,3 +377,21 @@ if __name__=="__main__":
 #===================================================================================================
 #===================================================================================================
 #===================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

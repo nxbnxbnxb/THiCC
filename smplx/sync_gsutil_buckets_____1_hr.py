@@ -5,6 +5,7 @@ import os
 def sync():
   local_dir="/openpose/data/vrdr_customer_imgs________gsutil_bucket/images/"
   bucket="gs://vrdr_bucket_1/"
+  #os.system("gsutil rsync "+ bucket+ " "+ local_dir+" >> ./gsutil_rsync_____log.txt")
   gsutil_sync_cmd=[
     "gsutil",
     "rsync",
@@ -13,10 +14,10 @@ def sync():
     #">>",
     #"./gsutil_rsync_____log.txt"
   ]
+  # documentation: the **LOCAL** dir is the one that changes.  It's now synced with the remote gcloud storage bucket
   success = not sp.call(gsutil_sync_cmd)
   if not success:
     raise Exception("gsutil rsync command failed!   The full text of rsync command we attempted to run is \n{0} ".format(gsutil_sync_cmd))
-  #os.system("gsutil rsync "+ bucket+ " "+ local_dir+" >> ./gsutil_rsync_____log.txt")
 
   return {
     "Local Directory that's now Synced with the remote gcloud storage bucket": local_dir,

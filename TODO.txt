@@ -13,7 +13,222 @@
 
 
 
+
+________________________________
+  
+  Sat Sep 14 11:06:58 EDT 2019
+________________________________
+
+  node.js
+    'S' or gcloud compute ssh ...  "cat_macys_vr@upload-nodejs-smplifyx-2"
+    setTimeout
+    hopefully whatsitcalled starts working again...
+      cuda-version-test-0-vm
+
+    Tutorial(s):
+      https://www.youtube.com/watch?v=9HOem0amlyg
+
+
+
+  Also, we have to set up a python `bucket_diff()` for      png files in "gs://cust_pngs/"
+
+
+
+
+  In Google Chrome:
+    "recover last session"
+    ctrl+shift+t
+      old tabs.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Fri Sep 13 23:00:09 EDT 2019
+________________________________
+
+  Yesterday I was with Shaina,    relaxing before her MCAT.
+    Today, she took it (and hopefully did pretty well_
+
+  A-pose photo.
+    Tell the customers to do A-pose too    (**NOT** T-pose.)
+
+  Finished with the OPose keypoints   (on the A-pose photo).
+    Everything (inputs to SMPLify-X :   kps.json and cust_photo.jpg) is in  /home/n/Dropbox/vr_mall_backup/IMPORTANT
+    But I still need to run SMPLify-X from cuda-version-test-0-vm.
+
+
+
+
+
+
+  Commit the code.
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Urban Shipper Technologies
+    "Douglas A. Clemons"
+      douglasa.clemons@gmail.com
+
+    Trying to raise money
+    Raised $500,000 so far
+      $400,000 from SValley
+    $5,000,000 valuation
+
+    VCs will have warrants
+      Hedge funds are also dangerous
+
+    Hillaire Capital
+      "Someone who likes your space"
+      They gave him money
+
+    STO
+________________________________
+
+  GlowUp:
+    "Tom Wang"
+    https://www.glowup.ai
+    tom@glowup.ai
+
+    Cosmetics
+    Cofounder is a skin doctor
+
+    He mentioned blockchain-based-funding
+      Money comes from China too
+
+    He knows about financing, debt, etc.
+
+________________________________
+
+  AlexAlgebra:
+    "Antoine Tran"
+
+    linkedin/in/andretran
+    antoine.t.tran@gmail.com
+
+
+
+    He always talks to a tall female friend
+      Measurements right
+    His niece is at FIT NYC
+      Fashion Tech
+
+    Said he'd reach out to his family members to      ask about clothing 
+
+    Khan Academy but more personal:
+      Teacher is there to take student question(s)
+
+    antoine.t.tran@gmail.com
+________________________________
+
+  Cat:
+
+    Ask them about "What should I do?"
+
+    Startup programs:     (Tom's recommendation(s) for getting in front of investors)
+      GCloud for startups
+      Meet VCs!
+      Message Tom Wang   & ask him to intro you
+        tom@glowup.ai
+
+
+
+
+
+
+
+
+
+  https://math.stackexchange.com/questions/180418/calculate-rotation-matrix-to-align-vector-a-to-vector-b-in-3d/897677#897677
+
   Put 30 minutes - 1 hour on "hours count" Google Sheets spreadsheet.
+  Put 30 minutes - 1 hour on "hours count" Google Sheets spreadsheet. (Thu Sep 12 16:52:05 EDT 2019)
+
+
+
+________________________________
+
+  Thu Sep 12 05:00:44 EDT 2019
+________________________________
+
+  Chrome:    previously-open-tabs.
+
+  ~/touch_symlinks.sh
+    crontab
+    Helps you remember where you put shit
+
+
+  rotate_to_up()
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -30028,6 +30243,62 @@ ________________________________________________________________________________
     A list of very ambitious projects.
 
 
+
+  They (the government) can print money.    So why would you work for it?
+
+
+
+___________________________________________________________________________________________________
+
+        Do I need these lessons?
+          Probably at LEAST to raise the money, I do.
+___________________________________________________________________________________________________
+
+    Kiyosaki:
+      https://www.youtube.com/watch?v=ftBeTIDv8Vg
+      You need a mentor.
+        Persistently bother a "rich dad"
+        (or **whoever** has what I want/need)
+          Tech Stars,
+          YCombinator,
+          Anyone GOOD.
+          It'll be worth your time.
+          It'll be worth not spending too much time around Jeannine and Mr. Joe Evans (Evans ain't even the worst role model; definitely avoid talking too much to Vince Robinson, Sheila Cain, etc.)
+
+    Practice failing.
+    Military education makes you practice   failing (ie. practice crashing a plane)
+
+    Gold standard means   you can't print more money?
+      https://www.youtube.com/watch?v=ftBeTIDv8Vg
+      1977?   (Gold standard)
+    School system:
+      "Fake teachers"
+        You have to **DO** what you teach
+      School teaches us the wrong way.
+        Learn to not make mistakes
+
+    Get money from debt.   There's *ALWAYS* a way to raise funding.
+      Is this true for more speculative startups???
+      There's  **PROBABLY** a way to hoodwink people.
+        Remember the Indian on Shark Tank (shifty eyes)
+        Remember the Indian guy on Shark Tank (shifty eyes)
+          FIND this link on YouTube.
+          Study it.
+          Become a con man (briefly)
+            Try to avoid bad reputation about it somehow, though
+              (ie. don't become Elizabeth Holmes)
+            Maybe I can ask Owen Lamb for money.
+              I wonder if I still have his card somewhere....
+            Ask Jiou Jiou.
+            There's **ALWAYS** someone new you can ask for money.
+              Don't worry TOO MUCH about alienating people.
+              It's still not good to piss people the f*ck off, but it's PROBABLY recoverable.
+___________________________________________________________________________________________________
+
+
+
+
+
   http://paulgraham.com/name.html
   Change your name.
     Get "x.com"
@@ -30042,7 +30313,29 @@ ________________________________________________________________________________
         1)  Hair on fire
       c.  The problem **OFTEN** comes up
         1)
-      d.
+      d.  "Antoine Tran"  's niece :  antoine.t.tran@gmail.com
+      e.  Bob McGurk:                 you have his cell somewhere.  "bob@ongrade.io"
+      f.
+      g.
+      h.
+      i.
+      j.
+      k.
+      l.
+      m.
+      n.
+      o.
+      p.
+      q.
+      r.
+      s.
+      t.
+      u.
+      v.
+      w.
+      x.
+      y.
+      z.
     2.  
     3.
     4.  Are they willing to pay?
