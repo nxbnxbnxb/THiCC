@@ -113,6 +113,7 @@ def mkdir():
 def bucket_diff(
   local_rsync_dir_path='/home/cat_macys_vr/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplx/githubs/smplify-x/customer_data/keypoints', 
   file_types=['json']):
+  #===================================================================================================
   '''
     Returns the filename of the most recently synced (uploaded) "gsutil rsync"ed file in 'local_rsync_dir_path'.
     As of September 8, 2019,   Compares the **CURRENT** contents of the gcloud bucket to the previous contents of the 
@@ -122,7 +123,7 @@ def bucket_diff(
   1.
   # TODO: error handling.
   '''
-
+  #===================================================================================================
 
 
   cmd=['ls', '-tr', local_rsync_dir_path]
