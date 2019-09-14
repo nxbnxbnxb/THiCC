@@ -7,6 +7,8 @@
 
 '''
 
+# NOTE: "obj_2_png" is nxb-written code.
+import obj_2_png 
 
 # TODO:   remove unnecessary `import` statements.
 # All these `import` statements work in    the conda environment "SMPLX" (python3).
@@ -190,7 +192,7 @@ def get_customer_obj_fname():
     local_rsync_dir_path='/home/n/___vrdr_customer_obj_mesh_____gsutil_bucket/meshes',
     file_types=['obj']
   )
-#=========================================== end function definition of "get_customer_OP_JSON_fname():"===========================================
+#=========================================== end function definition of "get_customer_obj_fname():"===========================================
 
 
 #===================================================================================================
@@ -209,7 +211,16 @@ def blender_render(obj_filepath):
 
 
 
-
+#===================================================================================================
+def cp_obj_mesh_2_gsutil(local_path):
+  bucket='gs://obj_meshes/'
+  cmd=['cp', output_png_path, bucket]
+  success = not sp.call(cmd)
+  if not success:
+    raise Exception("Failure to copy file to "+bucket+" according to command "+str(cmd))
+  return success
+# end function def of " cp_2_gsutil(local_path):"
+#===================================================================================================
 
 
 
@@ -225,17 +236,8 @@ if __name__=="__main__":
   # Find uploaded openpose_keypoints.json from the    process running on docker container on openpose-ubuntu16-1     (what's the terminology, technically?  "docker image?",  "docker instance?",  "docker container?", )
   #===================================================================================================
   customer_obj_path = get_customer_obj_fname()
-  print("="*99)
-  print(" "*22+"Customer .obj Path : ")
-  print(" "*15+customer_obj_path)
-  print("="*99)
-
-  #===================================================================================================
-  # Call "blender_render()" on the customer_mesh.obj to   get a 2-D image of their body's 3-D mesh:
-  #===================================================================================================
-  blender_success   = blender_render(customer_obj_path)
-  if not blender_success:
-    raise Exception("There was an error when trying to run blender on  "+cust_data_dir  + "\n with output directory " + str(SMPLify_X____output_dir))
+  output_png_path = obj_2_png.main(customer_obj_path)
+  cp_obj_mesh_2_gsutil(output_png_path)
 
   #===================================================================================================
   # Get the filename of the picture that the customer uploaded of themselves   so we can locate the .obj mesh file to send to Nathan (nxb)'s laptop so blender can render a png so we can show the customer a mesh of their body.
@@ -273,6 +275,19 @@ if __name__=="__main__":
 
 
 
+  '''
+  print("="*99)
+  print(" "*22+"Customer .obj Path : ")
+  print(" "*15+customer_obj_path)
+  print("="*99)
+
+  #===================================================================================================
+  # Call "blender_render()" on the customer_mesh.obj to   get a 2-D image of their body's 3-D mesh:
+  #===================================================================================================
+  blender_success   = blender_render(customer_obj_path)
+  if not blender_success:
+    raise Exception("There was an error when trying to run blender on  "+cust_data_dir  + "\n with output directory " + str(SMPLify_X____output_dir))
+  '''
 
 
 

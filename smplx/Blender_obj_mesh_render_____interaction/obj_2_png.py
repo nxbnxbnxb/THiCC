@@ -1,63 +1,3 @@
-'''
-#================================================================================
-# From SMPLifyX directory:
-#================================================================================
-
-
-
-#================================================================================
-# The following imports were blindly copied from main.py:
-#   ( /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplifyx/smplify-x/smplifyx/main.py )
-#================================================================================
-from __future__ import absolute_import
-from __future__ import print_function
-from __future__ import division
-
-import sys
-import os
-
-import os.path as osp
-
-import time
-import yaml
-import torch
-
-import smplx
-
-from utils import JointMapper
-from cmd_parser import parse_config    # this might be the only import I need.  
-from data_parser import create_dataset
-from fit_single_frame import fit_single_frame
-
-from camera import create_camera
-from prior import create_prior
-
-torch.backends.cudnn.enabled = False
-
-
-#================================================================================
-# Imports from fit_single_frame.py:
-#================================================================================
-try:
-    import cPickle as pickle
-except ImportError:
-    import pickle
-from tqdm import tqdm
-from collections import defaultdict
-from collections import OrderedDict
-import cv2
-import PIL.Image as pil_img
-
-from optimizers import optim_factory
-import numpy as np
-import fitting
-from human_body_prior.tools.model_loader import load_vposer
-
-
-
-
-
-'''
 #================================================================================
 # My "render()" imports:
 #   (nxb;   September 10, 2019)
@@ -70,7 +10,9 @@ import numpy as np
 import math
 from math import sin, cos
 import matplotlib.pyplot as plt
+import imageio as ii
 # NOTE:   mpl.use('Agg')  'TkAgg', 'wxagg',  ?  TkAgg?  'mixed', 'agg', 'cairo', 'gtk3agg', 'gtk3cairo', 'nbagg', 'pdf', 'pgf', 'ps', 'qt4agg', 'qt4cairo', 'qt5agg', 'qt5cairo', 'svg', 'tkagg', 'webagg', 'wxagg',   (for the most recent list of possible backends for matplotlib, see:  https://matplotlib.org/3.1.1/api/index_backend_api.html)
+from collections import OrderedDict
 
 #=================================================
 def pn(n=0) : print('\n'*n)
@@ -108,16 +50,6 @@ def print_list_recurs(l, indent_lvl):
 #=================================================
  
 
-
-
-
-
-
-
-
-
-
-
 #=========================================================
 #=========================================================
 #=========================================================
@@ -137,76 +69,47 @@ def prod():
 
 
 
+#========================================================================
+def quickstart_offscreen_render():
+#========================================================================
+    '''
+      The "original code" mentioned above in the function "obj_2_png_trial(fname, png_path, filetype='obj')."
 
 
 
+    '''
+		# https://pyrender.readthedocs.io/en/latest/examples/quickstart.html#minimal-example-for-offscreen-rendering
+    fuze_trimesh = trimesh.load('examples/models/fuze.obj')
+    mesh = pyrender.Mesh.from_trimesh(fuze_trimesh)
+    scene = pyrender.Scene()
+    scene.add(mesh)
+    camera = pyrender.PerspectiveCamera(yfov=np.pi / 3.0, aspectRatio=1.0)
+    s = np.sqrt(2)/2
+    camera_pose = np.array([
+       [0.0, -s,   s,   0.3],
+       [1.0,  0.0, 0.0, 0.0],
+       [0.0,  s,   s,   0.35],
+       [0.0,  0.0, 0.0, 1.0],
+    ])
+    scene.add(camera, pose=camera_pose)
+    light = pyrender.SpotLight(color=np.ones(3), intensity=3.0,
+                               innerConeAngle=np.pi/16.0,
+                               outerConeAngle=np.pi/6.0)
+    scene.add(light, pose=camera_pose)
+    r = pyrender.OffscreenRenderer(400, 400)
+    color, depth = r.render(scene)
+    plt.figure()
+    plt.subplot(1,2,1)
+    plt.axis('off')
+    plt.imshow(color)
+    plt.subplot(1,2,2)
+    plt.axis('off')
+    plt.imshow(depth, cmap=plt.cm.gray_r)
+    plt.show()
+#========================================================================
+#================ end def quickstart_offscreen_render():=================
+#========================================================================
 
-
-#=========================================================
-def obj_2_png_trial(fname, png_path, filetype='obj'):
-  mesh  = trimesh.load(fname)
-  mesh  = pyrender.Mesh.from_trimesh(mesh)
-  scene = pyrender.Scene()
-  scene.add(mesh)
-  # TODO===================================================================================================
-  # TODO===================================================================================================
-  # TODO===================================================================================================
-  # TODO===================================================================================================
-  #                         rot8  (45 around y,       111 around x?)
-  # TODO===================================================================================================
-  # TODO===================================================================================================
-  # TODO===================================================================================================
-  # TODO===================================================================================================
-
-  # Camera:
-  camera = pyrender.PerspectiveCamera(yfov=np.pi / 3.0, aspectRatio=1.0)
-  s = np.sqrt(2)/2
-  '''
-  camera_pose = np.array([
-    [0.0, -s ,  s , 0.3   ],          # 0.3 moves us towards the butt (increase this number => "backwards" / "towards butt instead of belly" ("dorsal," I **think**))
-    [1.0, 0.0, 0.0, 0.0   ],          #+0.0 moves us towards the mesh's head. (increase this number => "up" / "towards head" ("cranial," I **think**))
-    [0.0,  s ,  s , 0.35  ],          #+0.0 moves us towards the mesh's head. (increase this number => "up" / "towards head" ("cranial," I **think**))
-    [0.0, 0.0, 0.0, 1.0   ], ])
-  '''
-  #'''
-  camera_pose = np.array([          #                                 camera_pose = np.array([         
-    [0.0, -1.*s, 1.0*s, 0.3      ], #    # changes the lighting:        [0.0, -1*s, 0.5*s, 0.3      ], 
-    [1.0, 0.0, 0.0,     0.5      ], #                                   [1.0, 0.0, 0.0, 0.0   ],
-    [0.0, s, s,         0.35     ], #                                   [0.0, s, s, 0.35      ],
-    [0.0, 0.0, 0.0,     1.0],    ]) #                                   [0.0, 0.0, 0.0, 1.0   ], ])       
-  #'''    # https://en.wikipedia.org/wiki/Camera_matrix
-  '''
-  camera_pose = np.array([        # ORIGINAL.
-    [0.0, -s, s, 0.3      ],
-    [1.0, 0.0, 0.0, 0.0   ],
-    [0.0, s, s, 0.35      ],
-    [0.0, 0.0, 0.0, 1.0   ], ])
-  '''
-  light_pose  = np.array([        # ORIGINAL.
-    [0.0, -s, s, 0.3      ],
-    [1.0, 0.0, 0.0, 0.0   ],
-    [0.0, s, s, 0.35      ],
-    [0.0, 0.0, 0.0, 1.0   ], ])
-  scene.add(camera, pose=camera_pose)
-
-  # Lighting:
-  light = pyrender.SpotLight(
-    color=np.ones(3),  # white
-    intensity=3.0, 
-    innerConeAngle=np.pi/16.0,
-    outerConeAngle=np.pi/6.0) # end `light = pr.SpotLight()`
-  scene.add(light, pose=light_pose)
-  # view()   (like "plt.show()" )
-  pyrender.Viewer(scene, use_raymond_lighting=True)
-
-  # render & save:
-  r = pyrender.OffscreenRenderer(400, 400)
-  color, depth = r.render(scene)
-  plt.figure()
-  plt.axis('off')
-  plt.imshow(color)
-  plt.savefig(png_path)
-#=========================================================
 
 #=========================================================
 def obj_2_png(in_fname, out_fname, filetype='obj'):
@@ -220,7 +123,54 @@ def obj_2_png(in_fname, out_fname, filetype='obj'):
       lines describing faces ("f 1 2 3")
   ===================================================================================================
   '''
-  obj_2_png_trial(in_fname, out_fname, filetype='obj')
+  fname=in_fname
+  png_path=out_fname
+  mesh  = trimesh.load(fname)
+  mesh  = pyrender.Mesh.from_trimesh(mesh)
+  scene = pyrender.Scene()
+  scene.add(mesh)
+
+  # Camera:
+  camera = pyrender.PerspectiveCamera(yfov=np.pi / 3.0, aspectRatio=1.0)
+  s = np.sqrt(2)/2
+  #'''    # https://en.wikipedia.org/wiki/Camera_matrix
+  camera_pose = np.array([          #                                 camera_pose = np.array([         
+    [0.0, -1.*s, 1.0*s, 1.35     ], #    # changes the lighting:        [0.0, -1*s, 0.5*s, 0.3      ], 
+    [1.0, 0.0, 0.0,     0.0      ], #                                   [1.0, 0.0, 0.0, 0.0   ],
+    [0.0, s, s,         1.386    ], #                                   [0.0, s, s, 0.35      ],
+    [0.0, 0.0, 0.0,     1.0],    ]) #                                   [0.0, 0.0, 0.0, 1.0   ], ])       
+
+  # The original code for "light_pose=np.array([..." is in /home/n/Documents/code/python/pyrender/nxb_quickstart_2.py and in the function below called  "quickstart_offscreen_render"
+  light_pose  = np.array([        
+    [0.0, -s, s,    0.5   ], # 
+    [1.0, 0.0, 0.0, 0.0   ],
+    [0.0, s, s,     0.515 ],
+    [0.0, 0.0, 0.0, 1.0   ], ])
+  scene.add(camera, pose=camera_pose)
+
+  # Lighting:
+  light = pyrender.SpotLight(
+    color=np.ones(3),  # white
+    intensity=3.0, 
+    innerConeAngle=np.pi/3.0,
+    outerConeAngle=np.pi/2.0) # end `light = pr.SpotLight()`
+  scene.add(light, pose=light_pose)
+  # view()   (like "plt.show()" )
+  #pyrender.Viewer(scene, use_raymond_lighting=True)
+
+  # render & save:
+  r = pyrender.OffscreenRenderer(3600, 3600)
+  #r = pyrender.OffscreenRenderer(400, 400)  # original:  pyrender.OffscreenRenderer(values==400 )
+  color, depth = r.render(scene)
+  HIGH_RES=HIGH_RESOLUTION=1000
+  plt.figure(dpi=HIGH_RES)
+  # NOTE:  dpi starts at plt.figure():   https://matplotlib.org/api/_as_gen/matplotlib.pyplot.figure.html
+  plt.axis('off')
+  plt.imshow(color)
+  plt.savefig(png_path)
+#========================================================================
+# end function def of "obj_2_png_trial(fname, png_path, filetype='obj'):"
+#========================================================================
   """
   mesh=trimesh.load(fname)
   mesh = pyrender.Mesh.from_trimesh(mesh)
@@ -293,9 +243,77 @@ def write_obj(out_fname, verts, faces):
     for f in faces:
       f=np.array(f)+1 # 0-indexed to 1-indexed.
       fp.write('f {0} {1} {2}\n'.format(f[0], f[1], f[2]))
+  return True
 #=========================================================
 
 
+#=========================================================
+def get_head_toe_vector(verts):
+  '''
+    ========================================================================
+    Gives us the current orientation of the SMPL(X) mesh.
+      We can then rotate the mesh to face "up" in the customer's browser.
+    ========================================================================
+
+        Inputs:
+        -  "verts" is a   np.array with verts.shape  ==  ( 10475 , 3 )
+        -
+        -
+        -
+ 
+    "verts" is a   np.array with verts.shape  ==  ( 10475 , 3 )
+      This fact is a property of the SMPL-X model.
+    ========================================================================
+ 
+    NOTE:   
+      There may be problems by misrecognizing 2 points that are fingertips
+        instead of a head and a foot
+                                 
+
+    ==================
+    ==================
+    ==================
+          NOTES:
+    ==================
+    ==================
+    ==================
+    I think the easiest way to handle the possible-fingertip-to-fingertip problem is    to tell the customer to do a-pose.
+    There might also be a way 
+  '''
+  # TODO:  replace this single pointer "head_and_toe" with a "multiple-argmaxes."
+  #   Should we sort the light of distances?
+  #     (more technically, `np.argsort()` because then we retain control of the original indices.   )
+  #=========================================================
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO |
+  #=========================================================
+  #     Find some way of keeping track of all the pairs that might be a head-toe pair and get rid of all the
+  #       fingertip-fingertip pairs
+  #
+  #                               key             value
+  #   use a minheap for    these distance => (pair of indices)       points.
+  #=========================================================
+  # TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO |
+  #=========================================================
+  # NOTE: NOTE NOTE NOTE NOTE NOTE  To understand this distance-calculation-code, see  KNN    from cs231n, assignment 1:   "k_nearest_neighbor.py" : https://github.com/neonb88/cs231n_spring_2019/blob/master/assignment1/cs231n/classifiers/k_nearest_neighbor.py
+
+  verts = np.array(verts)
+  dists_pre_sqrt = (2*np.sum( np.square(verts),axis=1) - (2*        verts.dot(verts.T))).T
+  # There used to be  negative values in "dists_pre_sqrt," but when we wrote in the following line of code, the problems went away.  -nxb, Sat Sep 14 06:26:26 EDT 2019
+  dists_pre_sqrt[    np.nonzero(dists_pre_sqrt < 0) ] = 0
+  dists = np.sqrt(dists_pre_sqrt)
+  # https://stackoverflow.com/questions/9482550/argmax-of-numpy-array-returning-non-flat-indices :
+  head_and_toe  =np.unravel_index(dists.argmax(), dists.shape)
+  direction_vector = verts[head_and_toe[0]] - verts[head_and_toe[1]]
+  #=================================================
+  out=OrderedDict()
+  out['head_2_toe_vect']=direction_vector
+  out['head_and_toe_idxes']=head_and_toe
+  return {
+    'head_2_toe_vect'     : direction_vector,
+    'head_and_toe_idxes'  : head_and_toe
+  }
+  #=========================================================
+#=========================================================
 
 
 
@@ -318,15 +336,9 @@ def verts_and_faces_____from_fname(fname, filetype='obj'):
   '''
   #==================================================================================================
   #==================================================================================================
+  # NOTE:  this **might** be non-pythonic code:   (pythonic code assumes the user knows how to use the functions)
   #==================================================================================================
   #==================================================================================================
-  #==================================================================================================
-  #==================================================================================================
-  #==================================================================================================
-  #==================================================================================================
-  #==================================================================================================
-  #==================================================================================================
-  # NOTE:  this **might** be non-pythonic code:   (you should assume the user knows how to use the functions)
   assert type(filetype) ==  type("str")
   assert type(fname   ) ==  type("str")
   assert fname.endswith(filetype)
@@ -361,27 +373,112 @@ def verts_and_faces_____from_fname(fname, filetype='obj'):
 #===================================================================================================
 #===================================================================================================
 
+def test_func_get_head_toe_vector():
+  '''
+    I just wrote this function to label the code I wrote testing the 'get_head_toe_vector()'  function.
+
+    You can probably throw this function out.
+  '''
+  obj_filepath            = '/home/n/Dropbox/vr_mall_backup/IMPORTANT/n8_front___a_pose___legs_open___black_space_x_hoodie___iSuite_Evans_Hall_background_Newark_DE____.obj' # The import fact to NOTE is that this .obj file has arms in apose
+  vfdict  = verts_and_faces_____from_fname(obj_filepath, filetype='obj')
+  fs      = vfdict['faces']
+  vs      = vfdict['verts']
+  head2toe_and_idxes_dic  = get_head_toe_vector(vs)
+  idxes   = head2toe_and_idxes_dic['head_and_toe_idxes']
+  # put 'new_vert'  somewhere in the middle of the body, but way out near a fingertip:      this way we can tell whether "head_and_toe" is actually returning the head and the toe, or whether it's giving us 2 fingertips.
+  new_vert= (np.array(vs)[idxes[0]]+    np.array(vs)[idxes[1]])/2.0
+  X       = 0
+  new_vert[X]+=100.0
+  pn(2 ); pe(69)
+  print("vert being added: {}".format(new_vert)    )
+  pe(69); pn(2 )
+  vs.append(new_vert)
+  # faces AKA 'fs'    :
+  new_face_idx= np.array(fs).max()+1 # probably technically needs to be "nested_max()" (max element of all the internal lists within the list-of-lists "idxes")
+  fs.append((new_face_idx, *idxes))
+  out_mesh_fname          = '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplx/Blender_obj_mesh_render_____interaction/fingertips___or___head_toe___test.obj'
+
+  success = write_obj(out_mesh_fname,vs,fs)
+  if not success:
+    raise Exception("write failed.")
+#===================================================================================================
 
 
 
 
 
 
+#=================================================================================================
+def rot8_vects_2_targ_orientation(verts, src_direction, targ_direction):
+  '''
+    Rotates vertices to "targ_direction", given a source direction "src_direction"
+    R3, not R2 or higher dimensions.
 
 
+    ======
+    NOTES:
+    ======
+
+    https://math.stackexchange.com/questions/180418/calculate-rotation-matrix-to-align-vector-a-to-vector-b-in-3d/897677#897677
 
 
+    ============
+    Parameters:
+    ============
+      'verts': numpy array of shape (N, D); ie. (10408, 3) or (6890, 3)
+      'src_direction':  np.array.  src_direction.shape==(3,)
+      'targ_direction': np.array.  targ_direction.shape==(3,)
+  '''
+  if type(verts)==type([]):
+    verts=np.array(verts)
+  # normalize a:
+  mag_a=np.sqrt((src_direction**2).sum())
+  if not math.isclose(   mag_a, 1):
+    src_direction = src_direction/mag_a
+  # normalize b:
+  mag_b=np.sqrt((targ_direction**2).sum())
+  if not math.isclose(   mag_b, 1):
+    targ_direction = targ_direction/mag_b
+  # end normalize:
+  a = src = src_direction
+  b = targ = targ_direction
+  v = cross = np.cross( a , b)
+  v1,v2,v3=v
+  s = math.sqrt(np.sum(v*v))
+  c = a.dot(b)
+  vx= np.array([
+    [ 0 ,-v3, v2],
+    [ v3, 0 ,-v1],
+    [-v2, v1, 0 ]])
+  R = np.eye(3) + vx + (vx.dot(vx)*(1-c)/(s**2)  )
+  return (R.dot(verts.T) ).T # https://en.wikipedia.org/wiki/Rotation_matrix#In_three_dimensions
+#=================================================================================================
+#== end function def of " rot8_vects_2_targ_orientation(verts, src_direction, targ_direction): "==
+#=================================================================================================
 
+#=================================================================================================
+def main(
+  obj_filepath='/home/n/Dropbox/vr_mall_backup/IMPORTANT/n8_front___a_pose___legs_open___black_space_x_hoodie___iSuite_Evans_Hall_background_Newark_DE____.obj'):
+  #obj_filepath            = '/home/n/___vrdr_customer_obj_mesh_____gsutil_bucket/meshes/000.obj'
+  vfdict  = verts_and_faces_____from_fname(obj_filepath, filetype='obj')
+  fs      = vfdict['faces']
+  vs      = vfdict['verts']
+  head2toe_and_idxes_dic  = get_head_toe_vector(vs)
+  head2toe_vect           = head2toe_and_idxes_dic['head_2_toe_vect']
+  target_up_vector        = np.array([-1.,0.2,0.5]) 
+  rot8d_vs= rot8_vects_2_targ_orientation(vs, head2toe_vect, target_up_vector)
+  out_mesh_fname          = '/home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplx/Blender_obj_mesh_render_____interaction/n8_rot8d.obj'
+  success = write_obj(out_mesh_fname, rot8d_vs,fs)
+  out_png_path  = '/home/n/___vrdr_customer_obj_mesh_____gsutil_bucket/meshes/000.png'
+  obj_2_png(out_mesh_fname, out_png_path, filetype='obj')
+  return out_png_path
+  #obj_2_png(obj_filepath, out_png_path, filetype='obj')    # <===== ORIGINAL (pre-rotation)  obj mesh
 
-
-
-
-
-
-
-
-
-
+  # show the png:
+  #plt.imshow(ii.imread(out_png_path))
+  #plt.show()
+  #plt.close()
+#=================================================================================================
 
 #===================================================================================================
 #===================================================================================================
@@ -389,26 +486,308 @@ def verts_and_faces_____from_fname(fname, filetype='obj'):
 #===================================================================================================
 #===================================================================================================
 if __name__=="__main__":
-  #=======================================
-  #========== start timing: ==============
-  #=======================================
   start = time.time()
+  #=======================================
+  #============ Start timing: ============
+  #=======================================
 
-  #nxb_reply='x 0'
-  obj_filepath  = '/home/n/___vrdr_customer_obj_mesh_____gsutil_bucket/meshes/000.obj'
-  #obj_filepath  = '/home/n/___vrdr_customer_obj_mesh_____gsutil_bucket/meshes/000_y_45.obj'
-  outpath =\
-    rot8d_obj_filepath=\
-    '/home/n/___vrdr_customer_obj_mesh_____gsutil_bucket/meshes/rot8d_000.obj'
+  main()
 
-  out_png_path  = '/home/n/___vrdr_customer_obj_mesh_____gsutil_bucket/meshes/000.png'
-  obj_2_png_trial(obj_filepath, out_png_path, filetype='obj')
+  #=======================================
+  #============ End timing: ==============
+  #=======================================
+  elapsed = time.time() - start
+  time_msg = time.strftime('%H hours, %M minutes, %S seconds',
+                             time.gmtime(elapsed))
+  print('Processing the data took: {}'.format(time_msg))
+#==========================================================================================================
+#==========================================================================================================
+#======================================end 'if __name__=="__main__":'======================================
+#==========================================================================================================
+#==========================================================================================================
+#     NOTE:  more (old) code can be found   below this line.
 
 
-  #===============================================================================================
-  #===============================================================================================
-  #===============================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   '''
+  #nxb_reply='x 0'
   while not (nxb_reply=='Q'):
     # Parse:
     axis, angle = nxb_reply.split(" ")
@@ -430,297 +809,6 @@ if __name__=="__main__":
       # ie.   "/home/n/dir/name/rot8d_cust_mesh.obj"
     """
   '''
-
-
-
-  #=======================================
-  #           End Timing:
-  #=======================================
-  elapsed = time.time() - start
-  time_msg = time.strftime('%H hours, %M minutes, %S seconds',
-                             time.gmtime(elapsed))
-  print('Processing the data took: {}'.format(time_msg))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -926,6 +1014,85 @@ if __name__=="__main__":
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''
+#================================================================================
+# From SMPLifyX directory:
+#================================================================================
+
+
+
+#================================================================================
+# The following imports were blindly copied from main.py:
+#   ( /home/n/x/p/fresh____as_of_Dec_12_2018/vr_mall____fresh___Dec_12_2018/smplifyx/smplify-x/smplifyx/main.py )
+#================================================================================
+from __future__ import absolute_import
+from __future__ import print_function
+from __future__ import division
+
+import sys
+import os
+
+import os.path as osp
+
+import time
+import yaml
+import torch
+
+import smplx
+
+from utils import JointMapper
+from cmd_parser import parse_config    # this might be the only import I need.  
+from data_parser import create_dataset
+from fit_single_frame import fit_single_frame
+
+from camera import create_camera
+from prior import create_prior
+
+torch.backends.cudnn.enabled = False
+
+
+#================================================================================
+# Imports from fit_single_frame.py:
+#================================================================================
+try:
+    import cPickle as pickle
+except ImportError:
+    import pickle
+from tqdm import tqdm
+from collections import defaultdict
+from collections import OrderedDict
+import cv2
+import PIL.Image as pil_img
+
+from optimizers import optim_factory
+import numpy as np
+import fitting
+from human_body_prior.tools.model_loader import load_vposer
+
+
+
+
+
+'''
 
 
 
