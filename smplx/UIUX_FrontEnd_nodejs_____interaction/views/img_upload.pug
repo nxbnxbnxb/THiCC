@@ -1,0 +1,11 @@
+doctype html
+html(lang="en")
+  head
+    title Static Files
+    meta(charset='utf-8')
+    link(rel="stylesheet", href="/static/main.css")
+  body
+    h3= "Upload a picture of yourself for 3-D clothes shopping!"
+    form(method="POST", action="/upload", enctype="multipart/form-data")
+      input(type="file", name="file")
+      input(type="submit")
