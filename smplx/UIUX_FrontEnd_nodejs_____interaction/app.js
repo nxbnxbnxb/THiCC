@@ -28,6 +28,8 @@ const {format} = require('util');
 const express = require('express');
 const Multer = require('multer');
 const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
+
 
 // By default, the client will authenticate using the service account file
 // specified by the GOOGLE_APPLICATION_CREDENTIALS environment variable and use
@@ -38,8 +40,7 @@ const {Storage} = require('@google-cloud/storage');
 
 const http = require('http');
 const formidable = require('formidable');
-const s = require('fs');
-
+const fs = require('fs');
 // Instantiate a storage client
 const storage = new Storage();
 
@@ -58,12 +59,79 @@ const multer = Multer({
 });
 
 //===============================================================================================================
+// A bucket is a container for objects (files).
+const bucket = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET);
 
 //===============================================================================================================
 // Display a form for uploading files.
 app.get('/', (req, res) => {
-  res.render('show.pug');
+  res.render('img_upload.pug');
 });
+
+
+//===============================================================================================================
+// Process the file upload and upload to Google Cloud Storage.
+app.post('/upload', multer.single('file'), (req, res, next) => {
+  /*
+   *===================================================================================================
+   *    BEGIN DOCSTRING:
+   *
+   *  Nathan (nxb) doesn't know Node or javascript.  So all these comments to help him are from https://expressjs.com/en/guide/writing-middleware.html.  If there are any technical mistakes, it's all from the author(s) of https://expressjs.com/en/guide/writing-middleware.html.  But I'm going to assume the authors of expressjs (almost completely) know what they're talking about.
+   *  "Middleware functions are functions that have access to the request object (req), the response object (res), and the next function in the application’s request-response cycle."
+   *
+   *  Params:
+   *    "req"   means "request object"
+   *    "res"   means "result  "
+   *    "next"  "Callback argument to the middleware function, called "next" by convention.
+   *            "The next function is a function in the Express router which, when invoked, executes the middleware succeeding the current middleware."
+   *
+   *   END DOCSTRING:
+   *===================================================================================================
+   *
+   */
+  //===============================================================================================================
+  // Error checking (if invalid file)
+  if (!req.file) {
+    res.status(400).send('No file uploaded.');
+    return;
+  }
+  // Create a new blob in the bucket and upload the file data.
+  const blob = bucket.file(req.file.originalname);
+  const blobStream = blob.createWriteStream({
+    resumable: false,
+  });
+  blobStream.on('error', err => {
+    next(err);        // "next()"   calls the next "middleware function" (https://expressjs.com/en/guide/writing-middleware.html)
+  });
+
+  blobStream.on('finish', () => {
+    // The public URL can be used to directly access the file via HTTP.
+    const publicUrl = format(
+      `https://storage.googleapis.com/${bucket.name}/${blob.name}`
+    );
+    res.render('email.pug');
+    // TODO:   change this message.
+  });
+  blobStream.end(req.file.buffer);
+});
+//===============================================================================================================
+
+//===============================================================================================================
+app.get('/email_upload', multer.single('file'), (req, res, next) => {
+  var customer_email = req.query.email_field; //mytext is the name of your input box            
+  //console.log(typeof customer_email); // string
+
+  fs.writeFile('cust_email.txt', customer_email, (err) => {
+    // throws an error, you could also catch it here
+    if (err) throw err;
+    // success case, the file was saved:
+    else console.log('Email address saved!');
+  });
+  var msg_2_customer="<html><body><h1>Please check your e-mail: "+customer_email+"</h1>  <h4>in 1-2 minutes, you can shop for clothes in 3-D!</h4></body></html>";
+  res.status(200).send(msg_2_customer);
+});
+//===============================================================================================================
+ 
 
 
 const PORT = process.env.PORT || 8081; // 8080;
@@ -74,78 +142,3 @@ app.listen(PORT, () => {
 // [END gae_storage_app]
 
 module.exports = app;
-//===============================================================================================================
-
-
-
-
-
-
-
-
-
-
-
-
-//===============================================================================================================
-//===============================================================================================================
-//===============================================================================================================
-/*
- *==================================================================================================
- *  Start.
- *    Nathan's additions:
- *      https://www.w3schools.com/nodejs/nodejs_uploadfiles.asp
- *
- *
- *===================================================================================================
- */
-
-
-/*
- *===================================================================================================
- *  End.
- *    Nathan's additions:
- *
- *
- *
- *===================================================================================================
- */
-//===============================================================================================================
-//===============================================================================================================
-//===============================================================================================================
-
-
-
-
-
-
-
-//*
-
-
-
-
-
-
-
-  /*
-   *  What is in req.file?            req == "request" (what the client sends US)
-   *      console.log(req.file)   output:
-   *
-   *   { fieldname: 'file',
-   *     originalname: 'pi.txt',
-   *     encoding: '7bit',
-   *     mimetype: 'text/plain',
-   *     buffer: <Buffer 0a 20 20 78 2e 0a>,
-   *     size: 6 }
-   */
-
-  // TODO:  We wanna try to avoid making a high-detail large-file-size **image** be sent too many times.
-  // TODO:  We wanna try to avoid making a high-detail large-file-size **image** be sent too many times.
-  // TODO:  We wanna try to avoid making a high-detail large-file-size **image** be sent too many times.
-  // TODO:  We wanna try to avoid making a high-detail large-file-size **image** be sent too many times.
-  // TODO:  We wanna try to avoid making a high-detail large-file-size **image** be sent too many times.
-  // TODO:  We wanna try to avoid making a high-detail large-file-size **image** be sent too many times.
-  // TODO:  We wanna try to avoid making a high-detail large-file-size **image** be sent too many times.
-  // TODO:  We wanna try to avoid making a high-detail large-file-size **image** be sent too many times.
-  // TODO:  We wanna try to avoid making a high-detail large-file-size **image** be sent too many times.

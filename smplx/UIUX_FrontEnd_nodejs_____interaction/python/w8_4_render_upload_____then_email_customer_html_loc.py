@@ -32,6 +32,10 @@ def email_cust_render(
   receiver_email  = "vrdr271@gmail.com",
   full_render_path="/home/cat_macys_vr/web/nodejs-docs-samples/appengine/storage/standard/img_server/public/curr_render.png"
     ):
+  '''
+    Emails the customer an email directing them to their 3-D shopping.
+  '''
+  # test emails
 
   port = 465  # For SSL
   smtp_server = "smtp.gmail.com"
@@ -39,7 +43,7 @@ def email_cust_render(
   p=full_render_path
   fname=p[p.rfind('/')+1:]
   msg = """\
-  Subject: Your body scan is done!
+  Subject: 3-D clothes shopping done!
 
   To start shopping in 3-D, visit this website:
   http://35.221.45.20:8082/{} """.format(fname)
