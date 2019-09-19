@@ -1,0 +1,22 @@
+{
+  "name": "img_server",
+  "description": "Node.js static server for serving files  (https://stackoverflow.com/questions/5823722/how-to-serve-an-image-using-nodejs)",
+  "scripts": {
+    "start": "node img_server.js"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "cloud-repo-tools": {
+    "requiresProjectId": true,
+    "requiresKeyFile": true,
+    "test": {
+      "app": {},
+      "build": {}
+    }
+  }
+}
