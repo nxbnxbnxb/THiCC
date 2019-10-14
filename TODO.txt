@@ -1,15 +1,2826 @@
+
+
   Don't ignore your dreams; don't work too much; say what you think; cultivate friendships; be happy.
 
-  We had more, but let's leave it at less instead.
-    MVP.  Money ASAP.  That's why the MVP should be  FAST FAST FAST.
-    Company name: "Dumbledore"   :   http://www.dumbledore.com/
+
+  MVP.  Money ASAP.  That's why the MVP should be  FAST FAST FAST.
+
+
+  Keep the big-picture vision in mind.
 
 
 
 
 
 
+================
     TODO.txt
+================
+
+
+
+
+
+
+
+
+  Get Aaron Bendich's cell number from GDrive/ FBMessenger
+
+  Started work @ 10:15 P.M.?       Sunday, Oct 13, 2019.
+    f
+  Ended   work @ 
+
+  https://www.urbandictionary.com/define.php?term=Thicc
+
+
+  Call June.
+
+  I flossed last night (Saturday night, Sunday morning)
+    (write this on Habitica)
+
+
+
+
+
+
+
+
+________________________________
+
+  Sun Oct 13 01:47:09 EDT 2019
+________________________________
+
+  App ideas:
+    Buy a friend / listener for a day / 
+    Doctor's network
+    Ongoing health thing
+      It has to react to crises, though
+      Like WebMD but with a real Dr.??
+    Convert
+      Video/audio to text
+        prob harder
+      Text to speech (AKA Siri)
+
+  A super simple prototype (MVMVP) can get done 1 week 
+    https://www.youtube.com/watch?v=tSW-GePDwn4
+  2-3 months to get built?
+
+
+
+  Maybe use Flask / Django    for early prototypes / MVP?
+    This way I don't have to learn a bunch of shit about   vanilla JS 
+    Speed Speed Speed
+    Iter8.
+
+    But if something breaks literally everyday, that's gonna get in the way of you writing new features.
+
+    http://www.mindfiresolutions.com/blog/2018/05/flask-vs-django/
+
+    My Flask:
+      https://github.com/neonb88/deeplearn_flask_server/blob/master/server.py
+    But it sounds like Django is better in many ways.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sat Oct 12 18:21:46 EDT 2019
+________________________________
+
+  Check txt msgs for next step(s):
+
+  1.  Why this problem instead of any other problem?
+  2.  Why would Nathan be a good researcher?
+  3.  More show; less tell.
+  4.  Answer the prompt.  He gave you plenty to do.
+    a.  Explain why you want to earn a Ph.D at IMPRS-IS (MJB's lab)
+    b.  Describe research areas and/or particular projects that interest you.
+    c.
+    d.
+    e.
+    f.
+    g.
+    h.
+    i.
+
+
+
+
+
+  Elon's EQ:
+    https://thepowermoves.com/elon-musk-emotional-intelligence/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Fri Oct 11 21:05:30 EDT 2019
+________________________________
+
+  E-mail profs about deadline
+    f
+  Ask Verma about publishing paper?
+
+
+
+
+
+  go on Kong; check for Gaxel
+
+  Jesus threats by YouTube:
+    https://www.youtube.com/watch?v=UYGkTBwLVSs
+
+
+
+________________________________
+
+  Thu Oct 10 17:22:06 EDT 2019
+________________________________
+
+  Edit Resume:
+    Have it correspond to the essay.
+
+    This is done...
+      Next????...
+
+
+
+
+
+
+________________________________
+
+  Wed Oct  9 19:00:08 EDT 2019
+________________________________
+
+  Send essay to mom?
+                Ray?
+
+  All other PhD app things:
+    1.  Transcript(s)
+    2.  Publish the Paper on ArXiv?
+      a.  We'd had to ask Verma?
+      b.  Or self-publish
+    3.  Other portfolio / publish a website
+    4.
+    5.  Resume
+    6.  Thesis
+    7.  The sheet of paper where I (somewhat snarkily) answer all of MJB's posted questions from his PhD "jobs" page
+    8.
+    9.
+
+  Find another grad school to apply to
+
+
+  Bus Tickets:
+    Mom
+    NYC next weekend
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Tue Oct  8 03:12:09 EDT 2019
+________________________________
+
+
+
+
+  no work
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Mon Oct  7 12:45:10 EDT 2019
+________________________________
+
+  Worked 1-4?
+
+  https://www.fuq.com/out/?l=ngjOCY/ZCZEVQNXVHVQLZUWh0dHBzOi8vd3d3LnBvcm5oYXQuY29tL3ZpZGVvLzEyNzA2L2Z1Y2stbWUtZm9yLWZyZWUtZHJpdmluZy1sZXNzc29ucy8/YWRfc3ViPTMyMc0Cd6J0YwHNBu6ncG9wdWxhchK6eyJvcmllbnRhdGlvbiI6InN0cmFpZ2h0In3NBDGqMTU3MDYwNTA3MA%3D%3D&c=1b964da0&v=3
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sun Oct  6 21:58:32 EDT 2019
+________________________________
+
+
+
+
+
+
+
+
+  https://www.websudoku.com/?level=3&set_id=846691136
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sat Oct  5 16:37:34 EDT 2019
+________________________________
+
+  Reach out to Ray   again by Thursday.
+
+
+  Take care of your emotions.
+    The essay will be finished eventually.
+    You'll get there.
+    Start with just **ONE** action on the essay.
+
+
+
+  3 idiots
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Fri Oct  4 22:57:46 EDT 2019
+________________________________
+
+  Check the sheet for when / how long you worked today
+    6 hours?  7?
+
+    Worked a little less than 2-4 P.M.
+    Also worked around 5:30-9 P.M.
+
+    5.5 hours
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Oct  2 21:36:37 EDT 2019
+________________________________
+
+
+  I started working @ 2:30 P.M.
+  I stopped working @ 9:37 P.M.
+
+  Daniel Gross: "How to win"
+    https://www.youtube.com/watch?v=LH1bewTg-P4
+    Important > urgent
+      Don't react.
+      Act.
+
+
+  =================================================
+    Assume the competition is already doing this!
+  =================================================
+
+
+    Self-help-y
+    1.  Sleep
+    2.  Eat good.
+    3.  Go run.
+    4.  Mind-exercise
+      a.  Take a sabbath
+      b.  Read (anything)
+      c.  Double-check what Gross says
+      d.  3rd party camera mode
+      e.
+      f.
+      g.
+      h.
+      i.  Why did I feel really shitty yesterday?  Sleep?
+        1)  Constantly update myself
+        2)  Be a neural net.  Update based on the data.  Learn!
+        3)
+      j.
+      k.  Infinite game
+        1)  Everything is win-win if you frame it like that.
+        2)  F
+        3)
+
+
+    Read Bob Kegan
+      Is this how it's spelled?
+
+    9.  Stage 4
+      Self-creating
+      Good for launching
+      Musk and Jobs?
+
+   10.  Stage 5:  Self Transforming Mind
+      Best for managing a strong team
+      Less true for Elon & Steve Jobs?
+
+  YouTube, "Build a 3-D face from 2-D":       2-Minute papers
+    https://www.youtube.com/watch?v=u9UUWqVquXo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Tue Oct  1 17:24:22 EDT 2019
+________________________________
+
+  ==========================================================
+  ==========================================================
+  ==========================================================
+  ==========================================================
+  ==========================================================
+    Google query:
+      github "detailed human avatars from monocular video"
+  ==========================================================
+  ==========================================================
+  ==========================================================
+  ==========================================================
+  ==========================================================
+
+
+  Started at 12??
+  Stopped at 2:20 P.M. for a short break.
+    Print out a few pages.
+
+
+
+
+
+  https://www.linkedin.com/in/jason-reynolds-73a9b7136
+    "Jay"
+  https://pornxs.com/21869570?utm_source=awn-rse&utm_medium=inc&utm_campaign=20190507
+
+
+
+
+________________________________
+
+  Mon Sep 30 17:24:22 EDT 2019
+________________________________
+
+  Re-open all Chrome tabs?
+    You had a lotta shit open that might be useful.
+
+
+
+
+
+  https://www.notion.so/4e18f9f79dcd4c6fbcef9dbb02789aea?v=489fd95359034730948edbf95754ea23
+    Stripe:
+      https://www.notion.so/Stripe-Atlas-55422edfc4184b6d92968f86f390add4
+
+
+  Stripe app (start a business) .
+    Passport.
+    C-Corp   (not LLC)
+    Num shares: 5,000
+
+  337
+
+
+
+
+
+________________________________
+
+  Stripe Atlas account answers:
+
+  ________________________________
+
+    Change # of shares to 10,000,000 later?
+      Now (Sept 30, 2019), I made it 5,000 shares.  Using the Authorized Shares Method, this runs my first "ClothX" bill to $175
+      It's cheaper this way at first.
+        When the company scales and wants to have more shareholders, this should no longer be the case.
+
+
+
+
+
+
+  ________________________________
+
+    Website:
+      http://www.columbia.edu/~nxb2101/
+
+
+
+
+
+  ________________________________
+
+    "Tell us about your product" :
+      A. What are you building?
+
+      ClothX is the first app that lets you try on clothes in-browser.
+      1. Take pictures of yourself
+      2. ClothX builds a 3-D model of your body
+      3. ClothX shows you in clothes from Amazon.com that fit you
+      4. If you like how you look, you buy the clothes: (C. my answer to "how much do you charge them?" is "whatever Amazon.com charges for these clothes")
+
+      B.  Everyone is my customer!  Everyone who wears clothes
+
+      C.  Amazon's clothes prices (as low as $4.26 : https://tinyurl.com/y59utad5)
+
+      D.  Demo of our body scan ! https://www.youtube.com/watch?v=G-IA-dKsD_o
+
+
+
+
+  ________________________________
+
+
+
+
+
+
+
+    "Tell us about the company"  :
+      A.  I started ClothX when I 1. had an idea in class and 2. started recruiting cofounders (my friend Vishal) during my senior year
+      B.  Currently, the ClothX team is just me.  Past cofounders:
+      Vishal Anand (Columbia University), Simone Zamparini (Santa Monica College), Pierlorenzo Peruzzo (SMC), and Dario Gentiletti (CU)
+      C.  I've raised money from my parents (< $10,000), and my former cofounders should each get some equity (around 1% each)
+
+      I'm not sure what would help Stripe (ie. what does "Please be as detailed as possible." mean?). If Stripe wants financials, I'm still garage-stage
+
+  ________________________________
+
+
+
+
+
+
+
+
+
+
+  Incorporate.
+    Then AWS free credits & GCloud Compute Engine
+
+  Write more essay.
+
+  "Friend-Finder"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sun Sep 29 14:28:56 EDT 2019
+________________________________
+
+  Idea:
+    Local "massaging" of the mesh to fit the measurements the customer gives (prob mostly linear operations)
+    Computer (AI) that writes code
+    AI that learns socially (from YouTube/Twitch viewers)
+
+  1.  Print the "Dressing 3D Humans using a Conditional Mesh-VAE-GAN"   by Ma, Siyu Tang, Gerard Pon-Moll, ..., and Michael J. Black. 
+  2.  Write up my stories
+  3.
+  4.
+  5.
+  6.
+  7.
+  8.
+  9.
+ 10.
+
+
+
+
+
+
+
+  Notes on papers:
+    "Dressing 3D Humans using a Conditional Mesh-VAE-GAN"   by Ma, Siyu Tang, Gerard Pon-Moll, ..., and Michael J. Black. 
+      Models clothes as "another layer on SMPL" (**Linear**   displacement)
+      Doesn't do clothing physics.
+      To understnad how they register scans, look at PDF of "Detailed, accurate, human shape estimation from clothed 3d scan sequences." 
+
+
+    which_MJB_papers_are_good.txt
+  /home/n/letters_personal/PhD_app_essay____May_12_2019____MPII_Tubingen_MJB____.txt
+
+  Get Visa 2 China:
+    Bother mom
+    Deal with Delaware State ID,    lotsa other bullshit.
+
+  George Mason Uni?
+  Craig from Bethesda AI group.
+    He's on the Slack.
+    Apologize?
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sat Sep 28 08:49:03 EDT 2019
+________________________________
+
+    MJB papers.  List the relevant ones.
+      See if somehow you can get code for "Clothing-generator NN."
+
+
+    Sunday MegaBus ticket
+      f
+
+
+    1st priority is **ALMOST** certainly MJB.
+    Is the next priority "Find the safety school" ?
+      George Mason Uni?
+      Fast.AI at SFSU?
+
+
+    Chinese tourist group
+      From sketchy, cheap Chinatown   company
+
+
+
+
+    Started work @ 4:00?
+    Break        @ 5:45
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Fri Sep 27 21:46:54 EDT 2019
+________________________________
+
+  Should I do grad school or incubator?
+    Grad school pays you.
+    So does incubator.
+      But grad school is longer-term.
+      **REMEMBER**, you can always drop out of grad school!
+    The question is really what is the path to long-term success?
+      Perhaps grad school is better?
+        You **NEED** a cofounder.
+
+  Funding can happen too, but a cofounder is pretty f***king critical to your success.
+    See:
+      The Beatles
+      Kahneman and Tversky
+      Larry and Sergei
+      Elon and ...
+      Jobs and Woz
+      Bill Gates and Paul Allen
+
+
+
+
+
+
+
+
+
+  Contact MeshCapade?
+
+  Just go for what you really really want/need?
+    Either Pons-Moll or MJB.
+    
+
+
+
+
+  Listen to the recording on your phone.
+    Get Connor.
+    Or at least fucking try.
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Thu Sep 26 03:17:30 EDT 2019
+________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Buchheit:
+    Focus
+      You can't beat a big company by fighting 10 battles at once.
+    Frugality
+      Startups die from too much money.
+        $100 juice bag squeezer
+      Delusion is super easy.
+      Minimal
+    Obsession
+      Elon Musk
+        Irrationality
+        "I have enough money for 3 rocket launches"
+        Jesus.
+        And the 3rd rocket blew up!
+          It's the craziest thing in the world
+      Focus ridiculously
+      Insanity
+      Irrationality
+    Love
+      Soul
+      It takes everything from you
+
+
+
+
+
+
+
+
+    Do the right thing.
+      You can't outwork everyone else.
+    Capture the big **EXPONENTIAL** change in the world.
+      Ride the wave.
+      Don't overwork.
+      Ride the wave.
+      Have faith in the wave.  The wave is still there.
+        Just survive until the wave hits you just right?
+
+      You have to capture the wave.
+        Harness the tidal wave.
+        Remember, you're **REAALLLLLY** SMALL.
+
+    Focus > work ethic.
+      Always always always focus on the wave.
+      And also on the thing right in front of your nose that needs action RIGHT NOW.
+
+
+
+
+
+
+    Present     and also Future
+      Not the past?
+ 
+
+
+
+
+
+
+
+    Product market fit 1st.
+      Selling the thing keeps you from being delusional.
+      Sell the thing.
+      Talk to people.
+ 
+
+
+
+
+
+
+
+
+  Founders have inhuman confidence in their idea.
+    Even if the idea is wrong.
+    Even if ...
+    Larry and Zuc were both like this.
+      Steve Jobs was just like this.
+
+
+
+
+
+
+  My impression is that Geoff Ralston is an idiot.
+    He probably dresses shit up too much.
+    Cares too much about the money.
+
+
+
+  https://www.youtube.com/watch?v=Ir3hGtg0Wog
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Wed Sep 25 15:24:44 EDT 2019  
+________________________________
+
+  Started work @ 1:42 today?
+    I texted Shay Scott around then.
+    Stopped at 8:00 P.M.
+
+    Took a ~30-45 minute break in the middle there.
+      So that makes this is a ~5.5 hour day
+
+  .
+
+
+
+
+
+  Amazon 2018 revenue == $232.89 billion:
+    https://www.statista.com/statistics/266282/annual-net-revenue-of-amazoncom/
+
+
+
+  Read everything out loud.
+  Read everything out loud.
+  Read everything out loud.
+  Read everything out loud.
+  Read everything out loud.
+  Read everything out loud.
+  Read everything out loud.
+  Read everything out loud.
+  Read everything out loud.
+
+
+
+
+
+
+  Dad's advice (re: Shay Scott) :
+
+    Pay a contractor hourly
+      Pay every 2 weeks
+      (Shay Scott)
+      $40 / hour?
+      $50,000 
+      ~31 weeks
+        Takes roughly half the year
+
+
+      "Closing time" is dependent a lot on context (how much resources)
+
+
+      Know what my "bottom" is and leave if they go under it.
+
+
+      https://www.makeuseof.com/tag/emulate-android-apps-linux/
+
+
+
+
+
+    Ask for something up front
+      Make sure there's a decision maker in the room when I go over there.
+      State it right up front.
+
+
+
+
+
+    Tomorrow, minimize (simplify!) further.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Dad's YC app feedback:
+    Be more pessimistic about how long first revenue will take.
+
+
+________________________________
+
+  Tue Sep 24 14:52:53 EDT 2019
+________________________________
+
+    1:00  - 3:30 P.M. today
+    4:30  - 5:15 P.M. 
+
+
+
+
+
+
+    reopen last Chrome tabs
+
+    https://www.awwwards.com/
+      Design awards.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Rewrite the AirBnb hack into "how will you get customers?"
+
+________________________________
+
+  Mon Sep 23 00:05:50 EDT 2019
+________________________________
+
+    Ended up thinking more about the "AirBnB-leveraging-CraigsList's-huge-user-base"   idea
+
+
+
+
+
+
+  Started:
+    3:30 P.M.  - 4:30 P.M.
+    4:40 P.M.  - 5:15
+
+
+
+
+
+
+
+
+
+
+
+  AirBnB customer acquisition   strategy:
+    https://www.quora.com/How-did-Airbnb-get-initial-traction/answer/Roberto-Liccardo-1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1.  If we charged a monthly subscription fee, we could waive the fee depending on how many people you referred to ClothX.  This monthly subscription fee has the added benefit of getting early users who are passionate about the product (the people you *really* want to focus on and build features for), as suggested by Michael Seibel.
+
+
+
+3.  We could do social media campaigns.
+
+4.  I could physically go to places where people are shaped like me (ie. basketball courts, big and tall stores) and talk to those customer demographics in person
+
+
+
+________________________________
+
+  Sun Sep 22 10:22:05 EDT 2019
+________________________________
+
+    UDel wi-fi password:
+      trag39slup
+
+  9:00 - 10:15
+  11:00- 11:30
+   4:00-  8:00                  15 minute break
+   8:15-  9:09
+
+   6.50
+
+
+  Tyler Bosmeny "How to Sell"
+  Then Ooshma Garg (transcript of her talk w/ Adora Cheung)
+  Ideally, anyone who is a consumer-facing startup.
+    Ended up thinking more about the "AirBnB-leveraging-CraigsList's-huge-user-base"   idea
+
+
+
+
+  Tom
+    "How do you get to that $100 million?"
+    Specifics
+      Road map to $100 million
+
+      Way to 
+    Virtual Reality:
+      Should I use it?
+      3-D app on the phone
+
+
+    Maybe B2C?
+      Sell this service to Burberry ?
+        Easier b/c customer acquisition isn't as hard
+
+    
+
+
+
+  YC App:  Mention 
+    YC interview prep:
+      Prepare with some app Tom Wang told me about.
+      "Bingo"
+
+    "I'm going to sell clothes   to everyone "
+      *Emphasize market size*
+    Customer acquisition strategy:
+      How do I make it     worth it for customers to pay my subscription cost?
+
+    Founder risk
+      Cofounding team
+
+
+  In the "Curious" section:
+    Me:  "We're looking to sell clothes to everyone"
+      YC:  How do you plan to differentiate yourself?
+        Me:  "We're the only 3-D clothes retailer"
+    Address all their types of concerns ("Types of Risk" by Andreesen ;     Founder Risk, Market Risk, )
+      "Look; I'm still f***ing building after 16 months."
+      Negotiated my way into $350 / month rent
+        Leveraged skills in math
+
+
+
+  $10 dollars off if you refer a friend
+
+
+
+
+  How to get the word out:
+    Ask friends/family to advertise for me?
+      Hire a *CHEAP* intern to get me views?
+    Networks are super super powerful
+      Instagram
+      YouTube
+      Facebook?
+      Fashion YouTubers ( https://blog.feedspot.com/fashion_youtubers/)
+        https://shanebarker.com/blog/female-youtubers/
+        Phung
+        Zoella
+        Others
+        SSSniperWolf
+        Safiya Nygaard
+        Yuya (Spanish-speaking audience)
+        Bethany Mota
+
+    People who might look like me:
+      https://www.reddit.com/r/bigmenfashionadvice/
+      https://www.tallslimtees.com
+
+    Brand > sales:
+      Gary Vee's advice:
+      
+        1.    "Brand > sales"
+        2.    https://www.youtube.com/watch?v=fxbRDkmvyTQ
+        3.    LinkedIn?
+        4.    Targeted, targeted ads.
+        5.      Instagram
+        6.      Facebook
+          a.      "Hey tall skinny viewers,  I'm tall and skinny too.  Try this app I built for people sized like me."
+        7.    Find and buy the underpriced attention
+          a.    Couldn't this be a full-time job though, Gary????
+        8.
+        9.
+        10.
+        11.
+        12.
+        13.
+        14.
+        15.
+        16.
+        17.
+        18.
+    Learn from DropBox, AirBnB
+    Advertising bots posed as regular commenters?
+      But they'd  have to really look like they're not ***king bots.
+        On pornhub the bots aren't convincing AT ALL.
+        Comment on mTailor/StitchFix YouTube video reviews
+          Safiya Nygaard: famous YouTuber:    https://www.youtube.com/channel/UCbAwSkqJ1W_Eg7wr3cp5BUA
+            https://www.youtube.com/watch?v=eNChF-u-BQg
+          iJustine?  She generally likes tries out new technology
+
+
+                    Big & tall websites
+
+    Promos in public places where there are a lot of super lanky people
+      Big-and-tall stores?
+      Basketball courts?
+      Big and Tall stores
+      "Tall club" (Mom)
+
+
+
+
+
+
+
+
+
+
+
+  "How to Sell" by Tyler Bosmeny
+    CEO of   "Clever"
+    https://www.youtube.com/watch?v=xZi4kTJG-LE&t=1446s
+
+    College newspaper
+      Had to ran ads
+      Sell ads to local businesses
+
+    Learned Sales    first job out of Harvard
+      > 1/2 of colleges use Clever
+
+
+    Fake:
+    1.  Mystique
+      a.  Good lines
+      b.  Charming
+      c.  Nothing like Don Draper
+      d.  under
+      e.
+      f.
+      g.
+      h.
+      i.
+      j.
+      k.
+      l.
+      m.
+      n.
+      o.
+      p.
+      q.
+    2.  Understanding sales
+      a.  Prospecting
+        1)  My Amway experience
+        2)  Will this person even take a call?
+      b.  Conversations
+        1)  Is this really the right product for person X?
+      c.  Closing
+        1)  Organize the money and/or details?
+      d.  Promised land (revenue)
+      e.
+    3.  
+    4.  2 advantages:
+      1.  Passion 
+        a.  Very passionate => sales
+      2.  Understand the problem  better than anyone else in the world
+    5.
+    6.  Prospecting
+      a.  Find the innovators (2.5%)
+        1)  Literally the data was taken;        the area under the curve == 2.5%
+        2)  Most companies, most people, just aren't innovators.
+        3)  Solution:  just talk to a shit-ton of people!
+        4)
+      b.  Top 3 methods:
+        1)  My network
+          a)  Easy enough
+          b)  Friends of friends
+          b)  Friends of friends of friends
+          b)  Friends of friends of friends of ...
+        2)  Conferences
+          a)  Executives cooped up for a few days
+          b)  Pick a few & go
+          c)  Get a list of people who are going to be there
+            E-mail people in advance
+            As many as possible.
+            Entire day BOOKED in 30 minute increments
+            By the end of the day, you should be exhausted
+          d)
+          e)
+          f)
+        3)  Cold e-mails:
+          a)  Most cold e-mails are bad
+          b)
+          c)  What's a good e-mail?
+            1.  Short
+            2.  Actionable
+            3.
+            4.
+            5.
+            6.
+            7.
+            8.
+            9.
+            Hi [prospect's name],
+            My name is Nathan Bendich and I'm the CEO of ClothX
+            My company has developed new technology that helps tall, skinny people find clothes that fit.  
+            I thought this might be of interest to you because you're tall and skinny.
+            I'd love to get your feedback even if you're not buying clothes right now.  Do you have 20 minutes this week?  I'm open Tuesday at 1 or 2 P.M. ET if either may work.        [CHANGE DATES]
+            Sincerely,
+            Nathan
+          d)
+          e)  All you're trying to do is get it out of the prospecting phase  (start a conversation to understand whether someone could be a good customer)
+          f)
+          g)
+          h)
+          i)
+          j)
+          k)
+          l)
+    7.  Conversation
+        1)  Listen.  Listen 70% of the time
+          a)  Don't talk.
+        2)  Really good listeners
+        3)  Be nice.
+        4)  Understand
+        5)  Tool: "uber conference"
+          a)  Tells you what percentage of the time     you spent talking vs. listening
+          b)  Sends you an e-mail afterwards
+        6)
+        7)
+        8)
+        9)
+       10)
+       11)
+       12)
+       13)
+       14)
+    8.  Religious follow-up
+      a.  E-mail many many many times
+      b.  Schedule call
+      c.  Have a call
+      d.  Go back to a
+
+      e.  Pricing call #1 
+      f.  Pricing call #2 
+      g.  Send a quote
+      h.
+      i.  Answer? via email
+      j.  Send contract
+      k.  Send references
+      l.  Send financials
+      m.  email  (no response)
+      n.  email
+      o.  redlines #1
+      p.
+      q.
+      r.
+      s.
+      t.
+      u.  It's not over 'til you get a "no"
+      v.  Probably they have a lot on their mind that isn't you.
+        1)  Persistence is good, as long as you are polite.
+      w.
+      x.  This is an actual Clever sales process from someone that WANTED to buy Clever
+      y.  2 months, $100,000 deal        (Enterprise sales)
+      z.  Inhuman persistence.
+
+      aa. if you get a "no,"   you can move on quickly.
+        1)  Startups can't handle thousands of deals at once anyway, so a "no" is a blessing in disguise
+      ab. 
+    9.  Closing Traps: "Redlining"
+      a.  You'll need to draw up an agreement
+      b.  Minor points need to be revised until both parties agree on the  contract.
+      c.
+      d.
+      e.  YC has an *FREE* open-source template on their website
+      f.
+      g.  When you're an early-stage startup, DON'T QUIBBLE over minor points
+        1)  Get the money!
+      h.    
+          Closing Trap #2:    "Just 1 more feature"
+      i.  "Hey, I'll buy, but build us this one feature"
+        1)  ***** Usually means "no" *****
+        2)  Acceptable response:   "Okay, I'll build it for you, but you have to buy.  I can't demo this feature for you today."
+        3)  Another acceptable response:   "I'll only build that if I hear from more customers."
+        4)  If they're going to buy anyway, they'll probably buy without that new feature.
+      j.
+      k.
+      l.
+      m.  Closing Trap #3:   Free Trial
+        1)  "We'd just like a free trial for 60 days"
+          a)  As a startup, you need:
+            1.  Commitment
+            2.  Revenue
+            3.  Validation
+            4.
+            5.
+            6.
+            7.
+            8.
+            9.
+          b)  "Free trial" gives you 0 of those things
+          c)  Solution:   "you sign the contract, but you can also back out within the 1st 30 days."
+            1.  The fancy words for this:    "30 day cancellation period on an annual contract"
+        2)  
+        3)
+        4)
+        5)
+        6)
+        7)
+        8)
+        9)
+      n.
+      o.
+      p.
+      q.
+      r.
+      s.
+      t.
+      u.
+      v.
+      w.
+      x.
+      y.
+      z.
+    10. Looking Forward
+      a.  $0-1 million revenue,    this is process that worked *****FOR TYLER AT CLEVER*****.
+      b.  
+      c.  What revenue amount do you need per customer?
+      d.  5 ways to build a big business:
+        1)  Flea / Mice / Rabbits        - Marketing        (This is me right now; how do I do this????
+          a)  What does marketing mean?
+        2)  Deer      - Inside Sales
+        3)  Elephants - Field Sales
+        4)
+        5)
+        6)
+        7)
+        8)
+        9)
+      e.
+      f.
+      g.
+      h.
+      i.
+      j.
+      k.
+      l.
+      m.
+      n.
+      o.
+      p.
+      q.
+      r.
+      s.
+      t.
+      u.
+      v.
+      w.
+      x.
+      y.
+      z.
+    11.
+    12.
+    13.
+    14.
+    15.
+    16.
+    17.
+    18.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sat Sep 21 13:38:41 EDT 2019
+________________________________
+
+  ~1000 lines of code
+    python
+    js
+    yaml
+    html
+
+  Show the demo of what you have so far in a video.
+    F
+  Revise your video
+  Revise the application
+    Don't sound arrogant
+
+
+
+  Habitica.com
+
+  Started @   1:40?
+    stopped @ 3:40
+  Started again @ 4:49 P.M.
+                  5:00
+
+  1:45 -  3:45
+  5:00 -  8:00
+  9:00 -  9:52
+    ~6 hours
+
+
+
+
+
+
+
+  400 lines of code: w8_4_json_upload.py
+   50 lines:  sync.py (copied many times)
+  260 lines:  w8_4_img_upload_____then_run_OPose__.py
+  465 lines of code: obj_2_png.py
+  230 lines front-end-server: (app.js, yaml, form.pug, html, etc.) 
+   40 lines w8_4_render_upload_____then_email_customer_html_loc.py
+ + 53 lines img_server.js
+
+===================================================================================================
+
+ 1308 lines total
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Fri Sep 20 16:37:35 EDT 2019
+________________________________
+
+  I look tired in the latest YC video.
+    https://youtu.be/er-DEoIFZOU
+    Awkward pauses...
+
+  Show the demo of what you have so far in a video.
+    F
+
+  Started @  4:30?
+    stopped @ 7:36
+  8:40 - 10:00
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Thu Sep 19 10:05:45 EDT 2019
+________________________________
+
+
+  AlexAlgebra:
+    "Antoine Tran"
+    Dude, they're offering free $15,000!
+      (Startup School is offering free $15,000, but one of the conditions is you have to apply to YC.  You don't even have to accept if they let you in.)
+
+
+  Questions to ask Startups on StartupSchool    group sessions:
+    1.  What do I do?
+      (what is the thing?)
+    2.  Launched?
+    3.  Inspiration
+
+________________________________
+
+  Catapult
+    "Zack Rosenberg"
+      zack@firecatapult.com
+
+________________________________
+
+  Auxomate:
+    "Ankush Gakhar"
+    ankush@auxomate.com
+
+
+________________________________
+
+  Assistable:
+    "Adam Sculthorpe"
+    adam@assistable.com
+
+________________________________
+
+  Cat:
+    Amazon's affiliate program
+    "Short" Cookie
+    I get 4% of the value of the whole shopping cart
+    Sign up
+
+    The real mall      is a curated experience
+      Brand has a "personality"
+      Human experience
+        Movement
+        Company
+        Visceral, sensory (")
+
+    Partner with existing people
+
+    Another player in the space: "Trumaker"
+      https://www.trumaker.com/trumaker/index.php
+
+    It's hard to use.  Takes too long.
+      It takes time
+
+
+
+
+
+    They like the NEED   use case.
+      Businessmen in a foreign city, need a tour-guide, personal shopper, restaurant recommendations, whatever.
+      But specifically the suit-on-demand is very important.
+      
+
+
+    Network effects!
+      Fashion advisors?
+      Social value of clothes
+        Friend's wardrobe
+
+
+
+
+  Started working at 10 A.M. today.
+pee break 4 5 mins @ 12:15 noon
+stopped at            5:00 P.M.
+    10:00  - 4:30
+
+   run openpose from root "/openpose" directory.
+   upload-nodejs-smplifyx-2 DOESN'T HAVE CUDA working in torch (it can't do SMPLify-X)
+
+
+  Calendar:
+    Reschedule Startup School session?
+
+  3.  Funding (yCombinator, TechStars, etc.)
+  5.
+  6.
+  7.
+  8.
+  9.
+  10.
+
+
+  nathanbendich@gmail.com
+  (631)452-0667
+
+
+
+________________________________
+
+  Wed Sep 18 21:02:17 EDT 2019
+________________________________
+
+
+  write out in detail each step of      rendered_customer.png ==> show.html.
+
+  Started working at  9:45       A.M. today.
+                      9:45-1:45                     1-2 more hours required
+                      8:40-9:10
+                        (saw that local, minimal NodeJS example also didn't work)
+  ran 6 laps.
+
+
+  Lala Land soundtrack:
+    https://www.youtube.com/watch?v=c7MglDzGIWY&list=PLNl3i4POtLOBrbvTP8kiMm6-EDKO-WTCb&index=48
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Evan Hansen:
+    https://www.youtube.com/watch?v=EPl8QqKnvUg
+    1:14:19 / 2:15:31
+
+
+
+
+
+________________________________
+
+  Tue Sep 17 09:58:27 EDT 2019
+________________________________
+
+  Started working at 10:00/10:15 A.M. today.
+                     10:00-1:00
+           break  at  1:00- 1:30 P.M. today.
+                      1:30- 3:10 P.M.
+
+  Just use a gcloud storage bucket.
+  I should         write the customer's e-mail in a gcloud storage bucket, but have gthe sending of the link happen AFTER a delay.
+    Similar to what I did with SMPLify-X where I'm polling for 2 things @ once, and one of them will necessarily arrive earlier than the other one.
+    But I'm still pretty sure   I need to do it in the browser ("render.html") after a ***delay***.
+      I have to figure out the details of this sh!t.
+
+    The "server"   gcloud instance is  called   "upload-nodejs-smplifyx-2"
+
+
+  Send e-mail in python:
+    https://realpython.com/python-send-email/
+  send e-mail in nodeJS:
+    nodemailer
+
+
+
+
+
+
+  GCloud billing today:
+    $105.65
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Mon Sep 16 07:13:07 EDT 2019
+________________________________
+
+
+  wi-fi password:
+    uncs3fats
+
+
+
+
+
+  Math SAT Session   (Results Tutoring):
+
+  Mobile #: 302-229-6466
+  Ms. Kisha Riviere
+
+  1. Mention successes with Rokhaya ("100 point increase just over the course of the summer; not even when Rokhaya was in school to have daily practice and reinforcement from school")
+  2. Offer the SAT book free to the student
+  3. Go slow. Make sure she understands each step.
+  4. Be nurturing, nice
+  5. Use Khan Academy to focus on areas of weakness
+
+
+
+
+  5 hours total?
+ 
+  Started working today at 11:45 A.M.
+    lunch at 12:51 .
+    Talked to Connor Swalm for ~50 minutes
+      Very very helpful!!!!!!!!!!
+      He gave me an idea:
+        Send an e-mail to the customer    when the render_customer.png is ready.
+  I started code again @ 1:48 P.M.
+    Stopped at 5:21 P.M.
+      like 80 % sure I managed to solve the e-mail input problem    by the end.  Need to go to Results, but definitely definitely want to test it today instead of tomorrow
+
+  TODO:
+    form for inputing e-mail address,   (and password?)
+    Should I just ask for e-mail & password?
+      It seems like   Google sign-in doesn't work for websites that you get to by typing 34.51.195.121:8081
+        src:  https://developers.google.com/identity/sign-in/web/sign-in
+  Change the form.pug to say "we're sending you an e-mail"
+    DONE.
+
+
+
+
+
+
+  Get funded:
+    https://tendercapital.com/en/the-ten-best-startup-incubators-in-the-world/
+
+
+
+
+
+
+
+
+
+  Google+ API key:  name == API key 1
+
+
+________________________________
+
+  Sun Sep 15 09:38:26 EDT 2019
+________________________________
+
+  Call mom & June:
+    Arrange Christmas plans.
+
+  Go to the bank:
+    Money; withdrawal.
+
+  Text Joe Evans:
+    Ask when I have to work.
+    Ask about texting Samahj?
+
+
+
+
+  Talk to Tom Wang about  YC app mutual editing.
+    E-mail sent.
+    1st step DONE.
+      Now we wait for his response.
+
+
+
+________________________________
+
+
+  In "app.js"     (how to do "Basic Authentication;"    only allowing logged-in-users to see  certain information)
+    https://www.coursera.org/learn/server-side-nodejs/supplement/0qvBJ/exercise-instructions-basic-authentication
+
+  function auth (req, res, next) {
+    console.log(req.headers);
+    var authHeader = req.headers.authorization;
+    if (!authHeader) {
+        var err = new Error('You are not authenticated!');
+        res.setHeader('WWW-Authenticate', 'Basic');
+        err.status = 401;
+        next(err);
+        return;
+    }
+
+    var auth = new Buffer.from(authHeader.split(' ')[1], 'base64').toString().split(':');
+    var user = auth[0];
+    var pass = auth[1];
+    if (user == 'admin' && pass == 'password') {
+        next(); // authorized
+    } else {
+        var err = new Error('You are not authenticated!');
+        res.setHeader('WWW-Authenticate', 'Basic');      
+        err.status = 401;
+        next(err);
+    }
+  }
+
+  app.use(auth);
+
+
+
+
+
+
+
+===================================================================================================
+  Video 20?:     " Basic Authentication "
+    week 3 (after)
+===================================================================================================
+  The username and password should be present in each and EVERY request from the client.
+    GET /index.html
+    
+    {
+      begin .html BODY
+
+      username : neonb88
+      password : stinkysocks_and_penises
+    }
+
+
+  Server => Client
+    HTTP/1.1 401 Unauthorized
+    WWW-Authenticate : Basic
+
+  Client => Server
+    GET /index.html HTTP/1.1
+    Authorization: Basic QWxhZGRpbjpvcGVulHNlc2FtZQ==
+      **ENCODED** username and password
+    Host : www.cse.ust.hk
+
+    HTTPS prevent the man-in-the-middle attacks like this.
+
+    
+  ================================
+  Slide 3?  "Authorization Header"
+  ================================
+    string "username:password"
+      base64 encoding("username:password")
+    The authorization method and a space, i.e. "Basic" is then put before the encoded string:
+      Authorization:  ==    "Basic QWxhZGRpbjpvcGVulHNlc2FtZQ=="
+
+    Okay.... now what code do I write?  And what does that code mean?
+
+  =====================================
+  Slide 4:  Express and Authentication 
+  =====================================
+    (req, res, next)
+
+    ===>  middleware  ==> middleware  ==>  Authentication Middleware     =====================>  Middleware ==> Middleware
+                                                                          Authenticated Next();
+                                                     ||
+                                                     L====================================================> Error Handler
+                                                                      Not Authenticated
+
+
+===================================================================================================
+  Video 17?:     " Exercise (Video): Express Router "
+===================================================================================================
+  The whole point of Express Router   is to clean up the messiness of trying to include all these endpoints and methods in a single file (ie. :
+    app.get('/dishes/:dishId' (req, res, next) => {
+      ...
+    });
+    app.put('/dishes/:dishId' (req, res, next) => {
+      ...
+    });
+    app.post('/dishes/:dishId' (req, res, next) => {
+      ...
+    });
+    app.delete('/dishes/:dishId' (req, res, next) => {
+      ...
+    });
+
+
+    AND ***THEN***
+    app.get('/wishes/:wishId' (req, res, next) => {
+      ...
+    });
+    app.put('/wishes/:wishId' (req, res, next) => {
+      ...
+    });
+    app.post('/wishes/:wishId' (req, res, next) => {
+      ...
+    });
+    app.delete('/wishes/:wishId' (req, res, next) => {
+      ...
+    });
+
+
+    AND ***THEN***
+    app.get('/fishes/:fishId' (req, res, next) => {
+      ...
+    });
+    app.put('/fishes/:fishId' (req, res, next) => {
+      ...
+    });
+    app.post('/fishes/:fishId' (req, res, next) => {
+      ...
+    });
+    app.delete('/fishes/:fishId' (req, res, next) => {
+      ...
+    });
+    .
+    .
+    .
+
+
+
+    In this case,  codefile.js     gets annoyingly large.
+      **BUT**, Express Router solves this problem.
+  )
+
+===================================================================================================
+  Video 15?:     " Brief Representational State Transfer (ReST)"           (Overview) 
+===================================================================================================
+
+  Slide 1 :  Web Services
+    Service Oriented Architecture (SOA)
+    Standardized
+
+    SOAP ()
+      a.  Uses WSDL (Web Services Description Language)
+      b.  XML-based
+      c.
+    REST  (
+      a.  Exchange of data using either XML or JSON.
+      b.  Use Web standards
+      c.  Simpler than SOAP      
+      d.
+      e.
+      f.
+
+  Slide 2 : Representational State Transfer (ReST)
+      a.  Style of software architecture for distributed hypermedia systems such as the World Wide Web.
+      b.  Introduced in Ph.D dissertation of Roy Fielding
+      c.  A collection of network architecture principles which outline how resources are defined and addressed.
+      d.
+      e.
+
+  Slide 3 : Representational State Transfer (ReST)
+      a.  Four basic design principles:
+        1.  Use HTTP methods explicitly
+        2.  Be stateless
+        3.  Expose directory structure :  like URLs
+        4.  Transfer using XML,     JavaScript Object Notation (JSON),     or both (JSON is preferred by Muppala; it's more standardized)
+        5.
+        6.
+        7.
+        8.
+        9.
+      b.
+      c.
+      d.
+      e.
+      f.
+  Slide 4 : ReST and HTTP
+      a.  The motivation for ReST was to capture the characteristics of the Web that made the Web successful
+        1.  URI (Uniform Resource Indicator) Addressable resources
+        2.  HTTP Protocol
+        3.  Make a Request -- Receive Response -- Display Response
+        4.
+      b.  Exploits the use of the HTTP protocol beyond HTTP POST and HTTP GET
+        1.  HTTP PUT, HTTP DELETE
+        2.  Preserve Idempotence
+          a)  == "Invariance" ?
+          b)    Repeat operation without changing state    (I'm guessing Muppala means   state of the webpage? server?)
+        3.  
+        4.  
+      c.  
+      d.  
+      e.  
+
+  Slide 5 : ReST Concepts
+      a.  Nouns (Resources):                  unconstrained.
+      b.  Verbs (ie. GET, PUT, POST, DELETE):   constrained.
+        1.  client => server
+      c.  Representations (ie. XML, JSON):      constrained.
+      d.
+      e.
+      f.
+      g.
+  Slide 6 : Resources
+      a.
+      b.  Anything
+      c.  Represented with a global identifier (URI in HTTP)
+      d.
+      e.
+      f.
+      g.
+  Slide 7 : Naming Resources
+      a.  dishes/123
+      b.  /promotions/
+      c.  /leadership/456
+      d.
+      e.
+      f.
+  Slide 8 : Verbs
+    correspond to CRUD operations
+        ReST                CRUD
+      a.  GET         <=>     READ
+      b.  POST        <=>     CREATE
+      c.  PUT         <=>     UPDATE
+      d.  DELETE      <=>     DELETE
+  Slide 9 : HTTP GET
+      a.  Request to give to client from server
+        1.  Idempotent.
+  Slide 10: HTTP PUT, POST, DELETE
+      a.  POST:
+        1.  Creates a resource
+          a)  (Make previously-non-existing noun)not 
+          b)  **Not** idempotent
+      b.  PUT:
+        1.  Updates a resource
+          a)  (Change existing noun)
+          b)  **Not** idempotent
+      c.  DELETE:
+        1.  Removes a resource identified by the   URI.
+        2.  DELETE http://ww.conFusion.food/dishes/456
+        3.  idempotent???       Jogesh claimed it was..., but doesn't it change the state of the server?
+          a)  Definitely he's right in that "GET"  should be idempotent
+      d.
+      e.
+      f.
+  Slide 11: Representations
+      a.  XML
+      b.  JSON
+      c.
+      d.
+      e.
+  Slide 12: Stateless   Server
+      a.  Server side should not track the       **CLIENT'S** state:
+        1.  If the server had to track each client's state,      did, this wouldn't be scalable
+        2.
+        3.
+        4.
+        5.
+        6.
+      b.  Client side should track its onw state:
+        1.  e.g.  cookies, client side database
+        2.  Every request must include sufficient information for server to serve up the requested information.
+        3.  Client-side MVC setup
+        4.
+        5.
+      c.
+
+
+
+
+
+
+===================================================================================================
+  Video 12?:     " Node and the HTTP Module "
+===================================================================================================
+
+  Objectives:
+    Implement a web server using the Express framework
+    Develop a web server that supports a REST API
+    Use Express router to implement support for the REST API
+
+  Express is by  third-party developer(s)   
+    "Fast, unopinionated, minimalist web framework for Node.js"
+    Web application framework that provides a robust set of features
+
+    Many third-party *middleware* to extend functionality
+    Can do REST API
+
+  lunch at 12:51 .
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+===================================================================================================
+  Video 11?:     " Node and the HTTP Module "
+===================================================================================================
+
+    Node has a CORE HTTP module
+    const http = require('http');
+
+  Slide 1:  Node HTTP module
+    0.    const http = require('http');
+    1.    const server = http.createServer(function(req, res) {...})
+    2.      req == request from client side
+    3.      res == response from server
+    4.    server.listen(port, ...);
+    5.
+    6.
+    7.
+    8.
+    9.
+    10.
+
+
+
+
+  Slide 2:   "Node HTTP Module"
+    1. Incoming request message information available through the parameter "req"
+      a. req.headers, req.body, ...
+    2.  Response message construct on the second parameter "res"
+      a.  res.setHeader("Content-Type", "text/html");
+      b.  res.statusCode = 200;
+      c.  res.write("Hello World!");
+      d.  res.end("<html><body><h1>Hello World</h1></body></html>")
+        1)  Calling this **SENDS** the response   to the client.          After this point, you can't do anything else.
+      e.
+      f.
+      g.
+      h.
+      i.
+    3.
+    4.
+  Slide 3:   "Node path Module"
+    1.  Using path Module:
+      const path = require('path');
+    2.  Some example path methods:
+      a.  path.resolve("./public"+fileUrl);
+      b.  path.extname(filePath);
+    3.
+    4.
+    5.
+    6.
+    7.
+    8.
+    9.
+  Slide 4:  "Node fs Module"                                              From earlier:   module names: "path, fs, os, util, ..."
+    1.  const fs = require("fs");
+    2.  **LOCAL** filesystem files:
+      a.  Whereas require('path')   gives you access to the files on the server? client?
+    3.  examples:
+      a.  fs.exists(filePath, function(exists) {...});
+        1)  checks whether local file exists
+      b.  fs.createReadStream(filePath).pipe(res);
+        1)  reads into response method
+    4.
+    5.
+    6.
+    7.
+    8.
+    9.
+    10.
+    11.
+  Slide 5:
+  Slide 6:
+  Slide 7:
+  Slide 8:
+  Slide 9:
+ Slide 10:
+ Slide 11:
+ Slide 12:
+ Slide 13:
+ Slide 14:
+ Slide 15:
+ Slide 16:
+ Slide 17:
+ Slide 18:
+ Slide 19:
+
+
+===================================================================================================
+  Video 10?:     " Client and Server: "
+===================================================================================================
+  Slide 1:
+    Client and Server:
+      HTTP with REST API
+    
+    Cloud backend
+      ie. GCloud Compute Engine.  
+ ============================================
+  Slide 2:   "The Networking Alphabet Soup"
+ ============================================
+    1.  HTTP
+      a. protocol
+    2.  URL
+    3.  JSON
+    4.  XML
+    5.  SOAP
+      a. Protocol that allows communication between distribution entities within their network.
+    6.  REST
+      a.  
+    7.  GET
+    8.  PUT
+    9.  POST
+    10. DELETE
+    11.
+    12.
+    13.
+    14.
+    15.
+    16.
+    17.
+    18.
+ ============================================
+  Slide 3:   "client-server communication"
+ ============================================
+    1.  unexpected amounts of delay in the network, 
+      a.  User has to be told if something's being slow (and why)
+    2.  
+    3.
+    4.
+    5.
+    6.
+    7.
+    8.
+    9.
+ =====================================================
+  Slide 4:   "HTTP : Hypertext Transfer Protocall"
+ =====================================================
+    1.  client-server communications protocol
+    2.  allows retrieving interlinked text documents (AKA "hypertext")
+      a.  "WWW:"   World Wide Web
+    3.  HTTP verbs:
+      a.  HEAD
+      b.  GET
+      c.  POST
+      d.  PUT
+      e.  DELETE
+      f.  TRACE
+      g.  OPTIONS
+      h.  CONNECT
+    4.
+    5.  everything talks in XML, JSON, etc.
+    6.
+    7.
+    8.
+    9.
+    10.
+
+
+
+
+ =====================================================
+  Slide 5:   "HTTP : Hypertext Transfer Protocall"
+ =====================================================
+  Browser   <==> Web Server
+  GET /index.html HTTP/1.1
+
+
+
+
+ =====================================================
+  Slide 6:   "HTTP : Request Message"
+ =====================================================
+  Request Line
+  Headers
+  Blank Line
+  Body
+
+ =====================================================
+  Slide 7:   "HTTP : Request Message"
+ =====================================================
+  Sample:
+    GET www.google.com/index.html v2.0
+    Header Field Name : Value
+    Header Field Name : Value
+    Header Field Name : Value
+    Header Field Name : Value
+    Header Field Name : Value
+    Header Field Name : Value
+    Header Field Name : Value
+    Header Field Name : Value
+    Header Field Name : Value
+    Header Field Name : Value
+
+   ===================================  Blank line  ===================================
+
+    Body Contents
+      either JSON Or XML
+
+ =====================================================
+  GET /index.html HTTP/1.1
+
+  host: localhost:3000
+  connection: keep-alive
+  user-agent: Mozilla/5.0
+  accept-encoding: gzip, deflat, sdch
+   ===================================  Blank line  ===================================
+
+  Empty Body
+ =====================================================
+    
+ ==========================================================================================================
+  Slide 7:   "HTTP : Response Message"
+ ==========================================================================================================
+  Response:
+
+  Request Line
+  Headers
+  Blank Line
+  Body
+
+  All these codes tell the person on the other end of the browser what's broken and why
+
+  200 SUCCESS line
+  201 Created
+  301
+  304
+
+  400
+  401
+  403
+  404
+  422
+  500
+  505
+    400s and 500s mean   "problem on server side"
+
+
+
+    HTTP Response:
+  JSON is the most common way networked computers   communicate with each other.
+
+ ==========================================================================================================
+  Slide 8:   "JSON : JavaScript Object Notation"
+ ==========================================================================================================
+  Easy to convert from JS objects <==========> JSON
+
+  "Lightweight" Format
+  "Language independent*" : what the hell does this mean ?  Isn't it best used with JavaScript though?  Isn't that the whole point?
+  English-like: easy to understand
+  
+  Data structured as:
+    1.  Collection of name/value pairs (~= key-value pairs in a dictionary)
+    2.  Ordered list of values
+    3.
+    4.
+    5.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+===================================================================================================
+  Video 9?:     "Exercise: Node Modules: Callbacks and Error Handling"
+===================================================================================================
+  I'm guessing this is more of  a video where we just write code.
+
+    Phases in detail:
+    timers:
+      A timer specifies the threshold after which a provided callback may be executed rather than the exact time a person wants it to be executed. Timers callbacks will run as early as they can be scheduled after the specified amount of time has passed; however, Operating System scheduling or the running of other callbacks may delay them.
+
+
+
+===================================================================================================
+  Video 8?:     "Node Modules: Callbacks and Error Handling"
+===================================================================================================
+    Slide  1:   "Two Salient Features of JavaScript"
+      1. First-class functions: a function can be treated the same way as any other variable
+      2. Closures:
+        - A function defined inside another function has access to all the variables declared in the outer function (outer scope)
+        - The inner function will continue to have access to the variables from the outer scope even after the outer function has returned.
+          I listened a little more, and the point is:
+            You can return a function  from a function (
+              function g() {
+                f=function f() {
+                  return 1;
+                }
+                return f;
+              }
+
+          What?????
+          This is weird.
+          Not sure what this means?
+          Seems like this could lead to highly nonintuitive, hard-to-debug behavior
+
+        Are these like python lambdas?   Why would you want to use anonymous function(s) when you could give each func a short name????  Seems more readable, and it's not many fewer lines of code.
+        Useful for supporting callbacks in NodeJS.
+        f.
+        g.
+        h.
+        i.
+      4.
+      5.
+      6.
+    Slide  2:    "Asynchronous Programming:"
+        a.  Good for not-having-to-wait for slow computations
+        b.  "Multithreading"
+        c.
+        d.  Can help with I/O     (I'm **GUESSING**  this is because I/O is slow)
+        e.
+    Slide  3:     "Node, Async I/O and Callbacks:"
+      Event Loop is a single loop?
+        Single-threaded event loop.
+
+        Does it always run until the frontend makes a request?
+        It can send an I/O request to the database    and asynchronously keep running, taking more requests, doing computation with the information it already HAS (doesn't need the database's response immediately for)  etc.
+
+
+      What are callbacks?
+        The 
+        Takes jobs off the end of the Event Queue   and executes them sequentially?
+        Asynchronous computation
+    Slide  4:     "Event Loop"          
+      We don't need to know all these details    just yet.  Mostly it's just important to write nodejs application(s)
+        Important once we get to using Express
+
+      1.  timers
+      2.  I/O callbacks
+      3.  idle, prepare
+      4.  poll
+      5.  check
+      6.  close callbacks
+      7.  back to 1 (Timers, ...)
+
+    In more detail:
+      1.  timers
+        a. this phase executes callbacks scheduled by setTimeout() and setInterval().
+                                              Ah...! "setTimeout()" is **RELEVANT TO MY INTERESTS.**
+      2.  I/O callbacks
+        a. executes almost all callbacks with the exception of close callbacks, the ones scheduled by timers, and setImmediate().
+      3.  idle, prepare
+        a. only use internally.   (guessing he means "not by me, nxb")
+      4.  poll 
+        a. retrieve new I/O events; node will block here when appropriate.
+
+        b.  incoming:  connections, data, etc.
+
+
+      5.  check
+        a. setImmediate() callbacks are invoked here.
+      6.  close callbacks
+        a. eg. socket.on('close', ...)
+      7.  back to 1 (Timers, ...)
+
+    Slide  5:
+      How do we error-handle?  (in asynchronous?  (by which I mean: is error-handling particuliarly difficult for asynchronous stuff?))
+
+===================================================================================================
+  Video 7?:     "Node Modules:"
+===================================================================================================
+    Slide 1:
+    1.  Javascript does not define a standard library.
+      a.  Much more "cobbled-together"   than C, Java, etc.
+    2.  CommonJS API fills this gap by defining APIs for common application needs
+      a.  It defines a module format
+      b.  Node follows the CommonJS module specification
+      c.
+      d.  It fixes many of the problems caused by JS not being well-organized / specified
+        1)  ie. vanilla JS can't split files into multiple .js files (index.js, show_upload.js, etc.)
+      e.
+      f.
+      g.
+      h.
+      i.
+    3.
+    4.
+
+===================================================================================================
+    Slide 2:   "Node modules"
+      1.  Each file in Node is its own module
+      2.  The module variable gives access to the current module definition in a file
+      3.  The module.exports variable determines the export from the current module
+        a.  ie. `exports.perimeter = (x,y) => (2*(x+y));`
+                `exports.area = (x,y) => (x*y);`
+                are lines in file "rectangle.js",      which can be accessed in "index.js" by typing "require('./rectangle')"
+                ie. in index.js:
+                  var rect = require('./rectangle')
+      4.  The "require" function is used to import a module
+      5.
+      6.
+      7.
+===================================================================================================
+
+    Slide 3:
+      1.  File-based modules
+      2.  Core Modules
+        - Part of core Node
+        - Examples: path, fs, os, util, ...
+        - "fs" means "file system."   How is this different than "os"?  (In Python I'm like 70% sure they'd be basically the same; access the terminal/directories)
+      3.  External Node modules
+        - Third-party modules             (ie. express?)
+        - Installed using NPM
+        - in the "node_modules" folder in your Node application
+
+        - get into our folder "node_modules" by calling cmds like:
+          - `npm install express`
+      4.
+      5.
+===================================================================================================
+    Slide  4:   "Using Node Modules"
+      1.  File-based modules:
+        - `require('./script_I_just_wrote')`    within some_local_filename.js
+        - You have to specify the relative path to the file.
+          I think this is just like python `import` (for instance, if I wrote code in "utils.py" and wanted to include it in main.py, I'd type "from utils import ..." within main.py)
+
+          Doesn't have to be in a directory named "node_modules"
+
+          Example:  
+        =====================================================
+            rectangle.js:
+          ================
+              exports.perimeter = (x,y) => (2*(x+y))
+              exports.area      = (x,y) => (x*y)
+        =====================================================
+            index.js:
+          ================
+              var rect = require('./rectangle')
+        =====================================================
+
+
+
+      2.  Core and External Modules:
+        - require('modulename')   (ie. `require(express)`)
+        - Looks for external modules in:
+          * ./node_modules, ../node_modules, ../../node_modules, ...
+          * up the folder hierarchy until the module is found (parents, then grandparents, ..., etc. )
+        -
+      3.  
+      4.
+      5.
+
+===================================================================================================
+    Slide  5:
+===================================================================================================
+    Slide  6:
+===================================================================================================
+    Slide  7:
+===================================================================================================
+    Slide  8:
+===================================================================================================
+    Slide  9:
+===================================================================================================
+    Slide 10:
+===================================================================================================
+    Slide 11:
+===================================================================================================
+    Slide 12:
+    Slide 13:
+
+________________________________
+
+  Video 6?:     Intro: Node.js and NPM:
+    Node.js can be used on desktop too.
+      Event-driven non-blocking I/O model
+        lightweight
+        asynchronous
+    Chrome V8
+
+    Node Architecture:
+      1.  Node Core / Standard Library (JS)
+      2.  Node Bindings (C++)
+      3.  Chrome V8 (C++)       and libuv (C)
+      4.
+      5.
+    
+    Utilities written in JavaScript for web development:
+      - Bower, Grunt, Gulp, Yeoman, etc.
+    Server-side Development
+      - Web server, Business logic, Database access.
+
+    NPM
+      JS files
+      package.json (manifest)
+        More details about  package.json will show up in later videos.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -19,6 +2830,116 @@ ________________________________
   Sat Sep 14 11:06:58 EDT 2019
 ________________________________
 
+
+I started work again (Saturday;   September 14, 2019) at 6:30 P.M. today.
+                                               stopped at 8:30
+
+  Reach out again via e-mail to :
+    Tom Yang
+    Anton?
+      what was his name...  ?
+
+___________________________________________________________________________________________________
+
+
+I started work again (Saturday;   September 14, 2019) at 6:30 P.M. today.
+                                               stopped at 8:15
+
+  Video 5:     Online git commands
+    bitbucket
+    github
+
+  Video 4:     Basic git commands
+    git reset
+    git checkout
+
+  Video 3:     "What is Full-Stack Web Development?"
+    https://www.coursera.org/learn/server-side-nodejs/lecture/KzaWH/what-is-full-stack-web-development
+    Full-Stack Web Dev vs.    Front End vs.   Back End
+    Front End
+      HTML
+
+    1. Presentation Layer               HTML, CSS, React/AngularJS
+      a.  UI
+      b.  UX?
+      c.  How shit looks.
+      d.
+    2. Business Logic Layer             Nodejs, npm?,
+      a.  Data Validation
+        1)
+      b.  Dynamic content processing &
+      c.  Dynamic content generating
+      d.
+      e.
+      f.  I'm guessing:  "if user clicks here, which page do they go to?"
+      g.    "if user enters their data into the login/registration page,   how does that change the next webpage they are shown?"
+      h.
+      i.  ReST API
+    3. Data Access Layer                MongoDB (JSON documents)
+      a.  Database
+      b.  Storage & access data most efficiently
+
+
+
+  Video 2:
+    You can download  the slides
+                  and the lecture text.
+    1 assignment per lecture.
+
+
+
+
+___________________________________________________________________________________________________
+
+    Instructor: Jogesh Muppala
+      1. https://www.coursera.org/lecture/server-side-nodejs/welcome-to-server-side-development-with-nodejs-express-and-mongodb-tueAb
+        a.  Introduction                                      Module 1
+          1) Node
+          2) git
+          3) express
+        b.  MongoDB (skip?)                                   Module 2
+          1)
+          2)
+          3)
+          4)
+          5)
+          6)
+          7)
+          8)
+          9)
+        c.  User authentication                               Module 3
+          1)  This is quite relevant, but maybe later.
+          2)  Cookies and Express Sessions
+          3)
+          4)
+          5)  Assignment 3
+          6)
+          7)
+          8)
+          9)
+        d.  Backend as a Service (BaaS)                       Module 4
+          1)  HTTPS
+            a)  Secure communication
+          2)  Uploading files
+          3)  Cross-Origin Resource Sharing
+          4)  "OAuth" and User Authentication
+          5)  Backend as a Service (BaaS)
+          6)  Assn 4.
+          7)
+          8)
+          9)
+        e.
+
+
+
+
+
+
+
+
+
+
+
   node.js
     'S' or gcloud compute ssh ...  "cat_macys_vr@upload-nodejs-smplifyx-2"
     setTimeout
@@ -26,9 +2947,12 @@ ________________________________
       cuda-version-test-0-vm
 
     Tutorial(s):
-      https://www.youtube.com/watch?v=9HOem0amlyg
+      !. https://www.coursera.org/lecture/server-side-nodejs/welcome-to-server-side-development-with-nodejs-express-and-mongodb-tueAb
+      2. https://www.youtube.com/watch?v=9HOem0amlyg
 
 
+  A Javascript course:
+    https://www.youtube.com/watch?v=PkZNo7MFNFg
 
   Also, we have to set up a python `bucket_diff()` for      png files in "gs://cust_pngs/"
 
@@ -148,6 +3072,7 @@ ________________________________
     "Tom Wang"
     https://www.glowup.ai
     tom@glowup.ai
+    (650)796-2222
 
     Cosmetics
     Cofounder is a skin doctor
@@ -3641,7 +6566,7 @@ ________________________________
           Fashion club @ Columbia
             Trend-setters
             Best feedback
-            f
+
             These are the types of people to ask.
             People like:
               Playmate Iryna
@@ -7453,6 +10378,10 @@ ________________________________
   confirm SSN on passport @ home
     337 or
     377?
+
+
+  Which was it?
+    337.
 
 
 
@@ -28439,7 +31368,7 @@ Great talk (humbling to me as someone who hadn't seen the early days):
 
 _____________________________
 
-Google Password:
+    Google Password:
 _____________________________
 
     page’s_largest_uchiwa1969
@@ -30189,6 +33118,37 @@ Notes/ideas:
 
 
 
+  App ideas:
+    Buy a friend / listener for a day / 
+    Doctor's network
+    Ongoing health thing
+      It has to react to crises, though
+      Like WebMD but with a real Dr.??
+    Convert
+      Video/audio to text
+        prob harder
+      Text to speech (AKA Siri)
+
+  A super simple prototype (MVMVP) can get done 1 week 
+    https://www.youtube.com/watch?v=tSW-GePDwn4
+  2-3 months to get built?
+
+
+
+  Maybe use Flask / Django    for early prototypes / MVP?
+    This way I don't have to learn a bunch of shit about   vanilla JS 
+    Speed Speed Speed
+    Iter8.
+
+    But if something breaks literally everyday, that's gonna get in the way of you writing new features.
+
+    http://www.mindfiresolutions.com/blog/2018/05/flask-vs-django/
+
+
+
+
+
+
 
 
 
@@ -30237,6 +33197,15 @@ ________________________________________________________________________________
 
   Other TODOs   (one-offs):
 ___________________________________________________________________________________________________
+
+  List of VRDR features:
+    Let people pick whether they want something that fits loose, baggy, etc.
+      credit: Connor Swalm
+
+
+  VRDR things to fix:
+    Permissions on the API key "API Key 1":
+      https://cloud.google.com/docs/authentication/api-keys?hl=en&visit_id=637042564606936348-1264451226&rd=1#api_key_restrictions
 
 
   http://paulgraham.com/ambitious.html
@@ -30296,6 +33265,8 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________
 
 
+  https://en.wikipedia.org/wiki/Midas_Touch_(book)
+    Check out at Newark Free Library
 
 
 
@@ -30691,18 +33662,25 @@ ________________________________________________________________________________
     https://tinyurl.com/y3x3l26m
 
 
+
+
+
+  Sun Oct 13 16:21:14 EDT 2019
+
   Big ideas:  to improve SMPL/SMPL-X/SMPL-H for   "Cat" (Virtual Dressing Room / Virtual Mall):
     1.  BPW-SMPL (body-part-wise)
       a.  Requires retraining, perhaps more data.
     2.  V-HMR (AKA multiple views, AKA "Video Human-Mesh-Recovery")
       a.  Best for customer (better than fixing pose,    which would take WAYYYY too much precision to work, *AND* would require retraining the model on data.)
+      b.  Similar to MGN & Pons-Moll's work (VHMR)
+
     3.  Fixed-pose-SMPLify
       a.  My guess is this is the best.   Why?
         1.  Fairly low
       b.  
       c.
       d.
-    4.
+    4.  MGN
     5.
 
 
