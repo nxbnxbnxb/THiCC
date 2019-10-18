@@ -1,0 +1,216 @@
+
+  1.  Hollow voxels
+  2.  Blender render (Minecraft - esque voxels are rendered)
+    a.  Maybe not worth mentioning? NOTE
+  3.  360 video "split()" into images
+    a.  Maybe not worth mentioning? NOTE
+    b.  On the other hand, it's important to get the angle from the video
+  4.  MCubes
+    a.  Quantity x "(Voxels/pt cloud)" => surface mesh
+  5.  "Rotate" code
+    a.  1st version just spins it around its toe-points (like a ballerina)
+  5b. "Rotate" code
+    b.  2nd version rotates the mesh s.t. its head is up
+  6.  "Cookie cut"
+  7.  "diff(foreground_img, background)"
+  8.  "pad all" w/ zeros
+    a.  Maybe not worth mentioning? NOTE
+  9.  Resizing code?
+  10. Measurement code 
+    a0.   Code to take a 2-dimensional cross section of the (human body) mesh   
+
+    a.  (where is the crotch?)
+    b.  Circumference of the hips
+    c.  Circumference of ... chest
+    d.  Circumference of ... waist
+    e. "Circumference" of ...crotch-to-head
+    f. "Circumference" of ...toe-to-head
+    g.  Circumference of ... 
+    h.  Circumference of ... 
+    i.
+    j.
+  11.  I applied HMR (www.github.com/akanazawa/hmr)
+  12.  "Highlighting software" in matplotlib:
+    a.  Maybe not worth mentioning? NOTE
+    b.  Like MS Paint "dotting" but it takes image, x_offset, y_offset, radius, color
+    c.
+    d.
+    e.
+    f.
+    g.
+    h.
+    i.
+    j.
+  13.  Find the top of the head of a mask
+    a.  Maybe not worth mentioning? NOTE
+    b.
+    c.
+    d.
+    e.
+    f.
+    g.
+    h.
+    i.
+    j.
+    k.
+    l.
+    m.
+    n.
+    o.
+    p.
+    q.
+    r.
+    s.
+    t.
+    u.
+    v.
+    w.
+    x.
+    y.
+    z.
+  14.
+  15.
+  16.
+  17.
+  18.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Future work:
+  1.  Fine-tune the SMPL mesh manually
+    a.  "Lengthen arm"
+    b.  "Widen thigh"
+    c.
+    d.
+    e.
+    f.
+    g.
+    h.
+    i.
+    j.
+    k.
+    l.
+    m.
+    n.
+    o.
+    p.
+  2.
+  3.
+  4.
+  5.
+  6.
+  7.
+  8.
+  9.
+  10.
+  11.
+  12.
+  13.
+  14.
+  15.
+  16.
+  17.
+  18.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
