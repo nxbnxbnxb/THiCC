@@ -6,7 +6,7 @@ if modulename not in sys.modules:
 import matplotlib.pyplot as plt
 import numpy as np
 np.seterr(all='raise')
-from mpl_toolkits.mplot3d import Axes3D  # noqa: F401 unused import
+
 from copy import deepcopy
 
 #######################################################################################################
@@ -52,7 +52,7 @@ def show_keypts(img_fname):
   for bodypart,data in measures.items():
     xs.append(data['x'])
     ys.append(data['y'])
-    #xs.append(w-data['x'])
+#xs.append(w-data['x'])
     #ys.append(h-data['y'])
   plt.scatter(xs,ys)
   plt.show()

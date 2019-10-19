@@ -1,5 +1,6 @@
 
 
+
   Don't ignore your dreams; don't work too much; say what you think; cultivate friendships; be happy.
 
 
@@ -17,18 +18,12 @@
     TODO.txt
 ================
 
-  Taunt, other delaying cards.
-  More spell-generating cards.
+________________________________
 
+  Fri Oct 18 21:07:56 EDT 2019
+________________________________
 
-
-
-
-
-
-
-
-
+  recover .vim_session (<F3>)
 
 
 
@@ -33228,6 +33223,17 @@ ________________________________________________________________________________
 
   Other TODOs   (one-offs):
 ___________________________________________________________________________________________________
+
+  Hearthstone:
+    Taunt, other delaying cards.
+    More spell-generating cards.
+
+
+
+
+
+
+
 
   List of VRDR features:
     Let people pick whether they want something that fits loose, baggy, etc.

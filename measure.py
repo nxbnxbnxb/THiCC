@@ -264,6 +264,10 @@ def measures_2_inches(measures, front_fname, side_fname, cust_real_h):
     Converts openpose keypoints to measurements in inches on the real body
     The openpose keypoints are from the photo taken from the front
   '''
+  # NOTE:  this could still  be useful (Tue Oct  1 13:53:19 EDT 2019)!  -nxb,
+
+
+
   # prev param list:    measures, cust_real_h_inches, cust_lens, front_mask, side_mask
   # TODO: adapt func measure_body_viz(json_fname, front_fname, side_fname, cust_real_h)   to this more general version of the function
   funcname=  sys._getframe().f_code.co_name

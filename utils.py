@@ -395,7 +395,11 @@ def mask_info(mask):
           }
 #=========================================================================
 def neg(tup):
-  locs=np.nonzero(mask)
+  """
+    Negate a mask?         
+      (I wrote this documentation many months after this was written (on Tue Oct  1 14:00:42 EDT 2019)
+      )
+  """
   locs=np.nonzero(mask)
   mask_left=np.min(locs[0])
   mask_top=np.min(locs[0])
