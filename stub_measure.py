@@ -64,11 +64,15 @@ def mesh_cross_sec(verts, faces, height, which_ax="z"):
   plt.scatter(cross_sec[:,0],cross_sec[:,1]); plt.show()
   return cross_sec
 #=====================================================================
+
+#=====================================================================
 def invert_indices(sort_indices):
   backwards=np.zeros(sort_indices.shape).astype("int64")
   for i,e in enumerate(sort_indices):
     backwards[e]=i
   return backwards
+#=====================================================================
+
 #=====================================================================
 def adjacents(verts, faces):
   # .obj mesh
@@ -105,7 +109,7 @@ def mesh_err():
   for d in np.linspace(start,end,99):
     calced_crotch_2_head_circum, crotch = mesh_perim_at_height(verts, faces, d, which_ax='x')
     if calced_crotch_2_head_circum < min_height:
-      min_height=calced_crotch_2_head_circum
+      min_height=waist
       real_crotch_depth=d
       real_crotch=crotch
   print("min_height:",min_height)

@@ -18,6 +18,256 @@
     TODO.txt
 ================
 
+
+________________________________
+
+  Sun Oct 27 20:22:17 EDT 2019
+________________________________
+
+  Overleaf:
+    1. Figure out how to get the date off the 1st page.
+    2. Subsection titles
+
+
+  Share with MPI (MJB and GPM) the demo we wrote (YT vid)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Started at:
+    8:30
+  Stopped:
+    ? ? ? ? ? ? ? ?  11:00? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ?
+    11:30
+
+  Started again:
+    12:47 midnight
+  stopped
+    1:30
+
+  ~3.5 hours worked
+
+
+
+
+
+
+
+
+
+    
+
+
+
+  "pdf latex"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+________________________________
+
+  Sat Oct 26 10:23:29 EDT 2019
+________________________________
+
+  Bethesda AI meetup
+    Entrepreneur
+    Funding?
+
+    3.  
+
+
+  "Structure from motion"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Anna Lenhart 
+    alenhart@terpmail.umd.edu
+    Works at IBM ?
+
+
+
+
+
+
+
+
+
+  Notes on "black boxes"
+
+    a.  Used in 2 diff ways
+      1.  Proprietary
+      2.  CNNs / other DNNs
+
+
+
+    b.  UI   ===== >   explainability
+
+    c.
+      1.  local vs. global
+        a.  "Why did the CNN call this a cat here?"
+      2.  Static vs. interactive
+        a.  user can play w/ features
+        b.
+        c.
+        d.
+        e.
+        f.
+      3.  Direct interpretability
+      4.  Post-hoc
+        a.  backtrack
+      5.  "Surrogate"
+        a.  Build a new model using results from first model
+      6.  Visualization
+
+    d.  Saliency methods
+      1.  Local
+    e.  NN viz methods
+      1.  Global
+    f.  Restricted NN
+      1.  Global
+    g.  Model distillation
+      1.  Helps explainability
+    h.  Feature Relevance
+      1.  Hold all else constant and mess w/ a single feature.
+      1.
+        a.
+      2.
+      3.
+      4.
+      5.
+      6.
+      7.
+      8.
+    i.  One of the tools for model interpretability          (TODO FIXME NOTE : insert name)
+      1.  ProtoDash
+        a.  "This is a representative image"
+      2.  
+      3.  "GDPR" U.S. citizen mistreated by an algo has the right to reparations/a legal discussion of whether you were discriminated against.
+      4.
+      5.
+      6.
+      7.
+      8.  
+      9.
+    j.  "Nutrition labels"
+      1.  Similar to gov't nutrition labels abt fiber content, carbohydrates, etc.
+      2.
+      3.
+      4.
+      5.
+      6.
+      7.
+      8.
+      9.
+      10.
+    k.
+    l.
+    m.
+    n.
+    o.
+    p.
+    q.
+    r.
+    s.
+    t.
+    u.
+    v.
+    w.
+    x.
+    y.
+    z.
+
+
+
+
+
+
+
+  ML method:
+    "Partial Dependence Plot" ("PDP")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ________________________________
 
   Fri Oct 18 21:07:56 EDT 2019

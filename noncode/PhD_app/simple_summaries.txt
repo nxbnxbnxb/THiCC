@@ -5,14 +5,18 @@
   3.  360 video "split()" into images
     a.  Maybe not worth mentioning? NOTE
     b.  On the other hand, it's important to get the angle from the video
-  4.  MCubes
+  4.  "MCubes" (Marching Cubes)
     a.  Quantity x "(Voxels/pt cloud)" => surface mesh
+    b.  TODO TODO NOTE:           show image of the MCubes result
+
+
   5.  "Rotate" code
     a.  1st version just spins it around its toe-points (like a ballerina)
   5b. "Rotate" code
     b.  2nd version rotates the mesh s.t. its head is up
   6.  "Cookie cut"
   7.  "diff(foreground_img, background)"
+    seg.py
   8.  "pad all" w/ zeros
     a.  Maybe not worth mentioning? NOTE
   9.  Resizing code?
@@ -38,11 +42,71 @@
     e.
     f.
     g.
-    h.
-    i.
-    j.
   13.  Find the top of the head of a mask
     a.  Maybe not worth mentioning? NOTE
+    b.
+    c.
+  14. I applied MuVS (or **TRIED**  to)
+    a.  pose.py
+    b.
+    c.
+    d.
+  15.  Calculate area of a polygon: 
+    a.  measure.py
+  16.  estimate_weight()
+    a.  measure.py
+    b.
+    c.
+    d.
+    e.
+    f.
+  17. pixels_to_inches()
+    a.
+    b.
+    c.
+    d.
+    e.
+    f.
+  18.  estimate every body cross section as an ellipse to calculate circumferences
+    a.  hips
+    b.  waist circumference
+    c.
+    d.
+    e.
+    f.
+    g.
+    h.
+    i.
+  19. triangle_walk()
+    a.  cross_section()
+    b.
+    c.
+    d.
+    e.
+    f.
+  20. lines_intersection_w_plane()
+    a.  geometry utility
+    b.
+    c.
+    d.
+    e.
+    f.
+  21.  find_butt()   or find_shoulders()       or find_hip()    or find_ankle()
+    a.
+    b.
+    c.
+    d.
+    e.
+    f.
+  22.  conv_hull()
+    a.  measure.py
+    b.
+    c.
+    d.
+    e.
+    f.
+  23.  canny()            from /home/n/p/cat_1st_demo/get_measurements.py
+    a.
     b.
     c.
     d.
@@ -51,29 +115,6 @@
     g.
     h.
     i.
-    j.
-    k.
-    l.
-    m.
-    n.
-    o.
-    p.
-    q.
-    r.
-    s.
-    t.
-    u.
-    v.
-    w.
-    x.
-    y.
-    z.
-  14.
-  15.
-  16.
-  17.
-  18.
-
 
 
 
