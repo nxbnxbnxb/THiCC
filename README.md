@@ -17,7 +17,7 @@ or if you already HAVE conda3,
 ./setup.sh
 ```
 
-These instructions for configuring conda were written on December 27th, 2018.  So if you're executing this much later than that, Nathan can't guarantee perfect functioning.  Please contact the repository's owner (Nathan) on github for debugging help
+These instructions for configuring conda were written on December 27th, 2018.  So if you're executing this much later than that, Noe can't guarantee perfect functioning.  Please contact the repository's owner (Noe) on github for debugging help
 
 
 
